@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "apollo-server": "^2.9.15",
+    "graphql": "^14.5.8"
   },
-  "scripts": {
-  }
+  "scripts": {},
+  "devDependencies": {}
 }
