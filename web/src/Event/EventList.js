@@ -5,7 +5,7 @@ class EventList extends Component {
     render() {
         return (
             <div>
-               Here is the list of events
+                Here is the list of events
             </div>
         );
     }

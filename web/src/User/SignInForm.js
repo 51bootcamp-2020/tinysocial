@@ -5,7 +5,7 @@ class SignInForm extends Component {
     render() {
         return (
             <div>
-               SignInForm
+                SignInForm
             </div>
         );
     }
