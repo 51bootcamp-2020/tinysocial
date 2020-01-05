@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-class EventList extends Component {
+class Signup extends Component {
     render() {
         return (
             <div>
-                Here is the list of events
+                
             </div>
         );
     }
 }
 
-EventList.propTypes = {};
+Signup.propTypes = {};
 
-export default EventList;
+export default Signup;

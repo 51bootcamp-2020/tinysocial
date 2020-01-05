@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-class SignInForm extends Component {
+class SignupForm extends Component {
     render() {
         return (
             <div>
-                SignInForm
+                
             </div>
         );
     }
 }
 
-SignInForm.propTypes = {};
+SignupForm.propTypes = {};
 
-export default SignInForm;
+export default SignupForm;

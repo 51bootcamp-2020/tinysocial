@@ -1,17 +1,16 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-// We're not gonna make this page at this time. V0
-class UserPage extends Component {
+class Profile extends Component {
     render() {
         return (
             <div>
-                UserPage
+                
             </div>
         );
     }
 }
 
-UserPage.propTypes = {};
+Profile.propTypes = {};
 
-export default UserPage;
+export default Profile;
