@@ -11,9 +11,19 @@ const typeDefs = gql`
     }
 
     type Mutation {
+        authGoogle(accessToken: AuthInput!): AuthResponse
+        authFacebook(accessToken: AuthInput!): AuthResponse
         logout: Boolean! # success, then True.  
     }
 
+    type AuthResponse {
+        token: String
+        name: String
+    }
+    input AuthInput {
+        accessToken: String!
+    }
+    
     type User {
         id: ID!
         firstName: String!
