@@ -23,7 +23,7 @@ const typeDefs = gql`
     input AuthInput {
         accessToken: String!
     }
-    
+
     type User {
         id: ID!
         firstName: String!
