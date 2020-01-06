@@ -1,5 +1,5 @@
-const {authGoogle} = require('./auth/authGoogle');
-const {authFacebook} = require('./auth/authFacebook');
+const {authGoogle} = require('./auth/auth-google');
+const {authFacebook} = require('./auth/auth-facebook');
 
 module.exports = {
   Query: {

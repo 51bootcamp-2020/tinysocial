@@ -39,6 +39,7 @@ const typeDefs = gql`
     type Event {
         id: ID!
         host: User!
+        schedule: 
         title: String!
         description: String!
         price: Float!

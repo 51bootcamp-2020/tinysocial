@@ -1,10 +1,7 @@
 const {DataSource} = require('apollo-datasource');
 
 const createStore = () => {
-  // Fake DB
-  // mockup data
-  // todo: move this into separated CSV file
-  //  and import it into DB
+  // TODO(arin-kwak): separate this into a CSV file and import it into real DB
 
   const users = [
     {
@@ -42,7 +39,7 @@ const createStore = () => {
   return {users, tags, events};
 };
 
-// todo: remove this. make the real API to access DB
+// TODO(arin-kwak): Remove this. Make the real API to access DB
 class fakeAPI extends DataSource {
   constructor({store}) {
     super();
