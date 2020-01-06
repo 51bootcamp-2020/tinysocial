@@ -1,7 +1,7 @@
 const {DataSource} = require('apollo-datasource');
 
 const createStore = () => {
-  // TODO(arin-kwak): separate this into a CSV file and import it into real DB
+  // TODO(arin-kwak): Separate this into a CSV file and import it into real DB
 
   const users = [
     {
