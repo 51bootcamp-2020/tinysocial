@@ -39,11 +39,12 @@ const typeDefs = gql`
     type Event {
         id: ID!
         host: User!
-        schedule: 
+        schedule: [EventSchedule]!
         title: String!
         description: String!
         price: Float!
-        # image: Upload!  not implemented in V0
+        # image: Upload!
+        # TODO(arin-kwak): Implement image uploading feature
         maxParticipants: Int!
         tags: [Tag]!
     }
@@ -63,6 +64,16 @@ const typeDefs = gql`
         cursor: String!
         hasMore: Boolean!
         events: [Event]!
+    }
+    
+    scalar DateTime
+    
+    type EventSchedule {
+        id: ID!
+        start: DateTime
+        end: DateTime
+        locationLatitude: Float
+        locationLongitude: Float
     }
 `;
 
