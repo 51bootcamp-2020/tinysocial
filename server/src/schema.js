@@ -24,20 +24,28 @@ const typeDefs = gql`
         accessToken: String!
     }
 
+    scalar Date
+
     type User {
         id: ID!
         firstName: String!
-        lastName: String!
+        lastName: String # last name is optional
         email: String!
         age: Int
         city: String
         state: String
         phone: String
+        hostedEvents: [Event]!
+        participatedEvents: [Event]!
+        birthday: Date
+        createdAt: DateTime!
     }
 
     type Event {
         id: ID!
         host: User!
+        createdAt: DateTime!
+        updatedAt: DateTime!
         schedule: [EventSchedule]!
         title: String!
         description: String!
@@ -46,11 +54,13 @@ const typeDefs = gql`
         # TODO(arin-kwak): Implement image uploading feature
         maxParticipants: Int!
         tags: [Tag]!
+        participants: [User]!
     }
 
     type Tag {
         id: ID!
         name: String!
+        events: [Event]!
     }
 
     type EventConnection {
@@ -58,15 +68,17 @@ const typeDefs = gql`
         hasMore: Boolean!
         events: [Event]!
     }
-    
+
     scalar DateTime
-    
+
     type EventSchedule {
         id: ID!
-        start: DateTime
-        end: DateTime
-        locationLatitude: Float
-        locationLongitude: Float
+        start: DateTime!
+        end: DateTime!
+        locationLatitude: Float!
+        locationLongitude: Float!
+        city: String!
+        state: String!
     }
 `;
 
