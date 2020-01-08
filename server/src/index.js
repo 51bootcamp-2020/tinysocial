@@ -21,6 +21,7 @@ const server = new ApolloServer({
   },
 });
 
-if (process.env.NODE_ENV !== 'test')
+if (process.env.NODE_ENV !== 'test') {
   server.listen({port: 4000}).
       then(({url}) => console.log(`Server ready at ${url}`));
+}
