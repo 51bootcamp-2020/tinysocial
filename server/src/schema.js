@@ -30,7 +30,6 @@ const typeDefs = gql`
         lastName: String!
         email: String!
         age: Int
-        sex: Sex
         city: String
         state: String
         phone: String
@@ -47,12 +46,6 @@ const typeDefs = gql`
         # TODO(arin-kwak): Implement image uploading feature
         maxParticipants: Int!
         tags: [Tag]!
-    }
-
-    enum Sex {
-        MAN
-        WOMAN
-        ETC # ?!?!?!
     }
 
     type Tag {
