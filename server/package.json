@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "apollo-datasource": "latest",
     "apollo-server": "^2.9.15",
     "graphql": "^14.5.8",
-    "apollo-datasource": "latest"
+    "mariadb": "^2.1.5",
+    "sequelize": "^5.21.3"
   },
   "scripts": {},
   "devDependencies": {}
