@@ -11,6 +11,11 @@ import React, {Fragment} from 'react';
 import Signin from './pages/signin';
 import Emailvalidation from './pages/emailvalidation';
 
+const client = new ApolloClient({
+  // TODO(arin-kwak): need update uri.
+  uri: 'http://localhost:15780',
+});
+
 function App() {
   {/* TODO(Myoung-heeSeo) : Add a state to check if the user is logged in now. */}
   return (
