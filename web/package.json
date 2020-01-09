@@ -41,9 +41,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "apollo-boost": "^0.4.7",
-    "react-google-login": "^5.0.7"
   }
 }
