@@ -50,32 +50,32 @@ const createStore = () => {
   class User extends Model { }
 
   User.init({
-    id: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    createdAt: Sequelize.DATE,
-    firstName: {type: Sequelize.STRING, allowNull: false},
-    lastName: {type: Sequelize.STRING, allowNull: false},
-    googleId: Sequelize.STRING,
-    facebookId: Sequelize.STRING,
-    profileImgUrl: Sequelize.STRING,
-    email: {
-      type: Sequelize.STRING, allowNull: false,
-    },
-    birthday: Sequelize.DATE,
-    // TODO(yun-kwak): Split the address into street address,
-    // additional street address, city, state, zip code
-    address: Sequelize.STRING,
-    phone: Sequelize.STRING,
-    selfDescription: Sequelize.STRING,
-    lastInteractionTime: Sequelize.DATE, // To refresh JWT token
-  },
-  {
-    sequelize,
-    modelName: 'user',
-  });
+        id: {
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+          autoIncrement: true,
+        },
+        createdAt: Sequelize.DATE,
+        firstName: {type: Sequelize.STRING, allowNull: false},
+        lastName: {type: Sequelize.STRING, allowNull: false},
+        googleId: Sequelize.STRING,
+        facebookId: Sequelize.STRING,
+        profileImgUrl: Sequelize.STRING,
+        email: {
+          type: Sequelize.STRING, allowNull: false,
+        },
+        birthday: Sequelize.DATE,
+        // TODO(yun-kwak): Split the address into street address,
+        // additional street address, city, state, zip code
+        address: Sequelize.STRING,
+        phone: Sequelize.STRING,
+        selfDescription: Sequelize.STRING,
+        lastInteractionTime: Sequelize.DATE, // To refresh JWT token
+      },
+      {
+        sequelize,
+        modelName: 'user',
+      });
 
   Event.init({
     id: {
@@ -109,70 +109,70 @@ const createStore = () => {
   });
 
   EventBookClub.init({
-    eventId: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      references: {
-        model: Event,
-        key: 'id',
+        eventId: {
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+          references: {
+            model: Event,
+            key: 'id',
+          },
+        },
+        bookTitle: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        bookAuthor: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        bookDescription: {
+          type: Sequelize.STRING,
+        },
+        bookISBN: {
+          type: Sequelize.INTEGER,
+        },
+        bookImageUrl: {
+          type: Sequelize.STRING,
+        },
+      }, {
+        sequelize,
+        modelName: 'eventBookClub',
+        timestamps: false,
       },
-    },
-    bookTitle: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    bookAuthor: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    bookDescription: {
-      type: Sequelize.STRING,
-    },
-    bookISBN: {
-      type: Sequelize.INTEGER,
-    },
-    bookImageUrl: {
-      type: Sequelize.STRING,
-    },
-  }, {
-    sequelize,
-    modelName: 'eventBookClub',
-    timestamps: false,
-  },
   );
 
   Review.init({
-    userId: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      references: {
-        model: User,
-        key: 'id',
+        userId: {
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+          references: {
+            model: User,
+            key: 'id',
+          },
+        },
+        eventId: {
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+          references: {
+            model: Event,
+            key: 'id',
+          },
+        },
+        title: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        content: {
+          type: Sequelize.STRING,
+        },
+        isPublic: {
+          type: Sequelize.BOOLEAN,
+          allowNull: false,
+        },
+      }, {
+        sequelize,
+        modelName: 'review',
       },
-    },
-    eventId: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      references: {
-        model: Event,
-        key: 'id',
-      },
-    },
-    title: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    content: {
-      type: Sequelize.STRING,
-    },
-    isPublic: {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-    },
-  }, {
-    sequelize,
-    modelName: 'review',
-  },
   );
 
   // Every event can have multiple tags.
