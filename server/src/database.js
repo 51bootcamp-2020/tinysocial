@@ -14,11 +14,11 @@ const createStore = () => {
 
   const Model = Sequelize.Model;
 
-  class User extends Model {
-  }
-
-  class Event extends Model {
-  }
+  class User extends Model {}
+  class Event extends Model {}
+  class Tag extends Model {}
+  class Schedule extends Model {}
+  class UserParticipatedEvent extends Model {}
 
   User.init({
         id: {
@@ -37,15 +37,11 @@ const createStore = () => {
         city: Sequelize.STRING,
         state: Sequelize.STRING,
         phone: Sequelize.STRING,
-
       },
       {
         sequelize,
         modelName: 'user',
       });
-
-  class Tag extends Model {
-  }
 
   Event.init({
     id: {
@@ -70,6 +66,7 @@ const createStore = () => {
     sequelize,
     modelName: 'event',
   });
+
   Tag.init({
     id: {
       type: Sequelize.INTEGER,
@@ -92,9 +89,6 @@ const createStore = () => {
     modelName: 'tag',
   });
 
-  class Schedule extends Model {
-  }
-
   Schedule.init({
     id: {
       type: Sequelize.INTEGER,
@@ -112,9 +106,6 @@ const createStore = () => {
     modelName: 'schedule',
     timestamps: false,
   });
-
-  class UserParticipatedEvent extends Model {
-  }
 
   UserParticipatedEvent.init({
         userId: {
