@@ -59,6 +59,7 @@ class LoginForm extends Component {
   };
 
   render() {
+
     return (
         <div>
           {/* Google Login Button */}
