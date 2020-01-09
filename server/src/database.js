@@ -134,7 +134,8 @@ const createStore = async (force=false) => {
       {sequelize, modelName: 'UserParticipatedEvent'});
 
   // Synchronize the models with the database
-  //sequelize.sync();
+  // TODO(arin-kwak): In production phase, consider using migration instead of 'sync'.
+  //  reference: https://sequelize.org/v5/manual/migrations.html
   await sequelize.sync({ force: force });
 
   return {User, Tag, Event, Schedule, UserParticipatedEvent};
