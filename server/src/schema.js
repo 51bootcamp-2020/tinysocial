@@ -8,6 +8,7 @@ const typeDefs = gql`
         # user information about the user currently logged in
         me: User
         user(id: ID!): User
+        hello: String
     }
 
     type Mutation {
