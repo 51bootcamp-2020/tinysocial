@@ -3,7 +3,6 @@ const {gql} = require('apollo-server');
 const typeDefs = gql`
   scalar Date
   scalar DateTime
-
     type Query {
         # Returns certain size of events after the cursor
         # Reference:
@@ -68,7 +67,6 @@ const typeDefs = gql`
           isPublic: Boolean!
         ): Boolean!
     }
-
     input EventFilter {
         recommendation: Boolean, # User-based recommendation flag
         tags: [TagInput!]
@@ -96,7 +94,6 @@ const typeDefs = gql`
         token: String
         user: User
     }
-
     type User {
         id: ID!
         firstName: String!
@@ -115,7 +112,6 @@ const typeDefs = gql`
         profileImgUrl: String
         lastInterationTime: DateTime
     }
-
     interface Event {
         id: ID!
         host: User!
@@ -158,7 +154,6 @@ const typeDefs = gql`
         maxParticipantNum: Int
         reviews: [Review]
     }
-
   # Every event can have multiple tags. Tags are predefined by ours(developers)
   # and used by the event host to categorize his event. So we are able to
   # categorize events by tags.
@@ -167,7 +162,6 @@ const typeDefs = gql`
     name: String!
     events: [Event]!
   }
-
     # TODO(lsh9034): Implement EventConnection.
     # Reference:
     # https://www.apollographql.com/docs/tutorial/resolvers/#paginated-queries 
@@ -175,7 +169,6 @@ const typeDefs = gql`
         cursor: Int!
         events: [Event]!
     }
-
     type EventSchedule {
         id: ID!
         startDateTime: DateTime!
