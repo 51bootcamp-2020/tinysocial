@@ -28,7 +28,7 @@ const createStore = () => {
         },
         createdAt: Sequelize.DATE,
         firstName: {type: Sequelize.STRING, allowNull: false},
-        lastName: Sequelize.STRING,
+        lastName: {type: Sequelize.STRING, allowNull: false},
         email: {
           type: Sequelize.STRING, allowNull: false,
         },

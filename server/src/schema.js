@@ -29,7 +29,7 @@ const typeDefs = gql`
     type User {
         id: ID!
         firstName: String!
-        lastName: String # last name is optional
+        lastName: String!
         email: String!
         age: Int
         city: String
