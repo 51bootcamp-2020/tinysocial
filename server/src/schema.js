@@ -56,7 +56,10 @@ const typeDefs = gql`
         tags: [Tag]!
         participants: [User]!
     }
-
+    # Every event can have multiple tags.
+    # Tags are predefined by ours(developers)
+    # and used by the event host to categorize his event.
+    # So we are able to categorize events by tags.
     type Tag {
         id: ID!
         name: String!

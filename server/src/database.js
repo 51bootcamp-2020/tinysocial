@@ -67,6 +67,10 @@ const createStore = () => {
     modelName: 'event',
   });
 
+  // Every event can have multiple tags.
+  // Tags are predefined by ours(developers)
+  // and used by the event host to categorize his event.
+  // So we are able to categorize events by tags.
   Tag.init({
     id: {
       type: Sequelize.INTEGER,
@@ -99,6 +103,9 @@ const createStore = () => {
     end: Sequelize.DATE,
     locationLatitude: Sequelize.FLOAT,
     locationLongitude: Sequelize.FLOAT,
+    // TODO(arin-kwak): Find better way to deal with repetition.
+    //  Maybe we can reference calendar apps to improve this.
+    //  This method can't deal with 'evey other tuesday'
     // If 'repeat' is null, this schedule is not repeated.
     repeat: Sequelize.ENUM('week', 'month', 'year'),
   }, {
