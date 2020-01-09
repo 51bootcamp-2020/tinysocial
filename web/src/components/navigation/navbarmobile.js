@@ -4,7 +4,6 @@ import {
   Divider,
   Drawer,
   Grid,
-  IconButton,
   List,
   Toolbar,
   Typography,
@@ -45,13 +44,14 @@ function NavBarMobile() {
       <Divider/>
       <List>
         <Grid container
-              direction='column'>
+          direction='column'>
           <a href='/events' className={classes.listItem}>
             <Typography variant='button' style={{textTransform: 'none'}}>
               Events
             </Typography>
           </a>
-          {/* TODO(YoonYeoHwan) : Need to implement About page. Now just linked to landing page. */}
+          // TODO(YoonYeoHwan) : Need to implement About page.
+          // Now just linked to landing page.
           <a href='/about' className={classes.listItem}>
             <Typography variant='button' style={{textTransform: 'none'}}>
               About
@@ -76,13 +76,16 @@ function NavBarMobile() {
               <>
                 <AppBar color='default' position='static'>
                   <Toolbar>
-                    <Grid container direction='row' alignItems='center' justify='space-between'>
+                    <Grid container
+                      direction='row'
+                      alignItems='center'
+                      justify='space-between'>
                       <Grid item xs>
                         <Button onClick={toggleDrawer('left', true)}>
                           <MenuIcon/>
                         </Button>
                         <Drawer open={state.left}
-                                onClose={toggleDrawer('left', false)}>
+                          onClose={toggleDrawer('left', false)}>
                           {sideList('left')}
                         </Drawer>
                       </Grid>
