@@ -65,7 +65,10 @@ const typeDefs = gql`
         name: String!
         events: [Event]!
     }
-
+    
+    # TODO(arin-kwak): Implement EventConnection.
+    #  Reference:
+    #  https://www.apollographql.com/docs/tutorial/resolvers/#paginated-queries 
     type EventConnection {
         cursor: String!
         hasMore: Boolean!
