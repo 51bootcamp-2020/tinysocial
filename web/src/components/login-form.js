@@ -21,11 +21,14 @@ const SIGNIN_QUERY = gql`
 /*query sending user Information to server*/
 const SIGNIN_QUERY = gql`
         mutation ($googleId: String!){
-          signInWithGoogle(google: $googleId){
+          signInWithGoogle(googleId: $googleId){
             success
             message
             token
-            user
+            user{
+              firstName
+              lastName
+            }
           }
         }`;
 

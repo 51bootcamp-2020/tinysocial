@@ -43,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "apollo-boost": "^0.4.7",
     "react-google-login": "^5.0.7"
   }
 }
