@@ -1,5 +1,5 @@
 import React from 'react';
-import Landing from './pages/landing';
+import Eventslist from './pages/eventslist';
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 import {
