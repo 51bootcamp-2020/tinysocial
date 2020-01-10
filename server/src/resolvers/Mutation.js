@@ -17,7 +17,7 @@ module.exports.Mutation = {
       success: true,
       message: 'Success',
       token: 'We have to implement this',
-      user: user.get({plain: true}),
+      user,
     };
   },
 
@@ -48,7 +48,7 @@ module.exports.Mutation = {
           success: true,
           message: 'Success',
           token: 'We have to implement this',
-          user: user.get({plain: true}),
+          user,
         };
       },
 

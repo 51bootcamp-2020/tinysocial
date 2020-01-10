@@ -35,7 +35,7 @@ const typeDefs = gql`
         message: String
         # If not successed, this fields are null. 
         token: String
-        name: String
+        user: User
     }
 
     type User {
@@ -51,6 +51,7 @@ const typeDefs = gql`
         participatedEvents: [Event]!
         birthday: Date
         createdAt: DateTime!
+        profileImgUrl: String
     }
 
     type Event {
