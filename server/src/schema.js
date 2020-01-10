@@ -3,12 +3,12 @@ const {gql} = require('apollo-server');
 const typeDefs = gql`
     scalar Date
     scalar DateTime
-    
+
     type Query {
         events(pageSize: Int, after: String): EventConnection!
         # Return specific event whose id is 'id'.
         # If not exist, return null
-        event(id: ID!): Event 
+        event(id: ID!): Event
         # Return the user currently logged in
         me: User
         # Return the user whose id is 'id'.
@@ -17,26 +17,27 @@ const typeDefs = gql`
     }
 
     type Mutation {
-        signInWithGoogle(googleId: String): AuthResponse!
+        signInWithGoogle(googleId: String!): AuthResponse!
         signUpWithGoogle(
-            googleId: String
-            email: String
-            firstName: String
-            lastName: String
+            googleId: String!
+            email: String!
+            firstName: String!
+            lastName: String!
+            profileImgUrl: String
         ): AuthResponse!
         # If successed, then return True.  
-        logout: Boolean! 
+        logout: Boolean!
     }
 
     type AuthResponse {
         success: Boolean!
         # Contains error message, if not successed
-        message: String 
+        message: String
         # If not successed, this fields are null. 
         token: String
         name: String
     }
-    
+
     type User {
         id: ID!
         firstName: String!
@@ -68,7 +69,7 @@ const typeDefs = gql`
         tags: [Tag]!
         participants: [User]!
     }
-    
+
     # Every event can have multiple tags.
     # Tags are predefined by ours(developers)
     # and used by the event host to categorize his event.
@@ -87,7 +88,7 @@ const typeDefs = gql`
         hasMore: Boolean!
         events: [Event]!
     }
-    
+
     type EventSchedule {
         id: ID!
         start: DateTime!
