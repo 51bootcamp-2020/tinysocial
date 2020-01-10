@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { GoogleLogin } from "react-google-login";
+import { clientID } from "./utils.js";
 
 class SignupForm extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class SignupForm extends Component {
   }
 
   responseGoogle = res => {
-    console.log(res);
+    // Handle about google log-in success
     this.setState({
       id: res.profileObj.googleId,
       firstName: res.profileObj.givenName,
@@ -26,10 +27,13 @@ class SignupForm extends Component {
   };
 
   responseFail = err => {
+    //Handle about google log-in failure
     console.error(err);
   };
 
-  handleClick = () => {}; // ToDo: When ""Submit button" clicked, send user info to backend.
+  handleClick = () => {};
+  // ToDo: When ""Submit button" clicked, send user info to backend.
+
   render() {
     const googleAuthAPIClientID =
       "420478568442-ltur9qc3g9uam6f166k1pgsa7f2evl5e.apps.googleusercontent.com";
