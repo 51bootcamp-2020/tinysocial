@@ -7,11 +7,14 @@ import {gql} from 'apollo-boost';
 /*query sending user Information to server*/
 const SIGNIN_QUERY = gql`
         mutation ($googleId: String!){
-          signInWithGoogle(google: $googleId){
+          signInWithGoogle(googleId: $googleId){
             success
             message
             token
-            user
+            user{
+              firstName
+              lastName
+            }
           }
         }`;
 
@@ -36,7 +39,6 @@ class LoginForm extends Component {
         googleId: userInfo.googleId,
       },
     });
-
   };
 
   // Google login fail callback function
