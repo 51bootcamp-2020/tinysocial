@@ -77,13 +77,13 @@ class Cards extends Component {
 
     CardsComponent = () => {
         let cards = [[]];
-        for (let i = 1; i <= 7; i++) {
+        for (let i = 1; i <= 9; i++) {
             if ((i - 1) % 3 === 0)
                 cards.push([]);
 
             cards[cards.length - 1].push(
-                <Card style={{width: '30%rem', maxWidth: '30%rem'}}>
-                    <Card.Img variant="top" src={require('../images/' + i + '.jpg')}/>
+                <Card  style={{width: '33%', maxWidth: '33%'}}>
+                    <Card.Img variant="top" src={require('../images/' + i + '.jpg')} style={{height: '17em'}}/>
                     <Card.Body>
                         <Card.Title>Example Event{i}</Card.Title>
                         <Card.Text>
