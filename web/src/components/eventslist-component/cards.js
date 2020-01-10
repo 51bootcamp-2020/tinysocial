@@ -22,7 +22,6 @@ import {
     ListItemText
 } from '@material-ui/core';
 
-
 class Cards extends Component {
     constructor(props) {
         // get area selection from props
