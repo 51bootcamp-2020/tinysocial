@@ -2,8 +2,8 @@ import React, {Component, useState} from 'react';
 
 import {
     Card,
-    CardDeck,
     CardGroup,
+    CardDeck,
     Button,
     ToggleButton,
     ToggleButtonGroup,
@@ -87,33 +87,6 @@ class Cards extends Component {
         return featuredCard;
     };
 
-    toggleHandler = val => {
-        console.log('toggle:', val);
-
-        const newFilterToggles = [];
-        for (let j = 0; j < this.state.filterToggles.length; j++)
-            newFilterToggles.push(false);
-        for (let j = 0; j < val.length; j++)
-            newFilterToggles[val[j]] = true;
-
-        this.setState({
-            filterToggles: newFilterToggles,
-        });
-    };
-
-    ToggleButtonGroupControlled = () => {
-        const filtersComp = [];
-
-        for (let i = 0; i < this.state.filterNames.length; i++) {
-            filtersComp.push(
-                <ToggleButton id={i} value={i}>
-                    {this.state.filterNames[i]}
-                </ToggleButton>);
-        }
-
-        return filtersComp;
-    };
-
     CardsComponent = () => {
         let cards = [[]];
         for (let i = 1; i <= 9; i++) {
@@ -121,9 +94,9 @@ class Cards extends Component {
                 cards.push([]);
 
             cards[cards.length - 1].push(
-                <div style={{maxWidth: '33.3%'}}>
+                <div style={{maxWidth: '33.33%'}}>
                     <Card style={{margin: '2px'}}>
-                        <Card.Img variant="top" src={require('../images/' + i + '.jpg')} style={{height: '17rem'}}/>
+                        <Card.Img variant="top" src={require('../images/' + i + '.jpg')} style={{height: '17em'}}/>
                         <Card.Body>
                             <Card.Title>Example Event{i}</Card.Title>
                             <Card.Text>
@@ -162,6 +135,6 @@ class Cards extends Component {
     }
 }
 
-Cards.propTypes = {};
+Card.propTypes = {};
 
 export default Cards;
