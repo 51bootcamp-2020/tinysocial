@@ -32,6 +32,7 @@ module.exports.Mutation = {
               lastName,
               profileImgUrl: profileImgUrl ? profileImgUrl : '',
             });
+
         if (user === null) {
           return {
             success: false,

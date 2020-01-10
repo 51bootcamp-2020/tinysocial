@@ -1,12 +1,12 @@
 const Sequelize = require('sequelize');
 
-const createStore = async (force=false) => {
+const createStore = () => {
   const sequelize = new Sequelize({
     dialect: 'sqlite',
     storage: './database.sqlite',
   });
 
-  await sequelize.authenticate().then(() => {
+  sequelize.authenticate().then(() => {
     console.log('Connection to the database has been established successfully');
   }).catch(err => {
     console.error(`Unable to connect to the database: ${err}`);
@@ -139,9 +139,9 @@ const createStore = async (force=false) => {
   // Synchronize the models with the database
   // TODO(arin-kwak): In production phase, consider using migration instead of 'sync'.
   //  reference: https://sequelize.org/v5/manual/migrations.html
-  await sequelize.sync({ force: force });
+  sequelize.sync();
 
-  return {User, Tag, Event, Schedule, UserParticipatedEvent};
+  return {User, Tag, Event, Schedule, UserParticipatedEvent, sequelize};
 };
 
 module.exports = {
