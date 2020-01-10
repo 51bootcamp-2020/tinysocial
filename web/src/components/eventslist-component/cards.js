@@ -1,16 +1,27 @@
 import React, {Component, useState} from 'react';
 
-import {Card, CardDeck, CardGroup, Button, ToggleButton, ToggleButtonGroup, Jumbotron, Container, Row, Col} from 'react-bootstrap';
+import {
+    Card,
+    CardDeck,
+    CardGroup,
+    Button,
+    ToggleButton,
+    ToggleButtonGroup,
+    Jumbotron,
+    Container,
+    Row,
+    Col,
+} from 'react-bootstrap';
 
 class Cards extends Component {
     constructor(props) {
         // get area selection from props
         super(props);
 
-        const filterNames = ['BookClub', "Movie", "Wine", "SciFi", "Sport"];
+        const filterNames = ['BookClub', 'Movie', 'Wine', 'SciFi', 'Sport'];
         const filterToggles = [];
 
-        for(let j = 0; j < filterNames.length; j++)
+        for (let j = 0; j < filterNames.length; j++)
             filterToggles.push(false);
 
         this.state = {
@@ -23,20 +34,20 @@ class Cards extends Component {
         console.log('toggle:', val);
 
         const newFilterToggles = [];
-        for(let j = 0; j < this.state.filterToggles.length; j++)
+        for (let j = 0; j < this.state.filterToggles.length; j++)
             newFilterToggles.push(false);
-        for(let j = 0; j < val.length; j++)
+        for (let j = 0; j < val.length; j++)
             newFilterToggles[val[j]] = true;
 
         this.setState({
-            filterToggles: newFilterToggles
+            filterToggles: newFilterToggles,
         });
     };
 
     ToggleButtonGroupControlled = () => {
         const filtersComp = [];
 
-        for (let i = 0; i < this.state.filterNames.length; i++){
+        for (let i = 0; i < this.state.filterNames.length; i++) {
             filtersComp.push(
                 <ToggleButton id={i} value={i}>
                     {this.state.filterNames[i]}
@@ -55,8 +66,9 @@ class Cards extends Component {
             <Container>
                 <Row>
                     <Col xs={6}>
-                        <Card.Img style={{width: '80%', maxWidth: '100%'}} src={require('../images/' + 1 + '.jpg')} />
-                    </Col >
+                        <Card.Img style={{width: '80%', maxWidth: '100%'}}
+                                  src={require('../images/' + 1 + '.jpg')}/>
+                    </Col>
                     <Col>
                         <h1>Featured Event 1</h1>
                         <p>
@@ -70,7 +82,7 @@ class Cards extends Component {
 
 
             </Container>
-    </Jumbotron>)
+        </Jumbotron>);
 
         return featuredCard;
     };
