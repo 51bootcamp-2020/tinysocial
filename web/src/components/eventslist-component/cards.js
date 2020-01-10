@@ -30,10 +30,10 @@ class Cards extends Component {
       const handleChange = val => {
           setValue(val);
           console.log(value)
-    }
+      };
 
-      const filterName = ['BookClub',"Movie", "Wine", "SciFi", "Sport"]
-      let headers = []
+      const filterName = ['BookClub',"Movie", "Wine", "SciFi", "Sport"];
+      let headers = [];
       let filters = [];
 
       for(let i=0; i<filterName.length; i++){
@@ -41,9 +41,9 @@ class Cards extends Component {
 
       headers.push(<ToggleButtonGroup type="checkbox" value={value} onChange={handleChange}>
         {filters}
-      </ToggleButtonGroup>)
+      </ToggleButtonGroup>);
       return headers
-    }
+    };
 
 
 
@@ -76,6 +76,8 @@ class Cards extends Component {
         <div>
           <p>This is {this.props.area}</p>
           <ToggleButtonGroupControlled/>
+          <br />
+          <hr />
           {decks}
         </div>
     );
