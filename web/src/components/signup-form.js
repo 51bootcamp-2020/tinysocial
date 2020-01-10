@@ -3,6 +3,29 @@ import PropTypes from "prop-types";
 import { GoogleLogin } from "react-google-login";
 import { clientID } from "./utils.js";
 
+const SIGNUP_MUTATION = gql`
+  {
+    mutation SignUp(
+      $googleId: String!,
+      $email: String!,
+      $firstName: String!,
+      $lastName: String!,
+      profileImgUrl: String) {
+        signUpWithGoogle(
+          googleId: $googleId,
+          email: $email,
+          firstName: $firstName,
+          lastName: $lastName,
+          profileImgUrl: $profileImgUrl) {
+            success
+            message
+            token
+            user
+          } 
+      }
+  }
+`
+
 class SignupForm extends Component {
   constructor(props) {
     super(props);
