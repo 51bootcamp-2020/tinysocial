@@ -10,7 +10,7 @@ class mainAPI extends DataSource {
     this.context = config.context;
   }
 
-  findOneUser = async (where) => {
+  async findOneUser(where) {
     /**
      * Find one user. If user exists, return the user data from db.
      *
