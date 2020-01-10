@@ -87,6 +87,33 @@ class Cards extends Component {
         return featuredCard;
     };
 
+    toggleHandler = val => {
+        console.log('toggle:', val);
+
+        const newFilterToggles = [];
+        for (let j = 0; j < this.state.filterToggles.length; j++)
+            newFilterToggles.push(false);
+        for (let j = 0; j < val.length; j++)
+            newFilterToggles[val[j]] = true;
+
+        this.setState({
+            filterToggles: newFilterToggles,
+        });
+    };
+
+    ToggleButtonGroupControlled = () => {
+        const filtersComp = [];
+
+        for (let i = 0; i < this.state.filterNames.length; i++) {
+            filtersComp.push(
+                <ToggleButton id={i} value={i}>
+                    {this.state.filterNames[i]}
+                </ToggleButton>);
+        }
+
+        return filtersComp;
+    };
+
     CardsComponent = () => {
         let cards = [[]];
         for (let i = 1; i <= 9; i++) {
@@ -135,6 +162,6 @@ class Cards extends Component {
     }
 }
 
-Card.propTypes = {};
+Cards.propTypes = {};
 
 export default Cards;
