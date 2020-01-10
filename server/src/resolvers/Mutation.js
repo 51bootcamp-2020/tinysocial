@@ -1,6 +1,8 @@
 module.exports.Mutation = {
-  authGoogle,
-  authFacebook,
-  logout: (parent, args) => {
+  signInWithGoogle: async (_, {googleId}) => {
+  },
+  signUpWithGoogle: async (_, {googleId, email, firstName, lastName}) => {
+  },
+  logout: () => {
   },
 };

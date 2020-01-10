@@ -1,10 +1,10 @@
 module.exports.Query = {
-  events: (parent, {pageSize, after}) => {
+  events: async (_, {pageSize, after}) => {
   },
-  event: (parent, {id}) => {
+  event: async (_, {id}) => {
   },
-  me: (parent, args, {user}) => {
+  me: async (_, __, context) => {
   },
-  user: (parent, {id}) => {
+  user: async (_, {id}) => {
   },
 };
