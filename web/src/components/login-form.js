@@ -33,11 +33,11 @@ class LoginForm extends Component {
     const userInfo = res.profileObj;
 
     // send userInfo data to server
-    const {data} = await this.props.client.query({
-      mutate: {SIGNIN_QUERY},
+    const {data} = await this.props.client.mutate({
+      mutation: SIGNIN_QUERY,
       variables: {
         googleId: userInfo.googleId,
-      },
+      }
     });
   };
 
