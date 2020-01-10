@@ -7,70 +7,86 @@ class Cards extends Component {
         // get area selection from props
         super(props);
 
+        const filterNames = ['BookClub', "Movie", "Wine", "SciFi", "Sport"];
+        const filterToggles = [];
+
+        for(let j = 0; j < filterNames.length; j++)
+            filterToggles.push(false);
+
         this.state = {
-            area: props.area,
-            filterList: [0, 0, 0, 0, 0],
-            filtervalue: 0,
-            flag: 'hi'
-        }
+            filterNames: filterNames,
+            filterToggles: filterToggles,
+        };
     }
 
-    ToggleButtonGroupControlled = () => {
-        const [value, setValue] = useState(0, 3);
-        // console.log('value: ', this.state.value);
+    toggleHandler = val => {
+        console.log('toggle:', val);
 
-        const handleChange = val => {
-            setValue(val);
-            console.log(value)
-        };
+        const newFilterToggles = [];
+        for(let j = 0; j < this.state.filterToggles.length; j++)
+            newFilterToggles.push(false);
+        for(let j = 0; j < val.length; j++)
+            newFilterToggles[val[j]] = true;
 
-        const filterName = ['BookClub', "Movie", "Wine", "SciFi", "Sport"];
-        let headers = [];
-        let filters = [];
-
-        for (let i = 0; i < filterName.length; i++) {
-            filters.push(<ToggleButton value={i}>{filterName[i]}</ToggleButton>)
-        }
-
-        headers.push(<ToggleButtonGroup type="checkbox" value={value} onChange={handleChange}>
-            {filters}
-        </ToggleButtonGroup>);
-        return headers
+        this.setState({
+            filterToggles: newFilterToggles
+        });
     };
 
-    render() {
-        // letValue
+    ToggleButtonGroupControlled = () => {
+        const filtersComp = [];
+
+        for (let i = 0; i < this.state.filterNames.length; i++){
+            filtersComp.push(
+                <ToggleButton id={i} value={i}>
+                    {this.state.filterNames[i]}
+                </ToggleButton>);
+        }
+
+        return (
+            <ToggleButtonGroup type="checkbox" onChange={this.toggleHandler}>
+                {filtersComp}
+            </ToggleButtonGroup>);
+    };
+
+    CardsComponent = () => {
         let cards = [[]];
         for (let i = 1; i <= 7; i++) {
             if ((i - 1) % 3 === 0)
                 cards.push([]);
-            cards[cards.length - 1].push(<Card style={{width: '18rem', maxWidth: '18rem'}}>
-                <Card.Img variant="top" src={require('../images/' + i + '.jpg')}/>
-                <Card.Body>
-                    <Card.Title>Example Event{i}</Card.Title>
-                    <Card.Text>
-                        Hello, world? I'm Example Event{i}. Nice to meet you.
-                    </Card.Text>
-                    <Button variant="primary">Detail</Button>
-                </Card.Body>
-            </Card>);
+
+            cards[cards.length - 1].push(
+                <Card style={{width: '18rem', maxWidth: '18rem'}}>
+                    <Card.Img variant="top" src={require('../images/' + i + '.jpg')}/>
+                    <Card.Body>
+                        <Card.Title>Example Event{i}</Card.Title>
+                        <Card.Text>
+                            Hello, world? I'm Example Event{i}. Nice to meet you.
+                        </Card.Text>
+                        <Button variant="primary">Detail</Button>
+                    </Card.Body>
+                </Card>);
         }
 
         let decks = [];
         for (let i = 0; i < cards.length; i++) {
-            decks.push(<CardDeck>
-                {cards[i]}
-            </CardDeck>);
+            decks.push(
+                <CardDeck>
+                    {cards[i]}
+                </CardDeck>);
         }
 
-        return (
+        return decks;
+    };
 
+    render() {
+        return (
             <div>
                 <p>This is {this.props.area}</p>
                 <this.ToggleButtonGroupControlled/>
                 <br/>
                 <hr/>
-                {decks}
+                {this.CardsComponent()}
             </div>
         );
     }
