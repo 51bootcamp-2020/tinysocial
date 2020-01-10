@@ -5,23 +5,36 @@ const typeDefs = gql`
     scalar DateTime
     
     type Query {
-        events(pageSize: Int, after: String): EventConnection
-        event(id: ID!): Event # Return specific event whose id is 'id'.
-        # user information about the user currently logged in
+        events(pageSize: Int, after: String): EventConnection!
+        # Return specific event whose id is 'id'.
+        # If not exist, return null
+        event(id: ID!): Event 
+        # Return the user currently logged in
         me: User
+        # Return the user whose id is 'id'.
+        # If not exist, return null
         user(id: ID!): User
     }
 
     type Mutation {
-        signInWithGoogle(googleId: String): AuthResponse
-        signUpWithGoogle(googleId: String,
-            email: String, firstName: String, lastName: String): AuthResponse
-        logout: Boolean! # success, then True.  
+        signInWithGoogle(googleId: String): AuthResponse!
+        signUpWithGoogle(
+            googleId: String
+            email: String
+            firstName: String
+            lastName: String
+        ): AuthResponse!
+        # If successed, then return True.  
+        logout: Boolean! 
     }
 
     type AuthResponse {
-        token: String!
-        name: String!
+        success: Boolean!
+        # Contains error message, if not successed
+        message: String 
+        # If not successed, this fields are null. 
+        token: String
+        name: String
     }
     
     type User {
