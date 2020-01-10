@@ -1,3 +1,5 @@
+import React from 'react';
+import Eventslist from './pages/eventslist';
 import ApolloClient from "apollo-boost";
 import {ApolloProvider} from "react-apollo";
 import {
@@ -26,7 +28,7 @@ function App() {
             <Signin/>
           </Route>
           <Route path="/">
-            Main
+            <Eventslist/>
           </Route>
         </Switch>
       </Router>
