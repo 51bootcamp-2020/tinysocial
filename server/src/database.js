@@ -1,12 +1,12 @@
 const Sequelize = require('sequelize');
 
-const createStore = () => {
+const createStore = async (force=false) => {
   const sequelize = new Sequelize({
     dialect: 'sqlite',
     storage: './database.sqlite',
   });
 
-  sequelize.authenticate().then(() => {
+  await sequelize.authenticate().then(() => {
     console.log('Connection to the database has been established successfully');
   }).catch(err => {
     console.error(`Unable to connect to the database: ${err}`);
@@ -127,7 +127,8 @@ const createStore = () => {
       {sequelize, modelName: 'UserParticipatedEvent'});
 
   // Synchronize the models with the database
-  sequelize.sync();
+  //sequelize.sync();
+  await sequelize.sync({ force: force });
 
   return {User, Tag, Event, Schedule, UserParticipatedEvent};
 };

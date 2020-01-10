@@ -6,6 +6,7 @@ const {mainAPI} = require('./utils');
 const {createStore} = require('./database');
 
 const db = createStore();
+
 const dataSources = () => ({
   mainAPI: new mainAPI(db),
 });
