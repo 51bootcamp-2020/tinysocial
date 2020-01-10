@@ -33,82 +33,82 @@ TabPanel.propTypes = {
 };
 
 class Eventslist extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        const places = [
-            {eventKey: "all", title: "All"},
-            {eventKey: "sanfran", title: "San Francisco"},
-            {eventKey: "sanmateo", title: "San Mateo"},
-            {eventKey: "mountainview", title: "Mountain View"},
-        ];
+    const places = [
+      {eventKey: "all", title: "All"},
+      {eventKey: "sanfran", title: "San Francisco"},
+      {eventKey: "sanmateo", title: "San Mateo"},
+      {eventKey: "mountainview", title: "Mountain View"},
+    ];
 
-        this.state = {
-            places: places,
-            selectedTap: 0
-        };
+    this.state = {
+      places: places,
+      selectedTap: 0
+    };
+  }
+
+  TabComponents = () => {
+    const components = [];
+
+    for(let j = 0; j < this.state.places.length; j++){
+      components.push(<Tab label={this.state.places[j].title} />);
     }
 
-    TabComponents = () => {
-        const components = [];
+    return components;
+  };
 
-        for(let j = 0; j < this.state.places.length; j++){
-            components.push(<Tab label={this.state.places[j].title} />);
-        }
+  TabPanelComponents = () => {
+    const components = [];
 
-        return components;
-    };
-
-    TabPanelComponents = () => {
-        const components = [];
-
-        for(let j = 0; j < this.state.places.length; j++){
-            components.push(<TabPanel value={this.state.selectedTap} index={j}>
-                <Cards area={this.state.places[j].eventKey}/>
-            </TabPanel>);
-        }
-
-        return components;
-    };
-
-    handleChange = (event, newValue) => {
-        this.setState({
-            selectedTap: newValue
-        });
+    for(let j = 0; j < this.state.places.length; j++){
+      components.push(<TabPanel value={this.state.selectedTap} index={j}>
+        <Cards area={this.state.places[j].eventKey}/>
+      </TabPanel>);
     }
 
-    render() {
-        return (
-            <div>
-                <Grid
-                    container
-                    spacing={0}
-                    direction="column"
-                    alignItems="center"
-                    justify="center"
-                    style={{ minHeight: '100vh' }}
+    return components;
+  };
+
+  handleChange = (event, newValue) => {
+    this.setState({
+      selectedTap: newValue
+    });
+  }
+
+  render() {
+    return (
+        <div>
+          <Grid
+              container
+              spacing={0}
+              direction="column"
+              alignItems="center"
+              justify="center"
+              style={{ minHeight: '100vh' }}
+          >
+
+            <Grid item xs={8}>
+              <Paper className={{flexGrow: 1}}>
+                <Tabs
+                    value={this.state.selectedTap}
+                    onChange={this.handleChange}
+                    indicatorColor="primary"
+                    textColor="primary"
                 >
+                  {this.TabComponents()}
+                </Tabs>
+                {this.TabPanelComponents()}
+              </Paper>
+            </Grid>
 
-                    <Grid item xs={8}>
-                        <Paper className={{flexGrow: 1}}>
-                            <Tabs
-                                value={this.state.selectedTap}
-                                onChange={this.handleChange}
-                                indicatorColor="primary"
-                                textColor="primary"
-                            >
-                                {this.TabComponents()}
-                            </Tabs>
-                            {this.TabPanelComponents()}
-                        </Paper>
-                    </Grid>
+          </Grid>
+          <br/>
 
-                </Grid>
-                <br/>
-
-            </div>
-        )
-    }
+        </div>
+    )
+  }
 }
 
 Eventslist.propTypes = {};
