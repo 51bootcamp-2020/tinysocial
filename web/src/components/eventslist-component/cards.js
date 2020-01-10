@@ -1,6 +1,6 @@
 import React, {Component, useState} from 'react';
 
-import {Card, CardDeck, Button, ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
+import {Card, CardDeck, Button, ToggleButton, ToggleButtonGroup, Jumbotron, Container, Row, Col} from 'react-bootstrap';
 
 class Cards extends Component {
     constructor(props) {
@@ -49,6 +49,32 @@ class Cards extends Component {
             </ToggleButtonGroup>);
     };
 
+    FeaturedCardComponent = () => {
+        let featuredCard = [];
+        featuredCard.push(<Jumbotron>
+            <Container>
+                <Row>
+                    <Col xs={6}>
+                        <Card.Img style={{width: '80%', maxWidth: '100%'}} src={require('../images/' + 1 + '.jpg')} />
+                    </Col >
+                    <Col>
+                        <h1>Featured Event 1</h1>
+                        <p>
+                            I'm example featured event 1 description.
+                        </p>
+                        <p>
+                            <Button variant="primary">Detail</Button>
+                        </p>
+                    </Col>
+                </Row>
+
+
+            </Container>
+    </Jumbotron>)
+
+        return featuredCard;
+    };
+
     CardsComponent = () => {
         let cards = [[]];
         for (let i = 1; i <= 7; i++) {
@@ -56,7 +82,7 @@ class Cards extends Component {
                 cards.push([]);
 
             cards[cards.length - 1].push(
-                <Card style={{width: '18rem', maxWidth: '18rem'}}>
+                <Card style={{width: '30%rem', maxWidth: '30%rem'}}>
                     <Card.Img variant="top" src={require('../images/' + i + '.jpg')}/>
                     <Card.Body>
                         <Card.Title>Example Event{i}</Card.Title>
@@ -85,6 +111,8 @@ class Cards extends Component {
                 <p>This is {this.props.area}</p>
                 <this.ToggleButtonGroupControlled/>
                 <br/>
+                <hr/>
+                {this.FeaturedCardComponent()}
                 <hr/>
                 {this.CardsComponent()}
             </div>
