@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import Cards from "../components/eventslist-component/cards";
 import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
