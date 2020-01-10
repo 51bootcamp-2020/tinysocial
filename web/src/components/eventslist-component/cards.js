@@ -1,6 +1,6 @@
 import React, {Component, useState} from 'react';
 
-import {Card, CardDeck, Button, ToggleButton, ToggleButtonGroup, Jumbotron, Container, Row, Col} from 'react-bootstrap';
+import {Card, CardDeck, CardGroup, Button, ToggleButton, ToggleButtonGroup, Jumbotron, Container, Row, Col} from 'react-bootstrap';
 
 class Cards extends Component {
     constructor(props) {
@@ -82,24 +82,27 @@ class Cards extends Component {
                 cards.push([]);
 
             cards[cards.length - 1].push(
-                <Card  style={{width: '33%', maxWidth: '33%'}}>
-                    <Card.Img variant="top" src={require('../images/' + i + '.jpg')} style={{height: '17em'}}/>
-                    <Card.Body>
-                        <Card.Title>Example Event{i}</Card.Title>
-                        <Card.Text>
-                            Hello, world? I'm Example Event{i}. Nice to meet you.
-                        </Card.Text>
-                        <Button variant="primary">Detail</Button>
-                    </Card.Body>
-                </Card>);
+                <div style={{maxWidth: '33.3%'}}>
+                    <Card style={{margin: '2px'}}>
+                        <Card.Img variant="top" src={require('../images/' + i + '.jpg')} style={{height: '17rem'}}/>
+                        <Card.Body>
+                            <Card.Title>Example Event{i}</Card.Title>
+                            <Card.Text>
+                                Hello, world? I'm Example Event{i}. Nice to meet you.
+                            </Card.Text>
+                            <Button variant="primary">Detail</Button>
+                        </Card.Body>
+                    </Card>
+                </div>
+            );
         }
 
         let decks = [];
         for (let i = 0; i < cards.length; i++) {
             decks.push(
-                <CardDeck>
+                <CardGroup>
                     {cards[i]}
-                </CardDeck>);
+                </CardGroup>);
         }
 
         return decks;
