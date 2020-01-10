@@ -18,8 +18,7 @@ const client = new ApolloClient({
 });
 
 function App() {
-  {/* TODO(Myoung-heeSeo) : Add a state to check if the user is logged in now. */
-  }
+  {/* TODO(Myoung-heeSeo) : Add a state to check if the user is logged in now. */}
   return (
     <ApolloProvider client={client}>
       <NavBar/>
@@ -41,4 +40,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
