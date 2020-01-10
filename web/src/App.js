@@ -1,13 +1,13 @@
 import React from 'react';
 import Landing from './pages/landing';
 
-import Events from './pages/events';
+import Eventslist from './pages/eventslist';
 
 function App() {
   return (
       <div>
         Main
-        <Events/>
+        <Eventslist/>
       </div>
   );
 }
