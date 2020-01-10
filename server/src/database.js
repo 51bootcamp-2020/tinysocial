@@ -99,6 +99,13 @@ const createStore = async (force=false) => {
       primaryKey: true,
       autoIncrement: true,
     },
+    eventId: {
+      type: Sequelize.INTEGER,
+      references: {
+        model: Event,
+        key: 'id',
+      },
+    },
     start: Sequelize.DATE,
     end: Sequelize.DATE,
     locationLatitude: Sequelize.FLOAT,
