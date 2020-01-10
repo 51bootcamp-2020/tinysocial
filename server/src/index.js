@@ -13,7 +13,7 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   dataSources,
-  context: ({req}) => {
+  context: async ({req}) => {
     // TODO(arin-kwak): Serve user authentication info like token, etc
     return {};
   },
