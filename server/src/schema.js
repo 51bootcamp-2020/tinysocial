@@ -64,8 +64,7 @@ const typeDefs = gql`
         description: String!
         price: Float!
         # image: Upload!
-        # TODO(arin-kwak): Implement
-        image uploading feature
+        # TODO(arin-kwak): Implement image uploading feature
         maxParticipants: Int!
         tags: [Tag]!
         participants: [User]!
