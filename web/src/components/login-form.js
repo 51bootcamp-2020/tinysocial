@@ -18,6 +18,17 @@ const SIGNIN_QUERY = gql`
           }
         }`;
 
+/*query sending user Information to server*/
+const SIGNIN_QUERY = gql`
+        mutation ($googleId: String!){
+          signInWithGoogle(google: $googleId){
+            success
+            message
+            token
+            user
+          }
+        }`;
+
 class LoginForm extends Component {
 
   constructor(props) {
@@ -59,7 +70,6 @@ class LoginForm extends Component {
   };
 
   render() {
-
     return (
         <div>
           {/* Google Login Button */}
