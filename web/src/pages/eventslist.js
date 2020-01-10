@@ -5,6 +5,8 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import Cards from "../components/eventslist-component/cards";
 
+import {Container, Row, Col} from 'react-bootstrap';
+
 import Button from "react-bootstrap/Button";
 import CardGroup from "react-bootstrap/CardGroup";
 
@@ -16,25 +18,32 @@ class Eventslist extends Component {
     return(
         <div>
           Here is the list of events
-          <Tabs defaultActiveKey="all">
-            <Tab eventKey="all" title="All" class="center-block">
-              <Cards area={"all"} />
-            </Tab>
-            <Tab eventKey="sanfran" title="San Francisco">
-              {/*<p>this is San Francisco!!!!!</p>*/}
-              <Cards area={"sanfran"} />
+            <Container>
+                <Row className="justify-content-md-center">
+                    <Col md="auto">
+                        <Tabs defaultActiveKey="all">
+                            <Tab eventKey="all" title="All" class="center-block">
+                                <Cards area={"all"} />
+                            </Tab>
+                            <Tab eventKey="sanfran" title="San Francisco">
+                                {/*<p>this is San Francisco!!!!!</p>*/}
+                                <Cards area={"sanfran"} />
 
-            </Tab>
-            <Tab eventKey="sanmateo" title="San Mateo">
-              {/*<p>this is San Mateo</p>*/}
-              <Cards area={"sanmateo"} />
+                            </Tab>
+                            <Tab eventKey="sanmateo" title="San Mateo">
+                                {/*<p>this is San Mateo</p>*/}
+                                <Cards area={"sanmateo"} />
 
-            </Tab>
-            <Tab eventKey="mountainview" title="Mountain View">
-              {/*<p>this is Mountain View</p>*/}
-              <Cards area={"mountainview"} />
-            </Tab>
-          </Tabs>
+                            </Tab>
+                            <Tab eventKey="mountainview" title="Mountain View">
+                                {/*<p>this is Mountain View</p>*/}
+                                <Cards area={"mountainview"} />
+                            </Tab>
+                        </Tabs>
+                    </Col>
+                </Row>
+            </Container>
+
         </div>
 
     )
