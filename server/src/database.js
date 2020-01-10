@@ -110,6 +110,13 @@ const createStore = async (force=false) => {
     end: Sequelize.DATE,
     locationLatitude: Sequelize.FLOAT,
     locationLongitude: Sequelize.FLOAT,
+    eventId: {
+      type: Sequelize.INTEGER,
+      references: {
+        model: Event,
+        key: 'id',
+      },
+    },
     // TODO(arin-kwak): Find better way to deal with repetition.
     //  Maybe we can reference calendar apps to improve this.
     //  This method can't deal with 'evey other tuesday'
