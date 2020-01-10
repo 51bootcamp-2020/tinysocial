@@ -10,12 +10,11 @@
     "graphql": "^14.5.8",
     "mariadb": "^2.1.5",
     "sequelize": "^5.21.3",
-    "sqlite3": "^4.1.1"
+    "sqlite3": "^4.1.1",
+    "strip-bom-stream": "^4.0.0"
   },
   "scripts": {
     "start": "cd src && node fakedb_writer.js && node index.js"
   },
-  "devDependencies": {
-    "strip-bom-stream": "^4.0.0"
-  }
+  "devDependencies": {}
 }
