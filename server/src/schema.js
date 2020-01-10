@@ -1,31 +1,29 @@
 const {gql} = require('apollo-server');
 
 const typeDefs = gql`
+    scalar Date
+    scalar DateTime
+    
     type Query {
-        events(pageSize: Int, after: String): EventConnection!
-        event(id: ID!): Event
-
+        events(pageSize: Int, after: String): EventConnection
+        event(id: ID!): Event # Return specific event whose id is 'id'.
         # user information about the user currently logged in
         me: User
         user(id: ID!): User
     }
 
     type Mutation {
-        authGoogle(accessToken: AuthInput!): AuthResponse
-        authFacebook(accessToken: AuthInput!): AuthResponse
+        signInWithGoogle(googleId: String): AuthResponse
+        signUpWithGoogle(googleId: String,
+            email: String, firstName: String, lastName: String): AuthResponse
         logout: Boolean! # success, then True.  
     }
 
     type AuthResponse {
-        token: String
-        name: String
+        token: String!
+        name: String!
     }
-    input AuthInput {
-        accessToken: String!
-    }
-
-    scalar Date
-
+    
     type User {
         id: ID!
         firstName: String!
@@ -57,6 +55,7 @@ const typeDefs = gql`
         tags: [Tag]!
         participants: [User]!
     }
+    
     # Every event can have multiple tags.
     # Tags are predefined by ours(developers)
     # and used by the event host to categorize his event.
@@ -66,7 +65,7 @@ const typeDefs = gql`
         name: String!
         events: [Event]!
     }
-    
+
     # TODO(arin-kwak): Implement EventConnection.
     #  Reference:
     #  https://www.apollographql.com/docs/tutorial/resolvers/#paginated-queries 
@@ -75,9 +74,7 @@ const typeDefs = gql`
         hasMore: Boolean!
         events: [Event]!
     }
-
-    scalar DateTime
-
+    
     type EventSchedule {
         id: ID!
         start: DateTime!
