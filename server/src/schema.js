@@ -5,6 +5,9 @@ const typeDefs = gql`
     scalar DateTime
 
     type Query {
+        # Returns certain size of events after the cursor
+        # Reference:
+        #  https://www.apollographql.com/docs/tutorial/resolvers/#paginated-queries 
         events(pageSize: Int, after: String): EventConnection!
         # Return specific event whose id is 'id'.
         # If not exist, return null
