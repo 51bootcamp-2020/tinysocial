@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {GoogleLogin} from "react-google-login";
-import {gql} from 'apollo-boost'
+import { GoogleLogin } from "react-google-login";
+import { gql } from "apollo-boost";
+import { Redirect } from "react-router-dom";
 
 class SignupForm extends Component {
   constructor(props) {
@@ -33,45 +34,51 @@ class SignupForm extends Component {
 
   handleClick = () => {
     const SIGNUP_MUTATION = gql`
-      mutation SignUp($googleId: String!, $email: String!, $firstName: String!, $lastName: String!, $profileImgUrl: String) {
-          signUpWithGoogle(googleId: $googleId, email: $email, firstName: $firstName, lastName: $lastName, profileImgUrl: $profileImgUrl) {
-              success
-              message
-              token
-              user {
-                lastName
-                firstName
-                email
-              }
-          } 
+      mutation SignUp(
+        $googleId: String!
+        $email: String!
+        $firstName: String!
+        $lastName: String!
+        $profileImgUrl: String
+      ) {
+        signUpWithGoogle(
+          googleId: $googleId
+          email: $email
+          firstName: $firstName
+          lastName: $lastName
+          profileImgUrl: $profileImgUrl
+        ) {
+          success
+          message
+          token
+          user {
+            lastName
+            firstName
+            email
+          }
+        }
       }
     `;
 
-    const client = this.props.client
-    const {id, email, firstName, lastName} = this.state
+    const client = this.props.client;
+    const { id, email, firstName, lastName } = this.state;
 
-    client.mutate({
-      mutation: SIGNUP_MUTATION,
-      variables: {
-        googleId: id,
-        email: email,
-        firstName: firstName,
-        lastName: lastName,
-      }
-    }).then((data) => {
-      // console.log(data.data.signUpWithGoogle)
-      const { success, message, token, user } = data.data.signUpWithGoogle
-      if (success) { // sign up success
-        // TODO : redirect to the "/" page(landing page) with authentication info
-      } else {  // sign up failure
-        // TODO : show alert message and refresh the page, 
-        // this might have to be implemented in the other way
-        window.alert('Sign Up Failed!')
-        window.location.reload(false)
-      }
-    })
+    client
+      .mutate({
+        mutation: SIGNUP_MUTATION,
+        variables: {
+          googleId: id,
+          email: email,
+          firstName: firstName,
+          lastName: lastName
+        }
+      })
+      .then(data => {
+        data.data.signUpWithGoogle.success
+          ? this.props.history.push("/") // Check this logic(when success===true) when if react-router add
+          : window.location.reload(false);
+      });
   };
-  // ToDo: When ""Submit button" clicked, send user info to backend.
 
   render() {
     const googleAuthAPIClientID =
