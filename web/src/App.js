@@ -1,6 +1,6 @@
-import React from 'react';
-import Signup from './pages/signup'
-
+import React from "react";
+import Signup from "./pages/signup";
+import { BrowserRouter } from "react-router-dom";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 import {

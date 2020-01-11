@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { GoogleLogin } from "react-google-login";
 import { gql } from "apollo-boost";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
+import keys from "../config";
 
 class SignupForm extends Component {
   constructor(props) {
@@ -75,14 +76,20 @@ class SignupForm extends Component {
       })
       .then(data => {
         data.data.signUpWithGoogle.success
-          ? this.props.history.push("/") // Check this logic(when success===true) when if react-router add
-          : window.location.reload(false);
+          ? // TODO : redirect to the "/" page(landing page) with authentication info
+            window.location.replace("/") // Check this logic(when success===true) when if react-router add
+          : this.setState({
+              id: "",
+              firstName: "",
+              lastName: "",
+              email: "",
+              provider: ""
+            });
       });
   };
 
   render() {
-    const googleAuthAPIClientID =
-      "420478568442-ltur9qc3g9uam6f166k1pgsa7f2evl5e.apps.googleusercontent.com";
+    const googleAuthAPIClientID = keys.googleAuthAPIClientID;
     return (
       <div>
         <ul>

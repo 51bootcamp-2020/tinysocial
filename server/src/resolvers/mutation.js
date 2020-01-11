@@ -55,7 +55,7 @@ module.exports.Mutation = {
     //  Create session and return sessionId to client.
 
     return {
-      success: true,
+      success: false,
       message: "Success",
       token: "We have to implement this",
       user
