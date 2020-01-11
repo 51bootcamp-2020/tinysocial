@@ -58,7 +58,18 @@ class SignupForm extends Component {
         firstName: firstName,
         lastName: lastName,
       }
-    }).then((data) => console.log(data.data.signUpWithGoogle))
+    }).then((data) => {
+      // console.log(data.data.signUpWithGoogle)
+      const { success, message, token, user } = data.data.signUpWithGoogle
+      if (success) { // sign up success
+        // TODO : redirect to the "/" page(landing page) with authentication info
+      } else {  // sign up failure
+        // TODO : show alert message and refresh the page, 
+        // this might have to be implemented in the other way
+        window.alert('Sign Up Failed!')
+        window.location.reload(false)
+      }
+    })
   };
   // ToDo: When ""Submit button" clicked, send user info to backend.
 
