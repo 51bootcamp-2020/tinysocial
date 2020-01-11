@@ -36,7 +36,7 @@ const typeDefs = gql`
         success: Boolean!
         # Contains error message, if not successed
         message: String
-        # If not successed, this fields are null. 
+        # If not successed, these fields are null. 
         token: String
         user: User
     }
