@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 
 import {
     Card,
@@ -62,27 +62,23 @@ class Cards extends Component {
 
     FeaturedCardComponent = () => {
         let featuredCard = [];
-        featuredCard.push(<Jumbotron>
-            <Container>
-                <Row>
-                    <Col xs={6}>
-                        <Card.Img style={{width: '80%', maxWidth: '100%'}}
-                                  src={require('../images/' + 1 + '.jpg')}/>
-                    </Col>
-                    <Col>
-                        <h1>Featured Event 1</h1>
-                        <p>
-                            I'm example featured event 1 description.
-                        </p>
-                        <p>
+        featuredCard.push(
+            <Jumbotron>
+                <Container>
+                    <Row>
+                        <div className="col-md-1"></div>
+                        <div className="col-md-4">
+                            <img style={{width: '100%', maxWidth: '100%'}} src={require('../images/' + 1 + '.jpg')}/>
+                        </div>
+                        <div className="col-md-1"></div>
+                        <div className="col-md-6">
+                            <h1>Featured Event 1</h1>
+                            <p>I'm example featured event 1 description.</p>
                             <Button variant="primary">Detail</Button>
-                        </p>
-                    </Col>
-                </Row>
-
-
-            </Container>
-        </Jumbotron>);
+                        </div>
+                    </Row>
+                </Container>
+            </Jumbotron>);
 
         return featuredCard;
     };
@@ -94,8 +90,8 @@ class Cards extends Component {
                 cards.push([]);
 
             cards[cards.length - 1].push(
-                <div style={{maxWidth: '33.33%'}}>
-                    <Card style={{margin: '2px'}}>
+                <div className="col-md-4">
+                    <Card style={{marginBottom: '10px'}}>
                         <Card.Img variant="top" src={require('../images/' + i + '.jpg')} style={{height: '17em'}}/>
                         <Card.Body>
                             <Card.Title>Example Event{i}</Card.Title>
@@ -128,7 +124,6 @@ class Cards extends Component {
                 <br/>
                 <hr/>
                 {this.FeaturedCardComponent()}
-                <hr/>
                 {this.CardsComponent()}
             </div>
         );
