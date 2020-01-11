@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {GoogleLogin} from 'react-google-login';
-import {clientID} from './utils.js';
+import {clientId} from './utils.js';
 import {gql} from 'apollo-boost';
-
+import {Redirect} from 'react-router'
 /*query sending user Information to server*/
 const SIGNIN_QUERY = gql`
         mutation ($googleId: String!){
@@ -39,22 +39,38 @@ class LoginForm extends Component {
         googleId: userInfo.googleId,
       }
     });
+
+    if(data.signInWithGoogle.success === false)
+      this.setState({isAuthenticated: true, isMember: false});
+    else
+      this.setState({isAuthenticated: true, isMember: true});
   };
 
   // Google login fail callback function
   responseFail = (err) => {
-    console.error(err);
+    //ToDo(lsh9034) make alert function
+  };
+
+  redirect = () => {
+    if(this.state.isMember)
+      return <Redirect to="/"/>;
+    else
+      return <Redirect to="/signup"/>;
   };
 
   render() {
     return (
         <div>
           {/* Google Login Button */}
-          <GoogleLogin
-              onSuccess={this.responseGoogle}
-              onFailure={this.responseFail}
-              clientId={clientID} // our Client ID
-          />
+          {this.state.isAuthenticated === false
+              ?
+              <GoogleLogin
+                  onSuccess={this.responseGoogle}
+                  onFailure={this.responseFail}
+                  clientId={clientId} // our client ID
+              />
+              : this.redirect()
+          }
         </div>);
   }
 }

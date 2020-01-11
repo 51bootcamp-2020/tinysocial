@@ -3,7 +3,7 @@ import LoginForm from '../components/login-form'
 import ApolloClient from "apollo-boost";
 
 const client = new ApolloClient({
-    uri: "http://localhost:4000"
+    uri: "http://localhost:15780"
 });
 
 class signin extends Component{
