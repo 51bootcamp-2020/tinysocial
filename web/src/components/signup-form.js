@@ -1,30 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { GoogleLogin } from "react-google-login";
-import { clientID } from "./utils.js";
-
-const SIGNUP_MUTATION = gql`
-  {
-    mutation SignUp(
-      $googleId: String!,
-      $email: String!,
-      $firstName: String!,
-      $lastName: String!,
-      profileImgUrl: String) {
-        signUpWithGoogle(
-          googleId: $googleId,
-          email: $email,
-          firstName: $firstName,
-          lastName: $lastName,
-          profileImgUrl: $profileImgUrl) {
-            success
-            message
-            token
-            user
-          } 
-      }
-  }
-`
+import {GoogleLogin} from "react-google-login";
+import {gql} from 'apollo-boost'
 
 class SignupForm extends Component {
   constructor(props) {
@@ -54,7 +31,35 @@ class SignupForm extends Component {
     console.error(err);
   };
 
-  handleClick = () => {};
+  handleClick = () => {
+    const SIGNUP_MUTATION = gql`
+      mutation SignUp($googleId: String!, $email: String!, $firstName: String!, $lastName: String!, $profileImgUrl: String) {
+          signUpWithGoogle(googleId: $googleId, email: $email, firstName: $firstName, lastName: $lastName, profileImgUrl: $profileImgUrl) {
+              success
+              message
+              token
+              user {
+                lastName
+                firstName
+                email
+              }
+          } 
+      }
+    `;
+
+    const client = this.props.client
+    const {id, email, firstName, lastName} = this.state
+
+    client.mutate({
+      mutation: SIGNUP_MUTATION,
+      variables: {
+        googleId: id,
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+      }
+    }).then((data) => console.log(data.data.signUpWithGoogle))
+  };
   // ToDo: When ""Submit button" clicked, send user info to backend.
 
   render() {
