@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { GoogleLogin } from "react-google-login";
-import { gql } from "apollo-boost";
-import { Redirect, useHistory } from "react-router-dom";
-import keys from "../config";
+import {GoogleLogin} from "react-google-login";
+import {gql} from 'apollo-boost'
+import {Mutation} from 'react-apollo'
 
 class SignupForm extends Component {
   constructor(props) {
@@ -18,7 +17,7 @@ class SignupForm extends Component {
   }
 
   responseGoogle = res => {
-    // Handle about google log-in success
+    // handle about google log-in success
     this.setState({
       id: res.profileObj.googleId,
       firstName: res.profileObj.givenName,
@@ -29,7 +28,7 @@ class SignupForm extends Component {
   };
 
   responseFail = err => {
-    //Handle about google log-in failure
+    // handle about google log-in failure
     console.error(err);
   };
 
@@ -60,36 +59,36 @@ class SignupForm extends Component {
         }
       }
     `;
+    
+    // TODO : delete this part and Mutate using Mutate tag and state
+    const client = this.props.client
+    const {id, email, firstName, lastName} = this.state
 
-    const client = this.props.client;
-    const { id, email, firstName, lastName } = this.state;
-
-    client
-      .mutate({
-        mutation: SIGNUP_MUTATION,
-        variables: {
-          googleId: id,
-          email: email,
-          firstName: firstName,
-          lastName: lastName
-        }
-      })
-      .then(data => {
-        data.data.signUpWithGoogle.success
-          ? // TODO : redirect to the "/" page(landing page) with authentication info
-            window.location.replace("/") // Check this logic(when success===true) when if react-router add
-          : this.setState({
-              id: "",
-              firstName: "",
-              lastName: "",
-              email: "",
-              provider: ""
-            });
-      });
+    client.mutate({
+      mutation: SIGNUP_MUTATION,
+      variables: {
+        googleId: id,
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+      }
+    }).then((data) => {
+      const { success, message, token, user } = data.data.signUpWithGoogle
+      if (success) { // sign up success
+        // TODO : redirect to the "/" page(landing page) with authentication info
+      } else {  // sign up failure
+        // TODO : show alert message and refresh the page, 
+        // this might have to be implemented in the other way
+        window.alert('Sign Up Failed!')
+        window.location.reload(false)
+      }
+    })
   };
 
   render() {
-    const googleAuthAPIClientID = keys.googleAuthAPIClientID;
+    // TODO : hide this for a secret
+    const googleAuthAPIClientID =
+      "420478568442-ltur9qc3g9uam6f166k1pgsa7f2evl5e.apps.googleusercontent.com";
     return (
       <div>
         <ul>
