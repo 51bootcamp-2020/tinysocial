@@ -1,20 +1,20 @@
-import React from 'react';
-import Events from './pages/events';
-import Signin from './pages/signin';
-import Landing from './pages/landing';
-import Logo from './img/tinysocial-logo.png';
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Link,
-} from 'react-router-dom';
 import {
   AppBar,
+  Grid,
   Tabs,
   Tab,
-  Grid,
 } from '@material-ui/core';
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Switch,
+} from 'react-router-dom';
+import Events from './pages/eventlist';
+import Landing from './pages/landing';
+import Logo from './img/tinysocial-logo.png';
+import React from 'react';
+import Signin from './pages/signin';
 
 function Navbar() {
   return (
