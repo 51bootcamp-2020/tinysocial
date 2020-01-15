@@ -96,8 +96,8 @@ const typeDefs = gql`
 
     type EventSchedule {
         id: ID!
-        start: DateTime!
-        end: DateTime!
+        startDateTime: DateTime!
+        endDateTime: DateTime!
         country: String!
         state: String!
         city: String!
