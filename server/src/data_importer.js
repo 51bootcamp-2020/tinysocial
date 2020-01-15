@@ -27,20 +27,20 @@ const write_fake_db = async () => {
     },
   ];
 
-  for (let j = 0; j < read_info.length; j++) {
-    let fd = fs.createReadStream('../fakedb/' + read_info[j].csv).
+  for (let i = 0; i < read_info.length; i++) {
+    let fd = fs.createReadStream('../fakedb/' + read_info[i].csv).
         pipe(await stripBom()).
         pipe(await csv());
 
     let end = new Promise(function(resolve, reject) {
-      fd.on('data', async (data) => await read_info[j].dat.push(data)).
+      fd.on('data', async (data) => await read_info[i].dat.push(data)).
           on('end', async () => {
-            console.log('updating:', read_info[j].csv);
+            console.log('updating:', read_info[i].csv);
 
-            for (let i = 0; i < read_info[j].dat.length; i++) {
-              await read_info[j].db.create(read_info[j].dat[i]);
+            for (let j = 0; j < read_info[i].dat.length; j++) {
+              await read_info[i].db.create(read_info[i].dat[j]);
             }
-            console.log(read_info[j].csv, 'finished');
+            console.log(read_info[i].csv, 'finished');
 
             resolve(0);
           });
