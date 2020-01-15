@@ -82,8 +82,8 @@ class SignupForm extends Component {
             (data) => {
               const {success, message, token} = data.signUpWithGoogle
               if (success) {
-                // TODO : make session work before redirecting
-
+                // TODO : naming might change here
+                window.localStorage.setItem('token', token)
                 this.props.history.push('/')
               } else {
                 window.alert('Signup failed ... please contact admin')
