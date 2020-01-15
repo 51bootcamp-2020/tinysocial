@@ -53,15 +53,17 @@ const typeDefs = gql`
         hostedEvents: [Event]!
         participatedEvents: [Event]!
         birthday: Date
-        createdAt: DateTime!
+        creationTime: DateTime!
         profileImgUrl: String
     }
 
     type Event {
         id: ID!
         host: User!
-        createdAt: DateTime!
-        updatedAt: DateTime!
+        creationTime: DateTime!
+        # When the schedule of the event is updated,
+        # lastUpdatedTime of the event also need to be updated.
+        lastUpdatedTime: DateTime!
         schedule: [EventSchedule]!
         title: String!
         description: String!
