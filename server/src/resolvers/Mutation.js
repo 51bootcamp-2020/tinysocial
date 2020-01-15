@@ -1,6 +1,6 @@
 module.exports.Mutation = {
   signInWithGoogle: async (_, {googleId}, {dataSources}) => {
-    const user = await dataSources.mainAPI.findOneUser({googleId});
+    const user = await dataSources.mainAPI.findUser({googleId});
     if (user === null) {
       return {
         success: false,
@@ -11,7 +11,7 @@ module.exports.Mutation = {
     }
 
     // TODO(lsh9034): Implement session logic.
-    // Create session and return sessionId to client.
+    //  Create session and return sessionId to client.
 
     return {
       success: true,
