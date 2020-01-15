@@ -14,7 +14,7 @@
     "strip-bom-stream": "^4.0.0"
   },
   "scripts": {
-    "start": "cd src && node fakedb_writer.js && node index.js"
+    "start": "cd src && node data_importer.js && node index.js"
   },
   "devDependencies": {}
 }
