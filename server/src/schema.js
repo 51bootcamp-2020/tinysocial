@@ -28,15 +28,15 @@ const typeDefs = gql`
             lastName: String!
             profileImgUrl: String
         ): AuthResponse!
-        # If successed, then return True.  
+        # If successful, then return True.  
         logout: Boolean!
     }
 
     type AuthResponse {
         success: Boolean!
-        # Contains error message, if not successed
+        # Contains error message, if not successful
         message: String
-        # If not successed, these fields are null. 
+        # If not successful, these fields are null. 
         token: String
         user: User
     }
@@ -96,10 +96,14 @@ const typeDefs = gql`
         id: ID!
         start: DateTime!
         end: DateTime!
-        locationLatitude: Float!
-        locationLongitude: Float!
-        city: String!
+        country: String!
         state: String!
+        city: String!
+        zip: String!
+        street: String!
+        additionalAddress: String!
+        latitude: String!
+        longtitude: String!
     }
 `;
 
