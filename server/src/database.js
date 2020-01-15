@@ -104,8 +104,12 @@ const createStore = () => {
     },
     start: Sequelize.DATE,
     end: Sequelize.DATE,
-    locationLatitude: Sequelize.FLOAT,
-    locationLongitude: Sequelize.FLOAT,
+    country: Sequelize.STRING,
+    state: Sequelize.STRING,
+    city: Sequelize.STRING,
+    zip: Sequelize.STRING,
+    street: Sequelize.STRING,
+    additionalAddress: Sequelize.STRING,
     eventId: {
       type: Sequelize.INTEGER,
       references: {
