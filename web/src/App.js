@@ -36,7 +36,6 @@ function App() {
         </Switch>
       </Router>
     </ApolloProvider>
-
   );
 }
 
