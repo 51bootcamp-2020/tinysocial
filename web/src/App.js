@@ -1,6 +1,5 @@
 import React from 'react';
 import Landing from './pages/landing';
-
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 
