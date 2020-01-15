@@ -35,15 +35,6 @@ const write_fake_db = async () => {
     let end = new Promise(function(resolve, reject) {
       fd.on('data', async (data) => await read_info[j].dat.push(data)).
           on('end', async () => {
-            /*
-            await read_info[j].db.destroy({
-                where: {},
-                truncate: true,
-                cascade: false,
-                restartIdentity: true
-            });
-            */
-
             console.log('updating:', read_info[j].csv);
 
             for (let i = 0; i < read_info[j].dat.length; i++) {
