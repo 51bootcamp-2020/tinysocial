@@ -1,17 +1,22 @@
+// TODO(arin-kwak): Collect error message like this. Make separate folder.
+const userNotFoundMessage = 'User not found. You have to sign up first';
+const cannotCreateUserMessage = 'Fail to create the user.' +
+    'Please try again later';
+
 module.exports.Mutation = {
   signInWithGoogle: async (_, {googleId}, {dataSources}) => {
     const user = await dataSources.mainAPI.findUser({googleId});
     if (user === null) {
       return {
         success: false,
-        message: 'User not found. You have to sign up first.',
+        message: userNotFoundMessage,
         token: null,
         user: null,
       };
     }
 
     // TODO(lsh9034): Implement session logic.
-    //  Create session and return sessionId to client.
+    // Create session and return sessionId to client.
 
     return {
       success: true,
@@ -36,14 +41,14 @@ module.exports.Mutation = {
         if (user === null) {
           return {
             success: false,
-            message: 'Fail to create the user. Please try again later',
+            message: cannotCreateUserMessage,
             token: null,
             user: null,
           };
         }
 
         // TODO(lsh9034): Implement session logic.
-        //  Create session and return sessionId to client.
+        // Create session and return sessionId to client.
 
         return {
           success: true,

@@ -18,7 +18,7 @@ const createStore = () => {
   class Event extends Model {}
   class Tag extends Model {}
   class Schedule extends Model {}
-  class UserParticipatedEvent extends Model {}
+  class EventParticipant extends Model {}
 
   User.init({
         id: {
@@ -102,8 +102,8 @@ const createStore = () => {
       primaryKey: true,
       autoIncrement: true,
     },
-    start: Sequelize.DATE,
-    end: Sequelize.DATE,
+    startDateTime: Sequelize.DATE,
+    endDateTime: Sequelize.DATE,
     country: Sequelize.STRING,
     state: Sequelize.STRING,
     city: Sequelize.STRING,
@@ -118,8 +118,8 @@ const createStore = () => {
       },
     },
     // TODO(arin-kwak): Find better way to deal with repetition.
-    //  Maybe we can reference calendar apps to improve this.
-    //  This method can't deal with 'evey other tuesday'
+    // Maybe we can reference calendar apps to improve this.
+    // This method can't deal with 'evey other tuesday'
     // If 'repeat' is null, this schedule is not repeated.
     repeat: Sequelize.ENUM('week', 'month', 'year'),
   }, {
@@ -128,7 +128,7 @@ const createStore = () => {
     timestamps: false,
   });
 
-  UserParticipatedEvent.init({
+  EventParticipant.init({
         userId: {
           type: Sequelize.INTEGER,
           primaryKey: true,
@@ -138,14 +138,14 @@ const createStore = () => {
           primaryKey: true,
         },
       },
-      {sequelize, modelName: 'UserParticipatedEvent'});
+      {sequelize, modelName: 'EventParticipant'});
 
   // Synchronize the models with the database
   // TODO(arin-kwak): In production phase, consider using migration instead of 'sync'.
-  //  reference: https://sequelize.org/v5/manual/migrations.html
+  // reference: https://sequelize.org/v5/manual/migrations.html
   sequelize.sync();
 
-  return {User, Tag, Event, Schedule, UserParticipatedEvent, sequelize};
+  return {User, Tag, Event, Schedule, EventParticipant: EventParticipant, sequelize};
 };
 
 module.exports = {

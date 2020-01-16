@@ -11,7 +11,7 @@ const users = [];
 const events = [];
 const schedules = [];
 const tags = [];
-const userParticipatedEvents = [];
+const eventParticipants = [];
 
 const write_fake_db = async () => {
   const db = createStore(true);
@@ -23,9 +23,9 @@ const write_fake_db = async () => {
     {csv: 'Schedule.csv', dat: schedules, db: db.Schedule},
     {csv: 'Tag.csv', dat: tags, db: db.Tag},
     {
-      csv: 'UserParticipatedEvent.csv',
-      dat: userParticipatedEvents,
-      db: db.UserParticipatedEvent,
+      csv: 'EventParticipant.csv',
+      dat: eventParticipants,
+      db: db.EventParticipant,
     },
   ];
 
