@@ -1,19 +1,15 @@
 import React, {Component} from 'react';
 import LoginForm from '../components/login-form'
-import ApolloClient from "apollo-boost";
 
-const client = new ApolloClient({
-    uri: "http://localhost:15780"
-});
-
-class signin extends Component{
+//TODO(Hyejin): implement signin page using material UI
+class Signin extends Component{
     render(){
         return (
             <div>
-                <LoginForm client={client}/>
+                <LoginForm />
             </div>
         )
     };
 }
 
-export default signin;
+export default Signin;
