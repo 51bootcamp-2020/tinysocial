@@ -41,21 +41,19 @@ class LoginForm extends Component {
     this.state = {
       isAuthenticated: false,
       isMember: false,
-      googleId: '',
-      fisrtName: '',
-      lastName: ''
+      googleId: ''
     };
   }
 
   // Google login fail callback function
   responseFail = (err) => {
-    console.log(err)
     //TODO(Hyejin): make alert function
   };
 
   // After authenticated from server, redirect even if success or not.
   redirect = () => {
     if(this.state.isMember)
+      //TODO(Hyejin): Fix redirect router
       return <Redirect to="/"/>;
     else
       return <Redirect to="/signup"/>;
@@ -68,23 +66,25 @@ class LoginForm extends Component {
           <Mutation mutation={SIGNIN_QUERY} variables={{googleId: this.state.googleId}}
               onCompleted={
                 (data)=>{
-                  if (!data.signInWithGoogle.success) {
-                    this.setState({isMember: false});
-                    console.log('user search failure');
-                  }
-                  else {
+                  if (data.signInWithGoogle.success) {
                     this.setState({isMember: true});
                     //store user token to localStorage
+                    //TODO(Hyejin): Refactor data stored to localStorage
                     localStorage.setItem('token', data.signInWithGoogle.token);
-                    console.log(data);
                   }
-
+                  else{
+                    this.setState({isMember: false});
+                    //TODO(Hyejin): Implement processing signin failure
+                  }
+                  //Redirect even if success or not.
+                  this.redirect()
                 }}
               onError={
                 (error)=>{
-                  // TODO(Hyejin): Error processing implement
-          }}>
-            { (execute_mutation) => {
+                  // TODO(Hyejin): Implement query error processing
+                }
+              }>
+            {(execute_mutation) => {
               {/*Google Login Button*/}
                 return(
                   <GoogleLogin
