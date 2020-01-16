@@ -8,6 +8,7 @@
     "csv-parser": "^2.3.2",
     "fs": "0.0.1-security",
     "graphql": "^14.5.8",
+    "jsonwebtoken": "^8.5.1",
     "mariadb": "^2.1.5",
     "sequelize": "^5.21.3",
     "sqlite3": "^4.1.1",
