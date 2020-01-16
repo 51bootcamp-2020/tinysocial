@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
 import PropTypes from 'prop-types';
+import Grid from "@material-ui/core/Grid";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -80,29 +81,32 @@ class Eventslist extends Component {
     render() {
         return (
             <div>
-                <br/>
-                <Paper className={{flexGrow: 1}}>
-                    <Tabs
-                        value={this.state.selectedTap}
-                        onChange={this.handleChange}
-                        indicatorColor="primary"
-                        textColor="primary"
-                    >
-                        {this.TabComponents()}
-                    </Tabs>
-                    {this.TabPanelComponents()}
-                </Paper>
-                {/*
-                <Container>
-                    <Row className="justify-content-md-center">
-                        <Col md="auto">
-                            <Tabs defaultActiveKey={this.state.places[0].eventKey}>
+                <Grid
+                    container
+                    spacing={0}
+                    direction="column"
+                    alignItems="center"
+                    justify="center"
+                    style={{ minHeight: '100vh' }}
+                >
+
+                    <Grid item xs={8}>
+                        <Paper className={{flexGrow: 1}}>
+                            <Tabs
+                                value={this.state.selectedTap}
+                                onChange={this.handleChange}
+                                indicatorColor="primary"
+                                textColor="primary"
+                            >
                                 {this.TabComponents()}
                             </Tabs>
-                        </Col>
-                    </Row>
-                </Container>
-                */}
+                            {this.TabPanelComponents()}
+                        </Paper>
+                    </Grid>
+
+                </Grid>
+                <br/>
+
             </div>
         )
     }
