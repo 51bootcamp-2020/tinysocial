@@ -1,17 +1,27 @@
 import React, {Component} from 'react';
 
 import {
-    Card,
-    CardGroup,
-    CardDeck,
-    Button,
     ToggleButton,
     ToggleButtonGroup,
-    Jumbotron,
-    Container,
-    Row,
-    Col,
+    Jumbotron
 } from 'react-bootstrap';
+
+import {
+    Avatar,
+    Card,
+    CardActionArea,
+    CardMedia,
+    CardContent,
+    CardActions,
+    Button,
+    Typography,
+    Grid,
+    List,
+    ListItem,
+    ListItemAvatar,
+    ListItemText
+} from '@material-ui/core';
+
 
 class Cards extends Component {
     constructor(props) {
@@ -60,29 +70,15 @@ class Cards extends Component {
             </ToggleButtonGroup>);
     };
 
-    FeaturedCardComponent = () => {
-        let featuredCard = [];
-        featuredCard.push(
-            <Jumbotron>
-                <Container>
-                    <Row>
-                        <div className="col-md-1"></div>
-                        <div className="col-md-4">
-                            <img style={{width: '100%', maxWidth: '100%'}} src={require('../images/' + 1 + '.jpg')}/>
-                        </div>
-                        <div className="col-md-1"></div>
-                        <div className="col-md-6">
-                            <h1>Featured Event 1</h1>
-                            <p>I'm example featured event 1 description.</p>
-                            <Button variant="primary">Detail</Button>
-                        </div>
-                    </Row>
-                </Container>
-            </Jumbotron>);
-
-        return featuredCard;
+    //Featured Information component for landing page
+    FeaturedInfoComponent = () => {
+        let featuredInfo = [];
+        featuredInfo.push(
+        )
+        return featuredInfo;
     };
 
+    //will add Skeleton component during loading
     CardsComponent = () => {
         let cards = [[]];
         for (let i = 1; i <= 9; i++) {
@@ -92,14 +88,31 @@ class Cards extends Component {
             cards[cards.length - 1].push(
                 <div className="col-md-4">
                     <Card style={{marginBottom: '10px'}}>
-                        <Card.Img variant="top" src={require('../images/' + i + '.jpg')} style={{height: '17em'}}/>
-                        <Card.Body>
-                            <Card.Title>Example Event{i}</Card.Title>
-                            <Card.Text>
-                                Hello, world? I'm Example Event{i}. Nice to meet you.
-                            </Card.Text>
-                            <Button variant="primary">Detail</Button>
-                        </Card.Body>
+                        <CardActionArea>
+                            <CardMedia
+                                component="img"
+                                alt="CardsImage"
+                                height="200em"
+                                image={require('../images/' + i + '.jpg')}
+                                title="Cards Image"
+                            />
+                        {/*<Card.Img variant="top" src={require('../images/' + i + '.jpg')} style={{height: '17em'}}/>*/}
+                            <CardContent>
+                                <ListItem>
+                                    <ListItemAvatar>
+                                        <Avatar alt="Example User Name" src={require('../images/' + i + '.jpg')} />
+
+                                    </ListItemAvatar>
+                                    <ListItemText primary={'Card Title'+i} secondary="July 20, 2014" />
+                                </ListItem>
+                                <Typography>
+                                    Hello, world? I'm Example Event{i}. Nice to meet you.
+                                </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                        <CardActions>
+                            <Button color="primary">Detail</Button>
+                        </CardActions>
                     </Card>
                 </div>
             );
@@ -108,9 +121,13 @@ class Cards extends Component {
         let decks = [];
         for (let i = 0; i < cards.length; i++) {
             decks.push(
-                <CardGroup>
+                // <CardGroup>
+                <Grid container item xs={12}>
                     {cards[i]}
-                </CardGroup>);
+                </Grid>
+
+                // </CardGroup>
+            );
         }
 
         return decks;
@@ -123,7 +140,6 @@ class Cards extends Component {
                 <this.ToggleButtonGroupControlled/>
                 <br/>
                 <hr/>
-                {this.FeaturedCardComponent()}
                 {this.CardsComponent()}
             </div>
         );
