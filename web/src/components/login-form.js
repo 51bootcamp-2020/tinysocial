@@ -4,6 +4,8 @@ import {GoogleLogin} from 'react-google-login';
 import {clientId} from './utils.js';
 import {gql} from 'apollo-boost';
 import {Redirect} from 'react-router'
+import {Mutation} from 'react-apollo'
+
 /*query sending user Information to server*/
 const SIGNIN_QUERY = gql`
         mutation ($googleId: String!){
@@ -39,32 +41,19 @@ class LoginForm extends Component {
     this.state = {
       isAuthenticated: false,
       isMember: false,
+      googleId: '',
+      fisrtName: '',
+      lastName: ''
     };
   }
 
-  // Google login success callback function
-  responseGoogle = async (res) => {
-    const userInfo = res.profileObj;
-
-    // send userInfo data to server
-    const {data} = await this.props.client.mutate({
-      mutation: SIGNIN_QUERY,
-      variables: {
-        googleId: userInfo.googleId,
-      }
-    });
-
-    if(data.signInWithGoogle.success === false)
-      this.setState({isAuthenticated: true, isMember: false});
-    else
-      this.setState({isAuthenticated: true, isMember: true});
-  };
-
   // Google login fail callback function
   responseFail = (err) => {
-    //ToDo(lsh9034) make alert function
+    console.log(err)
+    //TODO(Hyejin): make alert function
   };
 
+  // After authenticated from server, redirect even if success or not.
   redirect = () => {
     if(this.state.isMember)
       return <Redirect to="/"/>;
@@ -72,19 +61,45 @@ class LoginForm extends Component {
       return <Redirect to="/signup"/>;
   };
 
+  // social login button and send googleId received from google to server using mutation component
   render() {
     return (
         <div>
-          {/* Google Login Button */}
-          {this.state.isAuthenticated === false
-              ?
-              <GoogleLogin
-                  onSuccess={this.responseGoogle}
-                  onFailure={this.responseFail}
-                  clientId={clientId} // our client ID
-              />
-              : this.redirect()
-          }
+          <Mutation mutation={SIGNIN_QUERY} variables={{googleId: this.state.googleId}}
+              onCompleted={
+                (data)=>{
+                  if (!data.signInWithGoogle.success) {
+                    this.setState({isMember: false});
+                    console.log('user search failure');
+                  }
+                  else {
+                    this.setState({isMember: true});
+                    //store user token to localStorage
+                    localStorage.setItem('token', data.signInWithGoogle.token);
+                    console.log(data);
+                  }
+
+                }}
+              onError={
+                (error)=>{
+                  // TODO(Hyejin): Error processing implement
+          }}>
+            { (execute_mutation) => {
+              {/*Google Login Button*/}
+                return(
+                  <GoogleLogin
+                      onSuccess={(res) => {
+                        this.setState({
+                          googldId : res.profileObj.googleId
+                        }, execute_mutation)
+                      }}
+                      onFailure={this.responseFail}
+                      clientId={clientId} // our client ID
+                  />
+                )
+            }
+            }
+          </Mutation>
         </div>);
   }
 }
