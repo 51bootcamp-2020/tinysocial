@@ -14,7 +14,7 @@ module.exports.Mutation = {
 
     // TODO(lsh9034): Implement session logic.
     //  Create session and return sessionId to client.
-    const token = jwt.sign({userId:userId}, APP_SECRET);
+    const token = jwt.sign({userId:userId}, APP_SECRET,{expiresIn:'1h'});
     return {
       success: true,
       message: 'Success',
