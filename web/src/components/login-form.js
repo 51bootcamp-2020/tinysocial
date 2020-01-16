@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import {GoogleLogin} from 'react-google-login';
 import {clientId} from './utils.js';
 import {gql} from 'apollo-boost';
-import {Redirect} from 'react-router'
 import {Mutation} from 'react-apollo'
+import {withRouter} from 'react-router-dom'
 
 /*query sending user Information to server*/
 const SIGNIN_QUERY = gql`
@@ -39,7 +38,6 @@ class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAuthenticated: false,
       isMember: false,
       googleId: ''
     };
@@ -50,13 +48,29 @@ class LoginForm extends Component {
     //TODO(Hyejin): make alert function
   };
 
+  /**
+   * After check member from server, setState and Reaction
+   * @param {boolean} isSuccess
+   * @param {string} token
+   */
+  changeIsMember(isSuccess, token) {
+    if (isSuccess) {
+      this.setState({isMember: true});
+      //store user token to localStorage
+      //TODO(Hyejin): Refactor data stored to localStorage
+      localStorage.setItem('token', token);
+    }
+    else{
+      //TODO(Hyejin): Implement processing signin failure
+    }
+  }
+
   // After authenticated from server, redirect even if success or not.
   redirect = () => {
     if(this.state.isMember)
-      //TODO(Hyejin): Fix redirect router
-      return <Redirect to="/"/>;
+      return this.props.history.push('/');
     else
-      return <Redirect to="/signup"/>;
+      return this.props.history.push('/signup');
   };
 
   // social login button and send googleId received from google to server using mutation component
@@ -66,17 +80,7 @@ class LoginForm extends Component {
           <Mutation mutation={SIGNIN_QUERY} variables={{googleId: this.state.googleId}}
               onCompleted={
                 (data)=>{
-                  if (data.signInWithGoogle.success) {
-                    this.setState({isMember: true});
-                    //store user token to localStorage
-                    //TODO(Hyejin): Refactor data stored to localStorage
-                    localStorage.setItem('token', data.signInWithGoogle.token);
-                  }
-                  else{
-                    this.setState({isMember: false});
-                    //TODO(Hyejin): Implement processing signin failure
-                  }
-                  //Redirect even if success or not.
+                  this.changeIsMember(/* isSucess= */ data.signInWithGoogle.success, /* token= */ data.signInWithGoogle.token);
                   this.redirect()
                 }}
               onError={
@@ -106,4 +110,4 @@ class LoginForm extends Component {
 
 LoginForm.propTypes = {};
 
-export default LoginForm;
+export default withRouter(LoginForm);
