@@ -1,10 +1,36 @@
 import React, {Component} from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Cards from "../components/eventslist-component/cards";
+import Paper from "@material-ui/core/Paper";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
 
-import {Container, Row, Col, Tabs, Tab} from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+
+    return (
+        <Typography
+            component="div"
+            role="tabpanel"
+            hidden={value !== index}
+            id={`scrollable-auto-tabpanel-${index}`}
+            aria-labelledby={`scrollable-auto-tab-${index}`}
+            {...other}
+        >
+            {value === index && <Box p={3}>{children}</Box>}
+        </Typography>
+    );
+}
+
+TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
+};
 
 class Eventslist extends Component {
     constructor(props) {
@@ -18,7 +44,8 @@ class Eventslist extends Component {
         ];
 
         this.state = {
-            places: places
+            places: places,
+            selectedTap: 0
         };
     }
 
@@ -26,18 +53,46 @@ class Eventslist extends Component {
         const components = [];
 
         for(let j = 0; j < this.state.places.length; j++){
-            components.push(<Tab eventKey={this.state.places[j].eventKey} title={this.state.places[j].title} class="center-block">
-                                <Cards area={this.state.places[j].eventKey}/>
-                            </Tab>);
+            components.push(<Tab label={this.state.places[j].title} />);
         }
 
         return components;
     };
 
+    TabPanelComponents = () => {
+        const components = [];
+
+        for(let j = 0; j < this.state.places.length; j++){
+            components.push(<TabPanel value={this.state.selectedTap} index={j}>
+                <Cards area={this.state.places[j].eventKey}/>
+            </TabPanel>);
+        }
+
+        return components;
+    };
+
+    handleChange = (event, newValue) => {
+        this.setState({
+            selectedTap: newValue
+        });
+    }
+
     render() {
         return (
             <div>
                 <br/>
+                <Paper className={{flexGrow: 1}}>
+                    <Tabs
+                        value={this.state.selectedTap}
+                        onChange={this.handleChange}
+                        indicatorColor="primary"
+                        textColor="primary"
+                    >
+                        {this.TabComponents()}
+                    </Tabs>
+                    {this.TabPanelComponents()}
+                </Paper>
+                {/*
                 <Container>
                     <Row className="justify-content-md-center">
                         <Col md="auto">
@@ -47,6 +102,7 @@ class Eventslist extends Component {
                         </Col>
                     </Row>
                 </Container>
+                */}
             </div>
         )
     }
