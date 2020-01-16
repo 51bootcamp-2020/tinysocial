@@ -87,7 +87,7 @@ class Cards extends Component {
 
             cards[cards.length - 1].push(
                 // <div className="col-md-4">
-                <Grid item xs={3} >
+                <Grid item xs={4} >
                     <Card style={{marginBottom: '10px'}}>
                         <CardActionArea>
                             <CardMedia
