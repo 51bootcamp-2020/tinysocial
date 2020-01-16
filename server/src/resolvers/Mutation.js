@@ -11,7 +11,7 @@ module.exports.Mutation = {
     }
 
     // TODO(lsh9034): Implement session logic.
-    //  Create session and return sessionId to client.
+    // Create session and return sessionId to client.
 
     return {
       success: true,
@@ -43,7 +43,7 @@ module.exports.Mutation = {
         }
 
         // TODO(lsh9034): Implement session logic.
-        //  Create session and return sessionId to client.
+        // Create session and return sessionId to client.
 
         return {
           success: true,
