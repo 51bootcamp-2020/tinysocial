@@ -1,8 +1,5 @@
-// TODO(arin-kwak): Collect error message like this. Make separate folder.
-const userNotFoundMessage = 'User not found. You have to sign up first';
-const cannotCreateUserMessage = 'Fail to create the user.' +
-    'Please try again later';
-
+const jwt = require('jsonwebtoken');
+const APP_SECRET = process.env.SECRET || "123";
 module.exports.Mutation = {
   signInWithGoogle: async (_, {googleId}, {dataSources}) => {
     const user = await dataSources.mainAPI.findUser({googleId});
@@ -16,8 +13,8 @@ module.exports.Mutation = {
     }
 
     // TODO(lsh9034): Implement session logic.
-    // Create session and return sessionId to client.
-
+    //  Create session and return sessionId to client.
+    const token = jwt.sign({userId:user.id}, APP_SECRET);
     return {
       success: true,
       message: 'Success',
