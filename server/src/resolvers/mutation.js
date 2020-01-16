@@ -1,6 +1,10 @@
 const jwt = require('jsonwebtoken');
 const APP_SECRET = process.env.SECRET || "";
 const expirationTime = '100h';
+const userNotFoundMessage = 'User not found. You have to sign up first';
+const cannotCreateUserMessage = 'Fail to create the user.' +
+    'Please try again later';
+    
 module.exports.Mutation = {
   signInWithGoogle: async (_, {googleId}, {dataSources,userId}) => {
     const user = await dataSources.mainAPI.findUser({googleId});
@@ -51,13 +55,13 @@ module.exports.Mutation = {
         // TODO(lsh9034): Implement session logic.
         // Create session and return sessionId to client.
 
-    // TODO(lsh9034): Implement session logic.
-    //  Create session and return sessionId to client.
-
+    const token = jwt.sign({ userId: user.id }, APP_SECRET, {
+      expiresIn: "100h"
+    });
     return {
       success: true,
       message: "Success",
-      token: "We have to implement this",
+      token: token,
       user
     };
   },
