@@ -12,7 +12,7 @@ const dataSources = () => ({
   mainAPI: new mainAPI(store),
 });
 
-const APP_SECRET = process.env.SECRET || "1234567890";
+const APP_SECRET = process.env.SECRET || "";
 
 const context = async ({req})=>{
   if(!req.headers.authorization) return {userId:null};
