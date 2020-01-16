@@ -13,13 +13,13 @@ class SignupForm extends Component {
       firstName: '',
       lastName: '',
       email: '',
-      // TODO : maybe we don't need this?
+      // TODO : this will be used when facebook login is added
       provider: '',
     };
   }
 
   responseGoogle = res => {
-    // handle about google log-in success
+    // Handle google log-in success
     this.setState({
       id: res.profileObj.googleId,
       firstName: res.profileObj.givenName,
@@ -35,11 +35,10 @@ class SignupForm extends Component {
   };
 
   render() {
-    // TODO : hide this somehow
     const googleAuthAPIClientID =
       "420478568442-ltur9qc3g9uam6f166k1pgsa7f2evl5e.apps.googleusercontent.com";
 
-    // graphql mutation statement for signup
+    // Graphql mutation statement for signup
     const SIGNUP_MUTATION = gql`
     mutation SignUp($googleId: String!, $email: String!, $firstName: String!, $lastName: String!, $profileImgUrl: String) {
       signUpWithGoogle(googleId: $googleId, email: $email, firstName: $firstName, lastName: $lastName, profileImgUrl: $profileImgUrl) {
@@ -55,12 +54,12 @@ class SignupForm extends Component {
       }
     `;
 
-    // receive state values for mutation use
+    // Receive state values for mutation use
     const {id, email, firstName, lastName} = this.state
 
     return (
       <div>
-        {/* form, uneditable for now */}
+        {/* Form, uneditable for now */}
         <ul>
           <li>Email: </li>
           <input type="text" defaultValue={this.state.email} disabled></input>
@@ -69,7 +68,7 @@ class SignupForm extends Component {
           <li>LastName: </li>
           <input type="text" defaultValue={this.state.lastName} disabled></input>
         </ul>
-        {/* register button, sends a mutation to the server */}
+        {/* Register button, sends a mutation to the server */}
         <Mutation 
           mutation={SIGNUP_MUTATION} 
           variables={{
@@ -115,5 +114,5 @@ class SignupForm extends Component {
 
 SignupForm.propTypes = {};
 
-// wrap with withRouter to use props.history
+// Wrap with withRouter to use props.history
 export default withRouter(SignupForm);
