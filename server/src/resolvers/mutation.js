@@ -12,9 +12,8 @@ module.exports.Mutation = {
       };
     }
 
-    // TODO(lsh9034): Implement session logic.
-    //  Create session and return sessionId to client.
-    const token = jwt.sign({userId:userId}, APP_SECRET,{expiresIn:'1h'});
+    // TODO(lsh9034): modify expires time depend on last user interaction.
+    const token = jwt.sign({userId:userId}, APP_SECRET,{expiresIn:'100h'});
     return {
       success: true,
       message: 'Success',
