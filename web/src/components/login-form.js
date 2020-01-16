@@ -5,7 +5,7 @@ import {gql} from 'apollo-boost';
 import {Mutation} from 'react-apollo'
 import {withRouter} from 'react-router-dom'
 
-/*query sending user Information to server*/
+/* Query sending user Information to server */
 const SIGNIN_QUERY = gql`
         mutation ($googleId: String!){
           signInWithGoogle(googleId: $googleId){
@@ -45,7 +45,7 @@ class LoginForm extends Component {
 
   // Google login fail callback function
   responseFail = (err) => {
-    //TODO(Hyejin): make alert function
+    // TODO(Hyejin): Make alert function
   };
 
   /**
@@ -56,12 +56,12 @@ class LoginForm extends Component {
   changeIsMember(isSuccess, token) {
     if (isSuccess) {
       this.setState({isMember: true});
-      //store user token to localStorage
-      //TODO(Hyejin): Refactor data stored to localStorage
+      // Store user token to localStorage
+      // TODO(Hyejin): Refactor data stored to localStorage
       localStorage.setItem('token', token);
     }
     else{
-      //TODO(Hyejin): Implement processing signin failure
+      // TODO(Hyejin): Implement processing signin failure
     }
   }
 
@@ -73,38 +73,44 @@ class LoginForm extends Component {
       return this.props.history.push('/signup');
   };
 
-  // social login button and send googleId received from google to server using mutation component
+  /**
+   * Social login button and
+   * Send googleId received from google to server using mutation component
+   */
   render() {
     return (
-        <div>
-          <Mutation mutation={SIGNIN_QUERY} variables={{googleId: this.state.googleId}}
-              onCompleted={
-                (data)=>{
-                  this.changeIsMember(/* isSucess= */ data.signInWithGoogle.success, /* token= */ data.signInWithGoogle.token);
-                  this.redirect()
-                }}
-              onError={
-                (error)=>{
-                  // TODO(Hyejin): Implement query error processing
-                }
-              }>
-            {(execute_mutation) => {
-              {/*Google Login Button*/}
-                return(
-                  <GoogleLogin
-                      onSuccess={(res) => {
-                        this.setState({
-                          googldId : res.profileObj.googleId
-                        }, execute_mutation)
-                      }}
-                      onFailure={this.responseFail}
-                      clientId={clientId} // our client ID
-                  />
-                )
-            }
-            }
-          </Mutation>
-        </div>);
+      <div>
+        <Mutation mutation={SIGNIN_QUERY}
+                  variables={{googleId: this.state.googleId}}
+                  onCompleted={
+                    (data)=>{
+                      this.changeIsMember(
+                          /* isSucess= */ data.signInWithGoogle.success,
+                          /* token= */ data.signInWithGoogle.token);
+                      this.redirect()
+                    }}
+                  onError={
+                    (error)=>{
+                      // TODO(Hyejin): Implement query error processing
+                    }
+                  }>
+          {(execute_mutation) => {
+            {/* Google Login Button */}
+              return(
+                <GoogleLogin
+                    onSuccess={(res) => {
+                      this.setState({
+                        googldId : res.profileObj.googleId
+                      }, execute_mutation)
+                    }}
+                    onFailure={this.responseFail}
+                    clientId={clientId} // Our client ID
+                />
+              )
+          }
+          }
+        </Mutation>
+      </div>);
   }
 }
 
