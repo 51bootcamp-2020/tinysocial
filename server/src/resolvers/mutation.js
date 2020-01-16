@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const APP_SECRET = process.env.SECRET || "123";
 module.exports.Mutation = {
-  signInWithGoogle: async (_, {googleId}, {dataSources}) => {
+  signInWithGoogle: async (_, {googleId}, {dataSources,userId}) => {
     const user = await dataSources.mainAPI.findUser({googleId});
     if (user === null) {
       return {
@@ -14,11 +14,11 @@ module.exports.Mutation = {
 
     // TODO(lsh9034): Implement session logic.
     //  Create session and return sessionId to client.
-    const token = jwt.sign({userId:user.id}, APP_SECRET);
+    const token = jwt.sign({userId:userId}, APP_SECRET);
     return {
       success: true,
       message: 'Success',
-      token: 'We have to implement this',
+      token: token,
       user,
     };
   },
