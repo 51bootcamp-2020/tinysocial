@@ -15,7 +15,7 @@ const dataSources = () => ({
 const APP_SECRET = process.env.SECRET || "1234567890";
 
 const context = async ({req})=>{
-  if(!req.headers.authorization) return null;
+  if(!req.headers.authorization) return {userId:null};
   try{
     const token = req.headers.authorization;
     const userId = jwt.verify(token,APP_SECRET);
