@@ -28,11 +28,7 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   dataSources,
-  context: async ({req}) => {
-    if(!req.headers.authorization)
-      return null;
-    return {};
-  },
+  context: context
 });
 
 if (process.env.NODE_ENV !== 'test') {
