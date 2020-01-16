@@ -86,7 +86,8 @@ class Cards extends Component {
                 cards.push([]);
 
             cards[cards.length - 1].push(
-                <div className="col-md-4">
+                // <div className="col-md-4">
+                <Grid item xs={3} >
                     <Card style={{marginBottom: '10px'}}>
                         <CardActionArea>
                             <CardMedia
@@ -114,7 +115,7 @@ class Cards extends Component {
                             <Button color="primary">Detail</Button>
                         </CardActions>
                     </Card>
-                </div>
+                </Grid>
             );
         }
 
@@ -122,7 +123,7 @@ class Cards extends Component {
         for (let i = 0; i < cards.length; i++) {
             decks.push(
                 // <CardGroup>
-                <Grid container item xs={12}>
+                <Grid container xs={12} spacing={2} justify='center'>
                     {cards[i]}
                 </Grid>
 
