@@ -19,20 +19,6 @@ const SIGNIN_QUERY = gql`
           }
         }`;
 
-/*query sending user Information to server*/
-const SIGNIN_QUERY = gql`
-        mutation ($googleId: String!){
-          signInWithGoogle(googleId: $googleId){
-            success
-            message
-            token
-            user{
-              firstName
-              lastName
-            }
-          }
-        }`;
-
 class LoginForm extends Component {
 
   constructor(props) {
