@@ -8,7 +8,7 @@ const typeDefs = gql`
         # Returns certain size of events after the cursor
         # Reference:
         #  https://www.apollographql.com/docs/tutorial/resolvers/#paginated-queries 
-        events(pageSize: Int, after: String): EventConnection!
+        events(pageSize: Int, after: Int): EventConnection!
         # Return specific event whose id is 'id'.
         # If not exist, return null
         event(id: ID!): Event
@@ -49,12 +49,15 @@ const typeDefs = gql`
         age: Int
         city: String
         state: String
+        zip: String
+        additionalAddress: String
         phone: String
         hostedEvents: [Event]!
         participatedEvents: [Event]!
         birthday: Date
-        creationTime: DateTime!
+        registrationDate: Date!
         profileImgUrl: String
+        lastInterationTime: DateTime
     }
 
     type Event {
@@ -70,7 +73,6 @@ const typeDefs = gql`
         price: Float!
         # image: Upload!
         # TODO(arin-kwak): Implement image uploading feature
-        maxParticipants: Int!
         tags: [Tag]!
         participants: [User]!
     }
@@ -89,8 +91,7 @@ const typeDefs = gql`
     # Reference:
     # https://www.apollographql.com/docs/tutorial/resolvers/#paginated-queries 
     type EventConnection {
-        cursor: String!
-        hasMore: Boolean!
+        cursor: Int!
         events: [Event]!
     }
 

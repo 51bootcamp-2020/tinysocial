@@ -208,11 +208,7 @@ const createStore = () => {
         key: 'id',
       },
     },
-    // TODO(arin-kwak): Find better way to deal with repetition.
-    // Maybe we can reference calendar apps to improve this.
-    // This method can't deal with 'evey other tuesday'
-    // If 'repeat' is null, this schedule is not repeated.
-    repeat: Sequelize.ENUM('week', 'month', 'year'),
+    maxParticipants: Sequelize.INTEGER,
   }, {
     sequelize,
     modelName: 'schedule',
