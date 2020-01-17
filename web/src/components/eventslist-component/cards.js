@@ -44,6 +44,7 @@ class Cards extends Component {
         // get area selection from props
         super(props);
 
+        // save the arrays of filter names and filter toggle(selected or not) in state
         const filterNames = ['BookClub', 'Movie', 'Wine', 'SciFi', 'Sport'];
         const filterToggles = [];
 
@@ -56,6 +57,7 @@ class Cards extends Component {
         };
     }
 
+    // Function for update filter toggled value to new value
     toggleHandler = val => {
         console.log('toggle:', val);
 
@@ -70,9 +72,11 @@ class Cards extends Component {
         });
     };
 
+    // Function for display toggle button group for event filter
     ToggleButtonGroupControlled = () => {
         const filtersComp = [];
 
+        // Match each toggle button to filterNames for display
         for (let i = 0; i < this.state.filterNames.length; i++) {
             filtersComp.push(
                 <ToggleButton id={i} value={i}>
@@ -80,19 +84,22 @@ class Cards extends Component {
                 </ToggleButton>);
         }
 
+        // Show the filter-button group
         return (
             <ToggleButtonGroup type="checkbox" onChange={this.toggleHandler}>
                 {filtersComp}
             </ToggleButtonGroup>);
     };
 
-    //Featured Information component for landing page
+    // Not Used:: Featured Information component for landing page
     FeaturedInfoComponent = () => {
         let featuredInfo = [];
         featuredInfo.push(
         )
         return featuredInfo;
     };
+
+    // Will add Skeleton component during loading
 
     Items = () => {
         return (<Query query={EVENT_LIST_REQUEST_QUERY}>
@@ -114,11 +121,12 @@ class Cards extends Component {
             if (i % 3 === 0)
                 cards.push([]);
 
+            // Push each card component in cards
             cards[cards.length - 1].push(
-                // <div className="col-md-4">
                 <Grid item xs={4} >
                     <Card style={{marginBottom: '10px'}}>
                         <CardActionArea>
+                            {/* Image section of Card */}
                             <CardMedia
                                 component="img"
                                 alt="CardsImage"
@@ -126,12 +134,11 @@ class Cards extends Component {
                                 image={require('../images/' + (i + 1) + '.jpg')}
                                 title="Cards Image"
                             />
-                        {/*<Card.Img variant="top" src={require('../images/' + i + '.jpg')} style={{height: '17em'}}/>*/}
+                            {/* Content section of Card */}
                             <CardContent>
                                 <ListItem style={{height: '100px'}}>
                                     <ListItemAvatar>
                                         <Avatar alt="Example User Name" src={require('../images/' + (i + 1) + '.jpg')} />
-
                                     </ListItemAvatar>
                                     <ListItemText primary={items[i].title} secondary="July 20, 2014" />
                                 </ListItem>
@@ -140,6 +147,8 @@ class Cards extends Component {
                                 </Typography>
                             </CardContent>
                         </CardActionArea>
+
+                        {/* Button below the card content */}
                         <CardActions>
                             <Button color="primary">Detail</Button>
                         </CardActions>
@@ -149,20 +158,20 @@ class Cards extends Component {
         }
 
         let decks = [];
+        // Push the cards list in decks
         for (let i = 0; i < cards.length; i++) {
             decks.push(
-                // <CardGroup>
                 <Grid container xs={12} spacing={2} justify='center'>
                     {cards[i]}
                 </Grid>
 
-                // </CardGroup>
             );
         }
 
         return decks;
     };
 
+    // Render of cards component
     render() {
         return (
             <div>
