@@ -2,6 +2,7 @@ import React from 'react';
 import Events from './pages/events';
 import Signin from './pages/signin';
 import Landing from './pages/landing';
+import Logo from './img/tinysocial-logo.png';
 import {
   BrowserRouter,
   Switch,
@@ -9,6 +10,7 @@ import {
   Link,
 } from 'react-router-dom';
 import {
+  AppBar,
   Tabs,
   Tab,
   Grid,
@@ -17,34 +19,39 @@ import {
 function Navbar() {
   return (
       <BrowserRouter>
-        <div className="Navbar">
+        <nav className="Navbar">
           <Route
               path="/"
               render={({location}) => (
                   <>
                     {/* TODO : need to make it flex(different UI between mobile web and PC web) */}
-                    <Grid container direction="row" justify="space-between">
-                      <Grid justify="flex-start">
-                        <Tab label="Tiny Social" component={Link} to="/"/>
+                    <AppBar color="default">
+                      <Grid container direction="row" justify="space-between" alignItems="center">
+                        <Grid justify="flex-start">
+                          <a href="/" style={{ padding : 20 }}>
+                            <img src={Logo} width="130" height="18"/>
+                          </a>
+                        </Grid>
+                        <Grid justify="flex-end">
+                          <Tabs value={location.pathname}
+                                aria-label="Navigation Tabs">
+                            <Tab label="Events" component={Link} to="/"/>
+                            {/* TODO : need to implement About page. Now just linked to landing page */}
+                            <Tab label="About" component={Link} to="/landing"/>
+                            <Tab label="Sign in" component={Link} to="/signin"/>
+                          </Tabs>
+                        </Grid>
                       </Grid>
-                      <Grid justify="flex-end">
-                        <Tabs value={location.pathname}>
-                          <Tab label="Events" component={Link} to="/"/>
-                          {/* TODO : need to implement About page. Now just linked to landing page */}
-                          <Tab label="About" component={Link} to="/landing"/>
-                          <Tab label="Sign in" component={Link} to="/signin"/>
-                        </Tabs>
-                      </Grid>
-                    </Grid>
+                    </AppBar>
                     <Switch>
-                      <Route path="/landing" render={() => <Landing/>}/>
+                      <Route path='/landing' render={() => <Landing/>}/>
                       <Route path="/signin" render={() => <Signin/>}/>
-                      <Route path="/" render={() => <Events/>}/>
+                      <Route path='/' render={() => <Events/>}/>
                     </Switch>
                   </>
               )}
           />
-        </div>
+        </nav>
       </BrowserRouter>
   );
 }
