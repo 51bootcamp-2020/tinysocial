@@ -1,7 +1,7 @@
-const {Query} = require('./resolvers/Query');
-const {Mutation} = require('./resolvers/Mutation');
-const {User} = require('./resolvers/User');
-const {Event} = require('./resolvers/Event');
+const {Query} = require('./resolvers/query');
+const {Mutation} = require('./resolvers/mutation');
+const {User} = require('./resolvers/user');
+const {Event} = require('./resolvers/event');
 
 module.exports = {
   Query: {
