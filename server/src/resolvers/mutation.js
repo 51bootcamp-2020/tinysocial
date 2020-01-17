@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const APP_SECRET = process.env.SECRET || "";
+const APP_SECRET = process.env.SECRET || " ";
 const expirationTime = '100h';
 const userNotFoundMessage = 'User not found. You have to sign up first';
 const cannotCreateUserMessage = 'Fail to create the user.' +
