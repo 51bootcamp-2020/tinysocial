@@ -16,9 +16,12 @@ const createStore = () => {
 
   class User extends Model {}
   class Event extends Model {}
+  class EventBookClub extends Model {}
+  class Review extends Model {}
   class Tag extends Model {}
+  class EventTag extends Model {}
   class Schedule extends Model {}
-  class EventParticipant extends Model {}
+  class ScheduleParticipant extends Model {}
 
   User.init({
         id: {
@@ -35,11 +38,14 @@ const createStore = () => {
         email: {
           type: Sequelize.STRING, allowNull: false,
         },
-        token: Sequelize.STRING,
         birthday: Sequelize.DATE,
         city: Sequelize.STRING,
         state: Sequelize.STRING,
+        zip: Sequelize.STRING,
+        additionalAddress: Sequelize.STRING,
         phone: Sequelize.STRING,
+        description: Sequelize.STRING,
+        lastInteractionTime: Sequelize.STRING, // To refresh JWT token
       },
       {
         sequelize,
@@ -64,10 +70,78 @@ const createStore = () => {
     title: Sequelize.STRING,
     description: Sequelize.STRING,
     price: Sequelize.FLOAT,
-    maxParticipants: Sequelize.INTEGER,
+    type: Sequelize.INTEGER,
+    // 'type' specifies which type of the event is.
+    // Enum type is not SQL-standard and it is hard to add a new enum value.
+    // If we want to, we have to use ALTER TABLE statement.
+    // So we define type as INTEGER.
+    // 0: BookClub
+    thumbnailUrl: Sequelize.STRING,
   }, {
     sequelize,
-    modelName: 'event',
+    modelName: 'event'
+  });
+
+  EventBookClub.init({
+    eventId: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      references: {
+        model: Event,
+        key: 'id',
+      },
+    },
+    bookTitle: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    author: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    description: {
+      type: Sequelize.STRING,
+    },
+    ISBN: {
+      type: Sequelize.INTEGER,
+    },
+  }, {
+    sequelize,
+    modelName: 'eventBookClub',
+    timestamps: false,
+  });
+
+  Review.init({
+    userId: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      references: {
+        model: User,
+        key: 'id',
+      }
+    },
+    eventId: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      references: {
+        model: Event,
+        key: 'id',
+      }
+    },
+    title: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    content: {
+      type: Sequelize.STRING,
+    },
+    isPublic: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+    }
+  },{
+    sequelize,
+    modelName: 'review'
   });
 
   // Every event can have multiple tags.
@@ -84,16 +158,33 @@ const createStore = () => {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    eventId: {
-      type: Sequelize.INTEGER,
-      references: {
-        model: Event,
-        key: 'id',
-      },
-    },
   }, {
     sequelize,
     modelName: 'tag',
+    timestamps: false,
+  });
+
+  EventTag.init({
+    eventId: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      references: {
+        model: Event,
+        key: 'id',
+      }
+    },
+    tagId: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      references: {
+        model: Tag,
+        key: 'id',
+      }
+    },
+  }, {
+    sequelize,
+    modelName: 'eventTag',
+    timestamps: false,
   });
 
   Schedule.init({
@@ -128,24 +219,45 @@ const createStore = () => {
     timestamps: false,
   });
 
-  EventParticipant.init({
+  ScheduleParticipant.init({
         userId: {
           type: Sequelize.INTEGER,
           primaryKey: true,
+          references: {
+            model: User,
+            key: 'id',
+          }
         },
-        eventId: {
+        scheduleId: {
           type: Sequelize.INTEGER,
           primaryKey: true,
+          references: {
+            model: Schedule,
+            key: 'id',
+          }
         },
       },
-      {sequelize, modelName: 'EventParticipant'});
+      {
+        sequelize,
+        modelName: 'ScheduleParticipant',
+      });
 
   // Synchronize the models with the database
   // TODO(arin-kwak): In production phase, consider using migration instead of 'sync'.
   // reference: https://sequelize.org/v5/manual/migrations.html
   sequelize.sync();
 
-  return {User, Tag, Event, Schedule, EventParticipant: EventParticipant, sequelize};
+  return {
+    User,
+    Tag,
+    Event,
+    EventBookClub,
+    EventTag,
+    Review,
+    Schedule,
+    ScheduleParticipant,
+    sequelize,
+  };
 };
 
 module.exports = {
