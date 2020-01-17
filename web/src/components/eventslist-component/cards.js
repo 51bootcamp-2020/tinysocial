@@ -79,7 +79,7 @@ class Cards extends Component {
         // Match each toggle button to filterNames for display
         for (let i = 0; i < this.state.filterNames.length; i++) {
             filtersComp.push(
-                <ToggleButton id={i} value={i}>
+                <ToggleButton id={i} value={i} key={this.state.filterNames[i]}>
                     {this.state.filterNames[i]}
                 </ToggleButton>);
         }
@@ -123,7 +123,7 @@ class Cards extends Component {
 
             // Push each card component in cards
             cards[cards.length - 1].push(
-                <Grid item xs={4} >
+                <Grid item xs={4} key={items[i].id}>
                     <Card style={{marginBottom: '10px'}}>
                         <CardActionArea>
                             {/* Image section of Card */}
@@ -161,7 +161,7 @@ class Cards extends Component {
         // Push the cards list in decks
         for (let i = 0; i < cards.length; i++) {
             decks.push(
-                <Grid container xs={12} spacing={2} justify='center'>
+                <Grid container spacing={2} justify='center'>
                     {cards[i]}
                 </Grid>
 
