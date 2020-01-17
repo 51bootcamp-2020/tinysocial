@@ -22,6 +22,22 @@ import {
     ListItemText
 } from '@material-ui/core';
 
+import {gql} from 'apollo-boost';
+import { Query } from "react-apollo";
+
+/* Query requests event list to server */
+const EVENT_LIST_REQUEST_QUERY = gql`
+    query{
+        events(pageSize: 9){
+            cursor,
+            hasMore,
+            events{
+                id,
+                title,
+                description
+            }
+        }
+    }`;
 
 class Cards extends Component {
     constructor(props) {
@@ -78,11 +94,24 @@ class Cards extends Component {
         return featuredInfo;
     };
 
+    Items = () => {
+        return (<Query query={EVENT_LIST_REQUEST_QUERY}>
+            {({loading, error, data}) => {
+                if (loading) return "Loading...";
+                if (error) return `Error! ${error.message}`;
+
+
+                return this.CardsComponent(data.events.events);
+            }}
+        </Query>);
+    };
+
     //will add Skeleton component during loading
-    CardsComponent = () => {
+    CardsComponent = (items) => {
         let cards = [[]];
-        for (let i = 1; i <= 9; i++) {
-            if ((i - 1) % 3 === 0)
+
+        for (let i = 0; i < items.length; i++) {
+            if (i % 3 === 0)
                 cards.push([]);
 
             cards[cards.length - 1].push(
@@ -94,20 +123,20 @@ class Cards extends Component {
                                 component="img"
                                 alt="CardsImage"
                                 height="200em"
-                                image={require('../images/' + i + '.jpg')}
+                                image={require('../images/' + (i + 1) + '.jpg')}
                                 title="Cards Image"
                             />
                         {/*<Card.Img variant="top" src={require('../images/' + i + '.jpg')} style={{height: '17em'}}/>*/}
                             <CardContent>
-                                <ListItem>
+                                <ListItem style={{height: '100px'}}>
                                     <ListItemAvatar>
-                                        <Avatar alt="Example User Name" src={require('../images/' + i + '.jpg')} />
+                                        <Avatar alt="Example User Name" src={require('../images/' + (i + 1) + '.jpg')} />
 
                                     </ListItemAvatar>
-                                    <ListItemText primary={'Card Title'+i} secondary="July 20, 2014" />
+                                    <ListItemText primary={items[i].title} secondary="July 20, 2014" />
                                 </ListItem>
-                                <Typography>
-                                    Hello, world? I'm Example Event{i}. Nice to meet you.
+                                <Typography style={{height: '150px'}}>
+                                    {items[i].description}
                                 </Typography>
                             </CardContent>
                         </CardActionArea>
@@ -141,7 +170,7 @@ class Cards extends Component {
                 <this.ToggleButtonGroupControlled/>
                 <br/>
                 <hr/>
-                {this.CardsComponent()}
+                {this.Items()}
             </div>
         );
     }
