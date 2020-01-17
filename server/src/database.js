@@ -21,7 +21,7 @@ const createStore = () => {
   class Tag extends Model {}
   class EventTag extends Model {}
   class Schedule extends Model {}
-  class ScheduleParticipant extends Model {}
+  class EventParticipant extends Model {}
 
   User.init({
         id: {
@@ -77,6 +77,7 @@ const createStore = () => {
     // So we define type as INTEGER.
     // 0: BookClub
     thumbnailUrl: Sequelize.STRING,
+    maxParticipantNum: Sequelize.INTEGER,
   }, {
     sequelize,
     modelName: 'event'
@@ -208,14 +209,13 @@ const createStore = () => {
         key: 'id',
       },
     },
-    maxParticipants: Sequelize.INTEGER,
   }, {
     sequelize,
     modelName: 'schedule',
     timestamps: false,
   });
 
-  ScheduleParticipant.init({
+  EventParticipant.init({
         userId: {
           type: Sequelize.INTEGER,
           primaryKey: true,
@@ -228,14 +228,14 @@ const createStore = () => {
           type: Sequelize.INTEGER,
           primaryKey: true,
           references: {
-            model: Schedule,
+            model: Event,
             key: 'id',
           }
         },
       },
       {
         sequelize,
-        modelName: 'ScheduleParticipant',
+        modelName: 'EventParticipant',
       });
 
   // Synchronize the models with the database
@@ -251,7 +251,7 @@ const createStore = () => {
     EventTag,
     Review,
     Schedule,
-    ScheduleParticipant,
+    EventParticipant,
     sequelize,
   };
 };
