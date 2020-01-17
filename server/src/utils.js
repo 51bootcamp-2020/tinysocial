@@ -41,6 +41,26 @@ class MainAPI extends DataSource {
 
     return users && users[0] ? users[0] : null;
   }
+
+  async getUserPastEvents(where, userId) {
+    const events = await this.store.ScheduleParticipant.findAll({
+      where: {UserId: userId},
+      include: [
+        {
+          model: Schedule,
+          where: {ScheduleId: Id},
+          include: [
+            {
+              model: Event,
+              where: {EventId: Id, enddatetime: {[Op.lt]: Sequelize.NOW}},
+            },
+          ],
+        },
+      ],
+    });
+
+    return events ? events : null;
+  }
 }
 
 module.exports = {
