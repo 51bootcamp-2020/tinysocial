@@ -56,7 +56,7 @@ class Eventslist extends Component {
     const components = [];
 
     for(let j = 0; j < this.state.places.length; j++){
-      components.push(<Tab label={this.state.places[j].title} />);
+      components.push(<Tab label={this.state.places[j].title} key={this.state.places[j].eventKey}/>);
     }
 
     return components;
@@ -68,8 +68,8 @@ class Eventslist extends Component {
 
     // match the aligned cards to each place panel
     for(let j = 0; j < this.state.places.length; j++){
-      components.push(<TabPanel value={this.state.selectedTap} index={j}>
-        <Cards area={this.state.places[j].eventKey}/>
+      components.push(<TabPanel value={this.state.selectedTap} index={j} key={this.state.places[j].eventKey}>
+        <Cards area={this.state.places[j].eventKey} />
       </TabPanel>);
     }
 
