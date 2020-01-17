@@ -1,10 +1,36 @@
 const Sequelize = require('sequelize');
 
 const createStore = () => {
-  const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: './database.sqlite',
-  });
+  let sequelize;
+  switch (process.env.NODE_ENV) {
+    case 'production':
+      // TODO(yun-kwak): Make production DB and code.
+      throw new Error('Not implemented');
+    case 'dev':
+      if(process.env.DB_PASSWORD === undefined) {
+        throw new Error('Env variable DB_PASSWORD is required');
+      }
+      sequelize = new Sequelize('tinysocial', 'arin_kwak',
+          process.env.DB_PASSWORD, {
+            dialect: 'mariadb',
+            host: 'tinysocial-dev.cwup5u7gf2do.us-west-2.rds.amazonaws.com',
+            dialectOptions: {
+              connectTimeout: 1000, // MariaDB connector option
+            },
+          });
+      break;
+
+    case 'test':
+      sequelize = new Sequelize({
+        dialect: 'sqlite',
+        storage: './database.sqlite',
+      });
+      break;
+
+    default:
+      console.error(`Received process.env.NODE_ENV: ${process.env.NODE_ENV}`);
+      throw new Error('Invalid NODE_ENV value');
+  }
 
   sequelize.authenticate().then(() => {
     console.log('Connection to the database has been established successfully');
@@ -83,7 +109,7 @@ const createStore = () => {
     maxParticipantNum: Sequelize.INTEGER,
   }, {
     sequelize,
-    modelName: 'event'
+    modelName: 'event',
   });
 
   EventBookClub.init({
@@ -124,7 +150,7 @@ const createStore = () => {
       references: {
         model: User,
         key: 'id',
-      }
+      },
     },
     eventId: {
       type: Sequelize.INTEGER,
@@ -132,7 +158,7 @@ const createStore = () => {
       references: {
         model: Event,
         key: 'id',
-      }
+      },
     },
     title: {
       type: Sequelize.STRING,
@@ -144,10 +170,10 @@ const createStore = () => {
     isPublic: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
-    }
-  },{
+    },
+  }, {
     sequelize,
-    modelName: 'review'
+    modelName: 'review',
   });
 
   // Every event can have multiple tags.
@@ -177,7 +203,7 @@ const createStore = () => {
       references: {
         model: Event,
         key: 'id',
-      }
+      },
     },
     tagId: {
       type: Sequelize.INTEGER,
@@ -185,7 +211,7 @@ const createStore = () => {
       references: {
         model: Tag,
         key: 'id',
-      }
+      },
     },
   }, {
     sequelize,
@@ -227,7 +253,7 @@ const createStore = () => {
           references: {
             model: User,
             key: 'id',
-          }
+          },
         },
         scheduleId: {
           type: Sequelize.INTEGER,
@@ -235,7 +261,7 @@ const createStore = () => {
           references: {
             model: Event,
             key: 'id',
-          }
+          },
         },
       },
       {
