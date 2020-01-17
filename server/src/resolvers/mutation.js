@@ -43,21 +43,19 @@ module.exports.Mutation = {
       }
     );
 
-        if (user === null) {
-          return {
-            success: false,
-            message: cannotCreateUserMessage,
-            token: null,
-            user: null,
-          };
-        }
-
-        // TODO(lsh9034): Implement session logic.
-        // Create session and return sessionId to client.
+    if (user === null) {
+      return {
+        success: false,
+        message: cannotCreateUserMessage,
+        token: null,
+        user: null,
+      };
+    }
 
     const token = jwt.sign({ userId: user.id }, APP_SECRET, {
       expiresIn: "100h"
     });
+    
     return {
       success: true,
       message: "Success",

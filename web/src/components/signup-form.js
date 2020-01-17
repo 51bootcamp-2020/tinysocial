@@ -35,6 +35,7 @@ class SignupForm extends Component {
   };
 
   render() {
+    // This api client id is ok to be exposed
     const googleAuthAPIClientID =
       "420478568442-ltur9qc3g9uam6f166k1pgsa7f2evl5e.apps.googleusercontent.com";
 
@@ -81,7 +82,6 @@ class SignupForm extends Component {
             (data) => {
               const {success, message, token} = data.signUpWithGoogle
               if (success) {
-                // TODO : naming might change here
                 window.localStorage.setItem('token', token)
                 this.props.history.push('/')
               } else {
