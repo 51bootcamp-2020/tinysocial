@@ -19,7 +19,8 @@ import Signin from './pages/signin';
 function Navbar() {
   return (
       <BrowserRouter>
-        <nav className="Navbar">
+
+        <div className="Navbar">
           <Route
               path="/"
               render={({location}) => (
@@ -51,7 +52,7 @@ function Navbar() {
                   </>
               )}
           />
-        </nav>
+        </div>
       </BrowserRouter>
   );
 }
