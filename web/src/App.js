@@ -13,6 +13,7 @@ import Signin from "./pages/signin"
 import Signup from "./pages/signup"
 
 const client = new ApolloClient({
+    //TODO(arin-kwak): need update uri
     uri: "http://localhost:15780"
 });
 
