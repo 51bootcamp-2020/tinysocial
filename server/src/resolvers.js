@@ -1,21 +1,19 @@
-const {authGoogle} = require('./auth/auth-google');
-const {authFacebook} = require('./auth/auth-facebook');
+const {Query} = require('./resolvers/query');
+const {Mutation} = require('./resolvers/mutation');
+const {User} = require('./resolvers/user');
+const {Event} = require('./resolvers/event');
 
 module.exports = {
-  Query: {
-    events: (_, __, {dataSources}) => {
-    },
-    event: (_, {id}, {dataSources}) => {
-    },
-    me: (_, __, {dataSources}) => {
-    },
-    user: (_, __, {dataSources}) => {
+  Query,
+  Mutation,
+  User,
+  Event,
+  Tag: {
+    events: () => {
     },
   },
-  Mutation: {
-    authGoogle,
-    authFacebook,
-    logout: (_, __) => {
+  EventConnection: {
+    events: () => {
     },
   },
 };
