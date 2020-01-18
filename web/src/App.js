@@ -7,10 +7,10 @@ import {
 } from 'react-router-dom';
 import EventList from './pages/eventlist';
 import Landing from './pages/landing';
-import NavBar from './components/navigation/navbar'
-import React from "react";
-import Signin from "./pages/signin"
-import Signup from "./pages/signup";
+import NavBar from './components/navigation/navbar';
+import React from 'react';
+import Signin from './pages/signin';
+import Signup from './pages/signup';
 
 const client = new ApolloClient({
   // TODO(arin-kwak): need update uri.
