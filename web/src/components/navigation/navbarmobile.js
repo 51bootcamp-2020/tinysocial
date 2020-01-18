@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from './img/tinysocial-logo.png';
+import Logo from '../../img/tinysocial-logo.png';
 import MenuIcon from '@material-ui/icons/Menu';
 import {
   BrowserRouter,

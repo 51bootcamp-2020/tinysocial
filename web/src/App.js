@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import EventList from './pages/eventlist';
 import Landing from './pages/landing';
-import NavBar from './NavBar'
+import NavBar from './components/navigation/navbar'
 import React from "react";
 import Signin from "./pages/signin"
 import Signup from "./pages/signup";

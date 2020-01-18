@@ -1,8 +1,8 @@
 import React from 'react';
-import Landing from './pages/landing';
-import Signin from './pages/signin';
-import EventList from './pages/eventlist';
-import Logo from './img/tinysocial-logo.png';
+import Landing from '../../pages/landing';
+import Signin from '../../pages/signin';
+import EventList from '../../pages/eventlist';
+import Logo from '../../img/tinysocial-logo.png';
 import {
   BrowserRouter,
   Switch,
