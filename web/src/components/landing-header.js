@@ -1,10 +1,10 @@
-import React from 'react';
 import {Container,
-        Grid,
-        Typography
+  Grid,
+  Typography
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 import LandiingViewButton from './landing-view-button';
+import { makeStyles } from '@material-ui/core/styles';
 
 const landing_bg = require('../assets/landing-bg.jpg');
 const benefit = [
@@ -16,20 +16,19 @@ const benefit = [
 // Main Header css style
 const mainHeaderStyles = makeStyles(theme => ({
   root: {
-    width: '100%',
+    alignItems: 'center',
     backgroundImage: `url(${landing_bg})`,
     backgroundSize: 'cover',
     color:'white',
-    textAlign: 'center',
     height: 400,
     justifyContent: 'center',
-    alignItems: 'center'
+    textAlign: 'center',
+    width: '100%'
   },
-
 }));
 
-// Sub Header css style
-const subHeaderStyles = makeStyles(theme => ({
+// Sub Explanation css style
+const subExplanationStyles = makeStyles(theme => ({
   root: {
     marginTop: 100,
     marginBottom: 50,
@@ -45,9 +44,9 @@ const subHeaderStyles = makeStyles(theme => ({
   }
 }));
 
-// Sub Header in Landing Page
-function LandingSubHeader() {
-  const subStyle = subHeaderStyles();
+// Sub Explanation in Landing Page
+function LandingSubExplanation() {
+  const subStyle = subExplanationStyles();
   return (
       <div className={subStyle.root}>
         <Grid container justify="space-between" className={subStyle.text}>
@@ -62,24 +61,24 @@ function LandingSubHeader() {
             </Typography>
           </Grid>
           <Grid Item xs='auto' sm={3}>
-              <img src={benefit[1]} className={subStyle.img} />
-              <Typography variant="h6" gutterBottom>
-                Read with like-minded friends
-              </Typography>
-              <Typography>
-                Lorem ipsum door sit amet, consectetur adipiscing
-                elit, sed do elusmo
-              </Typography>
+            <img src={benefit[1]} className={subStyle.img} />
+            <Typography variant="h6" gutterBottom>
+              Read with like-minded friends
+            </Typography>
+            <Typography>
+              Lorem ipsum door sit amet, consectetur adipiscing
+              elit, sed do elusmo
+            </Typography>
           </Grid>
           <Grid item xs='auto' sm={3}>
-              <img src={benefit[2]} className={subStyle.img} />
-              <Typography variant="h6" gutterBottom>
-                Read, drink and be merry
-              </Typography>
-              <Typography>
-                Lorem ipsum door sit amet, consectetur adipiscing
-                elit, sed do elusmo
-              </Typography>
+            <img src={benefit[2]} className={subStyle.img} />
+            <Typography variant="h6" gutterBottom>
+              Read, drink and be merry
+            </Typography>
+            <Typography>
+              Lorem ipsum door sit amet, consectetur adipiscing
+              elit, sed do elusmo
+            </Typography>
           </Grid>
         </Grid>
       </div>
@@ -90,25 +89,25 @@ function LandingSubHeader() {
 export default function LandingHeader() {
   const mainStyle = mainHeaderStyles();
   return (
-    <React.Fragment>
-      <Grid container className={mainStyle.root}>
-        <Grid item xs={12}>
-          <Typography variant='h4' paragraph>
-            Reinventing the Book club
-          </Typography>
-          <Typography variant='h6' paragraph>
-            Meaningful Conversations With<br/>
-            Like-Minded People
-          </Typography>
+      <React.Fragment>
+        <Grid container className={mainStyle.root}>
+          <Grid item xs={12}>
+            <Typography variant='h4' paragraph>
+              Reinventing the Book club
+            </Typography>
+            <Typography variant='h6' paragraph>
+              Meaningful Conversations With<br/>
+              Like-Minded People
+            </Typography>
+          </Grid>
         </Grid>
-      </Grid>
-    <Container maxWidth='xl'>
-      <LandingSubHeader />
-    </Container>
-    <Container maxWidth='xl'>
-      <LandiingViewButton/>
-    </Container>
+        <Container maxWidth='xl'>
+          <LandingSubExplanation />
+        </Container>
+        <Container maxWidth='xl'>
+          <LandiingViewButton/>
+        </Container>
 
-    </React.Fragment>
+      </React.Fragment>
   )
 }

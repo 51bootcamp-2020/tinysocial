@@ -1,10 +1,13 @@
-import React, {Component} from 'react';
-import {Redirect} from 'react-router';
 import {Button,
+        Box,
         Grid,
-        Box} from '@material-ui/core';
+} from '@material-ui/core';
+import React from 'react';
+import {withRouter} from 'react-router-dom'
 
-export default function LandiingViewButton() {
+// Redirect 'Popular' and 'View All' Button to event list page
+// TODO(Lhyejin): Add css style
+const LandiingViewButton = props => {
   return (
       <Grid container justify="space-between">
         <Grid item xs={1}>
@@ -12,9 +15,12 @@ export default function LandiingViewButton() {
         </Grid>
         <Grid item xs={1}>
           <Button onClick={() => {
-            return <Redirect to='/events' />
-          }}> View all </Button>
+            return props.history.push('/eventlist')
+          }
+          }> View all </Button>
         </Grid>
       </Grid>
   )
-}
+};
+
+export default withRouter(LandiingViewButton);
