@@ -1,4 +1,6 @@
 const {DataSource} = require('apollo-datasource');
+const Sequelize = require('sequelize');
+const OP = Sequelize.Op;
 
 class MainAPI extends DataSource {
   constructor(store) {
@@ -60,6 +62,53 @@ class MainAPI extends DataSource {
     });
 
     return events ? events : null;
+  }
+
+  //   async getUserUpcomingEvents(userId) {
+  //     this.store.Event.hasMany(this.store.Schedule);
+  //     this.store.Schedule.hasMany(this.store.ScheduleParticipant);
+  //     const events = await this.store.Event.findAll({
+  //       where: { userId },
+  //       include: [
+  //         {
+  //           model: this.store.Schedule,
+  //           // where: { eventId: id },
+  //           include: [
+  //             {
+  //               model: this.store.ScheduleParticipant,
+  //               where: {
+  //                 end: { [OP.gt]: Sequelize.literal("CURRENT_TIMESTAMP") }
+  //               }
+  //             }
+  //           ]
+  //         }
+  //       ]
+  //     });
+
+  //     return events ? events : null;
+  //   }
+  // }
+
+  async getUserUpcomingEvents(userId) {
+    const events = await this.store.ScheduleParticipant.findAll({
+      where: {userId: userId.userId},
+      include: [
+        {
+          model: this.store.Schedule,
+          where: {
+            startDateTime: {
+              [OP.gte]: new Date(),
+            },
+          },
+          include: [
+            {
+              model: this.store.Event,
+            },
+          ],
+        },
+      ],
+    });
+    return events.map((event) => event.schedule.event);
   }
 }
 
