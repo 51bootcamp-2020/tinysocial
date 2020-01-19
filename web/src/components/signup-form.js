@@ -37,12 +37,21 @@ class SignupForm extends Component {
   render() {
     // This api client id is ok to be exposed
     const googleAuthAPIClientID =
-      "420478568442-ltur9qc3g9uam6f166k1pgsa7f2evl5e.apps.googleusercontent.com";
+      "420478568442-ltur9qc3g9uam6f166k1pgsa7f2evl5e" +
+      ".apps.googleusercontent.com";
 
     // Graphql mutation statement for signup
     const SIGNUP_MUTATION = gql`
-    mutation SignUp($googleId: String!, $email: String!, $firstName: String!, $lastName: String!, $profileImgUrl: String) {
-      signUpWithGoogle(googleId: $googleId, email: $email, firstName: $firstName, lastName: $lastName, profileImgUrl: $profileImgUrl) {
+    mutation SignUp($googleId: String!, 
+                    $email: String!, 
+                    $firstName: String!, 
+                    $lastName: String!, 
+                    $profileImgUrl: String) {
+      signUpWithGoogle(googleId: $googleId, 
+                        email: $email, 
+                        firstName: $firstName, 
+                        lastName: $lastName, 
+                        profileImgUrl: $profileImgUrl) {
           success
           message
           token
