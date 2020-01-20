@@ -46,21 +46,6 @@ class MainAPI extends DataSource {
 
   async getUserPastEvents(userId) {
     const events = await this.store.ScheduleParticipant.findAll({
-<<<<<<< 1d66a671c22c284c305498d3a80cde939d1953cf
-      where: {UserId: userId},
-      include: [
-        {
-          model: Schedule,
-          where: {ScheduleId: Id},
-          include: [
-            {
-              model: Event,
-              where: {EventId: Id, enddatetime: {[Op.lt]: Sequelize.NOW}},
-            },
-          ],
-        },
-      ],
-=======
       where: { userId: userId.userId },
       include: [
         {
@@ -77,7 +62,6 @@ class MainAPI extends DataSource {
           ]
         }
       ]
->>>>>>> feat: Add getting user events api
     });
     return events.map(event => event.schedule.event);
   }
@@ -103,56 +87,6 @@ class MainAPI extends DataSource {
     });
     return events.map(event => event.schedule.event);
   }
-<<<<<<< a30c74aeea8dca9827f59d5f9f99232665134456
-
-  //   async getUserUpcomingEvents(userId) {
-  //     this.store.Event.hasMany(this.store.Schedule);
-  //     this.store.Schedule.hasMany(this.store.ScheduleParticipant);
-  //     const events = await this.store.Event.findAll({
-  //       where: { userId },
-  //       include: [
-  //         {
-  //           model: this.store.Schedule,
-  //           // where: { eventId: id },
-  //           include: [
-  //             {
-  //               model: this.store.ScheduleParticipant,
-  //               where: {
-  //                 end: { [OP.gt]: Sequelize.literal("CURRENT_TIMESTAMP") }
-  //               }
-  //             }
-  //           ]
-  //         }
-  //       ]
-  //     });
-
-  //     return events ? events : null;
-  //   }
-  // }
-
-  async getUserUpcomingEvents(userId) {
-    const events = await this.store.ScheduleParticipant.findAll({
-      where: {userId: userId.userId},
-      include: [
-        {
-          model: this.store.Schedule,
-          where: {
-            startDateTime: {
-              [OP.gte]: new Date(),
-            },
-          },
-          include: [
-            {
-              model: this.store.Event,
-            },
-          ],
-        },
-      ],
-    });
-    return events.map((event) => event.schedule.event);
-  }
-=======
->>>>>>> Revert "feat: Add getUserUpcomingEvent API"
 }
 
 module.exports = {

@@ -1,4 +1,4 @@
-const Sequelize = require("sequelize");
+const Sequelize = require('sequelize');
 
 const createStore = () => {
   let sequelize;
@@ -110,7 +110,7 @@ const createStore = () => {
   },
     {
       sequelize,
-      modelName: "user"
+      modelName: "event"
     }
   );
 
@@ -127,7 +127,7 @@ const createStore = () => {
         type: Sequelize.INTEGER,
         references: {
           model: User,
-          key: "id"
+          key: 'id'
         }
       },
       title: Sequelize.STRING,
@@ -143,7 +143,7 @@ const createStore = () => {
     },
     {
       sequelize,
-      modelName: "event"
+      modelName: 'event'
     }
   );
 
@@ -154,7 +154,7 @@ const createStore = () => {
         primaryKey: true,
         references: {
           model: Event,
-          key: "id"
+          key: 'id'
         }
       },
       bookTitle: {
@@ -174,7 +174,7 @@ const createStore = () => {
     },
     {
       sequelize,
-      modelName: "eventBookClub",
+      modelName: 'eventBookClub',
       timestamps: false
     }
   );
@@ -186,7 +186,7 @@ const createStore = () => {
         primaryKey: true,
         references: {
           model: User,
-          key: "id"
+          key: 'id'
         }
       },
       eventId: {
@@ -194,7 +194,7 @@ const createStore = () => {
         primaryKey: true,
         references: {
           model: Event,
-          key: "id"
+          key: 'id'
         }
       },
       title: {
@@ -211,7 +211,7 @@ const createStore = () => {
     },
     {
       sequelize,
-      modelName: "review"
+      modelName: 'review'
     }
   );
 
@@ -278,43 +278,18 @@ const createStore = () => {
         type: Sequelize.INTEGER,
         references: {
           model: Event,
-          key: "id"
+          key: 'id'
         }
       },
       maxParticipants: Sequelize.INTEGER
     },
     {
       sequelize,
-      modelName: "schedule",
+      modelName: 'schedule',
       timestamps: false
     }
   );
 
-<<<<<<< b094614b0cb210688f9ab66476ccd86d7ed6e0a5
-  EventParticipant.init({
-    userId: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      references: {
-        model: User,
-        key: 'id',
-      },
-    },
-    scheduleId: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      references: {
-        model: Event,
-        key: 'id',
-      },
-    },
-  },
-    {
-      sequelize,
-      modelName: 'EventParticipant',
-    });
-
-=======
   EventParticipant.init(
     {
       userId: {
@@ -322,7 +297,7 @@ const createStore = () => {
         primaryKey: true,
         references: {
           model: User,
-          key: "id"
+          key: 'id'
         }
       },
       scheduleId: {
@@ -330,7 +305,7 @@ const createStore = () => {
         primaryKey: true,
         references: {
           model: Schedule,
-          key: "id"
+          key: 'id'
         }
       }
     },
@@ -343,7 +318,6 @@ const createStore = () => {
   ScheduleParticipant.belongsTo(Schedule);
   Event.hasMany(Schedule);
   Schedule.belongsTo(Event);
->>>>>>> feat: Add getting user events api
   // Synchronize the models with the database
   // TODO(arin-kwak): In production phase, consider using migration instead of 'sync'.
   // reference: https://sequelize.org/v5/manual/migrations.html
