@@ -44,8 +44,9 @@ class MainAPI extends DataSource {
     return users && users[0] ? users[0] : null;
   }
 
-  async getUserPastEvents(where, userId) {
+  async getUserPastEvents(userId) {
     const events = await this.store.ScheduleParticipant.findAll({
+<<<<<<< 1d66a671c22c284c305498d3a80cde939d1953cf
       where: {UserId: userId},
       include: [
         {
@@ -59,9 +60,48 @@ class MainAPI extends DataSource {
           ],
         },
       ],
+=======
+      where: { userId: userId.userId },
+      include: [
+        {
+          model: this.store.Schedule,
+          where: {
+            endDateTime: {
+              [OP.lte]: new Date()
+            }
+          },
+          include: [
+            {
+              model: this.store.Event
+            }
+          ]
+        }
+      ]
+>>>>>>> feat: Add getting user events api
     });
+    return events.map(event => event.schedule.event);
+  }
 
-    return events ? events : null;
+  async getUserUpcomingEvents(userId) {
+    const events = await this.store.ScheduleParticipant.findAll({
+      where: { userId: userId.userId },
+      include: [
+        {
+          model: this.store.Schedule,
+          where: {
+            startDateTime: {
+              [OP.gte]: new Date()
+            }
+          },
+          include: [
+            {
+              model: this.store.Event
+            }
+          ]
+        }
+      ]
+    });
+    return events.map(event => event.schedule.event);
   }
 <<<<<<< a30c74aeea8dca9827f59d5f9f99232665134456
 
