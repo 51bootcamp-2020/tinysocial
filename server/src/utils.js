@@ -63,6 +63,7 @@ class MainAPI extends DataSource {
 
     return events ? events : null;
   }
+<<<<<<< a30c74aeea8dca9827f59d5f9f99232665134456
 
   //   async getUserUpcomingEvents(userId) {
   //     this.store.Event.hasMany(this.store.Schedule);
@@ -110,6 +111,8 @@ class MainAPI extends DataSource {
     });
     return events.map((event) => event.schedule.event);
   }
+=======
+>>>>>>> Revert "feat: Add getUserUpcomingEvent API"
 }
 
 module.exports = {
