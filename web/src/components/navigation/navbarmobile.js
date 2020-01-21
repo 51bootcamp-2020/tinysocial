@@ -5,7 +5,7 @@ import {
   Drawer,
   Grid,
   IconButton,
-  List, Tab,
+  List,
   Toolbar,
   Typography,
 } from '@material-ui/core';
@@ -45,7 +45,7 @@ function NavBarMobile() {
         <Divider/>
         <List>
           <Grid container
-                direction="column">
+              direction="column">
             <a href="/" className={classes.listItem}>
               <Typography variant="button" style={{textTransform: 'none'}}>
                 Events
