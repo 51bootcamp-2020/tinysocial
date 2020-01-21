@@ -17,8 +17,17 @@ const typeDefs = gql`
     # Return the user whose id is 'id'.
     # If not exist, return null
     user(id: ID!): User
-    upcomingEvents(userId: Int): [Event]!
-    pastEvents(userId: Int): [Event]!
+    upcomingEvents(userId: Int): [Event]
+    pastEvents(userId: Int): [Event]
+    getUserReviews(userId: Int, eventId: Int): Review
+  }
+  
+  type Review {
+      title: String!
+      content: String!
+      author: User!
+      isPublic: Boolean!
+      event: Event
   }
 
   type Mutation {
