@@ -12,22 +12,11 @@ import {
   IconButton,
   Drawer,
   List,
-  makeStyles,
   Divider,
   Button,
   Typography,
 } from '@material-ui/core';
-
-const useStyles = makeStyles({
-  list: {
-    width: 250,
-  },
-  listItem: {
-    margin: 10,
-    marginLeft: 20,
-    color: '#000000',
-  },
-});
+import useStyles from './constant';
 
 function NavBarMobile() {
   const classes = useStyles();
@@ -44,12 +33,10 @@ function NavBarMobile() {
   };
 
   const sideList = side => (
-      <div
-          className={classes.list}
+      <div className={classes.list}
           role="presentation"
           onClick={toggleDrawer(side, false)}
-          onKeyDown={toggleDrawer(side, false)}
-      >
+          onKeyDown={toggleDrawer(side, false)}>
         <List>
           <a href="/" style={{padding: 20}}>
             <img src={Logo} width="130" height="18"/>
@@ -57,15 +44,14 @@ function NavBarMobile() {
         </List>
         <Divider/>
         <List>
-          <Grid
-              container
+          <Grid container
               direction="column">
             <a href="/eventlist" className={classes.listItem}>
               <Typography variant="button">
                 Events
               </Typography>
             </a>
-            {/* TODO : need to implement About page. Now just linked to landing page */}
+            {/* TODO(YoonYeoHwan) : Need to implement About page. Now just linked to landing page. */}
             <a href="/landing" className={classes.listItem}>
               <Typography variant="button">
                 About

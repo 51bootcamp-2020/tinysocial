@@ -36,7 +36,7 @@ function NavBarPC() {
                           <Tabs value={location.pathname}
                                 aria-label="Navigation Tabs">
                             <Tab label="Events" component={Link} to="/"/>
-                            {/* TODO : need to implement About page. Now just linked to landing page */}
+                            {/* TODO(YoonYeoHwan) : Need to implement About page. Now just linked to landing page. */}
                             <Tab label="About" component={Link}
                                  to="/landing"/>
                             <Tab label="Sign in" component={Link}
