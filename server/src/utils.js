@@ -97,6 +97,34 @@ class MainAPI extends DataSource {
     })
     return review;
   }
+
+  async createOrModifyReview(reviewInfo) {
+    const review = await this.getUserReviews({
+      userId: reviewInfo.userId, eventId: reviewInfo.eventId
+    })
+    if (review === null) {
+      const flag = await this.store.Review.create({
+        userId: reviewInfo.userId,
+        eventId: reviewInfo.eventId,
+        title: reviewInfo.title,
+        content: reviewInfo.content,
+        isPublic: reviewInfo.isPublic
+      })
+      if (flag !== null) {
+        return true;
+      }
+    }
+    else {
+      review.title = reviewInfo.title;
+      review.content = reviewInfo.content;
+      review.isPublic = reviewInfo.isPublic;
+      const flag = await review.save();
+      if (flag !== null) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
 
 module.exports = {

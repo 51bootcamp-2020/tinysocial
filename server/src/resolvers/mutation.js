@@ -63,7 +63,26 @@ module.exports.Mutation = {
       token: token,
       user
     };
+    },
+  createReview: async (_, { userId, eventId, title, content, isPublic }, { dataSources }) => {
+    const isSuccess = await dataSources.mainAPI.
+      createOrModifyReview(
+        {
+          userId, eventId, title, content, isPublic
+        }
+      );
+    return isSuccess;
+  },
+  modifyReview: async (_, { userId, eventId, title, content, isPublic }, { dataSources }) => {
+    const isSuccess = await dataSources.mainAPI.
+      createOrModifyReview(
+        {
+          userId, eventId, title, content, isPublic
+        }
+      );
+    return isSuccess;
+  },
+  logout: async () => {
   },
 
-  logout: async () => {}
 };
