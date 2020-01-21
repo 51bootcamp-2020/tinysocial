@@ -324,7 +324,6 @@ const createStore = () => {
   sequelize.sync();
 
   return {
-<<<<<<< 8045108acea9a804aac39c0d35824f1246d8a6a3
     User,
     Tag,
     Event,
@@ -334,9 +333,6 @@ const createStore = () => {
     Schedule,
     EventParticipant,
     sequelize,
-=======
-    User, Event, EventBookClub, Review, Tag, EventTag, Schedule, ScheduleParticipant
->>>>>>> feat: Add getUserReviews function
   };
 };
 
