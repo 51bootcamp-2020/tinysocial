@@ -15,7 +15,10 @@
     "strip-bom-stream": "^4.0.0"
   },
   "scripts": {
-    "start": "cd src && node data_importer.js && node index.js"
+    "start": "cd src && nodemon index.js"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-google": "^0.14.0"
+  }
 }
