@@ -87,6 +87,16 @@ class MainAPI extends DataSource {
     });
     return events.map(event => event.schedule.event);
   }
+
+  async getUserReviews(info) {
+    const review = await this.store.Review.findOne({
+      where: {
+        userId: info.userId,
+        eventId: info.eventId
+      }
+    })
+    return review;
+  }
 }
 
 module.exports = {

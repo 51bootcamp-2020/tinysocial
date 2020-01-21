@@ -16,5 +16,12 @@ module.exports.Query = {
       return null;
     }
     return events;
+  },
+  getUserReviews: async (_, { userId, eventId }, { dataSources }) => {
+    const reviews = await dataSources.mainAPI.getUserReviews({ userId, eventId });
+    if (reviews === undefined) {
+      return null;
+    }
+    return reviews;
   }
 };
