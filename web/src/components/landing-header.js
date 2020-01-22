@@ -1,7 +1,6 @@
 import React from 'react';
 import {Container,
         Grid,
-        CssBaseline,
         Typography
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -33,7 +32,7 @@ const mainHeaderStyles = makeStyles(theme => ({
 const subHeaderStyles = makeStyles(theme => ({
   root: {
     marginTop: 100,
-    marginBottom: 100,
+    marginBottom: 50,
     marginLeft: 20,
     marginRight: 20
   },
