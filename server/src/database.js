@@ -7,7 +7,7 @@ const createStore = () => {
       // TODO(yun-kwak): Make production DB and code.
       throw new Error('Not implemented');
     case 'dev':
-      if(process.env.DB_PASSWORD === undefined) {
+      if (process.env.DB_PASSWORD === undefined) {
         throw new Error('Env variable DB_PASSWORD is required');
       }
       sequelize = new Sequelize('tinysocial', 'arin_kwak',
@@ -34,7 +34,7 @@ const createStore = () => {
 
   sequelize.authenticate().then(() => {
     console.log('Connection to the database has been established successfully');
-  }).catch(err => {
+  }).catch((err) => {
     console.error(`Unable to connect to the database: ${err}`);
   });
 
@@ -50,36 +50,36 @@ const createStore = () => {
   class EventParticipant extends Model {}
 
   User.init({
-        id: {
-          type: Sequelize.INTEGER,
-          primaryKey: true,
-          autoIncrement: true,
-        },
-        createdAt: Sequelize.DATE,
-        firstName: {type: Sequelize.STRING, allowNull: false},
-        lastName: {type: Sequelize.STRING, allowNull: false},
-        googleId: Sequelize.STRING,
-        facebookId: Sequelize.STRING,
-        profileImgUrl: Sequelize.STRING,
-        email: {
-          type: Sequelize.STRING, allowNull: false,
-        },
-        birthday: Sequelize.DATE,
-        // TODO: Split the address into
-        // street address
-        // additional street address
-        // city
-        // state
-        // zip code
-        address: Sequelize.STRING,
-        phone: Sequelize.STRING,
-        self_description: Sequelize.STRING,
-        lastInteractionTime: Sequelize.STRING, // To refresh JWT token
-      },
-      {
-        sequelize,
-        modelName: 'user',
-      });
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    createdAt: Sequelize.DATE,
+    firstName: {type: Sequelize.STRING, allowNull: false},
+    lastName: {type: Sequelize.STRING, allowNull: false},
+    googleId: Sequelize.STRING,
+    facebookId: Sequelize.STRING,
+    profileImgUrl: Sequelize.STRING,
+    email: {
+      type: Sequelize.STRING, allowNull: false,
+    },
+    birthday: Sequelize.DATE,
+    // TODO: Split the address into
+    // street address
+    // additional street address
+    // city
+    // state
+    // zip code
+    address: Sequelize.STRING,
+    phone: Sequelize.STRING,
+    self_description: Sequelize.STRING,
+    lastInteractionTime: Sequelize.STRING, // To refresh JWT token
+  },
+  {
+    sequelize,
+    modelName: 'user',
+  });
 
   Event.init({
     id: {
@@ -247,27 +247,27 @@ const createStore = () => {
   });
 
   EventParticipant.init({
-        userId: {
-          type: Sequelize.INTEGER,
-          primaryKey: true,
-          references: {
-            model: User,
-            key: 'id',
-          },
-        },
-        scheduleId: {
-          type: Sequelize.INTEGER,
-          primaryKey: true,
-          references: {
-            model: Event,
-            key: 'id',
-          },
-        },
+    userId: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      references: {
+        model: User,
+        key: 'id',
       },
-      {
-        sequelize,
-        modelName: 'EventParticipant',
-      });
+    },
+    scheduleId: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      references: {
+        model: Event,
+        key: 'id',
+      },
+    },
+  },
+  {
+    sequelize,
+    modelName: 'EventParticipant',
+  });
 
   // Synchronize the models with the database
   // TODO(arin-kwak): In production phase, consider using migration instead of 'sync'.

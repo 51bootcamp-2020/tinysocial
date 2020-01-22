@@ -21,7 +21,7 @@ class mainAPI extends DataSource {
       where,
     });
     return user ? user : null;
-  };
+  }
 
   async findOrCreateUser(where, userInfo) {
     /**
@@ -40,9 +40,9 @@ class mainAPI extends DataSource {
     });
 
     return users && users[0] ? users[0] : null;
-  };
+  }
 }
 
 module.exports = {
-  mainAPI,
+  MainAPI: mainAPI,
 };
