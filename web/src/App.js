@@ -1,5 +1,6 @@
+
 import React from 'react';
-import Eventslist from './pages/eventslist';
+import Landing from './pages/landing';
 import ApolloClient from "apollo-boost";
 import {ApolloProvider} from "react-apollo";
 import {
@@ -33,6 +34,7 @@ function App() {
         </Switch>
       </Router>
     </ApolloProvider>
+
   );
 }
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Cards from './cards';
+import Cards from './EventCards';
 import {
   ToggleButton,
   ToggleButtonGroup,
@@ -25,7 +25,7 @@ const EVENT_LIST_REQUEST_QUERY = gql`
         }
     }`;
 
-class Eventspanel extends Component {
+class EventFilters extends Component {
   constructor(props) {
     // get area selection from props
     super(props);
@@ -78,44 +78,18 @@ class Eventspanel extends Component {
         </ToggleButtonGroup>);
   };
 
-  // Not Used:: Featured Information component for landing page
-  FeaturedInfoComponent = () => {
-    let featuredInfo = [];
-    featuredInfo.push(
-    )
-    return featuredInfo;
-  };
-
-  // Will add Skeleton component during loading
-
-  Items = () => {
-    return (<Query query={EVENT_LIST_REQUEST_QUERY}>
-      {({loading, error, data}) => {
-        if (loading) return "Loading...";
-        if (error) return `Error! ${error.message}`;
-
-        //will add Skeleton component during loading
-        return(<Cards>{data.events.events}</Cards>)
-      }}
-    </Query>);
-  };
-
 
 
   // Render of cards component
   render() {
     return (
-        <div>
-          <p>This is {this.props.area}</p>
+
           <this.ToggleButtonGroupControlled/>
-          <br/>
-          <hr/>
-          {this.Items()}
-        </div>
+
     );
   }
 }
 
-Eventspanel.propTypes = {};
+EventFilters.propTypes = {};
 
-export default Eventspanel;
+export default EventFilters;

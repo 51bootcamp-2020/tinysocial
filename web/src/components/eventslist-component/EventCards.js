@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 
 
-class Cards extends Component {
+class EventCards extends Component {
     constructor(props) {
         super(props);
 
@@ -77,6 +77,6 @@ class Cards extends Component {
     }
 }
 
-Cards.propTypes = {};
+EventCards.propTypes = {};
 
-export default Cards;
+export default EventCards;
