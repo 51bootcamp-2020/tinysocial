@@ -39,10 +39,13 @@ const createStore = () => {
           type: Sequelize.STRING, allowNull: false,
         },
         birthday: Sequelize.DATE,
-        city: Sequelize.STRING,
-        state: Sequelize.STRING,
-        zip: Sequelize.STRING,
-        additionalAddress: Sequelize.STRING,
+        // TODO: Split the address into
+        // street address
+        // additional street address
+        // city
+        // state
+        // zip code
+        address: Sequelize.STRING,
         phone: Sequelize.STRING,
         description: Sequelize.STRING,
         lastInteractionTime: Sequelize.STRING, // To refresh JWT token
@@ -70,12 +73,12 @@ const createStore = () => {
     title: Sequelize.STRING,
     description: Sequelize.STRING,
     price: Sequelize.FLOAT,
-    type: Sequelize.INTEGER,
     // 'type' specifies which type of the event is.
     // Enum type is not SQL-standard and it is hard to add a new enum value.
     // If we want to, we have to use ALTER TABLE statement.
     // So we define type as INTEGER.
     // 0: BookClub
+    type: Sequelize.INTEGER,
     thumbnailUrl: Sequelize.STRING,
     maxParticipantNum: Sequelize.INTEGER,
   }, {
@@ -112,6 +115,8 @@ const createStore = () => {
     timestamps: false,
   });
 
+  // TODO(yun-kwak): Modify Review to make review always stay in the system.
+  // https://github.com/51bootcamp-2020/tinysocial/pull/22#discussion_r368315502
   Review.init({
     userId: {
       type: Sequelize.INTEGER,
