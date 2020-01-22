@@ -31,6 +31,7 @@ class Eventspanel extends Component {
     super(props);
 
     // save the arrays of filter names and filter toggle(selected or not) in state
+    // Todo: mapping filterNames string-integer(enum) after db builiding complete.
     const filterNames = ['BookClub', 'Movie', 'Wine', 'SciFi', 'Sport'];
     const filterToggles = [];
 
@@ -47,14 +48,14 @@ class Eventspanel extends Component {
   toggleHandler = val => {
     console.log('toggle:', val);
 
-    const newFilterToggles = [];
+    const updatedFilterToggles = [];
     for (let j = 0; j < this.state.filterToggles.length; j++)
-      newFilterToggles.push(false);
+      updatedFilterToggles.push(false);
     for (let j = 0; j < val.length; j++)
-      newFilterToggles[val[j]] = true;
+      updatedFilterToggles[val[j]] = true;
 
     this.setState({
-      filterToggles: newFilterToggles,
+      filterToggles: updatedFilterToggles,
     });
   };
 
