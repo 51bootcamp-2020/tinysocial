@@ -19,7 +19,7 @@ module.exports = {
           price: 999999.99,
           maxParticipants: 1000,
           tags: [],
-          participants: []
+          participants: [],
         },
         {
           id: 1,
@@ -32,7 +32,7 @@ module.exports = {
           price: 999999.99,
           maxParticipants: 1000,
           tags: [],
-          participants: []
+          participants: [],
         },
         {
           id: 2,
@@ -41,11 +41,13 @@ module.exports = {
           lastUpdatedTime: '',
           schedule: [],
           title: 'What is meaning of life?',
-          description: 'Sometimes we thinking about huge size of the universe. Compare to what humanity accomplished so far, the universe seems wast of space... isn\' it?',
+          description: 'Sometimes we thinking about huge size of the universe. ' +
+              'Compare to what humanity accomplished so far, the universe seems ' +
+              'wast of space... isn\' it?',
           price: 999999.99,
           maxParticipants: 1000,
           tags: [],
-          participants: []
+          participants: [],
         },
         {
           id: 3,
@@ -54,11 +56,12 @@ module.exports = {
           lastUpdatedTime: '',
           schedule: [],
           title: 'If AI gets self awareness...',
-          description: 'That means bad thing to human? YES. But in a perspective of evolution? NO.',
+          description: 'That means bad thing to human? YES. But in a perspective ' +
+              'of evolution? NO.',
           price: 999999.99,
           maxParticipants: 1000,
           tags: [],
-          participants: []
+          participants: [],
         },
         {
           id: 4,
@@ -71,7 +74,7 @@ module.exports = {
           price: 999999.99,
           maxParticipants: 1000,
           tags: [],
-          participants: []
+          participants: [],
         },
         {
           id: 5,
@@ -84,7 +87,7 @@ module.exports = {
           price: 999999.99,
           maxParticipants: 1000,
           tags: [],
-          participants: []
+          participants: [],
         },
         {
           id: 6,
@@ -97,7 +100,7 @@ module.exports = {
           price: 999999.99,
           maxParticipants: 1000,
           tags: [],
-          participants: []
+          participants: [],
         },
         {
           id: 7,
@@ -110,7 +113,7 @@ module.exports = {
           price: 999999.99,
           maxParticipants: 1000,
           tags: [],
-          participants: []
+          participants: [],
         },
         {
           id: 8,
@@ -123,31 +126,25 @@ module.exports = {
           price: 999999.99,
           maxParticipants: 1000,
           tags: [],
-          participants: []
-        }
+          participants: [],
+        },
       ];
 
       let ret = [];
-      if(!pageSize) {
-        ret = events_list;
-      }else{
-        for(let j = 0; j < Math.min(pageSize, 9); j++){
-          ret.push(events_list[j]);
-        }
-      }
+      int max_size = Math.min(events_list.size(), pageSize);
+      max_size = Math.min(max_size, 9);
+      ret = events_list.slice(0, max_size);
 
       return {
-        cursor: '뷁',
+        cursor: 'test',
         hasMore: false,
-        events: ret
+        events: ret,
       };
-    }
+    },
   },
   Mutation,
   User,
   Event,
-  Tag: {
-  },
-  EventConnection: {
-  },
+  Tag: {},
+  EventConnection: {},
 };
