@@ -14,30 +14,35 @@ const benefit = [
   require('../assets/benefit3.png')
 ];
 
-// Header css style
-// TODO(Lhyejin):
+// Main Header css style
 const mainHeaderStyles = makeStyles(theme => ({
-  main_image: {
+  root: {
     width: '100%',
-    height: 500,
     backgroundImage: `url(${landing_bg})`,
     backgroundSize: 'cover',
-  },
-  main_text: {
-    padding: 150,
     color:'white',
+    textAlign: 'center',
+    height: 400,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
 
-  }
 }));
 
 // Sub Header css style
 const subHeaderStyles = makeStyles(theme => ({
   root: {
-    margin: 100
+    marginTop: 100,
+    marginBottom: 100,
+    marginLeft: 20,
+    marginRight: 20
   },
   img: {
     width: 100,
-    height: 100,
+    height: 100
+  },
+  text: {
+    textAlign: 'center'
   }
 }));
 
@@ -46,8 +51,8 @@ function LandingSubHeader() {
   const subStyle = subHeaderStyles();
   return (
       <div className={subStyle.root}>
-        <Grid container justify="space-between">
-          <Grid item xs={12} sm={3}>
+        <Grid container justify="space-between" className={subStyle.text}>
+          <Grid item xs='auto' sm={3}>
             <img src={benefit[0]} className={subStyle.img} />
             <Typography variant="h6" gutterBottom>
               Learn from a guru
@@ -57,7 +62,7 @@ function LandingSubHeader() {
               elit, sed do elusmo
             </Typography>
           </Grid>
-          <Grid Item xs={12} sm={3}>
+          <Grid Item xs='auto' sm={3}>
               <img src={benefit[1]} className={subStyle.img} />
               <Typography variant="h6" gutterBottom>
                 Read with like-minded friends
@@ -67,7 +72,7 @@ function LandingSubHeader() {
                 elit, sed do elusmo
               </Typography>
           </Grid>
-          <Grid item xs={12} sm={3}>
+          <Grid item xs='auto' sm={3}>
               <img src={benefit[2]} className={subStyle.img} />
               <Typography variant="h6" gutterBottom>
                 Read, drink and be merry
@@ -87,18 +92,17 @@ export default function LandingHeader() {
   const mainStyle = mainHeaderStyles();
   return (
     <React.Fragment>
-      <CssBaseline />
-      <Container maxWidth='xl' className={mainStyle.main_image}>
-        <div className={mainStyle.main_text}>
-          <Typography variant='h4' paragraph align='center'>
+      <Grid container className={mainStyle.root}>
+        <Grid item xs={12}>
+          <Typography variant='h4' paragraph>
             Reinventing the Book club
           </Typography>
-          <Typography variant='h6' paragraph align='center'>
+          <Typography variant='h6' paragraph>
             Meaningful Conversations With<br/>
             Like-Minded People
           </Typography>
-        </div>
-      </Container>
+        </Grid>
+      </Grid>
     <Container maxWidth='xl'>
       <LandingSubHeader />
     </Container>
