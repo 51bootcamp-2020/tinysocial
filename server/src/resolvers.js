@@ -131,7 +131,7 @@ module.exports = {
       ];
 
       let ret = [];
-      int max_size = Math.min(events_list.size(), pageSize);
+      let max_size = Math.min(events_list.length, pageSize);
       max_size = Math.min(max_size, 9);
       ret = events_list.slice(0, max_size);
 

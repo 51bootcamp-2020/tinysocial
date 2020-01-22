@@ -9,6 +9,7 @@ import Box from "@material-ui/core/Box";
 
 import PropTypes from 'prop-types';
 import Grid from "@material-ui/core/Grid";
+import Cards from "../components/eventslist-component/cards";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
