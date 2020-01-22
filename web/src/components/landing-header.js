@@ -1,6 +1,6 @@
 import {Container,
-  Grid,
-  Typography
+        Grid,
+        Typography
 } from '@material-ui/core';
 import React from 'react';
 import LandiingViewButton from './landing-view-button';
