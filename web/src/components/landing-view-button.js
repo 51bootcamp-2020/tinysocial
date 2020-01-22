@@ -16,8 +16,7 @@ const LandiingViewButton = props => {
         <Grid item xs={1}>
           <Button onClick={() => {
             return props.history.push('/eventlist')
-          }
-          }> View all </Button>
+          }}> View all </Button>
         </Grid>
       </Grid>
   )
