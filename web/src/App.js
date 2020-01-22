@@ -1,6 +1,6 @@
 import React from "react";
+import Signin from "./pages/signin"
 import Signup from "./pages/signup";
-import { BrowserRouter } from "react-router-dom";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 import {
@@ -9,9 +9,6 @@ import {
     Route,
     Link
 } from "react-router-dom"
-
-import Signin from "./pages/signin"
-import Signup from "./pages/signup"
 
 const client = new ApolloClient({
     //TODO(arin-kwak): need update uri

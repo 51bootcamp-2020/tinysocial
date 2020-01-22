@@ -4,6 +4,7 @@ import {GoogleLogin} from "react-google-login";
 import {gql} from 'apollo-boost';
 import {Mutation} from 'react-apollo';
 import {withRouter} from 'react-router-dom'
+import {clientId} from './utils.js';
 
 class SignupForm extends Component {
   constructor(props) {
@@ -35,11 +36,6 @@ class SignupForm extends Component {
   };
 
   render() {
-    // This api client id is ok to be exposed
-    const googleAuthAPIClientID =
-      "420478568442-ltur9qc3g9uam6f166k1pgsa7f2evl5e" +
-      ".apps.googleusercontent.com";
-
     // Graphql mutation statement for signup
     const SIGNUP_MUTATION = gql`
     mutation SignUp($googleId: String!, 
@@ -110,7 +106,7 @@ class SignupForm extends Component {
         </Mutation>
         {/* A google log in button component */}
         <GoogleLogin
-          clientId={googleAuthAPIClientID}
+          clientId={clientId}
           buttonText="Google Log-in"
           onSuccess={this.responseGoogle}
           onFailure={this.responseFail}
