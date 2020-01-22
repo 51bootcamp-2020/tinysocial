@@ -7,24 +7,6 @@ import {
 } from 'react-bootstrap';
 
 
-
-import {gql} from 'apollo-boost';
-import { Query } from "react-apollo";
-
-/* Query requests event list to server */
-const EVENT_LIST_REQUEST_QUERY = gql`
-    query{
-        events(pageSize: 9){
-            cursor,
-            hasMore,
-            events{
-                id,
-                title,
-                description
-            }
-        }
-    }`;
-
 class EventFilters extends Component {
   constructor(props) {
     // get area selection from props
