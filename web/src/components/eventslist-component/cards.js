@@ -41,9 +41,11 @@ class Cards extends Component {
                             <CardContent>
                                 <ListItem style={{height: '100px'}}>
                                     <ListItemAvatar>
-                                        <Avatar alt="Example User Name" src={require('../images/' + (i + 1) + '.jpg')} />
+                                        <Avatar alt="Example User Name"
+                                                src={require('../images/' + (i + 1) + '.jpg')} />
                                     </ListItemAvatar>
-                                    <ListItemText primary={this.props.children[i].title} secondary="July 20, 2014" />
+                                    <ListItemText primary={this.props.children[i].title}
+                                                  secondary="July 20, 2014" />
                                 </ListItem>
                                 <Typography style={{height: '150px'}}>
                                     {this.props.children[i].description}
