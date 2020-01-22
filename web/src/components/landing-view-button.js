@@ -11,9 +11,10 @@ export default function LandiingViewButton() {
           <Box>Popular</Box>
         </Grid>
         <Grid item xs={1}>
-          <Button> View all </Button>
+          <Button onClick={() => {
+            return <Redirect to='/events' />
+          }}> View all </Button>
         </Grid>
       </Grid>
-
   )
 }
