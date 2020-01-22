@@ -1,5 +1,4 @@
 import React from 'react';
-import Landing from './pages/landing';
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 import {
@@ -9,6 +8,8 @@ import {
     Link
 } from "react-router-dom"
 
+
+import Landing from './pages/landing'
 import Signin from "./pages/signin"
 import Signup from "./pages/signup"
 
@@ -29,7 +30,7 @@ function App() {
                       <Signin/>
                   </Route>
                   <Route path="/">
-                      Main
+                      <Landing/>
                   </Route>
               </Switch>
           </Router>
