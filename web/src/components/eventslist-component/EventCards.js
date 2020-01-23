@@ -21,12 +21,12 @@ class EventCards extends Component {
             if (cardsIndex % 3 === 0)
                 cards.push([]);
 
-            // Push each card component in cards
+            // Push each card component in cards.
             cards[cards.length - 1].push(
                 <Grid item xs={4} key={this.props.children[cardsIndex].id}>
                     <Card style={{marginBottom: '10px'}}>
                         <CardActionArea>
-                            {/* Image section of Card */}
+                            {/* Image section of Card. */}
                             <CardMedia
                                 component="img"
                                 alt="CardsImage"
@@ -34,7 +34,7 @@ class EventCards extends Component {
                                 image={require('../images/' + (cardsIndex + 1) + '.jpg')}
                                 title="Cards Image"
                             />
-                            {/* Content section of Card */}
+                            {/* Content section of Card. */}
                             <CardContent>
                                 <ListItem style={{height: '100px'}}>
                                     <ListItemAvatar>
@@ -49,8 +49,7 @@ class EventCards extends Component {
                                 </Typography>
                             </CardContent>
                         </CardActionArea>
-
-                        {/* Button below the card content */}
+                        {/* Button below the card content. */}
                         <CardActions>
                             <Button color="primary">Detail</Button>
                         </CardActions>
@@ -60,7 +59,7 @@ class EventCards extends Component {
         }
 
         let decks = [];
-        // Push the cards list in decks
+        // Push the cards list in decks.
         for (let decksIndex = 0; decksIndex < cards.length; decksIndex++) {
             decks.push(
                 <Grid container spacing={2} justify='center'>

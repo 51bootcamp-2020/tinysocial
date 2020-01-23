@@ -6,13 +6,12 @@ import {
   Jumbotron
 } from 'react-bootstrap';
 
-
 class EventFilters extends Component {
   constructor(props) {
-    // get area selection from props
+    // Get area selection from props.
     super(props);
 
-    // save the arrays of filter names and filter toggle(selected or not) in state
+    // Save the arrays of filter names and filter toggle(selected or not) in state.
     // Todo: mapping filterNames string-integer(enum) after db builiding complete.
     const filterNames = ['BookClub', 'Movie', 'Wine', 'SciFi', 'Sport'];
     const filterToggles = [];
@@ -26,7 +25,7 @@ class EventFilters extends Component {
     };
   }
 
-  // Function for update filter toggled value to new value
+  // Function for update filter toggled value to new value.
   toggleHandler = val => {
     const updatedFilterToggles = [];
     for (let filterIndex = 0; filterIndex < this.state.filterToggles.length; filterIndex++)
@@ -39,11 +38,11 @@ class EventFilters extends Component {
     });
   };
 
-  // Function for display toggle button group for event filter
+  // Function for display toggle button group for event filter.
   ToggleButtonGroupControlled = () => {
     const filtersComp = [];
 
-    // Match each toggle button to filterNames for display
+    // Match each toggle button to filterNames for display.
     for (let filterIndex = 0; filterIndex < this.state.filterNames.length; filterIndex++) {
       filtersComp.push(
           <ToggleButton id={filterIndex} value={filterIndex} key={this.state.filterNames[filterIndex]}>
@@ -51,14 +50,14 @@ class EventFilters extends Component {
           </ToggleButton>);
     }
 
-    // Show the filter-button group
+    // Show the filter-button group.
     return (
         <ToggleButtonGroup type="checkbox" onChange={this.toggleHandler}>
           {filtersComp}
         </ToggleButtonGroup>);
   };
 
-  // Render of cards component
+  // Render of cards component.
   render() {
     return (
           <this.ToggleButtonGroupControlled/>
