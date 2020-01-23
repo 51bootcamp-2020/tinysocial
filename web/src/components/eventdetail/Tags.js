@@ -22,36 +22,36 @@ const useStyles = makeStyles(theme => ({
 function Tags() {
   const classes = useStyles();
   return (
-      // TODO(YoonYeoHwan): Get event tags from query.
-      <div>
-        <Grid container direction='row'>
-          <Box className={classes.tags} border={1}>
-            <Typography variant='body2'>
-              Science
-            </Typography>
-          </Box>
-          <Box className={classes.tags} border={1}>
-            <Typography variant='body2'>
-              History
-            </Typography>
-          </Box>
-          <Box className={classes.tags} border={1}>
-            <Typography variant='body2'>
-              Non fiction
-            </Typography>
-          </Box>
-          <Box className={classes.tags} border={1}>
-            <Typography variant='body2'>
-              tag
-            </Typography>
-          </Box>
-          <Box className={classes.tags} border={1}>
-            <Typography variant='body2'>
-              Silicon Valley Bootcamp
-            </Typography>
-          </Box>
-        </Grid>
-      </div>
+    // TODO(YoonYeoHwan): Get event tags from query.
+    <div>
+      <Grid container direction='row'>
+        <Box className={classes.tags} border={1}>
+          <Typography variant='body2'>
+            Science
+          </Typography>
+        </Box>
+        <Box className={classes.tags} border={1}>
+          <Typography variant='body2'>
+            History
+          </Typography>
+        </Box>
+        <Box className={classes.tags} border={1}>
+          <Typography variant='body2'>
+            Non fiction
+          </Typography>
+        </Box>
+        <Box className={classes.tags} border={1}>
+          <Typography variant='body2'>
+            tag
+          </Typography>
+        </Box>
+        <Box className={classes.tags} border={1}>
+          <Typography variant='body2'>
+            Silicon Valley Bootcamp
+          </Typography>
+        </Box>
+      </Grid>
+    </div>
   );
 }
 

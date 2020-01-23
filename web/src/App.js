@@ -4,10 +4,10 @@ import Eventdetail from './pages/eventdetail';
 
 function App() {
   return (
-      <div>
-        <Eventdetail/>
-        <Landing/>
-      </div>
+    <div>
+      <Eventdetail/>
+      <Landing/>
+    </div>
   );
 }
 

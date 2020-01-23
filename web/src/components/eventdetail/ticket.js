@@ -21,27 +21,26 @@ const useStyles = makeStyles(theme => ({
 function Ticket() {
   const classes = useStyles();
   return (
-      <div>
-        <Grid container
-              direction='column'
-              justify='center'
-              alignItems='center'
-              style={{marginTop: 10}}
-              >
-          {/* TODO(YoonYeoHwan): Get price from query. */}
-          <Typography variant='h6'>
-            $30
-          </Typography>
+    <div>
+      <Grid container
+        direction='column'
+        justify='center'
+        alignItems='center'
+        style={{marginTop: 10}}>
+        {/* TODO(YoonYeoHwan): Get price from query. */}
+        <Typography variant='h6'>
+          $30
+        </Typography>
 
-          {/* TODO(): Develop payment page and connecting to payment page. */}
-          <Fab className={classes.ticketButton}
-               variant='extended'>
-            <div>
-              Ticket
-            </div>
-          </Fab>
-        </Grid>
-      </div>
+        {/* TODO(): Develop payment page and connecting to payment page. */}
+        <Fab className={classes.ticketButton}
+          variant='extended'>
+          <div>
+            Ticket
+          </div>
+        </Fab>
+      </Grid>
+    </div>
   );
 }
 
