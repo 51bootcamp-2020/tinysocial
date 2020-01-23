@@ -5,9 +5,9 @@ const useStyles = makeStyles({
     width: 250,
   },
   listItem: {
+    color: 'black',
     margin: 10,
     marginLeft: 20,
-    color: 'black',
   },
 });
 

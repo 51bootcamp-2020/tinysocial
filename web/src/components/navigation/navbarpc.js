@@ -1,20 +1,20 @@
-import React from 'react';
-import Landing from '../../pages/landing';
-import Signin from '../../pages/signin';
-import EventList from '../../pages/eventlist';
-import Logo from '../../img/tinysocial-logo.png';
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Link,
-} from 'react-router-dom';
 import {
   AppBar,
-  Tabs,
-  Tab,
   Grid,
+  Tab,
+  Tabs,
 } from '@material-ui/core';
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Switch,
+} from 'react-router-dom';
+import EventList from '../../pages/eventlist';
+import Landing from '../../pages/landing';
+import Logo from '../../img/tinysocial-logo.png';
+import React from 'react';
+import Signin from '../../pages/signin';
 
 function NavBarPC() {
   return (
@@ -25,21 +25,24 @@ function NavBarPC() {
               render={({location}) => (
                   <>
                     <AppBar color="default">
-                      <Grid container direction="row" justify="space-between"
-                            alignItems="center">
+                      <Grid container alignItems="center" direction="row"
+                            justify="space-between">
                         <Grid justify="flex-start">
                           <a href="/" style={{padding: 20}}>
-                            <img src={Logo} width="130" height="18"/>
+                            <img src={Logo}/>
                           </a>
                         </Grid>
                         <Grid justify="flex-end">
                           <Tabs value={location.pathname}
                                 aria-label="Navigation Tabs">
-                            <Tab label="Events" component={Link} to="/"/>
+                            <Tab label="Events" component={Link} to="/"
+                                 style={{textTransform: 'none'}}/>
                             {/* TODO(YoonYeoHwan) : Need to implement About page. Now just linked to landing page. */}
                             <Tab label="About" component={Link}
+                                 style={{textTransform: 'none'}}
                                  to="/landing"/>
                             <Tab label="Sign in" component={Link}
+                                 style={{textTransform: 'none'}}
                                  to="/signin"/>
                           </Tabs>
                         </Grid>
@@ -57,4 +60,5 @@ function NavBarPC() {
       </BrowserRouter>
   );
 }
+
 export default NavBarPC;

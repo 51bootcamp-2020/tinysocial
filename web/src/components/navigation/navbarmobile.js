@@ -1,21 +1,21 @@
-import React from 'react';
-import Logo from '../../img/tinysocial-logo.png';
-import MenuIcon from '@material-ui/icons/Menu';
+import {
+  AppBar,
+  Button,
+  Divider,
+  Drawer,
+  Grid,
+  IconButton,
+  List, Tab,
+  Toolbar,
+  Typography,
+} from '@material-ui/core';
 import {
   BrowserRouter,
   Route,
 } from 'react-router-dom';
-import {
-  AppBar,
-  Toolbar,
-  Grid,
-  IconButton,
-  Drawer,
-  List,
-  Divider,
-  Button,
-  Typography,
-} from '@material-ui/core';
+import Logo from '../../img/tinysocial-logo.png';
+import MenuIcon from '@material-ui/icons/Menu';
+import React from 'react';
 import useStyles from './constant';
 
 function NavBarMobile() {
@@ -34,31 +34,31 @@ function NavBarMobile() {
 
   const sideList = side => (
       <div className={classes.list}
-          role="presentation"
-          onClick={toggleDrawer(side, false)}
-          onKeyDown={toggleDrawer(side, false)}>
+           onClick={toggleDrawer(side, false)}
+           onKeyDown={toggleDrawer(side, false)}
+           role="presentation">
         <List>
           <a href="/" style={{padding: 20}}>
-            <img src={Logo} width="130" height="18"/>
+            <img src={Logo} height="18" width="130"/>
           </a>
         </List>
         <Divider/>
         <List>
           <Grid container
-              direction="column">
-            <a href="/eventlist" className={classes.listItem}>
-              <Typography variant="button">
+                direction="column">
+            <a href="/" className={classes.listItem}>
+              <Typography variant="button" style={{textTransform: 'none'}}>
                 Events
               </Typography>
             </a>
             {/* TODO(YoonYeoHwan) : Need to implement About page. Now just linked to landing page. */}
             <a href="/landing" className={classes.listItem}>
-              <Typography variant="button">
+              <Typography variant="button" style={{textTransform: 'none'}}>
                 About
               </Typography>
             </a>
             <a href="/singin" className={classes.listItem}>
-              <Typography variant="button">
+              <Typography variant="button" style={{textTransform: 'none'}}>
                 Sign in
               </Typography>
             </a>
@@ -75,12 +75,12 @@ function NavBarMobile() {
                 path="/"
                 render={({location}) => (
                     <>
-                      <AppBar position="" color="default">
+                      <AppBar color="default" position="">
                         <Toolbar>
                           <Grid container alignItems="center">
                             <Grid item xs={3}>
-                              <IconButton edge="start" color="inherit"
-                                          aria-label="menu">
+                              <IconButton aria-label="menu" color="inherit"
+                                          edge="start">
                                 <Button onClick={toggleDrawer('left', true)}>
                                   <MenuIcon/>
                                 </Button>
@@ -90,9 +90,9 @@ function NavBarMobile() {
                                 </Drawer>
                               </IconButton>
                             </Grid>
-                            <Grid item xs={3} justify="center">
+                            <Grid item justify="center" xs={3}>
                               <a href="/" style={{padding: 20}}>
-                                <img src={Logo} width="130" height="18"/>
+                                <img src={Logo}/>
                               </a>
                             </Grid>
                             <Grid item xs={3}></Grid>
