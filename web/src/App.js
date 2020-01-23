@@ -12,27 +12,27 @@ import Signin from "./pages/signin"
 import Signup from "./pages/signup";
 
 const client = new ApolloClient({
-  //TODO(arin-kwak): need update uri.
+  //TODO(arin-kwak): need update uri
   uri: "http://localhost:15780"
 });
 
 function App() {
   return (
-      <ApolloProvider client={client}>
-          <Router>
-              <Switch>
-                  <Route path="/signup">
-                      <Signup/>
-                  </Route>
-                  <Route path="/signin">
-                      <Signin/>
-                  </Route>
-                  <Route path="/">
-                      <Landing/>
-                  </Route>
-              </Switch>
-          </Router>
-      </ApolloProvider>
+    <ApolloProvider client={client}>
+      <Router>
+        <Switch>
+          <Route path="/signup">
+            <Signup/>
+          </Route>
+          <Route path="/signin">
+            <Signin/>
+          </Route>
+          <Route path="/">
+            <Landing/>
+          </Route>
+        </Switch>
+      </Router>
+    </ApolloProvider>
   );
 }
 
