@@ -1,21 +1,20 @@
 
 import React from 'react';
 import Landing from './pages/landing';
-import ApolloClient from "apollo-boost";
-import {ApolloProvider} from "react-apollo";
+import ApolloClient from 'apollo-boost';
+import {ApolloProvider} from 'react-apollo';
 import {
   BrowserRouter as Router,
   Route,
   Switch,
-} from "react-router-dom"
-import React from "react";
-import Signin from "./pages/signin";
-import Signup from "./pages/signup";
+} from 'react-router-dom';
+import Signin from './pages/signin';
+import Signup from './pages/signup';
 import EventList from './pages/eventlist';
 
 const client = new ApolloClient({
-  //TODO(arin-kwak): need update uri.
-  uri: "http://localhost:15780"
+  // TODO(arin-kwak): need update uri.
+  uri: 'http://localhost:15780'
 });
 
 function App() {
