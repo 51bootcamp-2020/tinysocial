@@ -14,7 +14,7 @@ const LandiingViewButton = props => {
           <Box>Popular</Box>
         </Grid>
         <Grid item xs={1}>
-          <Button onClick={() => {
+          <Button onClick={ () => {
             return props.history.push('/eventlist')
           }}> View all </Button>
         </Grid>
@@ -23,3 +23,4 @@ const LandiingViewButton = props => {
 };
 
 export default withRouter(LandiingViewButton);
+
