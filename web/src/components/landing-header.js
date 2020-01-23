@@ -107,7 +107,6 @@ export default function LandingHeader() {
         <Container maxWidth='xl'>
           <LandiingViewButton/>
         </Container>
-
       </React.Fragment>
   )
 }

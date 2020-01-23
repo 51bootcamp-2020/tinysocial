@@ -1,6 +1,6 @@
 import {Button,
-        Box,
-        Grid,
+  Box,
+  Grid,
 } from '@material-ui/core';
 import React from 'react';
 import {withRouter} from 'react-router-dom'
@@ -14,13 +14,13 @@ const LandiingViewButton = props => {
           <Box>Popular</Box>
         </Grid>
         <Grid item xs={1}>
-          <Button onClick={ () => {
+          <Button onClick={() => {
             return props.history.push('/eventlist')
-          }}> View all </Button>
+          }
+          }> View all </Button>
         </Grid>
       </Grid>
   )
 };
 
 export default withRouter(LandiingViewButton);
-
