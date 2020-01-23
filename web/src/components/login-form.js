@@ -4,6 +4,7 @@ import {clientId} from './utils.js';
 import {gql} from 'apollo-boost';
 import {Mutation} from 'react-apollo'
 import {withRouter} from 'react-router-dom'
+import Grid from '@material-ui/core/Grid';
 
 /* Query sending user Information to server */
 const SIGNIN_QUERY = gql`
@@ -83,15 +84,17 @@ class LoginForm extends Component {
           {(execute_mutation) => {
             {/* Google Login Button */}
               return(
-                <GoogleLogin
-                    onSuccess={(res) => {
-                      this.setState({
-                        googldId : res.profileObj.googleId
-                      }, execute_mutation)
-                    }}
-                    onFailure={this.responseFail}
-                    clientId={clientId} // Our client ID
-                />
+                  <Grid item xs={12}>
+                    <GoogleLogin
+                        onSuccess={(res) => {
+                          this.setState({
+                            googldId : res.profileObj.googleId
+                          }, execute_mutation)
+                        }}
+                        onFailure={this.responseFail}
+                        clientId={clientId} // Our client ID
+                    />
+                  </Grid>
               )
           }
           }
