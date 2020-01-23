@@ -6,7 +6,7 @@ const {Event} = require('./resolvers/event');
 module.exports = {
   Query: {
     events: (_, {pageSize, after}, context) => {
-      // Temporal data for test event list page
+      // Temporary data for test event list page.
       const events_list = [
         {
           id: 0,

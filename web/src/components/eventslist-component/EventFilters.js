@@ -17,7 +17,7 @@ class EventFilters extends Component {
     const filterNames = ['BookClub', 'Movie', 'Wine', 'SciFi', 'Sport'];
     const filterToggles = [];
 
-    for (let j = 0; j < filterNames.length; j++)
+    for (let filterIndex = 0; filterIndex < filterNames.length; filterIndex++)
       filterToggles.push(false);
 
     this.state = {
@@ -28,13 +28,11 @@ class EventFilters extends Component {
 
   // Function for update filter toggled value to new value
   toggleHandler = val => {
-    console.log('toggle:', val);
-
     const updatedFilterToggles = [];
-    for (let j = 0; j < this.state.filterToggles.length; j++)
+    for (let filterIndex = 0; filterIndex < this.state.filterToggles.length; filterIndex++)
       updatedFilterToggles.push(false);
-    for (let j = 0; j < val.length; j++)
-      updatedFilterToggles[val[j]] = true;
+    for (let updatedValIndex = 0; updatedValIndex < val.length; updatedValIndex++)
+      updatedFilterToggles[val[updatedValIndex]] = true;
 
     this.setState({
       filterToggles: updatedFilterToggles,
@@ -46,10 +44,10 @@ class EventFilters extends Component {
     const filtersComp = [];
 
     // Match each toggle button to filterNames for display
-    for (let i = 0; i < this.state.filterNames.length; i++) {
+    for (let filterIndex = 0; filterIndex < this.state.filterNames.length; filterIndex++) {
       filtersComp.push(
-          <ToggleButton id={i} value={i} key={this.state.filterNames[i]}>
-            {this.state.filterNames[i]}
+          <ToggleButton id={filterIndex} value={filterIndex} key={this.state.filterNames[filterIndex]}>
+            {this.state.filterNames[filterIndex]}
           </ToggleButton>);
     }
 
@@ -60,14 +58,10 @@ class EventFilters extends Component {
         </ToggleButtonGroup>);
   };
 
-
-
   // Render of cards component
   render() {
     return (
-
           <this.ToggleButtonGroupControlled/>
-
     );
   }
 }
