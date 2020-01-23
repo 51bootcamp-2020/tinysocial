@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import {GoogleLogin} from "react-google-login";
-import {gql} from 'apollo-boost';
-import {Mutation} from 'react-apollo';
-import {withRouter} from 'react-router-dom'
 import {clientId} from './utils.js';
+import {gql} from 'apollo-boost';
+import {GoogleLogin} from "react-google-login";
+import {Mutation} from 'react-apollo';  
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import {withRouter} from 'react-router-dom'
 
 class SignupForm extends Component {
   constructor(props) {
@@ -14,13 +14,13 @@ class SignupForm extends Component {
       firstName: '',
       lastName: '',
       email: '',
-      // TODO : this will be used when facebook login is added
+      // TODO(Myoung-heeSeo) : this will be used when facebook login is added.
       provider: '',
     };
   }
 
   responseGoogle = res => {
-    // Handle google log-in success
+    // Handle google log-in success.
     this.setState({
       id: res.profileObj.googleId,
       firstName: res.profileObj.givenName,
@@ -31,12 +31,11 @@ class SignupForm extends Component {
   };
 
   responseFail = err => {
-    // TODO : handle google log-in failure
-    console.error(err);
+    // TODO(Myoung-heeSeo) : handle google log-in failure.
   };
 
   render() {
-    // Graphql mutation statement for signup
+    // Graphql mutation statement for signup.
     const SIGNUP_MUTATION = gql`
     mutation SignUp($googleId: String!, 
                     $email: String!, 
@@ -60,12 +59,12 @@ class SignupForm extends Component {
       }
     `;
 
-    // Receive state values for mutation use
+    // Receive state values for mutation use.
     const {id, email, firstName, lastName} = this.state
 
     return (
       <div>
-        {/* Form, uneditable for now */}
+        {/* Form, uneditable for now. */}
         <ul>
           <li>Email: </li>
           <input type="text" defaultValue={this.state.email} disabled></input>
@@ -74,7 +73,7 @@ class SignupForm extends Component {
           <li>LastName: </li>
           <input type="text" defaultValue={this.state.lastName} disabled></input>
         </ul>
-        {/* Register button, sends a mutation to the server */}
+        {/* Register button, sends a mutation to the server. */}
         <Mutation 
           mutation={SIGNUP_MUTATION} 
           variables={{
@@ -98,13 +97,13 @@ class SignupForm extends Component {
         >
           {(signupMutation) => {
             return (<button onClick={() => {
-              // TODO : input validation (not for v0)
+              // TODO(Myeong-heeSeo) : input validation. (not for v0)
               signupMutation();
             }
             }>Register</button>)
           }}
         </Mutation>
-        {/* A google log in button component */}
+        {/* A google log in button component. */}
         <GoogleLogin
           clientId={clientId}
           buttonText="Google Log-in"
@@ -119,5 +118,5 @@ class SignupForm extends Component {
 
 SignupForm.propTypes = {};
 
-// Wrap with withRouter to use props.history
+// Wrap with withRouter to use props.history.
 export default withRouter(SignupForm);
