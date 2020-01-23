@@ -5,24 +5,46 @@ import CreateIcon from '@material-ui/icons/Create';
 
 class ReviewWriteButton extends Component {
   render() {
+    const {write, onClick} = this.props;
+
+    if (write) {
+      return (
+        <Button 
+          variant="contained" 
+          color="primary" 
+          startIcon={<CreateIcon />} 
+          onClick={onClick}
+          style={{
+            justifyContent: 'center',
+            width:'200px',
+            height: '36px',
+            borderRadius: '18px',
+            textTransform: 'none',  
+            backgroundColor: '#009688',
+          }}>
+          Write
+        </Button>
+      );
+    }
+
     return (
-      // TODO(mskwon1): turn this button into an edit button if user has review
       <Button 
-        variant="contained" 
+        variant="outlined" 
         color="primary" 
         startIcon={<CreateIcon />} 
+        onClick={onClick}
         style={{
           justifyContent: 'center',
           width:'200px',
           height: '36px',
           borderRadius: '18px',
           textTransform: 'none',  
-          backgroundColor: '#009688',
+          backgroundColor: 'white',
+          color: '#009688',
         }}>
-        Write
+        Edit
       </Button>
-
-    );
+    ); 
   }
 }
 

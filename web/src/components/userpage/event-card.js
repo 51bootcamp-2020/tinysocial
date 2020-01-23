@@ -1,64 +1,89 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Card, CardContent, Grid, Typography} from '@material-ui/core';
-import ReviewWriteButton from './review-write-button';
+import Review from './event-review'
+import Schedule from './event-schedule';
+import {withRouter} from 'react-router-dom';
 
-// These consts are temporary ... will be removed
-const EVENT_TITLE = 'Brife Summary of Human History'
-const REVIEW_WRITE_TEXT = 'Write a few sentence of what you took away from the book. This is the most powerful way to remember what you read'
-const DATE = 'January 29, 2020'
-const TIME = '10:30 AM ~ 1:30 AM'
-const LOCATION = '11 N Ellsworth Ave San Mateo, CA 94401'
+// These consts are temporary ... will be removed.
+const BOOK_TITLE = 'Sapiens';
+const BOOK_AUTHOR = 'Yuval Harari';
 
-function EventCard(props) {
-  return (
-    <Card>
-      <CardContent>
-        <Grid container item xs={12}>
-          {/* Book title */}
-          <Grid item xs={12} align='center'>
-            <Typography variant='h5' paragraph style={{fontWeight:'bold'}}>
-              {EVENT_TITLE}
-            </Typography>
-          </Grid>
-          {/* picture */}
-          <Grid item xs={6} align='center'>
-            <img src={require("../../images/sapiens.png")}/>
-          </Grid>
-          {/* Date & time + Location */}
-          <Grid container item xs={6} align='left' alignItems='center'>
-            <Grid item xs={12}>
-              <Typography variant='subtitle2' paragraph style={{fontWeight:'bold'}}>
-                Date & Time
-              </Typography>
-              <Typography variant='body2' paragraph>
-                {DATE}
-                <br/>
-                {TIME}
-              </Typography>
+class EventCard extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  renderSchedules(schedules) {
+    let index = 1
+    schedules = schedules.map((schedule) => {
+      const {id, startTime, endTime, address} = schedule;
+      return (
+        <Schedule 
+          key={id}
+          index={index++} 
+          startTime={startTime} 
+          endTime={endTime} 
+          address={address} 
+        />
+      )
+    })
+
+    return schedules
+  }
+
+  handleEventClick(review) {
+    // Redirect to review page with reviewId state.
+    this.props.history.push({
+      pathname: '/review',
+      state: {
+        // TODO(mskwon1): send reviewId dynamically.
+        reviewId: 1
+      }
+    })
+  }
+
+  render() {
+    const {id, title, image, schedules, review, upcoming} = this.props;
+    return (
+      <Card>
+        <CardContent>
+          <Grid container item xs={12}>
+            {/* Event title. */}
+            {upcoming && (
+              <Grid item xs={12} align='center'>
+                <Typography 
+                  variant='h5' 
+                  paragraph 
+                  style={{fontWeight:'bold'}} 
+                  onClick={() => {this.handleEventClick(review)}}>
+                  {title}
+                </Typography>
+              </Grid>
+            )}
+            {/* Book thumbnail. */}
+            <Grid item xs={6} align='center' style={{marginBottom:'10px'}}>
+              {/* TODO(mskwon1): Make this as a CardMedia component. */}
+              <img src={require(`../../images/${image}`)}/>
             </Grid>
-            <Grid item xs={12}>
-              <Typography variant='subtitle2' paragraph style={{fontWeight:'bold'}}>
-                Location
-              </Typography>
-              <Typography variant='body2' paragraph>
-                {LOCATION}
-              </Typography>
+            <Grid container item xs={6} align='left' alignItems='flex-start'>
+              <Grid item xs={12}>
+                <Typography variant='h5'>
+                  {BOOK_TITLE}
+                </Typography>
+                <Typography variant='body2'>
+                  By {BOOK_AUTHOR}
+                </Typography>
+              </Grid>
             </Grid>
+            {/* Schedule section. */}
+            {upcoming && this.renderSchedules(schedules)}
+            {/* Review section. */}
+            <Review review={review} eventId={id}/>
           </Grid>
-          {/* Review write text */}
-          <Grid item xs={12} align='center' style={{margin:'30px'}}>
-            <Typography variant='body2' align='left'>
-              {REVIEW_WRITE_TEXT}
-            </Typography>
-          </Grid>
-          {/* Review write button */}
-          <Grid item xs={12} align='center'>
-            <ReviewWriteButton />
-          </Grid>
-        </Grid>
-      </CardContent>
-    </Card>
-  )
+        </CardContent>
+      </Card>
+    )
+  }
 }
 
-export default EventCard;
+export default withRouter(EventCard);

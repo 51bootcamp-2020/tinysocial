@@ -14,8 +14,14 @@ const BOOK_TITLE = 'Sapiens';
 const BOOK_AUTHOR = 'Yuval Harari';
 
 class UserReview extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
+    const {reviewId} = this.props.location.state
     return(
+      // TODO(mskwon1): add query for getting the review content.
       <Card>
         <CardContent>
           <Grid container item xs={12}>
