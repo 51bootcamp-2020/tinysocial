@@ -199,6 +199,9 @@ dist
 # production
 /build
 
+# Not to be exposed data
+config.js
+
 # misc
 .DS_Store
 .env.local

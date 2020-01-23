@@ -86,7 +86,7 @@ class LoginForm extends Component {
                 <GoogleLogin
                     onSuccess={(res) => {
                       this.setState({
-                        googldId : res.profileObj.googleId
+                        googleId : res.profileObj.googleId
                       }, execute_mutation)
                     }}
                     onFailure={this.responseFail}
