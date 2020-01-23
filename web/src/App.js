@@ -12,6 +12,7 @@ import {
 
 import Signin from "./pages/signin"
 import Signup from "./pages/signup"
+import EventList from './pages/eventlist';
 
 const client = new ApolloClient({
     //TODO(arin-kwak): need update uri
@@ -30,7 +31,7 @@ function App() {
                       <Signin/>
                   </Route>
                   <Route path="/">
-                    <Eventlist/>
+                    <EventList/>
                   </Route>
               </Switch>
           </Router>
