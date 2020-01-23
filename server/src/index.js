@@ -1,10 +1,10 @@
 require('dotenv').config();
-const { ApolloServer } = require('apollo-server');
+const {ApolloServer} = require('apollo-server');
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
 
-const { MainAPI } = require('./utils');
-const { createStore } = require('./database');
+const {MainAPI} = require('./utils');
+const {createStore} = require('./database');
 const jwt = require('jsonwebtoken');
 
 if (process.env.NODE_ENV === undefined) {
@@ -23,14 +23,14 @@ const dataSources = () => ({
 
 const APP_SECRET = process.env.SECRET || '';
 
-const context = async ({ req }) => {
-  if (!req.headers.authorization) return { userId: null };
+const context = async ({req}) => {
+  if (!req.headers.authorization) return {userId: null};
   try {
     const token = req.headers.authorization;
     const userId = jwt.verify(token, APP_SECRET);
-    return { userId };
+    return {userId};
   } catch (e) {
-    return { userId: null };
+    return {userId: null};
   }
 };
 const server = new ApolloServer({
@@ -42,6 +42,6 @@ const server = new ApolloServer({
 
 
 if (process.env.NODE_ENV !== 'test') {
-  server.listen({ port: 15780 }).
-    then(({ url }) => console.log(`Server running at at ${url}`));
+  server.listen({port: 15780}).
+      then(({url}) => console.log(`Server running at at ${url}`));
 }

@@ -1,25 +1,27 @@
-const APP_SECRET = process.env.SECRET || " ";
+const APP_SECRET = process.env.SECRET || ' ';
 const {
   cannotCreateUserMessage,
   userNotFoundMessage,
-} = require('../error-messages')
+} = require('../error-messages');
 const expirationTime = '100h';
 const jwt = require('jsonwebtoken');
 
 module.exports.Mutation = {
-  signInWithGoogle: async (_, { googleId }, { dataSources, userId }) => {
-    const user = await dataSources.mainAPI.findUser({ googleId });
+  signInWithGoogle: async (_, {googleId}, {dataSources, userId}) => {
+    const user = await dataSources.mainAPI.findUser({googleId});
     if (user === null) {
       return {
         success: false,
         message: userNotFoundMessage,
         token: null,
-        user: null
+        user: null,
       };
     }
 
     // TODO(lsh9034): expiration time depending on the last user interaction.
-    const token = jwt.sign({ userId: userId }, APP_SECRET, { expiresIn: expirationTime });
+    const token = jwt.sign(
+        {userId: userId}, APP_SECRET, {expiresIn: expirationTime},
+    );
 
     return {
       success: true,
@@ -31,17 +33,17 @@ module.exports.Mutation = {
 
   signUpWithGoogle: async (
     _,
-    { googleId, email, firstName, lastName, profileImgUrl },
-    { dataSources }
+    {googleId, email, firstName, lastName, profileImgUrl},
+    {dataSources},
   ) => {
     const user = await dataSources.mainAPI.findOrCreateUser(
-      { googleId },
-      {
-        email,
-        firstName,
-        lastName,
-        profileImgUrl: profileImgUrl ? profileImgUrl : ""
-      }
+        {googleId},
+        {
+          email,
+          firstName,
+          lastName,
+          profileImgUrl: profileImgUrl ? profileImgUrl : '',
+        },
     );
 
     if (user === null) {
@@ -53,33 +55,45 @@ module.exports.Mutation = {
       };
     }
 
-    const token = jwt.sign({ userId: user.id }, APP_SECRET, {
-      expiresIn: "100h"
+    const token = jwt.sign({userId: user.id}, APP_SECRET, {
+      expiresIn: '100h',
     });
-    
+
     return {
       success: true,
-      message: "Success",
+      message: 'Success',
       token: token,
-      user
+      user,
     };
-    },
-  createReview: async (_, { userId, eventId, title, content, isPublic }, { dataSources }) => {
+  },
+  createReview:
+  async (
+    _, {eventId, title, content, isPublic},
+    {dataSources, userId}) => {
+    if (userId === null) {
+      return false;
+    }
     const isSuccess = await dataSources.mainAPI.
-      createOrModifyReview(
-        {
-          userId, eventId, title, content, isPublic
-        }
-      );
+        createOrModifyReview(
+            {
+              userId, eventId, title, content, isPublic,
+            },
+        );
     return isSuccess;
   },
-  modifyReview: async (_, { userId, eventId, title, content, isPublic }, { dataSources }) => {
+  modifyReview:
+  async (
+    _, {eventId, title, content, isPublic},
+    {dataSources, userId}) => {
+    if (userId === null) {
+      return false;
+    }
     const isSuccess = await dataSources.mainAPI.
-      createOrModifyReview(
-        {
-          userId, eventId, title, content, isPublic
-        }
-      );
+        createOrModifyReview(
+            {
+              userId, eventId, title, content, isPublic,
+            },
+        );
     return isSuccess;
   },
   logout: async () => {
