@@ -22,7 +22,6 @@ function Commonevent() {
             </div>
           </Grid>
         </Hidden>
-
         <Hidden smUp>
           <Grid itecm sm={6} xs={12}
             alignContent='center'
@@ -30,14 +29,13 @@ function Commonevent() {
               position: 'relative',
               margin: 15,
               height: 200,
-              overflow: 'hidden'}}>
+              overflow: 'hidden',
+            }}>
             {/* TODO(YoonYeoHwan): Get image src from query. */}
-            <img style={{width: 'auto', height: 'auto'}}
+            <img style={{width: 'auto', height: 'auto', }}
               src='https://cdn.wallpapersafari.com/6/54/VGI0Zy.jpg'/>
           </Grid>
         </Hidden>
-
-
         <Grid item sm={4} xs={12} style={{margin: 15}}>
           <Grid style={{marginBottom: 10}}>
             {/* TODO(YoonYeoHwan): Get event name from query. */}
@@ -45,7 +43,6 @@ function Commonevent() {
               Brief summary of Human History
             </Typography>
           </Grid>
-
           <Grid>
             <Typography style={{
               whiteSpace: 'pre-line',
@@ -58,19 +55,15 @@ function Commonevent() {
               elit, sed do eiusmo
             </Typography>
           </Grid>
-
           <Grid style={{marginBottom: 10, marginTop: 10}}>
             <Tags/>
           </Grid>
-
           <Hidden xsDown>
             <Grid container justify='flex-start'>
               <Ticket/>
             </Grid>
           </Hidden>
-
         </Grid>
-
       </Grid>
     </div>
   );
