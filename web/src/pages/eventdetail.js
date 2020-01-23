@@ -9,14 +9,14 @@ import {
 
 function Eventdetail() {
   return (
-      <div>
-        <CommonEvent/>
-        <BookClub/>
-        <Hidden smUp>
-          <Divider/>
-          <Ticket/>
-        </Hidden>
-      </div>
+    <div>
+      <CommonEvent/>
+      <BookClub/>
+      <Hidden smUp>
+        <Divider/>
+        <Ticket/>
+      </Hidden>
+    </div>
   );
 }
 
