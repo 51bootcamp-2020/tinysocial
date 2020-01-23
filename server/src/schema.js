@@ -150,12 +150,12 @@ const typeDefs = gql`
         startDateTime: DateTime!
         endDateTime: DateTime!
         # TODO: Split the address into
-#        country: String!
-#        state: String!
-#        city: String!
-#        zip: String!
-#        street: String!
-#        additionalStreetAddress: String!
+        # country: String!
+        # state: String!
+        # city: String!
+        # zip: String!
+        # street: String!
+        # additionalStreetAddress: String!
         address: String!
         latitude: Float!
         longitude: Float!
