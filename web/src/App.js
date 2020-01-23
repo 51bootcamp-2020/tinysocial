@@ -30,7 +30,7 @@ function App() {
             <Signin/>
           </Route>
           <Route path="/">
-            <Eventlist/>
+            <EventList/>
           </Route>
         </Switch>
       </Router>
