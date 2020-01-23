@@ -36,7 +36,7 @@ const typeDefs = gql`
     input EventFilter {
         recommendation: Boolean, # User-based recommendation flag
         tags: [TagInput!]
-        # TODO: range-based search
+        # TODO(yun-kwak): range-based search
         # range: Float,
         # from: String 
     }
@@ -67,8 +67,8 @@ const typeDefs = gql`
         firstName: String!
         lastName: String!
         email: String!
-        age: Int # TODO: Calculate the age of the user from birthday
-        # TODO: Split the address into
+        age: Int # TODO(yun-kwak): Calculate the age of the user from birthday
+        # TODO(yun-kwak): Split the address into
         # street address
         # additional street address
         # city
@@ -149,7 +149,7 @@ const typeDefs = gql`
         id: ID!
         startDateTime: DateTime!
         endDateTime: DateTime!
-        # TODO: Split the address into
+        # TODO(yun-kwak): Split the address into
         # country: String!
         # state: String!
         # city: String!

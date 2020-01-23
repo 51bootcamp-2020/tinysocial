@@ -65,7 +65,7 @@ const createStore = () => {
       type: Sequelize.STRING, allowNull: false,
     },
     birthday: Sequelize.DATE,
-    // TODO: Split the address into
+    // TODO(yun-kwak): Split the address into
     // street address
     // additional street address
     // city
@@ -227,7 +227,7 @@ const createStore = () => {
     },
     startDateTime: Sequelize.DATE,
     endDateTime: Sequelize.DATE,
-    // TODO: Split the address into
+    // TODO(yun-kwak): Split the address into
     // country: Sequelize.STRING,
     // state: Sequelize.STRING,
     // city: Sequelize.STRING,
