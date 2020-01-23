@@ -12,8 +12,6 @@ import NavBar from './components/navigation/navbar';
 import Payment from './pages/payment';
 import React, {Fragment} from 'react';
 import SignInUp from './pages/signInUp';
-import Emailvalidation from './pages/emailvalidation';
-import Payment from './pages/payment';
 
 const client = new ApolloClient({
   // TODO(arin-kwak): need update uri.
