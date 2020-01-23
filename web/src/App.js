@@ -1,10 +1,11 @@
 import React from 'react';
 import Landing from './pages/landing';
+import Eventdetail from './pages/eventdetail';
 
 function App() {
   return (
       <div>
-        Main
+        <Eventdetail/>
         <Landing/>
       </div>
   );
