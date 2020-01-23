@@ -45,76 +45,75 @@ class MainAPI extends DataSource {
   }
 
   async getUserPastEvents(userId) {
-    const events = await this.store.ScheduleParticipant.findAll({
-      where: { userId: userId.userId },
+    const events = await this.store.EventParticipant.findAll({
+      where: {userId: userId.userId},
       include: [
         {
           model: this.store.Schedule,
           where: {
             endDateTime: {
-              [OP.lte]: new Date()
-            }
+              [OP.lte]: new Date(),
+            },
           },
           include: [
             {
-              model: this.store.Event
-            }
-          ]
-        }
-      ]
+              model: this.store.Event,
+            },
+          ],
+        },
+      ],
     });
-    return events.map(event => event.schedule.event);
+    return events.map((event) => event.schedule.event);
   }
 
   async getUserUpcomingEvents(userId) {
-    const events = await this.store.ScheduleParticipant.findAll({
-      where: { userId: userId.userId },
+    const events = await this.store.EventParticipant.findAll({
+      where: {userId: userId.userId},
       include: [
         {
           model: this.store.Schedule,
           where: {
             startDateTime: {
-              [OP.gte]: new Date()
-            }
+              [OP.gte]: new Date(),
+            },
           },
           include: [
             {
-              model: this.store.Event
-            }
-          ]
-        }
-      ]
+              model: this.store.Event,
+            },
+          ],
+        },
+      ],
     });
-    return events.map(event => event.schedule.event);
+    return events.map((event) => event.schedule.event);
   }
 
   async getUserReviews(info) {
     const review = await this.store.Review.findOne({
       where: {
         userId: info.userId,
-        eventId: info.eventId
-      }
-    })
+        eventId: info.eventId,
+      },
+    });
     return review;
   }
 
   async createOrModifyReview(reviewInfo) {
     const review = await this.getUserReviews({
-      userId: reviewInfo.userId, eventId: reviewInfo.eventId
-    })
+      userId: reviewInfo.userId, eventId: reviewInfo.eventId,
+    });
     if (review === null) {
       const flag = await this.store.Review.create({
         userId: reviewInfo.userId,
         eventId: reviewInfo.eventId,
         title: reviewInfo.title,
         content: reviewInfo.content,
-        isPublic: reviewInfo.isPublic
-      })
+        isPublic: reviewInfo.isPublic,
+      });
       if (flag !== null) {
         return true;
       }
-    }
-    else {
+    } else {
       review.title = reviewInfo.title;
       review.content = reviewInfo.content;
       review.isPublic = reviewInfo.isPublic;
