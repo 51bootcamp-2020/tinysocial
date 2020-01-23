@@ -10,6 +10,8 @@ import NavBar from './components/navigation/navbar';
 import React, {Fragment} from 'react';
 import SignInUp from './pages/signInUp';
 import Emailvalidation from './pages/emailvalidation';
+import Eventdetail from './pages/eventdetail';
+
 
 const client = new ApolloClient({
   // TODO(arin-kwak): need update uri.
@@ -21,6 +23,7 @@ function App() {
   return (
     <Fragment>
       <NavBar/>
+      <Eventdetail/>
       <Router>
         <Switch>
           <Route path='/signin' render={() => <SignInUp/>}/>

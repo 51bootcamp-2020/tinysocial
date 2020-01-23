@@ -39,8 +39,8 @@ function NavBarPC() {
                         </Typography>
                       </a>
                       <a href='/about'>
-                        // TODO(YoonYeoHwan) : Need to implement About page.
-                        // Now just linked to landing page.
+                        {/* TODO(YoonYeoHwan) : Need to implement About page.*/}
+                        {/*  Now just linked to landing page.*/}
                         <Typography variant='h6'
                           style={{
                             textTransform: 'none',
