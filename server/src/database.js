@@ -227,12 +227,16 @@ const createStore = () => {
     },
     startDateTime: Sequelize.DATE,
     endDateTime: Sequelize.DATE,
-    country: Sequelize.STRING,
-    state: Sequelize.STRING,
-    city: Sequelize.STRING,
-    zip: Sequelize.STRING,
-    street: Sequelize.STRING,
-    additionalAddress: Sequelize.STRING,
+    // TODO: Split the address into
+    // country: Sequelize.STRING,
+    // state: Sequelize.STRING,
+    // city: Sequelize.STRING,
+    // zip: Sequelize.STRING,
+    // street: Sequelize.STRING,
+    // additionalStreetAddress: Sequelize.STRING,
+    address: Sequelize.STRING,
+    latitude: Sequelize.FLOAT,
+    longitude: Sequelize.FLOAT,
     eventId: {
       type: Sequelize.INTEGER,
       references: {
@@ -255,7 +259,7 @@ const createStore = () => {
         key: 'id',
       },
     },
-    scheduleId: {
+    eventId: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       references: {

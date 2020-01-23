@@ -8,7 +8,8 @@ const typeDefs = gql`
         # Returns certain size of events after the cursor
         # Reference:
         #  https://www.apollographql.com/docs/tutorial/resolvers/#paginated-queries 
-        events(pageSize: Int, after: Int): EventConnection!
+        events(pageSize: Int, after: Int,
+            eventFilter: EventFilter, eventSort: EventSort): EventConnection!
         # Return specific event whose id is 'id'.
         # If not exist, return null
         event(id: ID!): Event
@@ -32,6 +33,26 @@ const typeDefs = gql`
         logout: Boolean!
     }
 
+    input EventFilter {
+        recommendation: Boolean, # User-based recommendation flag
+        tags: [TagInput!]
+        # TODO: range-based search
+        # range: Float,
+        # from: String 
+    }
+    
+    input TagInput {
+        name: String
+    }
+    
+    enum EventSort {
+        BEST_MATCH,
+        NEWEST,
+        MOST_MEMBERS,
+        TIME_CLOSEST,
+        
+    }
+    
     type AuthResponse {
         success: Boolean!
         # Contains error message, if not successful
@@ -46,23 +67,28 @@ const typeDefs = gql`
         firstName: String!
         lastName: String!
         email: String!
-        age: Int
-        city: String
-        state: String
-        zip: String
-        additionalAddress: String
+        age: Int # TODO: Calculate the age of the user from birthday
+        # TODO: Split the address into
+        # street address
+        # additional street address
+        # city
+        # state
+        # zip code
+        address: String
         phone: String
-        hostedEvents: [Event]!
-        participatedEvents: [Event]!
+        selfDescription: String
+        hostedEvents: [Event]! # Events hosted by this user.
+        participatedEvents: [Event]! # Events participated by this user.
         birthday: Date
         registrationDate: Date!
         profileImgUrl: String
         lastInterationTime: DateTime
     }
 
-    type Event {
+    interface Event {
         id: ID!
         host: User!
+        thumbnailUrl: String
         creationTime: DateTime!
         # When the schedule of the event is updated,
         # lastUpdatedTime of the event also need to be updated.
@@ -71,10 +97,34 @@ const typeDefs = gql`
         title: String!
         description: String!
         price: Float!
-        # image: Upload!
         # TODO(arin-kwak): Implement image uploading feature
+        # image: Upload!
         tags: [Tag]!
         participants: [User]!
+        maxParticipantNum: Int
+    }
+    
+    type EventBookClub implements Event{
+        id: ID!
+        host: User!
+        thumbnailUrl: String
+        creationTime: DateTime!
+        # When the schedule of the event is updated,
+        # lastUpdatedTime of the event also need to be updated.
+        lastUpdatedTime: DateTime!
+        schedule: [EventSchedule]!
+        title: String!
+        description: String!
+        price: Float!
+        # TODO(arin-kwak): Implement image uploading feature
+        # image: Upload!
+        bookTitle: String!
+        bookAuthor: String!
+        bookDescription: String!
+        bookISBN: Int!
+        tags: [Tag]!
+        participants: [User]!
+        maxParticipantNum: Int
     }
 
     # Every event can have multiple tags.
@@ -87,7 +137,7 @@ const typeDefs = gql`
         events: [Event]!
     }
 
-    # TODO(arin-kwak): Implement EventConnection.
+    # TODO(lsh9034): Implement EventConnection.
     # Reference:
     # https://www.apollographql.com/docs/tutorial/resolvers/#paginated-queries 
     type EventConnection {
@@ -99,14 +149,16 @@ const typeDefs = gql`
         id: ID!
         startDateTime: DateTime!
         endDateTime: DateTime!
-        country: String!
-        state: String!
-        city: String!
-        zip: String!
-        street: String!
-        additionalAddress: String!
-        latitude: String!
-        longtitude: String!
+        # TODO: Split the address into
+#        country: String!
+#        state: String!
+#        city: String!
+#        zip: String!
+#        street: String!
+#        additionalStreetAddress: String!
+        address: String!
+        latitude: Float!
+        longitude: Float!
     }
 `;
 
