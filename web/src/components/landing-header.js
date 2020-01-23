@@ -1,10 +1,10 @@
-import React from 'react';
 import {Container,
         Grid,
         Typography
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 import LandiingViewButton from './landing-view-button';
+import { makeStyles } from '@material-ui/core/styles';
 
 const landing_bg = require('../assets/landing-bg.jpg');
 const benefit = [
@@ -16,16 +16,15 @@ const benefit = [
 // Main Header css style
 const mainHeaderStyles = makeStyles(theme => ({
   root: {
-    width: '100%',
+    alignItems: 'center',
     backgroundImage: `url(${landing_bg})`,
     backgroundSize: 'cover',
     color:'white',
-    textAlign: 'center',
     height: 400,
     justifyContent: 'center',
-    alignItems: 'center'
+    textAlign: 'center',
+    width: '100%'
   },
-
 }));
 
 // Sub Explanation css style
@@ -45,7 +44,7 @@ const subExplanationStyles = makeStyles(theme => ({
   }
 }));
 
-// Sub Header in Landing Page
+// Sub Explanation in Landing Page
 function LandingSubExplanation() {
   const subStyle = subExplanationStyles();
   return (

@@ -1,10 +1,11 @@
+import {Button,
+  Box,
+  Grid,
+} from '@material-ui/core';
 import React from 'react';
 import {withRouter} from 'react-router-dom'
-import {Button,
-        Grid,
-        Box} from '@material-ui/core';
 
-// Popular Text and View All Button redirecting to event list page in Landing Page
+// Redirect 'Popular' and 'View All' Button to event list page
 // TODO(Lhyejin): Add css style
 const LandiingViewButton = props => {
   return (
