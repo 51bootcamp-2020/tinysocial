@@ -28,8 +28,8 @@ const mainHeaderStyles = makeStyles(theme => ({
 
 }));
 
-// Sub Header css style
-const subHeaderStyles = makeStyles(theme => ({
+// Sub Explanation css style
+const subExplanationStyles = makeStyles(theme => ({
   root: {
     marginTop: 100,
     marginBottom: 50,
@@ -46,43 +46,43 @@ const subHeaderStyles = makeStyles(theme => ({
 }));
 
 // Sub Header in Landing Page
-function LandingSubHeader() {
-  const subStyle = subHeaderStyles();
+function LandingSubExplanation() {
+  const subStyle = subExplanationStyles();
   return (
-      <div className={subStyle.root}>
-        <Grid container justify="space-between" className={subStyle.text}>
-          <Grid item xs='auto' sm={3}>
-            <img src={benefit[0]} className={subStyle.img} />
-            <Typography variant="h6" gutterBottom>
-              Learn from a guru
-            </Typography>
-            <Typography>
-              Lorem ipsum door sit amet, consectetur adipiscing
-              elit, sed do elusmo
-            </Typography>
-          </Grid>
-          <Grid Item xs='auto' sm={3}>
-              <img src={benefit[1]} className={subStyle.img} />
-              <Typography variant="h6" gutterBottom>
-                Read with like-minded friends
-              </Typography>
-              <Typography>
-                Lorem ipsum door sit amet, consectetur adipiscing
-                elit, sed do elusmo
-              </Typography>
-          </Grid>
-          <Grid item xs='auto' sm={3}>
-              <img src={benefit[2]} className={subStyle.img} />
-              <Typography variant="h6" gutterBottom>
-                Read, drink and be merry
-              </Typography>
-              <Typography>
-                Lorem ipsum door sit amet, consectetur adipiscing
-                elit, sed do elusmo
-              </Typography>
-          </Grid>
+    <div className={subStyle.root}>
+      <Grid container justify="space-between" className={subStyle.text}>
+        <Grid item xs='auto' sm={3}>
+          <img src={benefit[0]} className={subStyle.img} />
+          <Typography variant="h6" gutterBottom>
+            Learn from a guru
+          </Typography>
+          <Typography>
+            Lorem ipsum door sit amet, consectetur adipiscing
+            elit, sed do elusmo
+          </Typography>
         </Grid>
-      </div>
+        <Grid Item xs='auto' sm={3}>
+          <img src={benefit[1]} className={subStyle.img} />
+          <Typography variant="h6" gutterBottom>
+            Read with like-minded friends
+          </Typography>
+          <Typography>
+            Lorem ipsum door sit amet, consectetur adipiscing
+            elit, sed do elusmo
+          </Typography>
+        </Grid>
+        <Grid item xs='auto' sm={3}>
+          <img src={benefit[2]} className={subStyle.img} />
+          <Typography variant="h6" gutterBottom>
+            Read, drink and be merry
+          </Typography>
+          <Typography>
+            Lorem ipsum door sit amet, consectetur adipiscing
+            elit, sed do elusmo
+          </Typography>
+        </Grid>
+      </Grid>
+    </div>
   )
 }
 
@@ -103,7 +103,7 @@ export default function LandingHeader() {
         </Grid>
       </Grid>
     <Container maxWidth='xl'>
-      <LandingSubHeader />
+      <LandingSubExplanation />
     </Container>
     <Container maxWidth='xl'>
       <LandiingViewButton/>
