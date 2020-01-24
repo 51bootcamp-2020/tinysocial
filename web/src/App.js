@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-} from "react-router-dom"
+} from 'react-router-dom';
 import EventList from './pages/eventlist';
 import Landing from './pages/landing';
 import NavBar from './components/navigation/navbar';

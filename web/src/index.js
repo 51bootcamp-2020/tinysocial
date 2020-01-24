@@ -7,7 +7,7 @@ import * as serviceWorker from './service-worker';
 
 const client = new ApolloClient({
   // TODO(arin-kwak): change this after deploying.
-  uri: "http://localhost:15780"
+  uri: 'http://localhost:15780'
 });
 
 ReactDOM.render(
