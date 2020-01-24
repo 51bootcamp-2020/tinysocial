@@ -5,7 +5,8 @@ import {gql} from 'apollo-boost';
 import {Mutation} from 'react-apollo'
 import {withRouter} from 'react-router-dom'
 import Grid from '@material-ui/core/Grid';
-import {withWidth} from '@material-ui/core';
+import {Button} from '@material-ui/core';
+import 'typeface-roboto';
 
 /* Query sending user Information to server */
 const SIGNIN_QUERY = gql`
@@ -78,6 +79,7 @@ class LoginFormGoogle extends Component {
                     }}
                   onError={
                     (error)=>{
+
                       // TODO(Hyejin): Implement query error processing
                     }
                   }>
@@ -92,9 +94,16 @@ class LoginFormGoogle extends Component {
                           }, execute_mutation)
                         }}
                         onFailure={this.responseFail}
-                        buttonText="Sign in with Google"
+                        // buttonText="Sign in with Google"
                         clientId={clientId} // Our client ID
-                    />
+                    >
+                      <p style={{width: '228px', height: '28px',
+                        fontWeight: 'bold', fontStretch: 'normal',
+                        lineHeight: '30px',
+                        color: '#4a4a4a', fontFamily: 'Roboto', marginBottom: '0'}}>
+                        Sign in with Google
+                      </p>
+                    </GoogleLogin>
                   // </Grid>
               )
           }

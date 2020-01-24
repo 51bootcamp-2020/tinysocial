@@ -5,15 +5,11 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
 const boxStyle={
-  marginTop: "10%",
-  padding: "50px",
+  marginTop: "6%",
+  padding: "30px",
   display: "flex",
   alignItems: "center",
-  justifyContent: "center",
-  width: "50%",
-  height: "80%",
   flexDirection: 'Column',
-  border: "1px black solid"
 
 }
 const signinStyle={
@@ -30,7 +26,7 @@ class Signin extends Component {
 
   render() {
     return (
-        <Container className="signin" style={boxStyle}>
+        <Container className="signin" style={boxStyle} maxWidth='sm'>
           <LoginFormGoogle/>
           <LoginFormGeneral/>
         </Container>

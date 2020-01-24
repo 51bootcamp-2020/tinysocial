@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {GoogleLogin} from 'react-google-login';
 import {clientId} from './utils.js';
 import {gql} from 'apollo-boost';
 import {Mutation} from 'react-apollo'
 import {withRouter} from 'react-router-dom'
-import {Grid, TextField, Button} from '@material-ui/core';
+import {Grid, TextField, Button, Hidden, Link} from '@material-ui/core';
 
 class LoginFormGeneral extends Component {
 
@@ -52,25 +53,47 @@ class LoginFormGeneral extends Component {
    */
   render() {
       return(
-          <Grid container style={{flexDirection: 'column', width: '50%'}} className="align-middle" placing={2}>
-              <hr className="hr-text"/>
-              <br/>
-              <TextField id="login-general-email" label="Email" />
-              <br/>
-              <TextField
-                  id="login-general-password-input"
-                  label="Password"
-                  type="password"
-                  autoComplete="current-password"
-              />
-              <br/>
-              <br/>
-              <Button variant="contained" style={{height: '50px'}}>Register</Button>
+          <Grid container style={{flexDirection: 'column', width: '288px'}} className="align-middle" placing={1}>
+            {/*<Hidden only="xs">*/}
+              <Grid item xs={12}>
+                <br/>
+                <Grid container style={{alignContent: 'center'}}>
+                  <Grid item xs={4}>
+                    <hr className="hr-text"/>
+                  </Grid>
+                  <Grid item xs={4} style={{textAlign: 'center'}}>
+                    <p style={{fontSize: '14px', color: '#9b9b9b'}}>OR</p>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <hr className="hr-text"/>
+                  </Grid>
+                </Grid>
+                <TextField id="login-general-email" label="Email" style={{width: '100%'}}/>
+                <br/>
+                <br/>
+                <TextField
+                    id="login-general-password-input"
+                    label="Password"
+                    type="password"
+                    autoComplete="current-password"
+                    style={{width: '100%'}}
+                />
+                <br/>
+                <br/>
+                <Button variant="contained" style={{height: '50px', width: '100%'}}>Sign in</Button>
+                <br/>
+                <br/>
+                <p style={{textAlign: 'center'}}>Don't have an account? <Link href='/signup' style={{color: 'red', marginLeft:'10px'}}>Sign up</Link></p>
+              </Grid>
+            {/*</Hidden>*/}
+
           </Grid>
       )
   }
 }
 
-LoginFormGeneral.propTypes = {};
+LoginFormGeneral.propTypes = {
+  width: PropTypes.oneOf(['lg', 'md', 'sm', 'xl', 'xs']).isRequired,
+};
 
 export default withRouter(LoginFormGeneral);
