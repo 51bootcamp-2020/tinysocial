@@ -2,8 +2,11 @@ import React, {Component} from 'react';
 import {GoogleLogin} from 'react-google-login';
 import {clientId} from './utils.js';
 import {gql} from 'apollo-boost';
-import {Mutation} from 'react-apollo'
-import {withRouter} from 'react-router-dom'
+import {Mutation} from 'react-apollo';
+import {withRouter} from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
+import {Button} from '@material-ui/core';
+import 'typeface-roboto';
 
 /* Query sending user Information to server */
 const SIGNIN_QUERY = gql`
@@ -19,19 +22,19 @@ const SIGNIN_QUERY = gql`
           }
         }`;
 
-class LoginForm extends Component {
+class LoginFormGoogle extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       isMember: false,
-      googleId: ''
+      googleId: '',
     };
   }
 
   // Google login fail callback function
   responseFail = (err) => {
-    // TODO(Hyejin): Make alert function
+    // TODO(Myounghee): Make alert function
   };
 
   /**
@@ -43,17 +46,16 @@ class LoginForm extends Component {
     if (isSuccess) {
       this.setState({isMember: true});
       // Store user token to localStorage
-      // TODO(Hyejin): Refactor data stored to localStorage
+      // TODO(Myounghee): Refactor data stored to localStorage
       localStorage.setItem('token', token);
-    }
-    else{
-      // TODO(Hyejin): Implement processing signin failure
+    } else {
+      // TODO(Myounghee): Implement processing signin failure
     }
   }
 
   // After authenticated from server, redirect even if success or not.
   redirect = () => {
-    if(this.state.isMember)
+    if (this.state.isMember)
       return this.props.history.push('/');
     else
       return this.props.history.push('/signup');
@@ -65,41 +67,52 @@ class LoginForm extends Component {
    */
   render() {
     return (
-      <div>
-        <Mutation mutation={SIGNIN_QUERY}
-                  variables={{googleId: this.state.googleId}}
-                  onCompleted={
-                    (data)=>{
-                      this.changeIsMember(
-                          /* isSucess= */ data.signInWithGoogle.success,
-                          /* token= */ data.signInWithGoogle.token);
-                      this.redirect()
-                    }}
-                  onError={
-                    (error)=>{
-                      // TODO(Hyejin): Implement query error processing
-                    }
-                  }>
-          {(execute_mutation) => {
-            {/* Google Login Button */}
-              return(
-                <GoogleLogin
-                    onSuccess={(res) => {
-                      this.setState({
-                        googleId : res.profileObj.googleId
-                      }, execute_mutation)
-                    }}
-                    onFailure={this.responseFail}
-                    clientId={clientId} // Our client ID
-                />
-              )
-          }
-          }
-        </Mutation>
-      </div>);
+        <div>
+          <Mutation mutation={SIGNIN_QUERY}
+                    variables={{googleId: this.state.googleId}}
+                    onCompleted={
+                      (data) => {
+                        this.changeIsMember(
+                            /* isSucess= */ data.signInWithGoogle.success,
+                            /* token= */ data.signInWithGoogle.token);
+                        this.redirect();
+                      }}
+                    onError={
+                      (error) => {
+                        // TODO(Myounghee): Implement query error processing
+                      }
+                    }>
+            {(execute_mutation) => {
+              {/* Google Login Button */
+              }
+              return (
+                  <GoogleLogin
+                      onSuccess={(res) => {
+                        this.setState({
+                          googleId: res.profileObj.googleId,
+                        }, execute_mutation);
+                      }}
+                      onFailure={this.responseFail}
+                      clientId={clientId} // Our client ID
+                  >
+                    <p style={{
+                      width: '228px', height: '28px',
+                      fontWeight: 'bold', fontStretch: 'normal',
+                      lineHeight: '30px',
+                      color: '#4a4a4a', fontFamily: 'Roboto', marginBottom: '0',
+                    }}>
+                      Sign in with Google
+                    </p>
+                  </GoogleLogin>
+
+              );
+            }
+            }
+          </Mutation>
+        </div>);
   }
 }
 
-LoginForm.propTypes = {};
+LoginFormGoogle.propTypes = {};
 
-export default withRouter(LoginForm);
+export default withRouter(LoginFormGoogle);
