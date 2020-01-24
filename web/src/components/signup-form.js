@@ -118,5 +118,9 @@ class SignupForm extends Component {
 
 SignupForm.propTypes = {};
 
+<<<<<<< HEAD
+export default SignupForm;
+=======
 // Wrap with withRouter to use props.history.
 export default withRouter(SignupForm);
+>>>>>>> 6790ad4bf175747f2c855428dfc6a5ab4d40048a
