@@ -10,7 +10,6 @@ import {
 function Commonevent() {
   return (
     <div>
-      {/* TODO(YoonYeoHwan): Crop image to middle. */}
       <Grid container direction="row" alignContent='space-between'>
         <Hidden xsDown>
           <Grid item sm={6} xs={12}
