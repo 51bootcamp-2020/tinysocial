@@ -1,63 +1,58 @@
 import {
   AppBar,
   Grid,
-  Tab,
-  Tabs,
+  Typography,
 } from '@material-ui/core';
 import {
   BrowserRouter,
-  Link,
   Route,
-  Switch,
 } from 'react-router-dom';
-import EventList from '../../pages/eventlist';
-import Landing from '../../pages/landing';
 import Logo from '../../img/tinysocial-logo.png';
 import React from 'react';
-import Signin from '../../pages/signin';
 
 function NavBarPC() {
   return (
-      <BrowserRouter>
-        <div>
-          <Route
-              path="/"
-              render={({location}) => (
-                  <>
-                    <AppBar color="default">
-                      <Grid container alignItems="center" direction="row"
-                            justify="space-between">
-                        <Grid justify="flex-start">
-                          <a href="/" style={{padding: 20}}>
-                            <img src={Logo}/>
-                          </a>
-                        </Grid>
-                        <Grid justify="flex-end">
-                          <Tabs value={location.pathname}
-                                aria-label="Navigation Tabs">
-                            <Tab label="Events" component={Link} to="/"
-                                 style={{textTransform: 'none'}}/>
-                            {/* TODO(YoonYeoHwan) : Need to implement About page. Now just linked to landing page. */}
-                            <Tab label="About" component={Link}
-                                 style={{textTransform: 'none'}}
-                                 to="/landing"/>
-                            <Tab label="Sign in" component={Link}
-                                 style={{textTransform: 'none'}}
-                                 to="/signin"/>
-                          </Tabs>
-                        </Grid>
-                      </Grid>
-                    </AppBar>
-                    <Switch>
-                      <Route path='/landing' render={() => <Landing/>}/>
-                      <Route path="/signin" render={() => <Signin/>}/>
-                      <Route path='/' render={() => <EventList/>}/>
-                    </Switch>
-                  </>
-              )}
-          />
-        </div>
-      </BrowserRouter>
+    <BrowserRouter>
+      <div>
+        <Route path="/"
+          render={({location}) => (
+            <>
+              <AppBar position='static' color="default">
+                <Grid container alignItems="center" direction="row"
+                  justify="space-between"
+                  style={{paddingTop: 10, paddingBottom: 10}}>
+                  <Grid justify="flex-start">
+                    <a href="/" style={{padding: 20}}>
+                      <img src={Logo}/>
+                    </a>
+                  </Grid>
+                  <Grid justify="flex-end">
+                    <Grid container direction='row'>
+                      <a href="/events">
+                        <Typography variant="h6" style={{textTransform: 'none', color: 'black', marginLeft: 20, marginRight: 20}}>
+                          Events
+                        </Typography>
+                      </a>
+                      <a href="/about">
+                        {/* TODO(YoonYeoHwan) : Need to implement About page. Now just linked to landing page. */}
+                        <Typography variant="h6" style={{textTransform: 'none', color: 'black', marginLeft: 20, marginRight: 20}}>
+                          About
+                        </Typography>
+                      </a>
+                      <a href="/signin">
+                        <Typography variant="h6" style={{textTransform: 'none', color: 'black', marginLeft: 20, marginRight: 30}}>
+                          Sign in
+                        </Typography>
+                      </a>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </AppBar>
+            </>
+          )}
+        />
+      </div>
+    </BrowserRouter>
   );
 }
 
