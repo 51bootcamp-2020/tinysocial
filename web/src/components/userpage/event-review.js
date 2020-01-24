@@ -1,24 +1,27 @@
+import {
+  Grid, 
+  Typography
+} from '@material-ui/core';
+import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
-import {Grid, Typography} from '@material-ui/core';
 import ReviewWriteButton from './review-write-button';
 import {REVIEW_WRITE_TEXT} from '../utils';
 import {withRouter} from 'react-router-dom';
 
-class Review extends Component {
+class EventReview extends Component {
   constructor(props) {
     super(props);
-    this.handleReviewButtonClick = this.handleReviewButtonClick.bind(this)
+    this.handleReviewButtonClick = this.handleReviewButtonClick.bind(this);
   }
 
+  // Redirect to the review-write page with eventId state.
   handleReviewButtonClick() {
-    // Redirect to review write page.
     this.props.history.push({
       pathname: '/review-write',
       state: {
-        // TODO(mkswon1): send user id too.
-        eventId: this.props.id
-      }
-    })
+        eventId: this.props.id,
+      },
+    });
   }
 
   render() {
@@ -26,19 +29,22 @@ class Review extends Component {
     return (
       <Fragment>
         <Grid item xs={12} align='center' style={{margin:'15px'}}>
+          {/* Review title, null if title is undefined. */}
           <Typography 
             variant='subtitle2' 
             align='left' 
             style={{fontWeight:'bold'}}>
             {review ? review.title : null}
           </Typography>
+          {/* Review content, sample write text if content is undefined.  */}
           <Typography variant='body2' align='left'>
             {review ? review.content : REVIEW_WRITE_TEXT}
           </Typography>
         </Grid>
         <Grid item xs={12} align='center'>
+          {/* Review 'Write' button. */}
           <ReviewWriteButton 
-            write={review === undefined} 
+            isWrite={review === undefined} 
             onClick={this.handleReviewButtonClick} />
         </Grid>
       </Fragment>
@@ -46,4 +52,6 @@ class Review extends Component {
   }
 }
 
-export default withRouter(Review);
+EventReview.propTypes = {};
+
+export default withRouter(EventReview);

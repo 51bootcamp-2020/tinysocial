@@ -1,13 +1,14 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import {Button} from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
+import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 
 class ReviewWriteButton extends Component {
   render() {
-    const {write, onClick} = this.props;
+    const {isWrite, onClick} = this.props;
 
-    if (write) {
+    // When there is no review of the user.
+    if (isWrite) {
       return (
         <Button 
           variant="contained" 
@@ -27,6 +28,7 @@ class ReviewWriteButton extends Component {
       );
     }
 
+    // When there is a review of the user.
     return (
       <Button 
         variant="outlined" 

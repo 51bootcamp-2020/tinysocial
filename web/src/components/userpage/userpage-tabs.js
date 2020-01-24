@@ -1,13 +1,13 @@
-import React, {Component, Fragment} from 'react';
+import {AppBar, Tabs, Tab} from '@material-ui/core';
 import PropTypes from 'prop-types';
-import {AppBar, Tabs, Tab} from '@material-ui/core'
-import {withStyles} from '@material-ui/core/styles'
+import React, {Component, Fragment} from 'react';
+import {withStyles} from '@material-ui/core/styles';
 
 const styles = theme => ({
   indicator: {
     background: '#ffff8c'
   }
-})
+});
 
 class ReviewTabs extends Component {
   constructor(props) {
@@ -19,6 +19,7 @@ class ReviewTabs extends Component {
 
     return (
       <Fragment>
+        {/* Upcoming / Past header tabs. */}
         <AppBar position="static">
           <Tabs variant="fullWidth" 
                 value={currentTab}

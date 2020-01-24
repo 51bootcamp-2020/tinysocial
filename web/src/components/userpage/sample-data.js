@@ -1,4 +1,5 @@
-// This is a temporary file for sample datasets
+// This is a temporary file for tests.
+// TODO(mskwon1): Remove this file after queries are implemented & used.
 
 // Sample schedule list for test.
 const SAMPLE_SCHEDULES = [
@@ -27,8 +28,10 @@ module.exports = {
   SAMPLE_EVENTS : [
     {
       id:1,
-      title:'Brief Summary of Human History',
-      image: 'sapiens.png',
+      eventTitle: 'Summary of Human History',
+      bookTitle: 'Sapiens',
+      bookAuthor: 'Yuval Harari',
+      bookImage: 'sapiens.png',
       schedules: SAMPLE_SCHEDULES,
       review: {
         title: 'Sapiens is best',
@@ -37,8 +40,10 @@ module.exports = {
     },
     {
       id:2,
-      title:'Nothing of Human History',
-      image: 'sapiens.png',
+      eventTitle: 'Nothing of Human History',
+      bookTitle: 'Sapiens',
+      bookAuthor: 'Yuval Harari',
+      bookImage: 'sapiens.png',
       schedules: SAMPLE_SCHEDULES,
       review: undefined
     }
