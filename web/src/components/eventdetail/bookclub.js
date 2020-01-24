@@ -6,6 +6,23 @@ import {
 } from '@material-ui/core';
 
 class Bookclub extends Component {
+  constructor(props) {
+    super(props);
+    const {
+      hostId,
+      firstName,
+      lastName,
+      userProfileImgUrl,
+      userDescription,
+      eventImage,
+      eventTitle,
+      bookTitle,
+      author,
+      bookDescription,
+
+
+    } = this.props;
+  }
   render() {
     return (
       <div style={{margin: 15}}>
