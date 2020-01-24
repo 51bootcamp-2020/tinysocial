@@ -14,11 +14,11 @@ function Commonevent() {
       <Grid container direction="row" alignContent='space-between'>
         <Hidden xsDown>
           <Grid item sm={6} xs={12}
-            style={{margin: 15, height: 400, background: 'red'}}>
+            style={{margin: 15, height: 400, }}>
             {/* TODO(YoonYeoHwan): Get image src from query. */}
             <div style={{height: 400, width: 'auto', overflow: 'hidden'}}>
-              <img style={{display: 'block', backgroundPosition: 'center'}}
-                src='https://www.zincmedia.com/wp-content/uploads/2016/01/600x600.jpg'/>
+              <img style={{width: '100%', height: '100%', objectFit: 'cover'}}
+                   src='https://www.zincmedia.com/wp-content/uploads/2016/01/600x600.jpg'/>
             </div>
           </Grid>
         </Hidden>
@@ -33,8 +33,11 @@ function Commonevent() {
               overflow: 'hidden',
             }}>
             {/* TODO(YoonYeoHwan): Get image src from query. */}
-            <img style={{width: 'auto', height: 'auto', }}
-              src='https://cdn.wallpapersafari.com/6/54/VGI0Zy.jpg'/>
+            <div style={{width: '100%', height: 200, overflow: 'hidden'}}>
+              <img style={{width: '100%', height: '100%', objectFit: 'cover'}}
+                   src='https://cdn.wallpapersafari.com/6/54/VGI0Zy.jpg'/>
+            </div>
+
           </Grid>
         </Hidden>
 
