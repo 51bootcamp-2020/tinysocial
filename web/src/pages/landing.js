@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import LandingHeader from '../components/landing-header';
+import LandingBodyDetails from '../components/landing-body-details';
 
 class Landing extends Component {
   render() {
     return (
         <div>
-          <LandingHeader/>
+          <LandingBodyDetails/>
         </div>
     );
   }

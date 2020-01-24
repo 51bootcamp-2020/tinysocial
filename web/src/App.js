@@ -3,7 +3,7 @@ import {ApolloProvider} from "react-apollo";
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
+  Switch
 } from "react-router-dom"
 import React from "react";
 

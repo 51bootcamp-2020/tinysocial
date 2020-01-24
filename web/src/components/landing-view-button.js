@@ -7,7 +7,7 @@ import {withRouter} from 'react-router-dom'
 
 // Redirect 'Popular' and 'View All' Button to event list page
 // TODO(Lhyejin): Add css style
-const LandiingViewButton = props => {
+const LandingViewButton = props => {
   return (
       <Grid container justify="space-between">
         <Grid item xs={1}>
@@ -23,4 +23,4 @@ const LandiingViewButton = props => {
   )
 };
 
-export default withRouter(LandiingViewButton);
+export default withRouter(LandingViewButton);
