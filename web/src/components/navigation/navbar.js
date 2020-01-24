@@ -9,11 +9,11 @@ import React from 'react';
 function Navbar(props) {
   if (isWidthUp('md', props.width)) {
     return (
-        <NavBarPC/>
+      <NavBarPC/>
     );
   }
   return (
-      <NavBarMobile/>
+    <NavBarMobile/>
   );
 }
 
