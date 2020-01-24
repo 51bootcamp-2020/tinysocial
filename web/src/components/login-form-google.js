@@ -5,6 +5,7 @@ import {gql} from 'apollo-boost';
 import {Mutation} from 'react-apollo'
 import {withRouter} from 'react-router-dom'
 import Grid from '@material-ui/core/Grid';
+import {withWidth} from '@material-ui/core';
 
 /* Query sending user Information to server */
 const SIGNIN_QUERY = gql`
@@ -20,7 +21,7 @@ const SIGNIN_QUERY = gql`
           }
         }`;
 
-class LoginForm extends Component {
+class LoginFormGoogle extends Component {
 
   constructor(props) {
     super(props);
@@ -34,7 +35,6 @@ class LoginForm extends Component {
   responseFail = (err) => {
     // TODO(Hyejin): Make alert function
   };
-
   /**
    * After check member from server, setState and Reaction
    * @param {boolean} isSuccess
@@ -84,7 +84,7 @@ class LoginForm extends Component {
           {(execute_mutation) => {
             {/* Google Login Button */}
               return(
-                  <Grid item xs={12}>
+                  // <Grid item xs={12}>
                     <GoogleLogin
                         onSuccess={(res) => {
                           this.setState({
@@ -92,9 +92,10 @@ class LoginForm extends Component {
                           }, execute_mutation)
                         }}
                         onFailure={this.responseFail}
+                        buttonText="Sign in with Google"
                         clientId={clientId} // Our client ID
                     />
-                  </Grid>
+                  // </Grid>
               )
           }
           }
@@ -103,6 +104,6 @@ class LoginForm extends Component {
   }
 }
 
-LoginForm.propTypes = {};
+LoginFormGoogle.propTypes = {};
 
-export default withRouter(LoginForm);
+export default withRouter(LoginFormGoogle);
