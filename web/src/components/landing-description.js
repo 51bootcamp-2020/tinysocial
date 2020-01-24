@@ -13,8 +13,8 @@ const benefit = [
   require('../assets/benefit3.png')
 ];
 
-// First Body Details css style
-const FirstBodyStyles = makeStyles(theme => ({
+// Main Description css style
+const MainDescriptionStyles = makeStyles(theme => ({
   root: {
     alignItems: 'center',
     backgroundImage: `url(${landing_bg})`,
@@ -27,8 +27,8 @@ const FirstBodyStyles = makeStyles(theme => ({
   },
 }));
 
-// Second Body Details css style
-const SecondBodyStyles = makeStyles(theme => ({
+// Sub Description css style
+const SubDescriptionStyles = makeStyles(theme => ({
   root: {
     marginTop: 100,
     marginBottom: 50,
@@ -44,12 +44,12 @@ const SecondBodyStyles = makeStyles(theme => ({
   }
 }));
 
-// First Body Details in Landing Page
-function FirstBodyDetails() {
-  const firstBodyStyles = FirstBodyStyles();
+// Main Description in Landing Page
+function MainLandingDescription() {
+  const mainDescriptionStyles = MainDescriptionStyles();
   return(
     // TODO(Lhyejin): Add actual text
-    <Grid container className={firstBodyStyles.root}>
+    <Grid container className={mainDescriptionStyles.root}>
       <Grid item xs={12}>
         <Typography variant='h4' paragraph>
           Reinventing the Book club
@@ -63,15 +63,15 @@ function FirstBodyDetails() {
   )
 }
 
-// Second Body Details in Landing Page
-function SecondBodyDetails() {
-  const secondBodyStyles = SecondBodyStyles();
+// Sub Description in Landing Page
+function SubLandingDescription() {
+  const subDescriptionStyles = SubDescriptionStyles();
   return (
-    <Container maxWidth='xl' className={secondBodyStyles.root}>
-      <Grid container justify="space-between" className={secondBodyStyles.text}>
+    <Container maxWidth='xl' className={subDescriptionStyles.root}>
+      <Grid container justify="space-between" className={subDescriptionStyles.text}>
         {/* TODO(Lhyejin): Add actual text */}
         <Grid item xs='auto' sm={3}>
-          <img src={benefit[0]} className={secondBodyStyles.img} />
+          <img src={benefit[0]} className={subDescriptionStyles.img} />
           <Typography variant="h6" gutterBottom>
             Learn from a guru
           </Typography>
@@ -81,7 +81,7 @@ function SecondBodyDetails() {
           </Typography>
         </Grid>
         <Grid Item xs='auto' sm={3}>
-          <img src={benefit[1]} className={secondBodyStyles.img} />
+          <img src={benefit[1]} className={subDescriptionStyles.img} />
           <Typography variant="h6" gutterBottom>
             Read with like-minded friends
           </Typography>
@@ -91,7 +91,7 @@ function SecondBodyDetails() {
           </Typography>
         </Grid>
         <Grid item xs='auto' sm={3}>
-          <img src={benefit[2]} className={secondBodyStyles.img} />
+          <img src={benefit[2]} className={subDescriptionStyles.img} />
           <Typography variant="h6" gutterBottom>
             Read, drink and be merry
           </Typography>
@@ -105,12 +105,12 @@ function SecondBodyDetails() {
   )
 }
 
-// Body Details in Landing Page
-export default function LandingBodyDetails() {
+// Description in Landing Page
+export default function LandingDescription() {
   return (
     <React.Fragment>
-      <FirstBodyDetails />
-      <SecondBodyDetails />
+      <MainLandingDescription />
+      <SubLandingDescription />
       <LandingViewButton />
     </React.Fragment>
   )
