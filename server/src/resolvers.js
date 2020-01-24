@@ -136,8 +136,7 @@ module.exports = {
       ret = events_list.slice(0, max_size);
 
       return {
-        cursor: 'test',
-        hasMore: false,
+        cursor: 8,
         events: ret,
       };
     },

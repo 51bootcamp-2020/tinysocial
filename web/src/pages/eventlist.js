@@ -11,7 +11,6 @@ const EVENT_LIST_REQUEST_QUERY = gql`
     query{
         events(pageSize: 9){
             cursor,
-            hasMore,
             events{
                 id,
                 title,
