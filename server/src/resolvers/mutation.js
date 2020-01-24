@@ -1,6 +1,11 @@
-const jwt = require('jsonwebtoken');
-const APP_SECRET = process.env.SECRET || "";
+const APP_SECRET = process.env.SECRET || " ";
+const {
+  cannotCreateUserMessage,
+  userNotFoundMessage,
+} = require('../error-messages')
 const expirationTime = '100h';
+const jwt = require('jsonwebtoken');
+
 module.exports.Mutation = {
   signInWithGoogle: async (_, {googleId}, {dataSources,userId}) => {
     const user = await dataSources.mainAPI.findUser({googleId});
@@ -9,7 +14,7 @@ module.exports.Mutation = {
         success: false,
         message: userNotFoundMessage,
         token: null,
-        user: null,
+        user: null
       };
     }
 
@@ -24,38 +29,41 @@ module.exports.Mutation = {
     };
   },
 
-  signUpWithGoogle:
-      async (
-          _, {googleId, email, firstName, lastName, profileImgUrl},
-          {dataSources}) => {
-        const user = await dataSources.mainAPI.findOrCreateUser({googleId},
-            {
-              email,
-              firstName,
-              lastName,
-              profileImgUrl: profileImgUrl ? profileImgUrl : '',
-            });
+  signUpWithGoogle: async (
+    _,
+    { googleId, email, firstName, lastName, profileImgUrl },
+    { dataSources }
+  ) => {
+    const user = await dataSources.mainAPI.findOrCreateUser(
+      { googleId },
+      {
+        email,
+        firstName,
+        lastName,
+        profileImgUrl: profileImgUrl ? profileImgUrl : ""
+      }
+    );
 
-        if (user === null) {
-          return {
-            success: false,
-            message: cannotCreateUserMessage,
-            token: null,
-            user: null,
-          };
-        }
+    if (user === null) {
+      return {
+        success: false,
+        message: cannotCreateUserMessage,
+        token: null,
+        user: null,
+      };
+    }
 
-        // TODO(lsh9034): Implement session logic.
-        // Create session and return sessionId to client.
-
-        return {
-          success: true,
-          message: 'Success',
-          token: 'We have to implement this',
-          user,
-        };
-      },
-
-  logout: async () => {
+    const token = jwt.sign({ userId: user.id }, APP_SECRET, {
+      expiresIn: "100h"
+    });
+    
+    return {
+      success: true,
+      message: "Success",
+      token: token,
+      user
+    };
   },
+
+  logout: async () => {}
 };

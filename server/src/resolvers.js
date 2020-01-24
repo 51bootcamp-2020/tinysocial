@@ -6,7 +6,11 @@ const {Event} = require('./resolvers/event');
 module.exports = {
   Query: {
     events: (_, {pageSize, after}, context) => {
+<<<<<<< HEAD
       // Temporal data for test event list page
+=======
+      // Temporary data for test event list page.
+>>>>>>> 6790ad4bf175747f2c855428dfc6a5ab4d40048a
       const events_list = [
         {
           id: 0,
