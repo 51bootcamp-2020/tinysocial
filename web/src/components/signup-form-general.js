@@ -64,21 +64,35 @@ class SignupFormGeneral extends Component {
 
     return (
       <div>
-        <Grid container spacing={3} >
+        {/*<Grid container style={{flexDirection: 'column', width: '288px'}} className="align-middle" placing={1}>*/}
+        {/*  <Grid item xs={12}>*/}
+        <Grid container style={{flexDirection: 'column', width: '288px'}} className="align-middle" placing={3}>
+          <br/>
+          <Grid container style={{alignContent: 'center'}}>
+            <Grid item xs={4}>
+              <hr className="hr-text"/>
+            </Grid>
+            <Grid item xs={4} style={{textAlign: 'center'}}>
+              <p style={{fontSize: '14px', color: '#9b9b9b'}}>OR</p>
+            </Grid>
+            <Grid item xs={4}>
+              <hr className="hr-text"/>
+            </Grid>
+          </Grid>
           <Grid item>
             <TextField id="firstname" label="First Name" type="text"
                        onChange={e => this.setState({firstname: e.target.value})}
-                       style={{width: '143%'}} fullWidth required/>
+                       style={{width: '100%'}} fullWidth required/>
           </Grid>
           <Grid item>
             <TextField id="lastname" label="Last Name" type="text"
                        onChange={e => this.setState({lastname: e.target.value})}
-                       style={{width: '143%'}} fullWidth required/>
+                       style={{width: '100%'}} fullWidth required/>
           </Grid>
           <Grid item>
             <TextField id="email" label="Email" type="email"
                        onChange={e => this.setState({email: e.target.value})}
-                       style={{width: '143%'}} fullWidth required/>
+                       style={{width: '100%'}} fullWidth required/>
           </Grid>
           {/*<br/>*/}
           {/*<br/>*/}
@@ -89,7 +103,7 @@ class SignupFormGeneral extends Component {
                 type="password"
                 autoComplete="current-password"
                 onChange={e => this.setState({password: e.target.value})}
-                style={{width: '143%'}}
+                style={{width: '100%'}}
                 fullWidth
                 required
             />
@@ -97,59 +111,60 @@ class SignupFormGeneral extends Component {
           <Grid item>
             <TextField
                 id="passwordCheck"
-                label="Password Check"
+                label="Confirm Password"
                 type="password"
                 autoComplete="current-password"
                 onChange={e => this.setState({passwordCheck: e.target.value})}
-                style={{width: '143%'}}
+                style={{width: '103%'}}
                 fullWidth
                 required
             />
           </Grid>
-          {/*<br/>*/}
-          {/*<br/>*/}
+          <br/>
+          <br/>
           <Grid item xs={true}>
             <Button variant="contained"
                     onClick={this.requestLogin}
-                    style={{height: '50px', width: '100%'}}>Sign in</Button>
+                    style={{height: '50px', width: '100%'}}>Sign up</Button>
           </Grid>
+          <br/><br/>
           <Grid item className="align-middle">
-            <p style={{marginLeft: '20px'}}>Don't have an account? <Link
-                href='/signup' style={{color: 'red', marginLeft: '20px'}}>Sign
+            <p style={{marginLeft: '20px'}}>Do you have account?<Link
+                href='/signin' style={{color: 'red', marginLeft: '20px'}}>Sign
               up</Link></p>
           </Grid>
         </Grid>
 
         {/* Register button, sends a mutation to the server. */}
-        <Mutation
-          mutation={SIGNUP_MUTATION}
-          variables={{
-            email: email,
-            firstName: firstName,
-            lastName: lastName,
-            password: password
-          }}
-          onCompleted={
-            (data) => {
-              const {success, message, token} = data.signUpWithGoogle
-              if (success) {
-                window.localStorage.setItem('token', token)
-                this.props.history.push('/')
-              } else {
-                window.alert('Signup failed with Google Account.')
-                this.props.history.push('/signup')
-              }
-            }
-          }
-        >
-          {(signupMutation) => {
-            return (<button onClick={() => {
-              // TODO(Myeong-heeSeo) : input validation. (not for v0)
-              signupMutation();
-            }
-            }>Register</button>)
-          }}
-        </Mutation>
+        {/*<Mutation*/}
+        {/*  mutation={SIGNUP_MUTATION}*/}
+        {/*  variables={{*/}
+        {/*    email: email,*/}
+        {/*    firstName: firstName,*/}
+        {/*    lastName: lastName,*/}
+        {/*    password: password*/}
+        {/*  }}*/}
+        {/*  onCompleted={*/}
+        {/*    (data) => {*/}
+        {/*      const {success, message, token} = data.signUp*/}
+        {/*      if (success) {*/}
+        {/*        window.localStorage.setItem('token', token)*/}
+        {/*        this.props.history.push('/')*/}
+        {/*      } else {*/}
+        {/*        window.alert('Signin failed with Google Account.')*/}
+        {/*        this.props.history.push('/signup')*/}
+        {/*      }*/}
+        {/*    }*/}
+        {/*  }*/}
+        {/*>*/}
+        {/*  {(signupMutation) => {*/}
+        {/*    return (<button onClick={() => {*/}
+        {/*      // TODO(Myeong-heeSeo) : input validation. (not for v0)*/}
+        {/*      signupMutation();*/}
+        {/*    }*/}
+        {/*    }>Register</button>)*/}
+        {/*  }}*/}
+        {/*</Mutation>*/}
 
       </div>
     );

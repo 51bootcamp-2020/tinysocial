@@ -11,7 +11,9 @@
     "graphql": "^14.5.8",
     "jsonwebtoken": "^8.5.1",
     "mariadb": "^2.1.5",
+    "sendmail": "^1.6.1",
     "sequelize": "^5.21.3",
+    "sha256": "^0.2.0",
     "sqlite3": "^4.1.1",
     "strip-bom-stream": "^4.0.0"
   },

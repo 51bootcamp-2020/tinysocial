@@ -4,7 +4,7 @@ import LoginFormGeneral from '../components/login-form-general';
 import {Container, Grid, Typography} from '@material-ui/core';
 
 const boxStyle = {
-  marginTop: '7%',
+  marginTop: '6%',
   padding: '30px',
   display: 'flex',
   alignItems: 'center',
