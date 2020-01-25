@@ -20,17 +20,17 @@ const client = new ApolloClient({
 function App() {
   {/* TODO(Myoung-heeSeo) : Add a state to check if the user is logged in now. */}
   return (
-      <ApolloProvider client={client}>
-        <NavBar/>
-        <Router>
-          <Switch>
-            <Route path='/signin' render={() => <Signin/>}/>
-            <Route path='/eventlist' render={() => <EventList/>}/>
-            <Route path='/about' render={() => <About/>}/>
-            <Route path='/' render={() => <Landing/>}/>
-          </Switch>
-        </Router>
-      </ApolloProvider>
+    <ApolloProvider client={client}>
+      <NavBar/>
+      <Router>
+        <Switch>
+          <Route path='/signin' render={() => <Signin/>}/>
+          <Route path='/eventlist' render={() => <EventList/>}/>
+          <Route path='/about' render={() => <About/>}/>
+          <Route path='/' render={() => <Landing/>}/>
+        </Switch>
+      </Router>
+    </ApolloProvider>
   );
 }
 
