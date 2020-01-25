@@ -32,8 +32,9 @@ class EmailValidation extends Component {
     };
   }
 
+  // eslint-disable-next-line require-jsdoc
   verifyEmail() {
-    <Mutation mutation={EMAIL_VALIDATE_QUERY}
+    return (<Mutation mutation={EMAIL_VALIDATE_QUERY}
       variables={{token: this.state.token}}
       onError={
         (error)=>{
@@ -45,7 +46,7 @@ class EmailValidation extends Component {
         return data.emailValidate.success;
       }
       }
-    </Mutation>;
+    </Mutation>)
   }
 
   render() {
