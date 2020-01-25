@@ -74,7 +74,7 @@ const createStore = () => {
     address: Sequelize.STRING,
     phone: Sequelize.STRING,
     self_description: Sequelize.STRING,
-    lastInteractionTime: Sequelize.STRING, // To refresh JWT token
+    lastInteractionTime: Sequelize.DATE, // To refresh JWT token
   },
   {
     sequelize,
