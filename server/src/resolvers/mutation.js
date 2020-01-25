@@ -9,6 +9,22 @@ const jwt = require('jsonwebtoken');
 const sha256 = require('sha256');
 const sendmail = require('sendmail')();
 
+const EMAIL_FROM = 'no-reply@tinysocial.SangGeonZZang.com';
+const EMAIL_TITLE = 'Action Required: Verify your email for the TinySocial';
+
+// Verify password string
+function passworldVerify(pw){
+  let ret = true;
+  if(pw.length < 8)
+    ret = false;
+  if(pw.match(/\d/g) === null)
+    ret = false;
+  if(pw.match(/[a-zA-Z]/g) === null)
+    ret = false;
+
+  return ret;
+}
+
 module.exports.Mutation = {
   signInWithGoogle: async (_, {googleId}, {dataSources,userId}) => {
     const user = await dataSources.mainAPI.findUser({googleId});
@@ -116,9 +132,10 @@ module.exports.Mutation = {
       { dataSources }
   ) => {
     // Validating the input of user
+
     const pw_hashed = sha256(pw + process.env.PASSWORD_SALT);
     const repw_hashed = sha256(repw + process.env.PASSWORD_SALT);
-    if(pw_hashed !== repw_hashed){
+    if(pw_hashed !== repw_hashed || !passworldVerify(pw)){
       return {
         success: false,
         message: notValidUserInfo,
@@ -143,9 +160,9 @@ module.exports.Mutation = {
     });
 
     sendmail({
-      from: 'no-reply@tinysocial.SangGeonZZang.com',
+      from: EMAIL_FROM,
       to: email,
-      subject: 'Action Required: Verify your email for the TinySocial',
+      subject: EMAIL_TITLE,
       html: "Verify your email address:  <a href=\'http://localhost:3000/emailvalidation?token=" + token + "\'>Verify Email</a>",
     }, function(err, reply) {
       console.log(err && err.stack);
