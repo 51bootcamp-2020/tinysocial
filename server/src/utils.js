@@ -184,6 +184,91 @@ class MainAPI extends DataSource {
     });
     return review;
   }
+  /**
+   * find tagId using tagName in Tag table
+   * if tagName doesn't exist return empty list
+   * @param {list} tagName - The list which contain tag name object
+   * @param {Object} tagName[idx] - The Object which contain tag Name
+   * @param {String} tagName[idx].name - The name of Tag.
+   */
+  async findTagIdByTagName(tagName) {
+    if (tagName !== undefined && tagName !== null) {
+      tagName = {name: tagName.map((element) => (element.name))};
+    }
+    const tagId = await this.store.Tag.findAll({
+      where: tagName,
+    }).map((element)=>({tagId: element.id}));
+    return tagId;
+  }
+
+  async findEventIdByTagId(tagId) {
+    if (tagId !== undefined && tagId !== null) {
+      tagId = {tagId: tagId.map((element) => (element.tagId))};
+    }
+    const eventId = await this.store.EventTag.findAll({
+      where: tagId,
+    }).map((element)=>({id: element.eventId}));
+    return eventId;
+  }
+
+  async findEventsIdByNothing(offset, limit) {
+    console.log('Nothing');
+    const eventsId = await this.store.Event.findAll({
+      offset: offset,
+      limit: limit,
+    }).map((element) => ({id: element.id}));
+    console.log(eventsId);
+    return eventsId;
+  }
+  async findEvents(eventsId, offset, limit) {
+    if (eventsId !== undefined && eventsId !== null) {
+      eventsId = {id: eventsId.map((element)=>(element.id))};
+    }
+    console.log('eventId', eventsId);
+    let events;
+    events = await this.store.Event.findAll({
+      where: eventsId,
+      offset: offset,
+      limit: limit,
+      raw: true,
+    });
+    const eventsWithExtra = [];
+    console.log(events);
+    for (let i=0; i<events.length; i++) {
+      const table = this.getTable(events[i].type);
+      if (table===null) continue;
+      const extraField = await this.store.EventBookClub.findAll({
+        where: {eventId: events[i].id},
+        raw: true,
+      });
+      console.log('extraField', extraField);
+      eventsWithExtra.push({...events[i], ...extraField[0]});
+    }
+    console.log('eventsData', eventsWithExtra);
+    return eventsWithExtra;
+  }
+
+  async findEventsIdByTag(tag, offset, limit, order) {
+    let eventsId;
+    if (tag !== undefined) {
+      if (offset===undefined || offset === null) {
+        offset=0;
+      }
+      const tagId = await this.findTagIdByTagName(tag);
+      eventsId = await this.findEventIdByTagId(tagId);
+      eventsId = new Set(eventsId);
+      if (limit !== undefined && limit != null) {
+        eventsId = Array.from(eventsId).slice(offset, offset + limit);
+      } else {
+        eventsId = Array.from(eventsId).slice(offset);
+      }
+    }
+    return eventsId ? eventsId : null;
+  }
+  getTable(type) {
+    if (type===0) return this.store.EventBookClub;
+    return null;
+  }
 }
 module.exports = {
   MainAPI,

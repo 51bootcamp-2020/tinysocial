@@ -9,7 +9,14 @@ module.exports = {
   Mutation,
   User,
   Event,
-  EventBookClub,
-  Tag: {},
-  EventConnection: {},
+  Tag: {
+    events: () => {
+    },
+  },
+  EventConnection: {
+    events: async (parents, _, {dataSources, userId}) => {
+      const events = await dataSources.mainAPI.findEvents(parents.eventsId);
+      return events;
+    },
+  },
 };
