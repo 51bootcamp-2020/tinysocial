@@ -146,7 +146,6 @@ module.exports.Query = {
     } else {
       return null;
     }
-
     if (events === null) {
       return null;
     }
@@ -156,7 +155,6 @@ module.exports.Query = {
           return dataSources.mainAPI.getBookClubEvent(event);
       }
     }));
-    console.log(result);
     return result;
   },
   getUserReviews: async (

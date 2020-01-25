@@ -22,6 +22,7 @@ class MainAPI extends DataSource {
      */
     const user = await this.store.User.findOne({
       where,
+      raw: true,
     });
     return user ? user : null;
   }

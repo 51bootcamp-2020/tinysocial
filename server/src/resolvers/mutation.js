@@ -7,7 +7,7 @@ const expirationTime = '100h';
 const jwt = require('jsonwebtoken');
 
 module.exports.Mutation = {
-  signInWithGoogle: async (_, {googleId}, {dataSources, userId}) => {
+  signInWithGoogle: async (_, {googleId}, {dataSources}) => {
     const user = await dataSources.mainAPI.findUser({googleId});
     if (user === null) {
       return {
@@ -20,7 +20,7 @@ module.exports.Mutation = {
 
     // TODO(lsh9034): expiration time depending on the last user interaction.
     const token = jwt.sign(
-        {userId: userId}, APP_SECRET, {expiresIn: expirationTime},
+        {id: user.id}, APP_SECRET, {expiresIn: expirationTime},
     );
 
     return {
@@ -58,7 +58,6 @@ module.exports.Mutation = {
     const token = jwt.sign({userId: user.id}, APP_SECRET, {
       expiresIn: '100h',
     });
-
     return {
       success: true,
       message: 'Success',

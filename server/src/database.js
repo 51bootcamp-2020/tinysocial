@@ -279,16 +279,6 @@ const createStore = () => {
         modelName: 'EventParticipant',
       },
   );
-
-  Schedule.hasMany(EventParticipant);
-  EventParticipant.belongsTo(Schedule);
-  Event.hasMany(Schedule);
-  Schedule.belongsTo(Event);
-  User.hasMany(Review);
-  Event.hasMany(Review);
-  Review.belongsTo(User);
-  Review.belongsTo(Event);
-
   Event.hasMany(EventParticipant);
   EventParticipant.belongsTo(Event);
   Event.hasMany(Schedule);

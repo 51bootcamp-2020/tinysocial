@@ -21,16 +21,21 @@ const dataSources = () => ({
   mainAPI: new MainAPI(store),
 });
 
-const APP_SECRET = process.env.SECRET || '';
+const APP_SECRET = process.env.SECRET || ' ';
 
 const context = async ({req}) => {
-  if (!req.headers.authorization) return {userId: null};
+  if (!req.headers.authorization) {
+    return {
+    userId: null};
+  }
   try {
     const token = req.headers.authorization;
     const userId = jwt.verify(token, APP_SECRET);
-    return {userId};
+    const id = userId.id;
+    return {userId: id};
   } catch (e) {
-    return {userId: null};
+    return {
+      userId: null};
   }
 };
 const server = new ApolloServer({
