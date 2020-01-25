@@ -1,9 +1,9 @@
+import React, {Component} from 'react';
+import {GoogleLogin} from 'react-google-login';
 import {clientId} from './utils.js';
 import {gql} from 'apollo-boost';
-import {GoogleLogin} from 'react-google-login';
-import {Mutation} from 'react-apollo';
-import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom';
+import {Mutation} from 'react-apollo'
+import {withRouter} from 'react-router-dom'
 
 /* Query sending user Information to server */
 const SIGNIN_QUERY = gql`
@@ -42,8 +42,9 @@ class LoginForm extends Component {
   changeIsMember(isSuccess, token) {
     if (isSuccess) {
       this.setState({isMember: true});
-      // Store user token to Cookie 'token'.
-      document.cookie = 'token=' + token;
+      // Store user token to localStorage
+      // TODO(Hyejin): Refactor data stored to localStorage
+      localStorage.setItem('token', token);
     }
     else{
       // TODO(Hyejin): Implement processing signin failure
@@ -53,9 +54,9 @@ class LoginForm extends Component {
   // After authenticated from server, redirect even if success or not.
   redirect = () => {
     if(this.state.isMember)
-      return this.props.history.push('/eventlist');
-    else
       return this.props.history.push('/');
+    else
+      return this.props.history.push('/signup');
   };
 
   /**

@@ -7,12 +7,14 @@ import {
 } from 'apollo-boost';
 import {ApolloProvider} from 'react-apollo';
 import App from './App';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Cookie from 'js-cookie';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './service-worker';
 
 const httpLink = new HttpLink({
+  // TODO(arin-kwak): change this after deploying.
   uri: 'http://localhost:15780',
 });
 
@@ -28,7 +30,6 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 })
 
 const client = new ApolloClient({
-  // TODO(arin-kwak): change this after deploying.
   link: concat(authMiddleware, httpLink),
   cache: new InMemoryCache
 });

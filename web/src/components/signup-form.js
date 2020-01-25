@@ -4,7 +4,7 @@ import {GoogleLogin} from "react-google-login";
 import {Mutation} from 'react-apollo';  
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import {withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom'
 
 class SignupForm extends Component {
   constructor(props) {
@@ -86,11 +86,11 @@ class SignupForm extends Component {
             (data) => {
               const {success, message, token} = data.signUpWithGoogle
               if (success) {
-                document.cookie = 'token=' + token;
-                this.props.history.push('/eventlist');
+                window.localStorage.setItem('token', token)
+                this.props.history.push('/')
               } else {
-                window.alert('Signup failed ... please contact admin');
-                this.props.history.push('/');
+                window.alert('Signup failed ... please contact admin')
+                this.props.history.push('/signup')
               }
             }
           }
