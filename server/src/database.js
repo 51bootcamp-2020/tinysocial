@@ -65,12 +65,8 @@ const createStore = () => {
       type: Sequelize.STRING, allowNull: false,
     },
     birthday: Sequelize.DATE,
-    // TODO(yun-kwak): Split the address into
-    // street address
-    // additional street address
-    // city
-    // state
-    // zip code
+    // TODO(yun-kwak): Split the address into street address,
+    // additional street address, city, state, zip code
     address: Sequelize.STRING,
     phone: Sequelize.STRING,
     self_description: Sequelize.STRING,
@@ -227,13 +223,8 @@ const createStore = () => {
     },
     startDateTime: Sequelize.DATE,
     endDateTime: Sequelize.DATE,
-    // TODO(yun-kwak): Split the address into
-    // country: Sequelize.STRING,
-    // state: Sequelize.STRING,
-    // city: Sequelize.STRING,
-    // zip: Sequelize.STRING,
-    // street: Sequelize.STRING,
-    // additionalStreetAddress: Sequelize.STRING,
+    // TODO(yun-kwak): Split the address into country, state, city, zip, street,
+    // additionalStreetAddress
     address: Sequelize.STRING,
     latitude: Sequelize.FLOAT,
     longitude: Sequelize.FLOAT,
