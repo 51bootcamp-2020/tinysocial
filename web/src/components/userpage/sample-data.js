@@ -28,24 +28,24 @@ module.exports = {
   SAMPLE_EVENTS : [
     {
       id:1,
-      eventTitle: 'Summary of Human History',
+      title: 'Summary of Human History',
       bookTitle: 'Sapiens',
       bookAuthor: 'Yuval Harari',
-      bookImage: 'sapiens.png',
-      schedules: SAMPLE_SCHEDULES,
-      review: {
+      thumbnailUrl: 'sapiens.png',
+      schedule: SAMPLE_SCHEDULES,
+      reviews: {
         title: 'Sapiens is best',
         content: 'actually its not'
       }
     },
     {
       id:2,
-      eventTitle: 'Nothing of Human History',
+      title: 'Nothing of Human History',
       bookTitle: 'Sapiens',
       bookAuthor: 'Yuval Harari',
-      bookImage: 'sapiens.png',
-      schedules: SAMPLE_SCHEDULES,
-      review: undefined
+      thumbnailUrl: 'sapiens.png',
+      schedule: SAMPLE_SCHEDULES,
+      reviews: undefined
     }
   ]
 }

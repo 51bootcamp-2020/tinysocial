@@ -1,10 +1,33 @@
 import EventReviewCard from './event-review-card';
 import {gql} from 'apollo-boost';
-import {Grid} from '@material-ui/core';
+import {Grid, Typography} from '@material-ui/core';
 import PropTypes from 'prop-types';
 import {Query} from 'react-apollo';
 import React, {Component} from 'react';
 import {SAMPLE_EVENTS} from './sample-data';
+
+export const USER_EVENTS_QUERY = gql`
+query getUserEvents($info: String!) {
+  userEvents(info: $info) {
+    id
+    title
+    thumbnailUrl
+    schedule {
+      startDateTime
+      endDateTime
+      address
+    }
+    ... on EventBookClub {
+      bookTitle
+      bookAuthor
+    }
+    reviews {
+      title
+      content
+    }
+  }
+}
+`
 
 // TODO(mskwon1): Implement GraphQL Query statements.
 class EventReviewCardList extends Component {
@@ -18,14 +41,14 @@ class EventReviewCardList extends Component {
     events = events.map((event) => {
       const {
         id, 
-        eventTitle, 
+        title: eventTitle, 
         bookTitle, 
         bookAuthor, 
-        bookImage, 
-        schedules, 
-        review
+        thumbnailUrl: bookImage, 
+        schedule: schedules, 
+        reviews: review
       } = event;
-      const upcoming = this.props.currentTab == 'upcoming' ? true : false;
+      const {currentTab} = this.props;
       
       return (
         <EventReviewCard 
@@ -37,7 +60,7 @@ class EventReviewCardList extends Component {
           bookImage={bookImage}
           schedules={schedules} 
           review={review} 
-          upcoming={upcoming}
+          upcoming={currentTab === 'upcoming' ? true : false}
         />
       );
     });
@@ -46,11 +69,28 @@ class EventReviewCardList extends Component {
     return events;
   }
 
+  sendUserEventsQuery() {
+    return (
+      <Query 
+        query={USER_EVENTS_QUERY}
+        variables={{info: this.props.currentTab}}
+      >
+        {({loading, error, data}) => {
+          // TODO(mskwon1): Add data loading page.
+          if (loading) return <p>Fetching Data ...</p>
+          if (error) return this.renderEventReviewCards(SAMPLE_EVENTS)
+          return (this.renderEventReviewCards(data))
+        }}
+      </Query>
+    )
+  }
+
   render() {
     return (
       <Grid container align="center">
+        {this.sendUserEventsQuery()}
         {/* TODO(mskwon1): Add a Query component to get data from server. */}
-        {this.renderEventReviewCards(SAMPLE_EVENTS)}
+        {/* {this.renderEventReviewCards(SAMPLE_EVENTS)} */}
       </Grid>
     );
   }

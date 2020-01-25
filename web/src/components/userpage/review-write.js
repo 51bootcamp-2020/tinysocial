@@ -72,6 +72,7 @@ class ReviewWritePanel extends Component {
     return (
       <Fragment>
         <DialogTitle>
+          {/* Title */}
           Review on '{bookTitle}'
         </DialogTitle>
         <Grid item xs={12} align='right'>
