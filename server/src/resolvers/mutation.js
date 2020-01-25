@@ -75,6 +75,10 @@ module.exports.Mutation = {
   ) => {
     const userInfo = jwt.verify(token, APP_SECRET);
 
+    // NEED TO DESTROY OR BLACK LISTING EXISTING QUERY
+
+    const profileImgUrl = ""; // NEED TO HANDLE THIS LATER
+
     const user = await dataSources.mainAPI.findOrCreateUser(
         { email: userInfo.email },
         {

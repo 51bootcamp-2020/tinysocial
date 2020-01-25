@@ -29,6 +29,7 @@ class EmailValidation extends Component {
 
     this.state = {
       token: token,
+      verifyResult: null,
     };
   }
 
@@ -36,17 +37,29 @@ class EmailValidation extends Component {
   verifyEmail() {
     return (<Mutation mutation={EMAIL_VALIDATE_QUERY}
       variables={{token: this.state.token}}
+      onCompleted={(data) => {
+        console.log('completed:', data);
+        this.setState({
+          verifyResult: data.emailValidate.success,
+        });
+      }}
       onError={
         (error)=>{
         }
       }>
       {(mutate, { data, called }) => {
-        if (!called) mutate();
+        if (!called) {
+          console.log('sent');
+          mutate();
+        }
 
-        return data.emailValidate.success;
+        return <div>
+          {this.state.verifyResult === null ? 'Loading...' : (
+              this.state.verifyResult ? 'Email Verified' : 'Fail to verify')}
+        </div>;
       }
       }
-    </Mutation>)
+    </Mutation>);
   }
 
   render() {
