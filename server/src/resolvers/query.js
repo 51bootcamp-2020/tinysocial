@@ -159,13 +159,6 @@ module.exports.Query = {
     console.log(result);
     return result;
   },
-  pastEvents: async (_, {userId}, {dataSources}) => {
-    const events = await dataSources.mainAPI.getUserPastEvents({userId});
-    if (events === undefined) {
-      return null;
-    }
-    return events;
-  },
   getUserReviews: async (
     _, {userId, eventId}, {dataSources, userId: currentUserId},
   ) => {
