@@ -33,7 +33,7 @@ class EventCards extends Component {
                   component="img"
                   alt="CardsImage"
                   height="200em"
-                  image={require('../images/' + (i + 1) + '.jpg')}
+                  image={require('./images/' + (i + 1) + '.jpg')}
                   title="Cards Image"
                 />
                 {/* Content section of Card */}
@@ -41,7 +41,7 @@ class EventCards extends Component {
                   <ListItem style={{height: '100px'}}>
                     <ListItemAvatar>
                       <Avatar alt="Example User Name"
-                        src={require('../images/' + (i + 1) + '.jpg')} />
+                        src={require('./images/' + (i + 1) + '.jpg')} />
                     </ListItemAvatar>
                     <ListItemText primary={this.props.children[i].title}
                       secondary="July 20, 2014" />
@@ -71,7 +71,6 @@ class EventCards extends Component {
 
       );
     }
-
     return decks;
   }
 }
