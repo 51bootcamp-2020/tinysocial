@@ -1,138 +1,190 @@
 const {gql} = require('apollo-server');
 
 const typeDefs = gql`
-  scalar Date
-  scalar DateTime
+    scalar Date
+    scalar DateTime
 
-  type Query {
-    # Returns certain size of events after the cursor
-    # Reference:
-    #  https://www.apollographql.com/docs/tutorial/resolvers/#paginated-queries
-    events(pageSize: Int, after: Int): EventConnection!
-    # Return specific event whose id is 'id'.
-    # If not exist, return null
-    event(id: ID!): Event
-    # Return the user currently logged in
-    me: User
-    # Return the user whose id is 'id'.
-    # If not exist, return null
-    user(id: ID!): User
-    upcomingEvents(userId: Int): [Event]
-    pastEvents(userId: Int): [Event]
-    getUserReviews(userId: Int, eventId: Int): Review
-  }
-  
-  type Review {
+    type Query {
+        # Returns certain size of events after the cursor
+        # Reference:
+        #  https://www.apollographql.com/docs/tutorial/resolvers/#paginated-queries 
+        events(pageSize: Int, after: Int,
+            eventFilter: EventFilter, eventSort: EventSort): EventConnection!
+        # Return specific event whose id is 'id'.
+        # If not exist, return null
+        event(id: ID!): Event
+        # Return the user currently logged in
+        me: User
+        # Return the user whose id is 'id'.
+        # If not exist, return null
+        user(id: ID!): User
+        upcomingEvents(userId: Int): [Event]
+        pastEvents(userId: Int): [Event]
+        getUserReviews(userId: Int, eventId: Int): Review
+    }
+    type Review {
       title: String!
       content: String!
       author: User!
       isPublic: Boolean!
       event: Event
-  }
+    }
+    type Mutation {
+        signInWithGoogle(googleId: String!): AuthResponse!
+        signUpWithGoogle(
+            googleId: String!
+            email: String!
+            firstName: String!
+            lastName: String!
+            profileImgUrl: String
+        ): AuthResponse!
+        # If successful, then return True.  
+        logout: Boolean!
+        createReview(
+          userId: Int!
+          eventId: Int!
+          title: String!
+          content: String!
+          isPublic: Boolean!
+        ): Boolean!
+        modifyReview(
+          userId: Int!
+          eventId: Int!
+          title: String!
+          content: String!
+          isPublic: Boolean!
+        ): Boolean!
+    }
 
-  type Mutation {
-    signInWithGoogle(googleId: String!): AuthResponse!
-    signUpWithGoogle(
-      googleId: String!
-      email: String!
-      firstName: String!
-      lastName: String!
-      profileImgUrl: String
-    ): AuthResponse!
-    # If successful, then return True.
-    logout: Boolean!
-    createReview(
-      userId: Int!
-      eventId: Int!
-      title: String!
-      content: String!
-      isPublic: Boolean!
-    ): Boolean!
-    modifyReview(
-      userId: Int!
-      eventId: Int!
-      title: String!
-      content: String!
-      isPublic: Boolean!
-    ): Boolean!
-  }
+    input EventFilter {
+        recommendation: Boolean, # User-based recommendation flag
+        tags: [TagInput!]
+        # TODO(yun-kwak): range-based search
+        # range: Float,
+        # from: String 
+    }
+    
+    input TagInput {
+        name: String
+    }
+    
+    enum EventSort {
+        BEST_MATCH,
+        NEWEST,
+        MOST_MEMBERS,
+        TIME_CLOSEST,
+        
+    }
+    
+    type AuthResponse {
+        success: Boolean!
+        # Contains error message, if not successful
+        message: String
+        # If not successful, these fields are null. 
+        token: String
+        user: User
+    }
 
-  type AuthResponse {
-    success: Boolean!
-    # Contains error message, if not successful
-    message: String
-    # If not successful, these fields are null.
-    token: String
-    user: User
-  }
+    type User {
+        id: ID!
+        firstName: String!
+        lastName: String!
+        email: String!
+        age: Int # TODO(yun-kwak): Calculate the age of the user from birthday
+        # TODO(yun-kwak): Split the address into
+        # street address
+        # additional street address
+        # city
+        # state
+        # zip code
+        address: String
+        phone: String
+        selfDescription: String
+        hostedEvents: [Event]! # Events hosted by this user.
+        participatedEvents: [Event]! # Events participated by this user.
+        birthday: Date
+        registrationDate: Date!
+        profileImgUrl: String
+        lastInterationTime: DateTime
+    }
 
-  type User {
-    id: ID!
-    firstName: String!
-    lastName: String!
-    email: String!
-    age: Int
-    city: String
-    state: String
-    zip: String
-    additionalAddress: String
-    phone: String
-    hostedEvents: [Event]!
-    participatedEvents: [Event]!
-    birthday: Date
-    registrationDate: Date!
-    profileImgUrl: String
-    lastInterationTime: DateTime
-  }
+    interface Event {
+        id: ID!
+        host: User!
+        thumbnailUrl: String
+        creationTime: DateTime!
+        # When the schedule of the event is updated,
+        # lastUpdatedTime of the event also need to be updated.
+        lastUpdatedTime: DateTime!
+        schedule: [EventSchedule]!
+        title: String!
+        description: String!
+        price: Float!
+        # TODO(arin-kwak): Implement image uploading feature
+        # image: Upload!
+        tags: [Tag]!
+        participants: [User]!
+        maxParticipantNum: Int
+        reviews: [Review]
+    }
+    
+    type EventBookClub implements Event{
+        id: ID!
+        host: User!
+        thumbnailUrl: String
+        creationTime: DateTime!
+        # When the schedule of the event is updated,
+        # lastUpdatedTime of the event also need to be updated.
+        lastUpdatedTime: DateTime!
+        schedule: [EventSchedule]!
+        title: String!
+        description: String!
+        price: Float!
+        # TODO(arin-kwak): Implement image uploading feature
+        # image: Upload!
+        bookTitle: String!
+        bookAuthor: String!
+        bookDescription: String!
+        bookISBN: Int!
+        tags: [Tag]!
+        participants: [User]!
+        maxParticipantNum: Int
+        reviews: [Review]
+    }
 
-  type Event {
-    id: ID!
-    host: User!
-    creationTime: DateTime!
-    # When the schedule of the event is updated,
-    # lastUpdatedTime of the event also need to be updated.
-    lastUpdatedTime: DateTime!
-    schedule: [EventSchedule]!
-    title: String!
-    description: String!
-    price: Float!
-    # image: Upload!
-    # TODO(arin-kwak): Implement image uploading feature
-    tags: [Tag]!
-    participants: [User]!
-  }
+    # Every event can have multiple tags.
+    # Tags are predefined by ours(developers)
+    # and used by the event host to categorize his event.
+    # So we are able to categorize events by tags.
+    type Tag {
+        id: ID!
+        name: String!
+        events: [Event]!
+    }
 
-  # Every event can have multiple tags.
-  # Tags are predefined by ours(developers)
-  # and used by the event host to categorize his event.
-  # So we are able to categorize events by tags.
-  type Tag {
-    id: ID!
-    name: String!
-    events: [Event]!
-  }
+    # TODO(lsh9034): Implement EventConnection.
+    # Reference:
+    # https://www.apollographql.com/docs/tutorial/resolvers/#paginated-queries 
+    type EventConnection {
+        cursor: Int!
+        events: [Event]!
+    }
 
-  # TODO(arin-kwak): Implement EventConnection.
-  # Reference:
-  # https://www.apollographql.com/docs/tutorial/resolvers/#paginated-queries
-  type EventConnection {
-    cursor: Int!
-    events: [Event]!
-  }
-
-  type EventSchedule {
-    id: ID!
-    startDateTime: DateTime!
-    endDateTime: DateTime!
-    country: String!
-    state: String!
-    city: String!
-    zip: String!
-    street: String!
-    additionalAddress: String!
-    latitude: String!
-    longtitude: String!
-  }
+    type EventSchedule {
+        id: ID!
+        startDateTime: DateTime!
+        endDateTime: DateTime!
+        # TODO(yun-kwak): Split the address into
+        # country: String!
+        # state: String!
+        # city: String!
+        # zip: String!
+        # street: String!
+        # additionalStreetAddress: String!
+        address: String!
+        latitude: Float!
+        longitude: Float!
+    }
 `;
 
 module.exports = typeDefs;

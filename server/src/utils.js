@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 const {DataSource} = require('apollo-datasource');
 const Sequelize = require('sequelize');
 const OP = Sequelize.Op;
@@ -66,33 +67,43 @@ class MainAPI extends DataSource {
     return events.map((event) => event.schedule.event);
   }
 
-  async getUserUpcomingEvents(userId) {
+  async getUserUpcomingEvents(info) {
     const events = await this.store.EventParticipant.findAll({
-      where: {userId: userId.userId},
+      where: {userId: info.userId},
       include: [
         {
-          model: this.store.Schedule,
-          where: {
-            startDateTime: {
-              [OP.gte]: new Date(),
-            },
-          },
+          model: this.store.Event,
+          required: true,
           include: [
             {
-              model: this.store.Event,
+              model: this.store.Schedule,
+              where: {
+                startDateTime: {
+                  [OP.gte]: new Date(),
+                },
+              },
             },
           ],
         },
       ],
     });
-    return events.map((event) => event.schedule.event);
+    return events.map((event) => event.event);
+  }
+
+  async getBookClubEvent(event) {
+    const bookClubEvent = await this.store.EventBookClub.findOne({
+      where: {eventId: event.id},
+    });
+    const eventType = bookClubEvent.dataValues;
+    const eventWithType = {...event.dataValues, ...eventType};
+    return eventWithType;
   }
 
   async getUserReviews(info) {
     const review = await this.store.Review.findOne({
       where: {
-        userId: info.userId,
         eventId: info.eventId,
+        userId: info.userId,
       },
     });
     return review;
@@ -124,8 +135,54 @@ class MainAPI extends DataSource {
     }
     return false;
   }
-}
 
+  async getHostFromEvent(hostId) {
+    const host = await this.store.User.findOne({
+      where: {id: hostId},
+    });
+
+    return host;
+  }
+
+  async getScheduleFromEvent(eventId) {
+    const schedule = await this.store.Schedule.findAll({
+      where: {eventId},
+    });
+    return schedule;
+  }
+
+  async getTagsFromEvent(eventId) {
+    const tags = await this.store.EventTag.findAll({
+      where: {eventId},
+      include: [{
+        model: this.store.Tag,
+        required: true,
+      }],
+    });
+    return tags;
+  }
+
+  async getParticipantsFromEvent(eventId) {
+    const participants = await this.store.EventParticipant.findAll({
+      where: {eventId},
+      include: [{
+        model: this.store.User,
+        required: true,
+      }],
+    });
+    return participants.map((participant) => participant.user);
+  }
+
+  async getReviewsFromEvent(info) {
+    const reviews = await this.store.Review.findAll({
+      where: {
+        userId: info.userId,
+        eventId: info.eventId,
+      },
+    });
+    return reviews;
+  }
+}
 module.exports = {
   MainAPI,
 };
