@@ -1,12 +1,13 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import SignUp from "./signup";
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import LandingDescription from '../components/landing-description';
+
 class Landing extends Component {
   render() {
     return (
-      <div>
-        <SignUp />
-      </div>
+        <div>
+          <LandingDescription />
+        </div>
     );
   }
 }
