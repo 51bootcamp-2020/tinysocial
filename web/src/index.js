@@ -1,13 +1,36 @@
-import ApolloClient from 'apollo-boost';
+import {
+  ApolloClient,
+  ApolloLink,
+  concat,
+  HttpLink,
+  InMemoryCache
+} from 'apollo-boost';
 import {ApolloProvider} from 'react-apollo';
 import App from './App';
+import Cookie from 'js-cookie';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './service-worker';
 
+const httpLink = new HttpLink({
+  uri: 'http://localhost:15780',
+});
+
+//  This adds token info to the context when communicating with server.
+const authMiddleware = new ApolloLink((operation, forward) => {
+  operation.setContext({
+    headers: {
+      authorization: Cookie.get('token') || null,
+    }
+  });
+
+  return forward(operation);
+})
+
 const client = new ApolloClient({
   // TODO(arin-kwak): change this after deploying.
-  uri: 'http://localhost:15780'
+  link: concat(authMiddleware, httpLink),
+  cache: new InMemoryCache
 });
 
 ReactDOM.render(
