@@ -94,7 +94,7 @@ module.exports.Mutation = {
       };
     }
 
-    const token_ = jwt.sign({ userId: user.id }, APP_SECRET, {
+    const token_ = jwt.sign({ userId: user.email }, APP_SECRET, {
       expiresIn: "100h"
     });
 
@@ -112,8 +112,8 @@ module.exports.Mutation = {
       { dataSources }
   ) => {
     // Validating the input of user
-    const pw_hashed = sha256(pw);
-    const repw_hashed = sha256(repw);
+    const pw_hashed = sha256(pw + process.env.PASSWORD_SALT);
+    const repw_hashed = sha256(repw + process.env.PASSWORD_SALT);
     if(pw_hashed !== repw_hashed){
       return {
         success: false,
@@ -123,11 +123,7 @@ module.exports.Mutation = {
       };
     }
 
-    const user = await dataSources.mainAPI.findAll({
-          where: {
-            email: userInfo.email
-          }
-    });
+    const user = await dataSources.mainAPI.findUser({ email });
     if(user !== null){
       return {
         success: false,
@@ -159,7 +155,8 @@ module.exports.Mutation = {
   },
 
   signIn: async (_, {email, pw}, {dataSources,userId}) => {
-    const user = await dataSources.mainAPI.findUser({googleId});
+    const hashed_pw = sha256(pw +  + process.env.PASSWORD_SALT);
+    const user = await dataSources.mainAPI.findUser({email: email, password: hashed_pw});
     if (user === null) {
       return {
         success: false,
@@ -170,7 +167,7 @@ module.exports.Mutation = {
     }
 
     // TODO(lsh9034): expiration time depending on the last user interaction.
-    const token = jwt.sign({userId:userId}, APP_SECRET,{expiresIn: expirationTime});
+    const token = jwt.sign({userId: email}, APP_SECRET,{expiresIn: expirationTime});
 
     return {
       success: true,

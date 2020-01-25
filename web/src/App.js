@@ -11,6 +11,7 @@ import {
 import Signin from './pages/signin';
 import Signup from './pages/signup';
 import EventList from './pages/eventlist';
+import Emailvalidation from './pages/emailvalidation';
 
 const client = new ApolloClient({
   // TODO(arin-kwak): need update uri.
@@ -22,6 +23,9 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <Switch>
+          <Route path="/emailvalidation">
+            <Emailvalidation/>
+          </Route>
           <Route path="/signup">
             <Signup/>
           </Route>

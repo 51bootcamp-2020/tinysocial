@@ -32,30 +32,26 @@ class EmailValidation extends Component {
     };
   }
 
+  erifyEmail() {
+    <Mutation mutation={EMAIL_VALIDATE_QUERY}
+      variables={{token: this.state.token}}
+      onError={
+        (error)=>{
+        }
+      }>
+      {(mutate, { data, called }) => {
+        if (!called) mutate();
+
+        return data.emailValidate.success;
+      }
+      }
+    </Mutation>;
+  }
+
   render() {
     return (
       <div>
-        <Mutation mutation={EMAIL_VALIDATE_QUERY}
-          variables={{token: this.state.token}}
-          onCompleted={
-            (data)=>{
-              // data.signInWithGoogle.token);
-            }}
-          onError={
-            (error)=>{
-              // TODO(Hyejin): Implement query error processing
-            }
-          }>
-          {(execute_mutation) => {
-            {/* Google Login Button */}
-            return (
-              <button
-                onClick={execute_mutation} // Our client ID
-              />
-            );
-          }
-          }
-        </Mutation>
+        {this.erifyEmail()}
       </div>);
   }
 }
