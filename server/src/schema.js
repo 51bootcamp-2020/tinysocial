@@ -18,7 +18,7 @@ const typeDefs = gql`
         # Return the user whose id is 'id'.
         # If not exist, return null
         user(id: ID!): User
-        userEvents(userId: Int): [Event]
+        userEvents(info: String!): [Event]
         getUserReviews(userId: Int, eventId: Int): Review
     }
     type Review {
