@@ -1,8 +1,8 @@
 const {gql} = require('apollo-server');
 
 const typeDefs = gql`
-    scalar Date
-    scalar DateTime
+  scalar Date
+  scalar DateTime
 
     type Query {
         # Returns certain size of events after the cursor
@@ -152,15 +152,15 @@ const typeDefs = gql`
         reviews: [Review]
     }
 
-    # Every event can have multiple tags.
-    # Tags are predefined by ours(developers)
-    # and used by the event host to categorize his event.
-    # So we are able to categorize events by tags.
-    type Tag {
-        id: ID!
-        name: String!
-        events: [Event]!
-    }
+  # Every event can have multiple tags.
+  # Tags are predefined by ours(developers)
+  # and used by the event host to categorize his event.
+  # So we are able to categorize events by tags.
+  type Tag {
+    id: ID!
+    name: String!
+    events: [Event]!
+  }
 
     # TODO(lsh9034): Implement EventConnection.
     # Reference:

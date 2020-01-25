@@ -22,7 +22,7 @@ module.exports.Query = {
         lastUpdatedTime: '',
         schedule: [],
         title: 'Introduction to Algorithm',
-        description: 'Basic to ICPC World Final... You think you can handle this?',
+        description: 'Basic to ICPC World Final...',
         price: 999999.99,
         maxParticipants: 1000,
         tags: [],
@@ -36,8 +36,8 @@ module.exports.Query = {
         schedule: [],
         title: 'What is meaning of life?',
         description: 'Sometimes we thinking about huge size of the universe. ' +
-            'Compare to what humanity accomplished so far, the universe seems ' +
-            'wast of space... isn\' it?',
+            'Compare to what humanity accomplished so far,' +
+            ' the universe seems wast of space... isn\' it?',
         price: 999999.99,
         maxParticipants: 1000,
         tags: [],
@@ -50,8 +50,8 @@ module.exports.Query = {
         lastUpdatedTime: '',
         schedule: [],
         title: 'If AI gets self awareness...',
-        description: 'That means bad thing to human? YES. But in a perspective ' +
-            'of evolution? NO.',
+        description: 'That means bad thing to human? YES.' +
+            ' But in a perspective of evolution? NO.',
         price: 999999.99,
         maxParticipants: 1000,
         tags: [],

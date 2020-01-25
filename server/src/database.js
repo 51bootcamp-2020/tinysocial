@@ -40,14 +40,14 @@ const createStore = () => {
 
   const Model = Sequelize.Model;
 
-  class User extends Model {}
-  class Event extends Model {}
-  class EventBookClub extends Model {}
-  class Review extends Model {}
-  class Tag extends Model {}
-  class EventTag extends Model {}
-  class Schedule extends Model {}
-  class EventParticipant extends Model {}
+  class Event extends Model { }
+  class EventBookClub extends Model { }
+  class EventParticipant extends Model { }
+  class EventTag extends Model { }
+  class Review extends Model { }
+  class Schedule extends Model { }
+  class Tag extends Model { }
+  class User extends Model { }
 
   User.init({
     id: {
@@ -112,69 +112,73 @@ const createStore = () => {
     modelName: 'event',
   });
 
-  EventBookClub.init({
-    eventId: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      references: {
-        model: Event,
-        key: 'id',
+  EventBookClub.init(
+      {
+        eventId: {
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+          references: {
+            model: Event,
+            key: 'id',
+          },
+        },
+        bookTitle: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        bookAuthor: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        bookDescription: {
+          type: Sequelize.STRING,
+        },
+        bookISBN: {
+          type: Sequelize.INTEGER,
+        },
       },
-    },
-    bookTitle: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    bookAuthor: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    bookDescription: {
-      type: Sequelize.STRING,
-    },
-    bookISBN: {
-      type: Sequelize.INTEGER,
-    },
-  }, {
-    sequelize,
-    modelName: 'eventBookClub',
-    timestamps: false,
-  });
+      {
+        sequelize,
+        modelName: 'eventBookClub',
+        timestamps: false,
+      },
+  );
 
-  // TODO(yun-kwak): Modify Review to make review always stay in the system.
-  // https://github.com/51bootcamp-2020/tinysocial/pull/22#discussion_r368315502
-  Review.init({
-    userId: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      references: {
-        model: User,
-        key: 'id',
+  Review.init(
+      {
+        userId: {
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+          references: {
+            model: User,
+            key: 'id',
+          },
+        },
+        eventId: {
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+          references: {
+            model: Event,
+            key: 'id',
+          },
+        },
+        title: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        content: {
+          type: Sequelize.STRING,
+        },
+        isPublic: {
+          type: Sequelize.BOOLEAN,
+          allowNull: false,
+        },
       },
-    },
-    eventId: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      references: {
-        model: Event,
-        key: 'id',
+      {
+        sequelize,
+        modelName: 'review',
       },
-    },
-    title: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    content: {
-      type: Sequelize.STRING,
-    },
-    isPublic: {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-    },
-  }, {
-    sequelize,
-    modelName: 'review',
-  });
+  );
 
   // Every event can have multiple tags.
   // Tags are predefined by ours(developers)
@@ -217,7 +221,8 @@ const createStore = () => {
     sequelize,
     modelName: 'eventTag',
     timestamps: false,
-  });
+  },
+  );
 
   Schedule.init({
     id: {
@@ -248,30 +253,41 @@ const createStore = () => {
     sequelize,
     modelName: 'schedule',
     timestamps: false,
-  });
-
-  EventParticipant.init({
-    userId: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      references: {
-        model: User,
-        key: 'id',
-      },
-    },
-    eventId: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      references: {
-        model: Event,
-        key: 'id',
-      },
-    },
   },
-  {
-    sequelize,
-    modelName: 'EventParticipant',
-  });
+  );
+
+  EventParticipant.init(
+      {
+        userId: {
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+          references: {
+            model: User,
+            key: 'id',
+          },
+        },
+        eventId: {
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+          references: {
+            model: Event,
+            key: 'id',
+          },
+        },
+      }, {
+        sequelize,
+        modelName: 'EventParticipant',
+      },
+  );
+
+  Schedule.hasMany(EventParticipant);
+  EventParticipant.belongsTo(Schedule);
+  Event.hasMany(Schedule);
+  Schedule.belongsTo(Event);
+  User.hasMany(Review);
+  Event.hasMany(Review);
+  Review.belongsTo(User);
+  Review.belongsTo(Event);
 
   Event.hasMany(EventParticipant);
   EventParticipant.belongsTo(Event);
@@ -287,7 +303,8 @@ const createStore = () => {
   EventBookClub.belongsTo(Event);
 
   // Synchronize the models with the database
-  // TODO(arin-kwak): In production phase, consider using migration instead of 'sync'.
+  // TODO(arin-kwak): In production phase,
+  // consider using migration instead of 'sync'.
   // reference: https://sequelize.org/v5/manual/migrations.html
 
   sequelize.sync();
