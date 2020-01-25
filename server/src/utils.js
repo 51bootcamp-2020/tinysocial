@@ -45,26 +45,27 @@ class MainAPI extends DataSource {
     return users && users[0] ? users[0] : null;
   }
 
-  async getUserPastEvents(userId) {
+  async getUserPastEvents(info) {
     const events = await this.store.EventParticipant.findAll({
-      where: {userId: userId.userId},
+      where: {userId: info.userId},
       include: [
         {
-          model: this.store.Schedule,
-          where: {
-            endDateTime: {
-              [OP.lte]: new Date(),
-            },
-          },
+          model: this.store.Event,
+          required: true,
           include: [
             {
-              model: this.store.Event,
+              model: this.store.Schedule,
+              where: {
+                startDateTime: {
+                  [OP.lte]: new Date(),
+                },
+              },
             },
           ],
         },
       ],
     });
-    return events.map((event) => event.schedule.event);
+    return events.map((event) => event.event);
   }
 
   async getUserUpcomingEvents(info) {
@@ -79,7 +80,7 @@ class MainAPI extends DataSource {
               model: this.store.Schedule,
               where: {
                 startDateTime: {
-                  [OP.gte]: new Date(),
+                  [OP.gt]: new Date(),
                 },
               },
             },
