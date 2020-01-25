@@ -32,7 +32,7 @@ class EmailValidation extends Component {
     };
   }
 
-  erifyEmail() {
+  verifyEmail() {
     <Mutation mutation={EMAIL_VALIDATE_QUERY}
       variables={{token: this.state.token}}
       onError={
@@ -51,7 +51,7 @@ class EmailValidation extends Component {
   render() {
     return (
       <div>
-        {this.erifyEmail()}
+        {this.verifyEmail()}
       </div>);
   }
 }
