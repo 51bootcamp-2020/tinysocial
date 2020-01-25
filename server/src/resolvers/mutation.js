@@ -65,8 +65,7 @@ module.exports.Mutation = {
       user,
     };
   },
-  createReview:
-  async (
+  createReview: async (
     _, {eventId, title, content, isPublic},
     {dataSources, userId}) => {
     if (userId === null) {
@@ -80,8 +79,7 @@ module.exports.Mutation = {
         );
     return isSuccess;
   },
-  modifyReview:
-  async (
+  modifyReview: async (
     _, {eventId, title, content, isPublic},
     {dataSources, userId}) => {
     if (userId === null) {

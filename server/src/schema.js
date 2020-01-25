@@ -40,14 +40,12 @@ const typeDefs = gql`
         # If successful, then return True.  
         logout: Boolean!
         createReview(
-          userId: Int!
           eventId: Int!
           title: String!
           content: String!
           isPublic: Boolean!
         ): Boolean!
         modifyReview(
-          userId: Int!
           eventId: Int!
           title: String!
           content: String!
