@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-import Cards from './EventCards';
 import {
   ToggleButton,
   ToggleButtonGroup,
   Jumbotron
 } from 'react-bootstrap';
 
-class EventFilters extends Component {
+class EventlistFilters extends Component {
   constructor(props) {
     // Get area selection from props.
     super(props);
@@ -65,6 +64,6 @@ class EventFilters extends Component {
   }
 }
 
-EventFilters.propTypes = {};
+EventlistFilters.propTypes = {};
 
-export default EventFilters;
+export default EventlistFilters;
