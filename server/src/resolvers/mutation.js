@@ -7,6 +7,9 @@ const expirationTime = '100h';
 const jwt = require('jsonwebtoken');
 
 module.exports.Mutation = {
+  logout: async () => {
+  },
+
   signInWithGoogle: async (_, {googleId}, {dataSources}) => {
     const user = await dataSources.mainAPI.findUser({googleId});
     if (user === null) {
@@ -65,6 +68,7 @@ module.exports.Mutation = {
       user,
     };
   },
+  
   createReview: async (
     _, {eventId, title, content, isPublic},
     {dataSources, userId}) => {
@@ -79,6 +83,7 @@ module.exports.Mutation = {
         );
     return isSuccess;
   },
+
   modifyReview: async (
     _, {eventId, title, content, isPublic},
     {dataSources, userId}) => {
@@ -93,7 +98,4 @@ module.exports.Mutation = {
         );
     return isSuccess;
   },
-  logout: async () => {
-  },
-
 };

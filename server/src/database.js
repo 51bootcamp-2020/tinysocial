@@ -136,6 +136,9 @@ const createStore = () => {
         bookISBN: {
           type: Sequelize.INTEGER,
         },
+        bookImageUrl: {
+          type: Sequelize.STRING,
+        },
       },
       {
         sequelize,
@@ -295,8 +298,8 @@ const createStore = () => {
   Tag.belongsToMany(Event);
 
   // Synchronize the models with the database
-  // TODO(arin-kwak): In production phase,
-  // consider using migration instead of 'sync'.
+  // TODO(arin-kwak): In production phase, consider using migration instead of
+  // 'sync'.
   // reference: https://sequelize.org/v5/manual/migrations.html
 
   sequelize.sync();

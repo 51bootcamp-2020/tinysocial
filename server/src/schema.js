@@ -110,8 +110,8 @@ const typeDefs = gql`
         host: User!
         thumbnailUrl: String
         creationTime: DateTime!
-        # When the schedule of the event is updated,
-        # lastUpdatedTime of the event also need to be updated.
+        # When the schedule of the event is updated, lastUpdatedTime of the
+        # event also need to be updated.
         lastUpdatedTime: DateTime!
         schedule: [EventSchedule]!
         title: String!
@@ -137,8 +137,7 @@ const typeDefs = gql`
         title: String!
         description: String!
         price: Float!
-        # TODO(arin-kwak): Implement image uploading feature
-        # image: Upload!
+        bookImageUrl: String!
         bookTitle: String!
         bookAuthor: String!
         bookDescription: String!
@@ -149,10 +148,9 @@ const typeDefs = gql`
         reviews: [Review]
     }
 
-  # Every event can have multiple tags.
-  # Tags are predefined by ours(developers)
-  # and used by the event host to categorize his event.
-  # So we are able to categorize events by tags.
+  # Every event can have multiple tags. Tags are predefined by ours(developers)
+  # and used by the event host to categorize his event. So we are able to
+  # categorize events by tags.
   type Tag {
     id: ID!
     name: String!

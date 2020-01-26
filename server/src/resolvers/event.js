@@ -3,7 +3,7 @@ module.exports.Event = {
     if (event.bookTitle) {
       return 'EventBookClub';
     }
-    // if you want just test about only Event type Data, change 'EventBookClub'
+    // if you want test about only Event type Data, change 'EventBookClub'
     return null;
   },
 };
