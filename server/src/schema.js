@@ -18,6 +18,7 @@ const typeDefs = gql`
         # Return the user whose id is 'id'.
         # If not exist, return null
         user(id: ID!): User
+        # TODO(SSJ): fix these
         userEvents(info: String!): [Event]
         getUserReviews(userId: Int, eventId: Int): Review
     }
@@ -133,6 +134,7 @@ const typeDefs = gql`
         tags: [Tag]!
         participants: [User]!
         maxParticipantNum: Int
+        # TODO(SSJ) : do something
         reviews: [Review]
     }
     
@@ -156,6 +158,7 @@ const typeDefs = gql`
         tags: [Tag]!
         participants: [User]!
         maxParticipantNum: Int
+        # TODO(SSJ) : do something
         reviews: [Review]
     }
 
