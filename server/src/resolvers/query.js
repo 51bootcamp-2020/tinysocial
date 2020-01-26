@@ -137,11 +137,11 @@ module.exports.Query = {
   event: async (_, {id}) => { },
   me: async (_, __, context) => { },
   user: async (_, {id}) => { },
-  userEvents: async (_, {info}, {dataSources, userId}) => {
+  userEvents: async (_, {upcomingOrPast}, {dataSources, userId}) => {
     let events;
-    if (info === 'upcoming') {
+    if (upcomingOrPast === 'upcoming') {
       events = await dataSources.mainAPI.getUserUpcomingEvents({userId});
-    } else if (info === 'past') {
+    } else if (upcomingOrPast === 'past') {
       events = await dataSources.mainAPI.getUserPastEvents({userId});
     } else {
       return null;

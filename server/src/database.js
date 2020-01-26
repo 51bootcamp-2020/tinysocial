@@ -291,6 +291,8 @@ const createStore = () => {
   EventParticipant.belongsTo(User);
   Event.hasOne(EventBookClub);
   EventBookClub.belongsTo(Event);
+  Event.hasMany(Tag);
+  Tag.belongsToMany(Event);
 
   // Synchronize the models with the database
   // TODO(arin-kwak): In production phase,
