@@ -10,7 +10,7 @@ class SignupFormGoogle extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: '',
+      id: null,
       firstName: '',
       lastName: '',
       email: '',
@@ -60,10 +60,43 @@ class SignupFormGoogle extends Component {
     `;
 
     // Receive state values for mutation use.
-    const {id, email, firstName, lastName} = this.state
+    const {id, email, firstName, lastName} = this.state;
 
     return (
+
       <div>
+         {/*sends a mutation to the server. */}
+        <Mutation
+            mutation={SIGNUP_MUTATION}
+            variables={{
+              googleId: this.state.id,
+              email: this.state.email,
+              firstName: this.state.firstName,
+              lastName: this.state.lastName
+            }}
+            onCompleted={
+              (data) => {
+                const {success, message, token} = data.signUpWithGoogle
+                if (success) {
+                  window.localStorage.setItem('token', token);
+                  this.props.history.push('/');
+                } else {
+                  window.alert('Signup failed ... please contact admin')
+                  this.props.history.push('/signup')
+                }
+              }
+            }
+        >
+          {(mutate, {data, called}) => {
+          if(!called && this.state.id !== null) {
+
+            console.log('sent');
+            mutate();
+          }
+            return (<div></div>);
+        }
+          }
+        </Mutation>
         {/* A google log in button component. */}
         <GoogleLogin
             clientId={clientId}
@@ -81,28 +114,8 @@ class SignupFormGoogle extends Component {
           </p>
         </GoogleLogin>
 
-        {/* Register button, sends a mutation to the server. */}
-        {/*<Mutation*/}
-        {/*  mutation={SIGNUP_MUTATION}*/}
-        {/*  variables={{*/}
-        {/*    googleId: id,*/}
-        {/*    email: email,*/}
-        {/*    firstName: firstName,*/}
-        {/*    lastName: lastName*/}
-        {/*  }}*/}
-        {/*  onCompleted={*/}
-        {/*    (data) => {*/}
-        {/*      const {success, message, token} = data.signUpWithGoogle*/}
-        {/*      if (success) {*/}
-        {/*        window.localStorage.setItem('token', token)*/}
-        {/*        this.props.history.push('/')*/}
-        {/*      } else {*/}
-        {/*        window.alert('Signup failed ... please contact admin')*/}
-        {/*        this.props.history.push('/signup')*/}
-        {/*      }*/}
-        {/*    }*/}
-        {/*  }*/}
-        {/*>*/}
+
+
         {/*  {(signupMutation) => {*/}
         {/*    return (<button onClick={() => {*/}
         {/*      // TODO(Myeong-heeSeo) : input validation. (not for v0)*/}

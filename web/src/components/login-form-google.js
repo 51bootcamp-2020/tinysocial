@@ -4,7 +4,7 @@ import {clientId} from './utils.js';
 import {gql} from 'apollo-boost';
 import {Mutation} from 'react-apollo';
 import {withRouter} from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
+import Alert from '@material-ui/lab/Alert';
 import {Button} from '@material-ui/core';
 import 'typeface-roboto';
 
@@ -34,6 +34,10 @@ class LoginFormGoogle extends Component {
 
   // Google login fail callback function
   responseFail = (err) => {
+    console.log('bye');
+    return (
+        <Alert severity="error">Response failed from google login!</Alert>
+    );
     // TODO(Myounghee): Make alert function
   };
 
@@ -57,14 +61,13 @@ class LoginFormGoogle extends Component {
   redirect = () => {
     if (this.state.isMember)
       return this.props.history.push('/');
-    else
-      return this.props.history.push('/signup');
+    else {
+      // No user information in our db.
+      return this.props.history.push('/signup')
+    }
   };
 
-  /**
-   * Social login button and
-   * Send googleId received from google to server using mutation component
-   */
+  // Social login button and send googleId received from google to server using mutation component.
   render() {
     return (
         <div>
@@ -79,6 +82,7 @@ class LoginFormGoogle extends Component {
                       }}
                     onError={
                       (error) => {
+                        console.log(error);
                         // TODO(Myounghee): Implement query error processing
                       }
                     }>
