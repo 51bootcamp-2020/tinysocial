@@ -175,14 +175,14 @@ class MainAPI extends DataSource {
     return participants.map((participant) => participant.user);
   }
 
-  async getReviewsFromEvent(info) {
-    const reviews = await this.store.Review.findAll({
+  async getReviewFromEvent(info) {
+    const review = await this.store.Review.findOne({
       where: {
         userId: info.userId,
         eventId: info.eventId,
       },
     });
-    return reviews;
+    return review;
   }
 }
 module.exports = {

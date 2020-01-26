@@ -15,9 +15,12 @@ module.exports.EventBookClub = {
     const participants = await dataSources.mainAPI.getParticipantsFromEvent(parent.id);
     return participants;
   },
-  reviews: async (parent, __, {dataSources, userId}) => {
+  reviews: async (parent, {userId}, {dataSources, userId: currentUserId}) => {
     const eventId = parent.id;
-    const reviews = await dataSources.mainAPI.getReviewsFromEvent({eventId, userId});
+    let reviews;
+    if (userId === null) {
+      reviews = await dataSources.mainAPI.getReviewFromEvent({eventId, currentUserId});
+    }
     return reviews;
   },
 };
