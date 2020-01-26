@@ -78,8 +78,8 @@ class LoginFormGoogle extends Component {
                       }}
                     onError={
                       (error) => {
-                        // Implement query error processing
                         console.log(error);
+                        // TODO(Myounghee): Implement query error processing
                       }
                     }>
             {(execute_mutation) => {
