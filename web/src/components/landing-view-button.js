@@ -10,10 +10,10 @@ import {withRouter} from 'react-router-dom'
 const LandingViewButton = props => {
   return (
       <Grid container justify="space-between">
-        <Grid item xs={1}>
+        <Grid item>
           <Box>Popular</Box>
         </Grid>
-        <Grid item xs={1}>
+        <Grid item>
           <Button onClick={() => {
             return props.history.push('/eventlist')
           }
