@@ -4,6 +4,7 @@ import EventQuery from '../components/event-query';
 import Grid from '@material-ui/core/Grid';
 import {withStyles} from '@material-ui/core/styles';
 
+
 class EventList extends Component {
   render() {
     return (
