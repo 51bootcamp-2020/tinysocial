@@ -1,10 +1,5 @@
-const jwt = require('jsonwebtoken');
-
 module.exports.Query = {
   events: async (_, {pageSize = undefined, after = undefined, eventFilter, eventSort}, {dataSources, userId}) => {
-    const token = jwt.sign({id: 321}, 'lsh9034', {expiresIn: '100h'});
-    const id = jwt.verify(token, 'lsh9034');
-    console.log('jwtid', id);
     let eventsId;
     if (eventFilter!==undefined) {
       if (eventFilter.tags!==undefined) {

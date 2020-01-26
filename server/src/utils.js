@@ -160,7 +160,7 @@ class MainAPI extends DataSource {
         model: this.store.Tag,
         required: true,
       }],
-    });
+    }).map((element)=>(element.tag));
     return tags;
   }
 
@@ -187,9 +187,10 @@ class MainAPI extends DataSource {
   /**
    * find tagId using tagName in Tag table
    * if tagName doesn't exist return empty list
-   * @param {list} tagName - The list which contain tag name object
-   * @param {Object} tagName[idx] - The Object which contain tag Name
+   * @param {Array} tagName - The list which contain tag name object
+   * @param {Object} tagName[idx] - The object which contain tag Name
    * @param {String} tagName[idx].name - The name of Tag.
+   * @return {Array} tagId which is matched tagName.
    */
   async findTagIdByTagName(tagName) {
     if (tagName !== undefined && tagName !== null) {
@@ -201,16 +202,31 @@ class MainAPI extends DataSource {
     return tagId;
   }
 
+  /**
+   * find eventId using tagId in EventTag table.
+   * @param {Array} tagId - The Array which contain tagId object.
+   * @param {object} tagId[idx] - The object which contain tagId
+   * @param {number} tagId[idx].tagId - The id of Tag.
+   * @return {Array} eventId - All events which is matched each tagId.
+   */
   async findEventIdByTagId(tagId) {
     if (tagId !== undefined && tagId !== null) {
       tagId = {tagId: tagId.map((element) => (element.tagId))};
     }
+    console.log("start");
     const eventId = await this.store.EventTag.findAll({
       where: tagId,
     }).map((element)=>({id: element.eventId}));
+    console.log("end");
     return eventId;
   }
 
+  /**
+   * find events without anything in Event table.
+   * @param {number} offset - Start index in event list.
+   * @param {number} limit - THe number of eventId which is returned.
+   * @return {Array} eventsId - eventsId array
+   */
   async findEventsIdByNothing(offset, limit) {
     console.log('Nothing');
     const eventsId = await this.store.Event.findAll({
@@ -220,6 +236,14 @@ class MainAPI extends DataSource {
     console.log(eventsId);
     return eventsId;
   }
+
+  /**
+   * find events using eventsId & offset & limit in Event table.
+   * @param {Array} eventsId - The array which contain eventsId object.
+   * @param offset
+   * @param limit
+   * @returns {Promise<[]>}
+   */
   async findEvents(eventsId, offset, limit) {
     if (eventsId !== undefined && eventsId !== null) {
       eventsId = {id: eventsId.map((element)=>(element.id))};
@@ -241,10 +265,9 @@ class MainAPI extends DataSource {
         where: {eventId: events[i].id},
         raw: true,
       });
-      console.log('extraField', extraField);
       eventsWithExtra.push({...events[i], ...extraField[0]});
     }
-    console.log('eventsData', eventsWithExtra);
+    console.log(eventsWithExtra);
     return eventsWithExtra;
   }
 
