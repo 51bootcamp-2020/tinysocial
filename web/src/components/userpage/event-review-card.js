@@ -24,8 +24,7 @@ class EventReviewCard extends Component {
     schedules = schedules.map((schedule) => {
       const {id, startTime, endTime, address} = schedule;
       return (
-        <EventSchedule 
-          key={id}
+        <EventSchedule key={id}
           index={index++} 
           startTime={startTime} 
           endTime={endTime} 
@@ -62,8 +61,7 @@ class EventReviewCard extends Component {
             {/* Event title - will be shown only on upcoming events. */}
             {upcoming && (
               <Grid item xs={12} align='center'>
-                <Typography 
-                  variant='h5' 
+                <Typography variant='h5' 
                   paragraph 
                   style={{fontWeight:'bold'}} 
                   onClick={this.handleEventClick}>

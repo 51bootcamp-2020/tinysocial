@@ -7,8 +7,8 @@ import React, {Component} from 'react';
 import {SAMPLE_EVENTS} from './sample-data';
 
 export const USER_EVENTS_QUERY = gql`
-query getUserEvents($info: String!) {
-  userEvents(info: $info) {
+query getUserEvents($upcomingOrPast: String!) {
+  userEvents(upcomingOrPast: $upcomingOrPast) {
     id
     title
     thumbnailUrl
@@ -51,8 +51,7 @@ class EventReviewCardList extends Component {
       const {currentTab} = this.props;
       
       return (
-        <EventReviewCard 
-          key={id}
+        <EventReviewCard key={id}
           id={id} 
           eventTitle={eventTitle} 
           bookTitle={bookTitle}
@@ -71,10 +70,8 @@ class EventReviewCardList extends Component {
 
   sendUserEventsQuery() {
     return (
-      <Query 
-        query={USER_EVENTS_QUERY}
-        variables={{info: this.props.currentTab}}
-      >
+      <Query query={USER_EVENTS_QUERY} 
+        variables={{upcomingOrPast: this.props.currentTab}}>
         {({loading, error, data}) => {
           // TODO(mskwon1): Add data loading page.
           if (loading) return <p>Fetching Data ...</p>

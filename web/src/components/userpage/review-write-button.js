@@ -5,13 +5,12 @@ import React, {Component} from 'react';
 
 class ReviewWriteButton extends Component {
   render() {
-    const {isWrite, onClick} = this.props;
+    const {userHasReview, onClick} = this.props;
 
     // When there is no review of the user.
-    if (isWrite) {
+    if (!userHasReview) {
       return (
-        <Button 
-          variant="contained" 
+        <Button variant="contained" 
           color="primary" 
           startIcon={<CreateIcon />} 
           onClick={onClick}
@@ -30,8 +29,7 @@ class ReviewWriteButton extends Component {
 
     // When there is a review of the user.
     return (
-      <Button 
-        variant="outlined" 
+      <Button variant="outlined" 
         color="primary" 
         startIcon={<CreateIcon />} 
         onClick={onClick}

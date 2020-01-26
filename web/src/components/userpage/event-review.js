@@ -42,8 +42,7 @@ class EventReview extends Component {
       <Fragment>
         <Grid item xs={12} align='center' style={{margin:'15px'}}>
           {/* Review title, null if title is undefined. */}
-          <Typography 
-            variant='subtitle2' 
+          <Typography variant='subtitle2' 
             align='left' 
             style={{fontWeight:'bold'}}>
             {review ? review.title : null}
@@ -55,13 +54,11 @@ class EventReview extends Component {
         </Grid>
         <Grid item xs={12} align='center'>
           {/* Review 'Write' button. */}
-          <ReviewWriteButton 
-            isWrite={review === undefined} 
+          <ReviewWriteButton userHasReview={review !== undefined} 
             onClick={this.handleReviewButtonClick} />
         </Grid>
         <Dialog open={this.state.openWritePanel} onClose={this.handleClose} fullWidth>
-          <ReviewWritePanel 
-            eventId={eventId}
+          <ReviewWritePanel eventId={eventId}
             review={review}
             onClose={this.handleClose}
           />

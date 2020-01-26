@@ -53,14 +53,12 @@ class ReviewWritePanel extends Component {
 
   componentDidMount() {
     const {review} = this.props;
-
     review
       ? this.setState({
         title: review.title,
         content: review.content,
       })
       : this.setState({
-        
       })
   }
 
@@ -78,8 +76,7 @@ class ReviewWritePanel extends Component {
         <Grid item xs={12} align='right'>
           <Typography variant='body2'>
             {this.displayPublic()}
-            <Switch
-              checked={this.state.isPublic}
+            <Switch checked={this.state.isPublic}
               onChange={this.handleSwitch}
             />
           </Typography>
@@ -88,20 +85,18 @@ class ReviewWritePanel extends Component {
           <DialogContentText>
             Title
           </DialogContentText>
-          <TextField 
+          <TextField onChange={this.handleChange}
             style={{marginBottom:'20px'}}
             value={this.state.title}
-            onChange={this.handleChange}
           />
           <DialogContentText>
             Content
           </DialogContentText>
-          <TextField
+          <TextField fullWidth
             multiline
-            rows="6"
-            fullWidth
-            value={this.state.content}
             onChange={this.handleChange}
+            rows="6"
+            value={this.state.content}
           />
         </DialogContent>
         <DialogActions>

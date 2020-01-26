@@ -22,13 +22,12 @@ class ReviewTabs extends Component {
         {/* Upcoming / Past header tabs. */}
         <AppBar position="static">
           <Tabs variant="fullWidth" 
-                value={currentTab}
-                onChange={(event, value) => {onTabChange(value)}}
-                style={{background:'#009688'}}
-                classes={{
-                  indicator: classes.indicator
-                }}
-                >
+            value={currentTab}
+            onChange={(event, value) => {onTabChange(value)}}
+            style={{background:'#009688'}}
+            classes={{
+              indicator: classes.indicator
+            }}>
             <Tab value="upcoming" label="Upcoming" style={{
               textTransform: 'none',
             }}/>
