@@ -18,8 +18,7 @@ const typeDefs = gql`
         # Return the user whose id is 'id'.
         # If not exist, return null
         user(id: ID!): User
-        # TODO(SSJ): fix these
-        userEvents(info: String!): [Event]
+        userEvents(upcomingOrPast: String!): [Event]
         getUserReviews(userId: Int, eventId: Int): Review
     }
     type Review {
@@ -134,8 +133,7 @@ const typeDefs = gql`
         tags: [Tag]!
         participants: [User]!
         maxParticipantNum: Int
-        # TODO(SSJ) : do something
-        reviews: [Review]
+        reviews: Review
     }
     
     type EventBookClub implements Event{
@@ -159,7 +157,7 @@ const typeDefs = gql`
         participants: [User]!
         maxParticipantNum: Int
         # TODO(SSJ) : do something
-        reviews: [Review]
+        reviews: Review
     }
 
   # Every event can have multiple tags. Tags are predefined by ours(developers)
