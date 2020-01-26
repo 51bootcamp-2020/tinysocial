@@ -26,7 +26,7 @@ const APP_SECRET = process.env.SECRET || 'default';
 const context = async ({req}) => {
   if (!req.headers.authorization) {
     return {
-    userId: null};
+      userId: null};
   }
   try {
     const token = req.headers.authorization;

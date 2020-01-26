@@ -156,7 +156,6 @@ const typeDefs = gql`
         tags: [Tag]!
         participants: [User]!
         maxParticipantNum: Int
-        # TODO(SSJ) : do something
         reviews: Review
     }
 

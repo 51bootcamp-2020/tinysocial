@@ -225,7 +225,9 @@ module.exports.Mutation = {
     }
 
     // TODO(lsh9034): expiration time depending on the last user interaction.
-    const token = jwt.sign({userId: email}, APP_SECRET, {expiresIn: expirationTime});
+    const token = jwt.sign(
+        {userId: email}, APP_SECRET, {expiresIn: expirationTime},
+    );
 
     return {
       success: true,
