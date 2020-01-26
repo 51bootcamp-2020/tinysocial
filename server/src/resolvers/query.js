@@ -1,4 +1,11 @@
 module.exports.Query = {
+  getTagNames: async (_, {after, pageSize}, {dataSources})=>{
+    const tagNames = await dataSources.mainAPI.findTagName(after, pageSize);
+    return {
+      cursor: after + pageSize,
+      tagNames: tagNames,
+    };
+  },
   events: async (_, {pageSize = undefined, after = undefined, eventFilter, eventSort}, {dataSources, userId}) => {
     let eventsId;
     if (eventFilter!==undefined) {

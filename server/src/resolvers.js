@@ -11,9 +11,13 @@ module.exports = {
   Event,
   EventBookClub,
   Tag,
+  TagConnection: {
+    tags: async (parents, _, {dataSources}) =>{
+      return parents.tagNames;
+    },
+  },
   EventConnection: {
     events: async (parents, _, {dataSources, userId}) => {
-      console.log("parents",parents);
       const events = await dataSources.mainAPI.findEvents(parents.eventsId);
       return events;
     },

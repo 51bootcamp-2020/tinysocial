@@ -226,12 +226,10 @@ class MainAPI extends DataSource {
    * @return {Array} eventsId - eventsId array
    */
   async findEventsIdByNothing(offset, limit) {
-    console.log('Nothing');
     const eventsId = await this.store.Event.findAll({
       offset: offset,
       limit: limit,
     }).map((element) => ({id: element.id}));
-    console.log(eventsId);
     return eventsId;
   }
 
@@ -247,7 +245,6 @@ class MainAPI extends DataSource {
     if (eventsId !== undefined && eventsId !== null) {
       eventsId = {id: eventsId.map((element)=>(element.id))};
     }
-    console.log('eventId', eventsId);
     const events = await this.store.Event.findAll({
       where: eventsId,
       offset: offset,
@@ -255,7 +252,6 @@ class MainAPI extends DataSource {
       raw: true,
     });
     const eventsWithExtra = [];
-    console.log(events);
     for (let i=0; i<events.length; i++) {
       const table = this.getTable(events[i].type);
       if (table===null) continue;
@@ -265,7 +261,6 @@ class MainAPI extends DataSource {
       });
       eventsWithExtra.push({...events[i], ...extraField[0]});
     }
-    console.log(eventsWithExtra);
     return eventsWithExtra;
   }
 
@@ -296,6 +291,13 @@ class MainAPI extends DataSource {
     return eventsId ? eventsId : null;
   }
 
+  async findTagName(offset, limit) {
+    const tagNames = await this.store.Tag.findAll({
+      offset: offset,
+      limit: limit,
+    });
+    return tagNames;
+  }
   /**
    * this function is only use functions in util.js for high quality code.
    * @param {number} type - The type of event
