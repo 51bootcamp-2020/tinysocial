@@ -22,10 +22,8 @@ class UserPage extends Component {
   render() {
     return (
       <Fragment>
-        <ReviewTabs 
-          currentTab={this.state.currentTab} 
-          onTabChange={this.onTabChange} 
-          />
+        <ReviewTabs currentTab={this.state.currentTab} 
+          onTabChange={this.onTabChange} />
         <EventReviewCardList currentTab={this.state.currentTab} />
       </Fragment>
     );

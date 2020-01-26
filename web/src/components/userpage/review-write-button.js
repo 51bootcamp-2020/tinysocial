@@ -41,7 +41,7 @@ class ReviewWriteButton extends Component {
           height: '36px',
           borderRadius: '18px',
           textTransform: 'none',  
-          backgroundColor: 'white',
+          backgroundColor: '#ffffff',
           color: '#009688',
         }}>
         Edit
