@@ -1,10 +1,10 @@
 import {clientId} from './utils.js';
 import {gql} from 'apollo-boost';
-import {GoogleLogin} from "react-google-login";
-import {Mutation} from 'react-apollo';  
-import PropTypes from "prop-types";
-import React, { Component } from "react";
-import {withRouter} from 'react-router-dom'
+import {GoogleLogin} from 'react-google-login';
+import {Mutation} from 'react-apollo';
+import PropTypes from 'prop-types';
+import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom';
 
 class SignupFormGoogle extends Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class SignupFormGoogle extends Component {
       firstName: res.profileObj.givenName,
       lastName: res.profileObj.familyName,
       email: res.profileObj.email,
-      provider: res.tokenObj.idpId
+      provider: res.tokenObj.idpId,
     });
   };
 
@@ -64,68 +64,67 @@ class SignupFormGoogle extends Component {
 
     return (
 
-      <div>
-         {/*sends a mutation to the server. */}
-        <Mutation
-            mutation={SIGNUP_MUTATION}
-            variables={{
-              googleId: this.state.id,
-              email: this.state.email,
-              firstName: this.state.firstName,
-              lastName: this.state.lastName
-            }}
-            onCompleted={
-              (data) => {
-                const {success, message, token} = data.signUpWithGoogle
-                if (success) {
-                  window.localStorage.setItem('token', token);
-                  this.props.history.push('/');
-                } else {
-                  window.alert('Signup failed ... please contact admin')
-                  this.props.history.push('/signup')
+        <div>
+          {/*sends a mutation to the server. */}
+          <Mutation
+              mutation={SIGNUP_MUTATION}
+              variables={{
+                googleId: this.state.id,
+                email: this.state.email,
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+              }}
+              onCompleted={
+                (data) => {
+                  const {success, message, token} = data.signUpWithGoogle;
+                  if (success) {
+                    window.localStorage.setItem('token', token);
+                    this.props.history.push('/');
+                  } else {
+                    window.alert('Signup failed ... please contact admin');
+                    this.props.history.push('/signup');
+                  }
                 }
               }
+          >
+            {(mutate, {data, called}) => {
+              if (!called && this.state.id !== null) {
+
+                console.log('sent');
+                mutate();
+              }
+              return (<div></div>);
             }
-        >
-          {(mutate, {data, called}) => {
-          if(!called && this.state.id !== null) {
-
-            console.log('sent');
-            mutate();
-          }
-            return (<div></div>);
-        }
-          }
-        </Mutation>
-        {/* A google log in button component. */}
-        <GoogleLogin
-            clientId={clientId}
-            buttonText="Google Log-in"
-            onSuccess={this.responseGoogle}
-            onFailure={this.responseFail}
-        >
-          <p style={{
-            width: '228px', height: '28px',
-            fontWeight: 'bold', fontStretch: 'normal',
-            lineHeight: '30px',
-            color: '#4a4a4a', fontFamily: 'Roboto', marginBottom: '0',
-          }}>
-            Sign up with Google
-          </p>
-        </GoogleLogin>
+            }
+          </Mutation>
+          {/* A google log in button component. */}
+          <GoogleLogin
+              clientId={clientId}
+              buttonText="Google Log-in"
+              onSuccess={this.responseGoogle}
+              onFailure={this.responseFail}
+          >
+            <p style={{
+              width: '228px', height: '28px',
+              fontWeight: 'bold', fontStretch: 'normal',
+              lineHeight: '30px',
+              color: '#4a4a4a', fontFamily: 'Roboto', marginBottom: '0',
+            }}>
+              Sign up with Google
+            </p>
+          </GoogleLogin>
 
 
+          {/*  {(signupMutation) => {*/}
+          {/*    return (<button onClick={() => {*/}
+          {/*      // TODO(Myeong-heeSeo) : input validation. (not for v0)*/}
+          {/*      signupMutation();*/}
+          {/*    }*/}
+          {/*    }>Register</button>)*/}
+          {/*  }}*/}
+          {/*</Mutation>*/}
 
-        {/*  {(signupMutation) => {*/}
-        {/*    return (<button onClick={() => {*/}
-        {/*      // TODO(Myeong-heeSeo) : input validation. (not for v0)*/}
-        {/*      signupMutation();*/}
-        {/*    }*/}
-        {/*    }>Register</button>)*/}
-        {/*  }}*/}
-        {/*</Mutation>*/}
-
-      </div>
+        </div>
     );
   }
 }
