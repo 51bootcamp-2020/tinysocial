@@ -213,11 +213,9 @@ class MainAPI extends DataSource {
     if (tagId !== undefined && tagId !== null) {
       tagId = {tagId: tagId.map((element) => (element.tagId))};
     }
-    console.log("start");
     const eventId = await this.store.EventTag.findAll({
       where: tagId,
     }).map((element)=>({id: element.eventId}));
-    console.log("end");
     return eventId;
   }
 
@@ -240,17 +238,17 @@ class MainAPI extends DataSource {
   /**
    * find events using eventsId & offset & limit in Event table.
    * @param {Array} eventsId - The array which contain eventsId object.
-   * @param offset
-   * @param limit
-   * @returns {Promise<[]>}
+   * @param {number} offset - Start index in event list.
+   * @param {number} limit - THe number of eventId which is returned.
+   * @return {Array} eventsWithExtra
+   * - The array which contain event object matched to eventId and event type.
    */
   async findEvents(eventsId, offset, limit) {
     if (eventsId !== undefined && eventsId !== null) {
       eventsId = {id: eventsId.map((element)=>(element.id))};
     }
     console.log('eventId', eventsId);
-    let events;
-    events = await this.store.Event.findAll({
+    const events = await this.store.Event.findAll({
       where: eventsId,
       offset: offset,
       limit: limit,
@@ -261,7 +259,7 @@ class MainAPI extends DataSource {
     for (let i=0; i<events.length; i++) {
       const table = this.getTable(events[i].type);
       if (table===null) continue;
-      const extraField = await this.store.EventBookClub.findAll({
+      const extraField = await table.findAll({
         where: {eventId: events[i].id},
         raw: true,
       });
@@ -271,6 +269,15 @@ class MainAPI extends DataSource {
     return eventsWithExtra;
   }
 
+  /**
+   * find events using tag name.
+   * In resolver part only use this function if you want to get eventsId using tag name.
+   * @param {Array} tag - The array which contain tag object.
+   * @param {number} offset - Start index in event list.
+   * @param {number} limit - THe number of eventId which is returned.
+   * @param {string} order - sort type
+   * @return {Array} eventsId - eventsId object matched to tag name.
+   */
   async findEventsIdByTag(tag, offset, limit, order) {
     let eventsId;
     if (tag !== undefined) {
@@ -288,8 +295,15 @@ class MainAPI extends DataSource {
     }
     return eventsId ? eventsId : null;
   }
+
+  /**
+   * this function is only use functions in util.js for high quality code.
+   * @param {number} type - The type of event
+   * @return {null|EventBookClub} - The object which is matched type.
+   * If none of type match return null.
+   */
   getTable(type) {
-    if (type===0) return this.store.EventBookClub;
+    if (type === 0) return this.store.EventBookClub;
     return null;
   }
 }
