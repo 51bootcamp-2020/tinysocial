@@ -108,75 +108,71 @@ const createStore = () => {
     modelName: 'event',
   });
 
-  EventBookClub.init(
-      {
-        eventId: {
-          type: Sequelize.INTEGER,
-          primaryKey: true,
-          references: {
-            model: Event,
-            key: 'id',
-          },
-        },
-        bookTitle: {
-          type: Sequelize.STRING,
-          allowNull: false,
-        },
-        bookAuthor: {
-          type: Sequelize.STRING,
-          allowNull: false,
-        },
-        bookDescription: {
-          type: Sequelize.STRING,
-        },
-        bookISBN: {
-          type: Sequelize.INTEGER,
-        },
-        bookImageUrl: {
-          type: Sequelize.STRING,
-        },
+  EventBookClub.init({
+    eventId: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      references: {
+        model: Event,
+        key: 'id',
       },
-      {
-        sequelize,
-        modelName: 'eventBookClub',
-        timestamps: false,
-      },
+    },
+    bookTitle: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    bookAuthor: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    bookDescription: {
+      type: Sequelize.STRING,
+    },
+    bookISBN: {
+      type: Sequelize.INTEGER,
+    },
+    bookImageUrl: {
+      type: Sequelize.STRING,
+    },
+  }, {
+    sequelize,
+    modelName: 'eventBookClub',
+    timestamps: false,
+  },
   );
 
-  Review.init(
-      {
-        userId: {
-          type: Sequelize.INTEGER,
-          primaryKey: true,
-          references: {
-            model: User,
-            key: 'id',
-          },
-        },
-        eventId: {
-          type: Sequelize.INTEGER,
-          primaryKey: true,
-          references: {
-            model: Event,
-            key: 'id',
-          },
-        },
-        title: {
-          type: Sequelize.STRING,
-          allowNull: false,
-        },
-        content: {
-          type: Sequelize.STRING,
-        },
-        isPublic: {
-          type: Sequelize.BOOLEAN,
-          allowNull: false,
-        },
+  Review.init({
+    userId: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      references: {
+        model: User,
+        key: 'id',
       },
-      {
-        sequelize,
-        modelName: 'review',
+    },
+    eventId: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      references: {
+        model: Event,
+        key: 'id',
       },
+    },
+    title: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    content: {
+      type: Sequelize.STRING,
+    },
+    isPublic: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+    },
+  }, {
+    sequelize,
+    modelName: 'review',
+  },
   );
 
   // Every event can have multiple tags.
@@ -220,8 +216,7 @@ const createStore = () => {
     sequelize,
     modelName: 'eventTag',
     timestamps: false,
-  },
-  );
+  });
 
   Schedule.init({
     id: {
@@ -247,8 +242,7 @@ const createStore = () => {
     sequelize,
     modelName: 'schedule',
     timestamps: false,
-  },
-  );
+  });
 
   EventParticipant.init(
       {
