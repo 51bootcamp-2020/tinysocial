@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import LoginFormGoogle from '../components/login-form-google';
 import LoginFormGeneral from '../components/login-form-general';
 import {Container, Grid, Typography} from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 
 const boxStyle = {
   marginTop: '6%',
