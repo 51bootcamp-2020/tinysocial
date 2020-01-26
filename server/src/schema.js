@@ -37,6 +37,22 @@ const typeDefs = gql`
             lastName: String!
             profileImgUrl: String
         ): AuthResponse!
+        # Default Sign Up / Sign In
+        signUp(
+            email: String!
+            firstName: String!
+            lastName: String!
+            pw: String!
+            repw: String!
+        ): AuthResponse!
+        signIn(
+            email: String!
+            pw: String!
+        ): AuthResponse!
+        # Email Vlidation
+        emailValidate(
+            token: String!
+        ): AuthResponse!
         # If successful, then return True.  
         logout: Boolean!
         createReview(
@@ -70,7 +86,6 @@ const typeDefs = gql`
         NEWEST,
         MOST_MEMBERS,
         TIME_CLOSEST,
-        
     }
     
     type AuthResponse {
@@ -88,12 +103,8 @@ const typeDefs = gql`
         lastName: String!
         email: String!
         age: Int # TODO(yun-kwak): Calculate the age of the user from birthday
-        # TODO(yun-kwak): Split the address into
-        # street address
-        # additional street address
-        # city
-        # state
-        # zip code
+        # TODO(yun-kwak): Split the address into city, state, zip, street,
+        # additional street addres
         address: String
         phone: String
         selfDescription: String
@@ -169,13 +180,8 @@ const typeDefs = gql`
         id: ID!
         startDateTime: DateTime!
         endDateTime: DateTime!
-        # TODO(yun-kwak): Split the address into
-        # country: String!
-        # state: String!
-        # city: String!
-        # zip: String!
-        # street: String!
-        # additionalStreetAddress: String!
+        # TODO(yun-kwak): Split the address into country, state, city, zip, 
+        # street, additionalStreetAdress
         address: String!
         latitude: Float!
         longitude: Float!

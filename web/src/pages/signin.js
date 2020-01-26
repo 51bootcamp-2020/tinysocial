@@ -1,15 +1,29 @@
 import React, {Component} from 'react';
-import LoginForm from '../components/login-form'
+import LoginFormGoogle from '../components/login-form-google';
+import LoginFormGeneral from '../components/login-form-general';
+import {Container, Grid, Typography} from '@material-ui/core';
 
-// TODO(Hyejin): Implement signin page using material UI
-class Signin extends Component{
-    render(){
-        return (
-            <div>
-                <LoginForm />
-            </div>
-        )
-    };
+const boxStyle = {
+  marginTop: '6%',
+  padding: '30px',
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'Column',
+  border: '2px solid #9b9b9b'
+};
+
+// TODO(Myounghee): Implement signin page using material UI
+class Signin extends Component {
+  render() {
+    return (
+        <Container className="signin" style={boxStyle} maxWidth='sm'>
+          <Typography variant="h6" style={{fontSize: '14'}}>Sign In</Typography>
+          <br/><br/>
+          <LoginFormGoogle/>
+          <LoginFormGeneral/>
+        </Container>
+    );
+  };
 }
 
 export default Signin;

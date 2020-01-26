@@ -65,16 +65,12 @@ const createStore = () => {
       type: Sequelize.STRING, allowNull: false,
     },
     birthday: Sequelize.DATE,
-    // TODO(yun-kwak): Split the address into
-    // street address
-    // additional street address
-    // city
-    // state
-    // zip code
+    // TODO(yun-kwak): Split the address into street address,
+    // additional street address, city, state, zip code
     address: Sequelize.STRING,
     phone: Sequelize.STRING,
     self_description: Sequelize.STRING,
-    lastInteractionTime: Sequelize.STRING, // To refresh JWT token
+    lastInteractionTime: Sequelize.DATE, // To refresh JWT token
   },
   {
     sequelize,
@@ -235,13 +231,8 @@ const createStore = () => {
     },
     startDateTime: Sequelize.DATE,
     endDateTime: Sequelize.DATE,
-    // TODO(yun-kwak): Split the address into
-    // country: Sequelize.STRING,
-    // state: Sequelize.STRING,
-    // city: Sequelize.STRING,
-    // zip: Sequelize.STRING,
-    // street: Sequelize.STRING,
-    // additionalStreetAddress: Sequelize.STRING,
+    // TODO(yun-kwak): Split the address into country, state, city, zip, street,
+    // additionalStreetAddress
     address: Sequelize.STRING,
     latitude: Sequelize.FLOAT,
     longitude: Sequelize.FLOAT,
@@ -306,205 +297,7 @@ const createStore = () => {
   // 'sync'.
   // reference: https://sequelize.org/v5/manual/migrations.html
 
-  // sequelize.sync();
-  /////////////////////////////////TEST DATA///////////////////////////////////
- sequelize.sync({force: true}).then(async () => {
-  try {
-    await User.create({
-      firstName: '1',
-      lastName: '#',
-      googleId: 'ThisIsUserGoogleId1',
-      facebookId: 'ThisIsUserFacebookId1',
-      profileImgUrl: 'ThisIsUserImgUrl1',
-      email: 'ThisIsUserEmail1',
-      birthday: new Date('1996-04-22 12:12:12'),
-      address: 'ThisIsUserAddress1',
-      phone: 'ThisIsUserPhone1',
-      self_description: 'ThisIsUserSelf_description1',
-      lastInteractionTime: 'lastInteractionTime1',
-    }),
-    await User.create({
-      firstName: '2',
-      lastName: '#',
-      googleId: 'ThisIsUserGoogleId2',
-      facebookId: 'ThisIsUserFacebookId2',
-      profileImgUrl: 'ThisIsUserImgUrl2',
-      email: 'ThisIsUserEmail2',
-      birthday: new Date('2000-04-22 12:12:12'),
-      address: 'ThisIsUserAddress2',
-      phone: 'ThisIsUserPhone2',
-      self_description: 'ThisIsUserSelf_description2',
-      lastInteractionTime: 'lastInteractionTime2',
-    }).then(async () => {
-      const users = await User.findAll();
-      console.log('All users:', JSON.stringify(users, null, 2));
-    });
-    console.log('success', User);
-  } catch (err) {
-    console.log(err);
-  }
-  try {
-    await Event.create({
-      title: 'event1',
-      hostId: 1,
-      description: 'ThisIsEventDescription1',
-      price: 1.11111,
-      type: 0,
-      thumbnailUrl: 'ThisIsEventThumbnailUrl1',
-      maxParticipantNum: 11,
-    }),
-    await Event.create({
-      title: 'event2',
-      hostId: 1,
-      description: 'ThisIsEventDescription2',
-      price: 2.22222,
-      type: 0,
-      thumbnailUrl: 'ThisIsEventThumbnailUrl2',
-      maxParticipantNum: 22,
-    }),
-    await Event.create({
-      title: 'event3',
-      hostId: 1,
-      description: 'ThisIsEventDescription3',
-      price: 3.33333,
-      type: 0,
-      thumbnailUrl: 'ThisIsEventThumbnailUrl3',
-      maxParticipantNum: 33,
-    }),
-    await Event.create({
-      title: 'event4',
-      hostId: 1,
-      description: 'ThisIsEventDescription4',
-      price: 4.44444,
-      type: 0,
-      thumbnailUrl: 'ThisIsEventThumbnailUrl4',
-      maxParticipantNum: 44,
-    }),
-    await Event.create({
-      title: 'event5',
-      hostId: 1,
-      description: 'ThisIsEventDescription5',
-      price: 5.55555,
-      type: 0,
-      thumbnailUrl: 'ThisIsEventThumbnailUrl5',
-      maxParticipantNum: 55,
-    }).then(async () => {
-      const events = await Event.findAll();
-      console.log('All events:', JSON.stringify(events, null, 2));
-    });
-    console.log('success', Event);
-  } catch (err) {
-    console.log(err);
-  }
-  try {
-    await EventBookClub.create({
-      eventId: 1,
-      bookTitle: 'ThisIsEventBookClubBookTitle1',
-      bookDescription: 'ThisIsEventBookClubDescription1',
-      bookAuthor: 'ThisIsEventBookClubAuthor1',
-      bookISBN: 1,
-    }),
-    await EventBookClub.create({
-      eventId: 2,
-      bookTitle: 'ThisIsEventBookClubBookTitle2',
-      bookDescription: 'ThisIsEventBookClubDescription2',
-      bookAuthor: 'ThisIsEventBookClubAuthor2',
-      bookISBN: 2,
-    }).then(async () => {
-      const eventBookClub = await EventBookClub.findAll();
-      console.log('All eventBookClub:', JSON.stringify(eventBookClub, null, 2));
-    });
-    console.log('success', EventBookClub);
-  } catch (err) {
-    console.log(err);
-  }
-  try {
-    await Tag.create({
-      name: 'ThisIsTagName1',
-    }).then(async () => {
-      console.log('success', Tag);
-    })
-  } catch (err) {
-    console.log(err);
-  }
-  try {
-    await EventTag.create({
-      eventId: 1,
-      tagId: 1,
-    }).then(async () => {
-      console.log('success', EventTag);
-    })
-  } catch (err) {
-    console.log(err);
-  }
-  try {
-    await Schedule.create({
-      startDateTime: new Date('2020-12-31 12:12:12'),
-      endDateTime: new Date('2022-12-23 12:31:11'),
-      address: 'ThisIsScheduleAddress1',
-      eventId: 1,
-      longitude: 1.111111,
-      latitude: 1.111111,
-    }),
-    await Schedule.create({
-      startDateTime: new Date('2015-12-31 12:12:12'),
-      endDateTime: new Date('2018-12-23 12:31:11'),
-      address: 'ThisIsScheduleAddress2',
-      longitude: 2.222222,
-      latitude: 2.222222,
-      eventId: 2,
-    }).then(async () => {
-      const schedule = await Schedule.findAll();
-      console.log('All schedule:', JSON.stringify(schedule, null, 2));
-    });
-    console.log('success', Schedule);
-  } catch (err) {
-    console.log(err);
-  }
-
-  try {
-    await EventParticipant.create(
-        {
-          userId: 1,
-          eventId: 1,
-        },
-    ),
-    await EventParticipant.create(
-        {
-          userId: 2,
-          eventId: 1,
-        },
-    ),
-    await EventParticipant.create({
-      userId: 1,
-      eventId: 2,
-    }).then(async () => {
-      const eventParticipant = await EventParticipant.findAll();
-      console.log('All eventParticipant:', JSON.stringify(eventParticipant, null, 2));
-    });
-    console.log('success', EventParticipant);
-  } catch (err) {
-    console.log(err);
-  }
-
-  try {
-    await Review.create({
-      userId: 1,
-      eventId: 1,
-      title: 'ThisIsReviewTitle1',
-      content: 'ThisIsReviewContent1',
-      isPublic: true,
-    }).then(async () => {
-      const review = await Review.findAll();
-      console.log('All review:', JSON.stringify(review, null, 2));
-    });
-    console.log('success', Review);
-  } catch (err) {
-    console.log(err);
-  }
-
-});
-  ///////////////////////////////TEST DATA///////////////////////////////////
+  sequelize.sync();
 
   return {
     User,
