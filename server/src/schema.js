@@ -29,6 +29,22 @@ const typeDefs = gql`
             lastName: String!
             profileImgUrl: String
         ): AuthResponse!
+        # Default Sign Up / Sign In
+        signUp(
+            email: String!
+            firstName: String!
+            lastName: String!
+            pw: String!
+            repw: String!
+        ): AuthResponse!
+        signIn(
+            email: String!
+            pw: String!
+        ): AuthResponse!
+        # Email Vlidation
+        emailValidate(
+            token: String!
+        ): AuthResponse!
         # If successful, then return True.  
         logout: Boolean!
     }

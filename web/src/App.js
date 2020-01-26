@@ -11,6 +11,7 @@ import Landing from './pages/landing';
 import NavBar from './components/navigation/navbar';
 import React from 'react';
 import Signin from './pages/signin';
+import Emailvalidation from './pages/emailvalidation';
 
 const client = new ApolloClient({
   //TODO(arin-kwak): need update uri.
@@ -28,6 +29,9 @@ function App() {
           <Route path='/eventlist' render={() => <EventList/>}/>
           <Route path='/about' render={() => <About/>}/>
           <Route path='/' render={() => <Landing/>}/>
+          <Route path="/emailvalidation">
+            <Emailvalidation/>
+          </Route>
         </Switch>
       </Router>
     </ApolloProvider>
