@@ -30,11 +30,11 @@ const write_fake_db = async () => {
   ];
 
   for (let i = 0; i < read_info.length; i++) {
-    let fd = fs.createReadStream(FAKEDB_PATH + read_info[i].csv).
+    const fd = fs.createReadStream(FAKEDB_PATH + read_info[i].csv).
         pipe(await stripBom()).
         pipe(await csv());
 
-    let end = new Promise(function(resolve, reject) {
+    const end = new Promise(function(resolve, reject) {
       fd.on('data', async (data) => await read_info[i].dat.push(data)).
           on('end', async () => {
             console.log('updating:', read_info[i].csv);
