@@ -131,7 +131,7 @@ class SignupFormGeneral extends Component {
           <Grid item className="align-middle">
             <p style={{marginLeft: '20px'}}>Do you have account?<Link
                 href='/signin' style={{color: 'red', marginLeft: '20px'}}>Sign
-              up</Link></p>
+              In</Link></p>
           </Grid>
         </Grid>
 
