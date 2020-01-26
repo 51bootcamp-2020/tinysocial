@@ -1,4 +1,4 @@
-const APP_SECRET = process.env.SECRET || ' ';
+const APP_SECRET = process.env.SECRET || 'default';
 const {
   cannotCreateUserMessage,
   userNotFoundMessage,

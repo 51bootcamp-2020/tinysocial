@@ -21,7 +21,7 @@ const dataSources = () => ({
   mainAPI: new MainAPI(store),
 });
 
-const APP_SECRET = process.env.SECRET || ' ';
+const APP_SECRET = process.env.SECRET || 'default';
 
 const context = async ({req}) => {
   if (!req.headers.authorization) {
