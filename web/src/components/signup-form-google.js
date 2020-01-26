@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import {withRouter} from 'react-router-dom'
 
-class SignupForm extends Component {
+class SignupFormGoogle extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -64,59 +64,60 @@ class SignupForm extends Component {
 
     return (
       <div>
-        {/* Form, uneditable for now. */}
-        <ul>
-          <li>Email: </li>
-          <input type="text" defaultValue={this.state.email} disabled></input>
-          <li>FirstName: </li>
-          <input type="text" defaultValue={this.state.firstName} disabled></input>
-          <li>LastName: </li>
-          <input type="text" defaultValue={this.state.lastName} disabled></input>
-        </ul>
-        {/* Register button, sends a mutation to the server. */}
-        <Mutation 
-          mutation={SIGNUP_MUTATION} 
-          variables={{
-            googleId: id,
-            email: email,
-            firstName: firstName,
-            lastName: lastName
-          }}
-          onCompleted={
-            (data) => {
-              const {success, message, token} = data.signUpWithGoogle
-              if (success) {
-                window.localStorage.setItem('token', token)
-                this.props.history.push('/')
-              } else {
-                window.alert('Signup failed ... please contact admin')
-                this.props.history.push('/signup')
-              }
-            }
-          }
-        >
-          {(signupMutation) => {
-            return (<button onClick={() => {
-              // TODO(Myeong-heeSeo) : input validation. (not for v0)
-              signupMutation();
-            }
-            }>Register</button>)
-          }}
-        </Mutation>
         {/* A google log in button component. */}
         <GoogleLogin
-          clientId={clientId}
-          buttonText="Google Log-in"
-          onSuccess={this.responseGoogle}
-          onFailure={this.responseFail}
-        />
+            clientId={clientId}
+            buttonText="Google Log-in"
+            onSuccess={this.responseGoogle}
+            onFailure={this.responseFail}
+        >
+          <p style={{
+            width: '228px', height: '28px',
+            fontWeight: 'bold', fontStretch: 'normal',
+            lineHeight: '30px',
+            color: '#4a4a4a', fontFamily: 'Roboto', marginBottom: '0',
+          }}>
+            Sign up with Google
+          </p>
+        </GoogleLogin>
+
+        {/* Register button, sends a mutation to the server. */}
+        {/*<Mutation*/}
+        {/*  mutation={SIGNUP_MUTATION}*/}
+        {/*  variables={{*/}
+        {/*    googleId: id,*/}
+        {/*    email: email,*/}
+        {/*    firstName: firstName,*/}
+        {/*    lastName: lastName*/}
+        {/*  }}*/}
+        {/*  onCompleted={*/}
+        {/*    (data) => {*/}
+        {/*      const {success, message, token} = data.signUpWithGoogle*/}
+        {/*      if (success) {*/}
+        {/*        window.localStorage.setItem('token', token)*/}
+        {/*        this.props.history.push('/')*/}
+        {/*      } else {*/}
+        {/*        window.alert('Signup failed ... please contact admin')*/}
+        {/*        this.props.history.push('/signup')*/}
+        {/*      }*/}
+        {/*    }*/}
+        {/*  }*/}
+        {/*>*/}
+        {/*  {(signupMutation) => {*/}
+        {/*    return (<button onClick={() => {*/}
+        {/*      // TODO(Myeong-heeSeo) : input validation. (not for v0)*/}
+        {/*      signupMutation();*/}
+        {/*    }*/}
+        {/*    }>Register</button>)*/}
+        {/*  }}*/}
+        {/*</Mutation>*/}
 
       </div>
     );
   }
 }
 
-SignupForm.propTypes = {};
+SignupFormGoogle.propTypes = {};
 
 // Wrap with withRouter to use props.history.
-export default withRouter(SignupForm);
+export default withRouter(SignupFormGoogle);

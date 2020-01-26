@@ -65,16 +65,12 @@ const createStore = () => {
       type: Sequelize.STRING, allowNull: false,
     },
     birthday: Sequelize.DATE,
-    // TODO: Split the address into
-    // street address
-    // additional street address
-    // city
-    // state
-    // zip code
+    // TODO(yun-kwak): Split the address into street address,
+    // additional street address, city, state, zip code
     address: Sequelize.STRING,
     phone: Sequelize.STRING,
     self_description: Sequelize.STRING,
-    lastInteractionTime: Sequelize.STRING, // To refresh JWT token
+    lastInteractionTime: Sequelize.DATE, // To refresh JWT token
   },
   {
     sequelize,
@@ -227,12 +223,11 @@ const createStore = () => {
     },
     startDateTime: Sequelize.DATE,
     endDateTime: Sequelize.DATE,
-    country: Sequelize.STRING,
-    state: Sequelize.STRING,
-    city: Sequelize.STRING,
-    zip: Sequelize.STRING,
-    street: Sequelize.STRING,
-    additionalAddress: Sequelize.STRING,
+    // TODO(yun-kwak): Split the address into country, state, city, zip, street,
+    // additionalStreetAddress
+    address: Sequelize.STRING,
+    latitude: Sequelize.FLOAT,
+    longitude: Sequelize.FLOAT,
     eventId: {
       type: Sequelize.INTEGER,
       references: {
@@ -255,7 +250,7 @@ const createStore = () => {
         key: 'id',
       },
     },
-    scheduleId: {
+    eventId: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       references: {
