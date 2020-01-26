@@ -25,7 +25,6 @@ const authMiddleware = new ApolloLink((operation, forward) => {
       authorization: Cookie.get('token') || null,
     }
   });
-
   return forward(operation);
 })
 
