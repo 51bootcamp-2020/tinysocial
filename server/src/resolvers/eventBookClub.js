@@ -1,5 +1,3 @@
-const EventTypes = require('../evnetTypes');
-
 module.exports.EventBookClub = {
   host: async ({id}, _, {dataSources}) => {
     const hostId = dataSources.eventAPI.getHostIdOfEvent({eventId: id});

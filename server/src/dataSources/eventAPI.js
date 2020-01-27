@@ -167,11 +167,11 @@ class EventAPI extends DataSource {
   }
 
   async getTagIdsOfEvent({eventId}) {
-    const tags = await this.store.EventTag.findAll({
+    const tagIds = await this.store.EventTag.findAll({
       where: {id: eventId},
       attributes: ['tagId'],
     }).get('tagId');
-    return tags;
+    return tagIds;
   }
 
   async getParticipantIdsOfEvent({eventId}) {
@@ -189,7 +189,6 @@ class EventAPI extends DataSource {
     }).get('maxParticipantNum');
     return maxParticipantNum;
   }
-}
 
   async getIdOfEvent(eventId) {
     const event = await this.store.Event.findOne({
@@ -214,10 +213,10 @@ class EventAPI extends DataSource {
         },
       }],
     });
-    return events.get('id')
+    return events.get('id');
   }
 
-  async getPastEventIdsOfEvent(user){
+  async getPastEventIdsOfEvent(user) {
     const events = await this.store.EventParticipant.findAll({
       where: {userId},
       raw: true,
@@ -232,8 +231,9 @@ class EventAPI extends DataSource {
         },
       }],
     });
-    return events.get('id')
+    return events.get('id');
   }
+}
 module.exports={
   EventAPI,
 };
