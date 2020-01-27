@@ -22,12 +22,6 @@ const typeDefs = gql`
         getTagNames(pageSize: Int, after: Int): TagConnection!
     }
     type Review {
-<<<<<<< HEAD
-      title: String!
-      content: String!
-      author: User!
-      isPublic: Boolean!
-=======
         eventId: ID!
         userId: ID!
         title: String!
@@ -35,7 +29,6 @@ const typeDefs = gql`
         author: User!
         isPublic: Boolean!
         event: Event
->>>>>>> 16c22d6bbb0e1d73365a096e9edeee31cc371f13
     }
     type Mutation {
         signInWithGoogle(googleId: String!): AuthResponse!

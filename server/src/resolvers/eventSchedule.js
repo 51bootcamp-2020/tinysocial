@@ -1,22 +1,22 @@
 module.exports.EventSchedule = {
-  startDateTime: async (eventSchedule, __, {dataSources}) => {
-    const startDateTime = dataSources.eventAPI.getStartDateTimeOfEventSchedule(eventSchedule.id);
+  startDateTime: async ({id}, __, {dataSources}) => {
+    const startDateTime = dataSources.eventAPI.getStartDateTimeOfEventSchedule(id);
     return startDateTime;
   },
-  endDateTime: async (eventSchedule, __, {dataSources}) => {
-    const endDateTime = dataSources.eventAPI.getEndDateTimeOfEventSchedule(eventSchedule.id);
+  endDateTime: async ({id}, __, {dataSources}) => {
+    const endDateTime = dataSources.eventAPI.getEndDateTimeOfEventSchedule(id);
     return endDateTime;
   },
-  address: async (eventSchedule, __, {dataSources}) => {
-    const address = dataSources.eventAPI.getAddressOfEventSchedule(eventSchedule.id);
+  address: async ({id}, __, {dataSources}) => {
+    const address = dataSources.eventAPI.getAddressOfEventSchedule(id);
     return address;
   },
-  latitude: async (eventSchedule, __, {dataSources}) => {
-    const latitude = dataSources.eventAPI.getLatitudeOfEventSchedule(eventSchedule.id);
+  latitude: async ({id}, __, {dataSources}) => {
+    const latitude = dataSources.eventAPI.getLatitudeOfEventSchedule(id);
     return latitude;
   },
-  longitude: async (eventSchedule, __, {dataSources}) => {
-    const longitude = dataSources.eventAPI.getLongitudeOfEventSchedule(eventSchedule.id);
+  longitude: async ({id}, __, {dataSources}) => {
+    const longitude = dataSources.eventAPI.getLongitudeOfEventSchedule(id);
     return longitude;
   },
 };

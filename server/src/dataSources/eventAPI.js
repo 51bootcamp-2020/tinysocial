@@ -51,6 +51,14 @@ class EventAPI extends DataSource {
     });
     return longitude;
   }
+
+  async getTypeOfEvent(eventId) {
+    const type = await this.store.Event.findOne({
+      where: {id: eventId},
+      attributes: ['type'],
+    });
+    return type;
+  }
 }
 
 module.exports={
