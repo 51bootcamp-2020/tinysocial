@@ -52,7 +52,7 @@ class EventReview extends Component {
   }
 
   render() {
-    // TODO(mskwon1): make eventId as a context.
+    // TODO(mskwon1): make event  Id as a context.
     const {eventId} = this.props
     let review = {
       title: this.state.title,
