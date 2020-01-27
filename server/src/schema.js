@@ -20,6 +20,7 @@ const typeDefs = gql`
         user(id: ID!): User
         userEvents(info: String!): [Event]
         getUserReviews(userId: Int, eventId: Int): Review
+        getTagNames(pageSize: Int, after: Int): TagConnection!
     }
     type Review {
       title: String!
@@ -167,7 +168,11 @@ const typeDefs = gql`
     name: String!
     events: [Event]!
   }
-
+  type TagConnection {
+      cursor: Int!
+      tags: [Tag]!
+  }
+  
     # TODO(lsh9034): Implement EventConnection.
     # Reference:
     # https://www.apollographql.com/docs/tutorial/resolvers/#paginated-queries 
