@@ -1,32 +1,29 @@
-import React, {Component} from 'react';
 import {
-  Typography,
   Avatar,
   Grid,
+  Typography,
 } from '@material-ui/core';
+import React, {Component} from 'react';
 
 class Bookclub extends Component {
   constructor(props) {
     super(props);
-    const {
-      hostId,
-      firstName,
-      lastName,
-      userProfileImgUrl,
-      userDescription,
-      eventImage,
-      eventTitle,
-      bookTitle,
-      author,
-      bookDescription,
-
-
-    } = this.props;
+    this.state = {
+      eventId: '',
+      bookTitle: '',
+      author: '',
+      description: '',
+      hostId: '',
+      fisrtName: '',
+      lastName: '',
+      profileImgUrl: '',
+      self_description: '',
+    };
   }
   render() {
     return (
       <div style={{margin: 15}}>
-        <Grid container sm={6}>
+        <Grid container md={6}>
           <Typography variant='h6' style={{color: '#009688'}}>
             Book Master
           </Typography>
@@ -45,7 +42,7 @@ class Bookclub extends Component {
             living and working on boats around the world.
           </Typography>
 
-          <Grid item direction='column'>
+          <Grid item>
             <Typography variant='h6' style={{color: '#009688'}}>
               Book
             </Typography>
