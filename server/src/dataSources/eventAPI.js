@@ -1,6 +1,8 @@
 /* eslint-disable require-jsdoc */
 const {DataSource} = require('apollo-datasource');
 const Sequelize = require('sequelize');
+const OP = Sequelize.Op;
+
 
 class EventAPI extends DataSource {
   constructor(store) {
@@ -17,7 +19,7 @@ class EventAPI extends DataSource {
       where: {id: scheduleId},
       attributes: ['startDateTime'],
     });
-    return startDateTime;
+    return startDateTime.get('startDateTime');
   }
 
   async getEndDateTimeOfEventSchedule(scheduleId) {
@@ -25,7 +27,7 @@ class EventAPI extends DataSource {
       where: {id: scheduleId},
       attributes: ['endDateTime'],
     });
-    return endDateTime;
+    return endDateTime.get('endDateTime');
   }
 
   async getAddressOfEventSchedule(scheduleId) {
@@ -33,7 +35,7 @@ class EventAPI extends DataSource {
       where: {id: scheduleId},
       attributes: ['address'],
     });
-    return address;
+    return address.get('address');
   }
 
   async getLatitudeOfEventSchedule(scheduleId) {
@@ -41,7 +43,7 @@ class EventAPI extends DataSource {
       where: {id: scheduleId},
       attributes: ['latitude'],
     });
-    return latitude;
+    return latitude.get('latitude');
   }
 
   async getLongitudeOfEventSchedule(scheduleId) {
@@ -49,7 +51,7 @@ class EventAPI extends DataSource {
       where: {id: scheduleId},
       attributes: ['longitude'],
     });
-    return longitude;
+    return longitude.get('longitude');
   }
 
   async getTypeOfEvent(eventId) {
@@ -57,10 +59,52 @@ class EventAPI extends DataSource {
       where: {id: eventId},
       attributes: ['type'],
     });
-    return type;
+    return type.get('type');
   }
-}
 
+  async getIdOfEvent(eventId) {
+    const event = await this.store.Event.findOne({
+      where: {id: eventId},
+      attributes: ['id'],
+    });
+    return event.get('id');
+  }
+
+  async getUpcomingEventIdsOfEvent(userId) {
+    const events = await this.store.EventParticipant.findAll({
+      where: {userId},
+      raw: true,
+      attributes: ['eventId'],
+      include: [{
+        model: this.store.Schedule,
+        where: {
+          eventId,
+          startDateTime: {
+            [OP.gt]: new Date(),
+          },
+        },
+      }],
+    });
+    return events.get('id')
+  }
+
+  async getPastEventIdsOfEvent(user){
+    const events = await this.store.EventParticipant.findAll({
+      where: {userId},
+      raw: true,
+      attributes: ['eventId'],
+      include: [{
+        model: this.store.Schedule,
+        where: {
+          eventId,
+          startDateTime: {
+            [OP.lte]: new Date(),
+          },
+        },
+      }],
+    });
+    return events.get('id')
+  }
 module.exports={
   EventAPI,
 };

@@ -18,8 +18,8 @@ const typeDefs = gql`
         # If not exist, return null
         user(id: ID!): User
         userEvents(info: String!): [Event]
-        getUserReviews(userId: Int, eventId: Int): Review
-        getTagNames(pageSize: Int, after: Int): TagConnection!
+        userReviews(userId: Int, eventId: Int): Review
+        tagNames(pageSize: Int, after: Int): TagConnection!
     }
     type Review {
         eventId: ID!
