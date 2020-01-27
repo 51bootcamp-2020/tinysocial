@@ -18,7 +18,7 @@ module.exports = {
   User, // Done(Arin)
   Event, // Done(SeongJae)
   EventBookClub, // Done(SiHyun)
-  Tag,
+  Tag, // Done(SeongJae)
   AuthResponse,
   Review, // Done(SeongJae)
   EventSchedule, // Done(SeongJae)

@@ -17,7 +17,7 @@ class EventAPI extends DataSource {
       where: {id: scheduleId},
       attributes: ['startDateTime'],
     });
-    return startDateTime;
+    return startDateTime.get('startDateTime');
   }
 
   async getEndDateTimeOfEventSchedule(scheduleId) {
@@ -25,7 +25,7 @@ class EventAPI extends DataSource {
       where: {id: scheduleId},
       attributes: ['endDateTime'],
     });
-    return endDateTime;
+    return endDateTime.get('endDateTime');
   }
 
   async getAddressOfEventSchedule(scheduleId) {
@@ -33,7 +33,7 @@ class EventAPI extends DataSource {
       where: {id: scheduleId},
       attributes: ['address'],
     });
-    return address;
+    return address.get('address');
   }
 
   async getLatitudeOfEventSchedule(scheduleId) {
@@ -41,7 +41,7 @@ class EventAPI extends DataSource {
       where: {id: scheduleId},
       attributes: ['latitude'],
     });
-    return latitude;
+    return latitude.get('latitude');
   }
 
   async getLongitudeOfEventSchedule(scheduleId) {
@@ -49,7 +49,7 @@ class EventAPI extends DataSource {
       where: {id: scheduleId},
       attributes: ['longitude'],
     });
-    return longitude;
+    return longitude.get('longitude');
   }
 
   async getTypeOfEvent(eventId) {
@@ -57,7 +57,7 @@ class EventAPI extends DataSource {
       where: {id: eventId},
       attributes: ['type'],
     });
-    return type;
+    return type.get('type');
   }
 }
 

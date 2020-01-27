@@ -17,7 +17,7 @@ class ReviewAPI extends DataSource {
       where: {userId, eventId},
       attributes: ['title'],
     });
-    return title;
+    return title.get('title');
   }
 
   async getContentOfReview(userId, eventId) {
@@ -25,7 +25,7 @@ class ReviewAPI extends DataSource {
       where: {userId, eventId},
       attributes: ['content'],
     });
-    return content;
+    return content.get('content');
   }
 
   async getAuthorOfReview(userId, eventId) {
@@ -33,7 +33,7 @@ class ReviewAPI extends DataSource {
       where: {userId, eventId},
       attributes: ['author'],
     });
-    return author;
+    return author.get('author');
   }
 
   async getIsPublicOfReview(userId, eventId) {
@@ -41,7 +41,7 @@ class ReviewAPI extends DataSource {
       where: {userId, eventId},
       attributes: ['isPublic'],
     });
-    return isPublic;
+    return isPublic.get('isPublic');
   }
 }
 
