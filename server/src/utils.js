@@ -46,9 +46,9 @@ class MainAPI extends DataSource {
     return users && users[0] ? users[0] : null;
   }
 
-  async getUserPastEvents(info) {
+  async getUserPastEvents(userId) {
     const events = await this.store.EventParticipant.findAll({
-      where: {userId: info.userId},
+      where: {userId: userId},
       include: [
         {
           model: this.store.Event,
@@ -69,9 +69,9 @@ class MainAPI extends DataSource {
     return events.map((event) => event.event);
   }
 
-  async getUserUpcomingEvents(info) {
+  async getUserUpcomingEvents(userId) {
     const events = await this.store.EventParticipant.findAll({
-      where: {userId: info.userId},
+      where: {userId: userId},
       include: [
         {
           model: this.store.Event,
@@ -101,19 +101,29 @@ class MainAPI extends DataSource {
     return eventWithType;
   }
 
-  async getUserReviews(info) {
-    const review = await this.store.Review.findOne({
-      where: {
-        eventId: info.eventId,
-        userId: info.userId,
-      },
-    });
+  async getReviews(reviewInfo) {
+    let review;
+    if (reviewInfo.userId === undefined) {
+      review = await this.store.Review.findOne({
+        where: {
+          eventId: reviewInfo.eventId,
+          userId: reviewInfo.currentUserId,
+        },
+      });
+    } else {
+      review = await this.store.Review.findAll({
+        where: {
+          eventId: reviewInfo.eventId,
+          userId: reviewInfo.userId,
+        },
+      });
+    }
     return review;
   }
 
   async createOrModifyReview(reviewInfo) {
-    const review = await this.getUserReviews({
-      userId: reviewInfo.userId, eventId: reviewInfo.eventId,
+    const review = await this.getReviews({
+      currentUserId: reviewInfo.userId, eventId: reviewInfo.eventId,
     });
     if (review === null) {
       const flag = await this.store.Review.create({
@@ -175,15 +185,15 @@ class MainAPI extends DataSource {
     return participants.map((participant) => participant.user);
   }
 
-  async getReviewFromEvent(info) {
-    const review = await this.store.Review.findOne({
-      where: {
-        userId: info.userId,
-        eventId: info.eventId,
-      },
-    });
-    return review;
-  }
+  // async getReviewFromEvent(reviewInfo) {
+  //   const review = await this.store.Review.findAll({
+  //     where: {
+  //       userId: reviewInfo.userId,
+  //       eventId: reviewInfo.eventId,
+  //     },
+  //   });
+  //   return review;
+  // }
 }
 module.exports = {
   MainAPI,

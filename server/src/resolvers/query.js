@@ -140,9 +140,9 @@ module.exports.Query = {
   userEvents: async (_, {upcomingOrPast}, {dataSources, userId}) => {
     let events;
     if (upcomingOrPast === 'upcoming') {
-      events = await dataSources.mainAPI.getUserUpcomingEvents({userId});
+      events = await dataSources.mainAPI.getUserUpcomingEvents(userId);
     } else if (upcomingOrPast === 'past') {
-      events = await dataSources.mainAPI.getUserPastEvents({userId});
+      events = await dataSources.mainAPI.getUserPastEvents(userId);
     } else {
       return null;
     }
@@ -157,13 +157,10 @@ module.exports.Query = {
     }));
     return result;
   },
-  getUserReviews: async (
+  getReviews: async (
     _, {userId, eventId}, {dataSources, userId: currentUserId},
   ) => {
-    if (userId === undefined) {
-      userId = currentUserId;
-    }
-    const reviews = await dataSources.mainAPI.getUserReviews({userId, eventId});
+    const reviews = await dataSources.mainAPI.getReviews({userId, eventId, currentUserId});
     if (reviews === undefined) {
       return null;
     }

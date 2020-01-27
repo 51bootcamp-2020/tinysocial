@@ -17,10 +17,9 @@ module.exports.EventBookClub = {
   },
   reviews: async (parent, {userId}, {dataSources, userId: currentUserId}) => {
     const eventId = parent.id;
-    let reviews;
-    if (userId === null) {
-      reviews = await dataSources.mainAPI.getReviewFromEvent({eventId, currentUserId});
-    }
+    const reviews = await dataSources.mainAPI.getReviews({
+      eventId, userId, currentUserId});
+    console.log("씨발", reviews);
     return reviews;
   },
 };

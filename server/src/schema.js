@@ -19,7 +19,7 @@ const typeDefs = gql`
         # If not exist, return null
         user(id: ID!): User
         userEvents(upcomingOrPast: String!): [Event]
-        getUserReviews(userId: Int, eventId: Int): Review
+        getReviews(userId: Int, eventId: Int): Review
     }
     type Review {
       title: String!
@@ -55,13 +55,7 @@ const typeDefs = gql`
         ): AuthResponse!
         # If successful, then return True.  
         logout: Boolean!
-        createReview(
-          eventId: Int!
-          title: String!
-          content: String!
-          isPublic: Boolean!
-        ): Boolean!
-        modifyReview(
+        createOrModifyReview(
           eventId: Int!
           title: String!
           content: String!

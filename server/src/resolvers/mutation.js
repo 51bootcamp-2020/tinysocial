@@ -90,22 +90,7 @@ module.exports.Mutation = {
     };
   },
 
-  createReview: async (
-    _, {eventId, title, content, isPublic},
-    {dataSources, userId}) => {
-    if (userId === null) {
-      return false;
-    }
-    const isSuccess = await dataSources.mainAPI.
-        createOrModifyReview(
-            {
-              userId, eventId, title, content, isPublic,
-            },
-        );
-    return isSuccess;
-  },
-
-  modifyReview: async (
+  createOrModifyReview: async (
     _, {eventId, title, content, isPublic},
     {dataSources, userId}) => {
     if (userId === null) {
