@@ -26,7 +26,6 @@ const typeDefs = gql`
       content: String!
       author: User!
       isPublic: Boolean!
-      event: Event
     }
     type Mutation {
         signInWithGoogle(googleId: String!): AuthResponse!
