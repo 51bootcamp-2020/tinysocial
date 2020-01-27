@@ -96,13 +96,13 @@ module.exports.Mutation = {
     if (userId === null) {
       return false;
     }
-    const isSuccess = await dataSources.mainAPI.
+    const review = await dataSources.mainAPI.
         createOrModifyReview(
             {
               userId, eventId, title, content, isPublic,
             },
         );
-    return isSuccess;
+    return review;
   },
   emailValidate: async (
     _,

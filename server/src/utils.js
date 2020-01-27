@@ -134,7 +134,7 @@ class MainAPI extends DataSource {
         isPublic: reviewInfo.isPublic,
       });
       if (flag !== null) {
-        return true;
+        return review;
       }
     } else {
       review.title = reviewInfo.title;
@@ -142,10 +142,10 @@ class MainAPI extends DataSource {
       review.isPublic = reviewInfo.isPublic;
       const flag = await review.save();
       if (flag !== null) {
-        return true;
+        return review;
       }
     }
-    return false;
+    return null;
   }
 
   async getHostFromEvent(hostId) {
@@ -185,15 +185,12 @@ class MainAPI extends DataSource {
     return participants.map((participant) => participant.user);
   }
 
-  // async getReviewFromEvent(reviewInfo) {
-  //   const review = await this.store.Review.findAll({
-  //     where: {
-  //       userId: reviewInfo.userId,
-  //       eventId: reviewInfo.eventId,
-  //     },
-  //   });
-  //   return review;
-  // }
+  async getAuthorFromReview(userId) {
+    const author = await this.store.User.findOne({
+      where: {userId},
+    });
+    return author;
+  }
 }
 module.exports = {
   MainAPI,

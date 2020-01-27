@@ -60,7 +60,7 @@ const typeDefs = gql`
           title: String!
           content: String!
           isPublic: Boolean!
-        ): Boolean!
+        ): Review!
     }
 
     input EventFilter {
