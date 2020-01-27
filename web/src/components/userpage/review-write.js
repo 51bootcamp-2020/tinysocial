@@ -41,6 +41,7 @@ class ReviewWritePanel extends Component {
       isPublic: false,
       title: '',
       content: '',
+      opened: true,
     }
   }
 
@@ -139,24 +140,27 @@ class ReviewWritePanel extends Component {
                 return (<Button onClick={reviewMutation}>Done</Button>)
               }}
           </Mutation> */}
-          <Mutation mutation={REVIEW_MUTATION}>
+          <Mutation mutation={REVIEW_MUTATION}
+            variables={{
+              eventId: eventId,
+              title: this.state.title,
+              content: this.state.content,
+              isPublic: this.state.isPublic,
+            }}>
             {(mutate, { loading, error, data }) => {
               if (loading) return <Button disabled>Done</Button>;
               if (error) return <Button disabled>Done</Button>;
-              if (data) {
+              if (data && this.state.opened) {
+                console.log('fdsafdsafsad')
                 const {title, content} = data.createOrModifyReview
+                this.setState({
+                  opened: false
+                })
                 handleDone(title, content)
               }
-              {
-                return (
-                  <Button onClick={() => mutate({variables:{
-                    eventId: eventId,
-                    title: this.state.title,
-                    content: this.state.content,
-                    isPublic: this.state.isPublic,
-                  }})}>Done</Button>
-                )
-              }
+              return (
+                <Button onClick={() => mutate()}>Done</Button>
+              )
             }}
           </Mutation>
         </DialogActions>
