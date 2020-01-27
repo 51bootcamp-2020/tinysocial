@@ -1,5 +1,5 @@
 module.exports.EventConnection = {
-  tags: async (eventConnection) => {
+  events: async (eventConnection) => {
     return eventConnection;
   },
 };

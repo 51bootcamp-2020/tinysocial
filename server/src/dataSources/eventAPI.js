@@ -62,6 +62,135 @@ class EventAPI extends DataSource {
     return type.get('type');
   }
 
+  async getHostIdOfEvent({eventId}) {
+    const hostId = await this.store.Event.findOne({
+      where: {id: eventId},
+      attributes: ['hostId'],
+    }).get('hostId');
+    return hostId;
+  }
+
+  async getThumbnailUrlOfEvent({eventId}) {
+    const thumbnailUrl = await this.store.Event.findOne({
+      where: {id: eventId},
+      attributes: ['thumbnailUrl'],
+    }).get('thumbnailUrl');
+    return thumbnailUrl;
+  }
+
+  async getCreationTimeOfEvent({eventId}) {
+    const creationTime = await this.store.Event.findOne({
+      where: {id: eventId},
+      attributes: ['createdAt'],
+    }).get('createdAt');
+    return creationTime;
+  }
+
+  async getLastUpdatedTime({eventId}) {
+    const lastUpdatedTime = await this.store.Event.findOne({
+      where: {id: eventId},
+      attributes: ['updatedAt'],
+    }).get('updatedAt');
+    return lastUpdatedTime;
+  }
+
+  async getScheduleIdsOfEvent({eventId}) {
+    const schedule = await this.store.Schedule.findAll({
+      where: {id: eventId},
+      attributes: ['id'],
+    }).get('id');
+    return schedule;
+  }
+
+  async getTitleOfEvent({eventId}) {
+    const title = await this.store.Event.findOne({
+      where: {id: eventId},
+      attributes: ['title'],
+    }).get('title');
+    return title;
+  }
+
+  async getDescriptionOfEvent({eventId}) {
+    const description = await this.store.Event.findOne({
+      where: {id: eventId},
+      attributes: ['description'],
+    }).get('description');
+    return description;
+  }
+
+  async getPriceOfEvent({eventId}) {
+    const price = await this.store.Event.findOne({
+      where: {id: eventId},
+      attributes: ['price'],
+    }).get('price');
+    return price;
+  }
+
+  async getBookImgageUrlOfEvent({eventId}) {
+    const bookImageUrl = await this.store.EventBookClub.findOne({
+      where: {id: eventId},
+      attributes: ['bookImageUrl'],
+    }).get('bookImageUrl');
+    return bookImageUrl;
+  }
+
+  async getBookTitleOfEvent({eventId}) {
+    const bookTitle = await this.store.EventBookClub.findOne({
+      where: {id: eventId},
+      attributes: ['bookTitle'],
+    }).get('bookTitle');
+    return bookTitle;
+  }
+
+  async getBookAuthorOfEvent({eventId}) {
+    const bookAuthor = await this.store.EventBookClub.findOne({
+      where: {id: eventId},
+      attributes: ['bookAuthor'],
+    }).get('bookAuthor');
+    return bookAuthor;
+  }
+
+  async getBookDescriptionOfEvent({eventId}) {
+    const bookDescription = await this.store.EventBookClub.findOne({
+      where: {id: eventId},
+      attributes: ['bookDescription'],
+    }).get('bookDescription');
+    return bookDescription;
+  }
+
+  async getBookISBNOfEvent({eventId}) {
+    const bookISBN = await this.store.EventBookClub.findOne({
+      where: {id: eventId},
+      attributes: ['bookISBN'],
+    }).get('bookISBN');
+    return bookISBN;
+  }
+
+  async getTagIdsOfEvent({eventId}) {
+    const tags = await this.store.EventTag.findAll({
+      where: {id: eventId},
+      attributes: ['tagId'],
+    }).get('tagId');
+    return tags;
+  }
+
+  async getParticipantIdsOfEvent({eventId}) {
+    const participantIds = await this.store.EventParticipant.findAll({
+      where: {id: eventId},
+      attributes: ['userId'],
+    }).get('userId');
+    return participantIds;
+  }
+
+  async getMaxParticipantNumOfEvent({eventId}) {
+    const maxParticipantNum = await this.store.Event.findOne({
+      where: {id: eventId},
+      attributes: ['maxParticipantNum'],
+    }).get('maxParticipantNum');
+    return maxParticipantNum;
+  }
+}
+
   async getIdOfEvent(eventId) {
     const event = await this.store.Event.findOne({
       where: {id: eventId},
