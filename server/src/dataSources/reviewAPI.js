@@ -43,6 +43,14 @@ class ReviewAPI extends DataSource {
     });
     return isPublic.get('isPublic');
   }
+
+  async getIdsOfReview({userId, eventId}) {
+    const reviewIds = await this.store.Review.findAll({
+      where: {userId, eventId},
+      attributes: ['userId', 'eventId'],
+    });
+    return reviewIds.get('userId', 'eventId');
+  }
 }
 
 module.exports={

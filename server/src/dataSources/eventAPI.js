@@ -1,6 +1,8 @@
 /* eslint-disable require-jsdoc */
 const {DataSource} = require('apollo-datasource');
 const Sequelize = require('sequelize');
+const OP = Sequelize.Op;
+
 
 class EventAPI extends DataSource {
   constructor(store) {
@@ -59,8 +61,50 @@ class EventAPI extends DataSource {
     });
     return type.get('type');
   }
-}
 
+  async getIdOfEvent(eventId) {
+    const event = await this.store.Event.findOne({
+      where: {id: eventId},
+      attributes: ['id'],
+    });
+    return event.get('id');
+  }
+
+  async getUpcomingEventIdsOfEvent(userId) {
+    const events = await this.store.EventParticipant.findAll({
+      where: {userId},
+      raw: true,
+      attributes: ['eventId'],
+      include: [{
+        model: this.store.Schedule,
+        where: {
+          eventId,
+          startDateTime: {
+            [OP.gt]: new Date(),
+          },
+        },
+      }],
+    });
+    return events.get('id')
+  }
+
+  async getPastEventIdsOfEvent(user){
+    const events = await this.store.EventParticipant.findAll({
+      where: {userId},
+      raw: true,
+      attributes: ['eventId'],
+      include: [{
+        model: this.store.Schedule,
+        where: {
+          eventId,
+          startDateTime: {
+            [OP.lte]: new Date(),
+          },
+        },
+      }],
+    });
+    return events.get('id')
+  }
 module.exports={
   EventAPI,
 };

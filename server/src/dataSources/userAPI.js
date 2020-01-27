@@ -11,6 +11,13 @@ class UserAPI extends DataSource {
   initialize(config) {
     this.context = config.context;
   }
+  async getIdOfUser(userId) {
+    const user = await this.store.User.findOne({
+      where: {id: userId},
+      attributes: ['id'],
+    });
+    return user.get('id');
+  }
 }
 
 module.exports={
