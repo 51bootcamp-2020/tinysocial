@@ -11,6 +11,10 @@ module.exports = {
   Event,
   EventBookClub,
   Tag,
+  AuthResponse,
+  Review,
+  EventSchedule,
+  // TODO(yun-kwak): Add scalar type
   TagConnection: {
     tags: async (parents, _, {dataSources}) =>{
       return parents.tagNames;
