@@ -253,15 +253,21 @@ class MainAPI extends DataSource {
     });
     const eventsWithExtra = [];
     for (let i=0; i<events.length; i++) {
-      const table = this.getTable(events[i].type);
-      if (table===null) continue;
-      const extraField = await table.findAll({
-        where: {eventId: events[i].id},
-        raw: true,
-      });
-      eventsWithExtra.push({...events[i], ...extraField[0]});
+      const extraField = await this.getExtraField(events[i]);
+      if (extraField === null) continue;
+      eventsWithExtra.push({...events[i], ...extraField});
     }
     return eventsWithExtra;
+  }
+
+  async findOneEvent(id) {
+    let event = await this.store.Event.findOne({
+      where: id,
+      raw: true,
+    });
+    const extraField = await this.getExtraField(event);
+    event = {...event, ...extraField};
+    return event;
   }
 
   /**
@@ -307,6 +313,15 @@ class MainAPI extends DataSource {
   getTable(type) {
     if (type === 0) return this.store.EventBookClub;
     return null;
+  }
+  async getExtraField(event) {
+    const table = this.getTable(event.type);
+    if (table === null) return null;
+    const extraField = await table.findOne({
+      where: {eventId: event.id},
+      raw: true,
+    });
+    return extraField;
   }
 }
 module.exports = {

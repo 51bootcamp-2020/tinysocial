@@ -1,5 +1,5 @@
 module.exports.Query = {
-  getTagNames: async (_, {after, pageSize}, {dataSources})=>{
+  getTagNames: async (_, {after, pageSize}, {dataSources, userId})=>{
     const tagNames = await dataSources.mainAPI.findTagName(after, pageSize);
     return {
       cursor: after + pageSize,
@@ -25,7 +25,10 @@ module.exports.Query = {
       eventsId: eventsId,
     };
   },
-  event: async (_, {id}) => { },
+  event: async (_, {id}, {dataSources, userId}) => {
+    const event = await dataSources.mainAPI.findOneEvent({id: id});
+    return event;
+  },
   me: async (_, __, context) => { },
   user: async (_, {id}) => { },
   userEvents: async (_, {upcomingOrPast}, {dataSources, userId}) => {
