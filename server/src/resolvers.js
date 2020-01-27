@@ -15,14 +15,13 @@ const {EventConnection} = require('./resolvers/eventConnection');
 module.exports = {
   Query,
   Mutation,
-  User,
-  Event,
-  EventBookClub,
-  Tag,
+  User, // Done(Arin)
+  Event, // Done(SeongJae)
+  EventBookClub, // Done(SiHyun)
+  Tag, // Done(SeongJae)
   AuthResponse,
-  Review,
-  EventSchedule,
-  // TODO(yun-kwak): Add scalar type
+  Review, // Done(SeongJae)
+  EventSchedule, // Done(SeongJae)
   TagConnection,
   EventConnection,
   DateTime: DateTimeResolver,
