@@ -3,7 +3,7 @@ const {ApolloServer} = require('apollo-server');
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
 
-const {MainAPI} = require('./utils');
+const {EventAPI, ReviewAPI, TagAPI, UserAPI} = require('./utils');
 const {createStore} = require('./database');
 const jwt = require('jsonwebtoken');
 
@@ -18,7 +18,10 @@ if (process.env.NODE_ENV === undefined) {
 const store = createStore();
 
 const dataSources = () => ({
-  mainAPI: new MainAPI(store),
+  eventAPI: new EventAPI(store),
+  reviewAPI: new ReviewAPI(store),
+  tagAPI: new TagAPI(store),
+  userAPI: new UserAPI(store),
 });
 
 const APP_SECRET = process.env.SECRET || 'default';
@@ -26,7 +29,8 @@ const APP_SECRET = process.env.SECRET || 'default';
 const context = async ({req}) => {
   if (!req.headers.authorization) {
     return {
-    userId: null};
+      userId: null,
+    };
   }
   try {
     const token = req.headers.authorization;
@@ -35,7 +39,8 @@ const context = async ({req}) => {
     return {userId: id};
   } catch (e) {
     return {
-      userId: null};
+      userId: null,
+    };
   }
 };
 const server = new ApolloServer({
