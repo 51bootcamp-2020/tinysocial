@@ -187,7 +187,7 @@ class MainAPI extends DataSource {
 
   async getAuthorFromReview(userId) {
     const author = await this.store.User.findOne({
-      where: {userId},
+      where: {id: userId},
     });
     return author;
   }
