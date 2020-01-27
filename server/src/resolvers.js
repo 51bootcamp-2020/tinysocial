@@ -1,3 +1,5 @@
+const {DateTimeResolver} = require('graphql-scalars');
+
 const {Query} = require('./resolvers/query');
 const {Mutation} = require('./resolvers/mutation');
 const {User} = require('./resolvers/user');
@@ -9,6 +11,7 @@ const {Review} = require('./resolvers/review');
 const {EventSchedule} = require('./resolvers/eventSchedule');
 const {TagConnection} = require('./resolvers/tagConnection');
 const {EventConnection} = require('./resolvers/eventConnection');
+
 module.exports = {
   Query,
   Mutation,
@@ -22,4 +25,5 @@ module.exports = {
   // TODO(yun-kwak): Add scalar type
   TagConnection,
   EventConnection,
+  DateTime: DateTimeResolver,
 };

@@ -1,7 +1,6 @@
 const {gql} = require('apollo-server');
 
 const typeDefs = gql`
-  scalar Date
   scalar DateTime
 
     type Query {
@@ -111,8 +110,8 @@ const typeDefs = gql`
         selfDescription: String
         hostedEvents: [Event]! # Events hosted by this user.
         participatedEvents: [Event]! # Events participated by this user.
-        birthday: Date
-        registrationDate: Date!
+        birthday: DateTime
+        registrationDate: DateTime!
         profileImgUrl: String
         lastInterationTime: DateTime
     }
