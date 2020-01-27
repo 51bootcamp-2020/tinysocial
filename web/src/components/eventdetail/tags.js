@@ -1,10 +1,10 @@
-import React from 'react';
 import {
   Box,
   Grid,
   makeStyles,
   Typography,
 } from '@material-ui/core';
+import React from 'react';
 
 // TODO(YoonYeoHwan): Combine with another useStyles(constants.js) after merging
 const useStyles = makeStyles(theme => ({

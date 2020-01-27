@@ -51,7 +51,6 @@ function NavBarMobile() {
             </Typography>
           </a>
           {/* TODO(YoonYeoHwan) : Need to implement About page. */}
-          {/* Now just linked to landing page. */}
           <a href='/about' className={classes.listItem}>
             <Typography variant='button' style={{textTransform: 'none'}}>
               About
