@@ -4,6 +4,11 @@ const {User} = require('./resolvers/user');
 const {Event} = require('./resolvers/event');
 const {EventBookClub} = require('./resolvers/eventBookClub');
 const {Tag} = require('./resolvers/tag');
+const {AuthResponse} = require('./resolvers/authResponse');
+const {Review} = require('./resolvers/review');
+const {EventSchedule} = require('./resolvers/eventSchedule');
+const {TagConnection} = require('./resolvers/tagConnection');
+const {EventConnection} = require('./resolvers/eventConnection');
 module.exports = {
   Query,
   Mutation,
@@ -11,15 +16,10 @@ module.exports = {
   Event,
   EventBookClub,
   Tag,
-  TagConnection: {
-    tags: async (parents, _, {dataSources}) =>{
-      return parents.tagNames;
-    },
-  },
-  EventConnection: {
-    events: async (parents, _, {dataSources, userId}) => {
-      const events = await dataSources.mainAPI.findEvents(parents.eventsId);
-      return events;
-    },
-  },
+  AuthResponse,
+  Review,
+  EventSchedule,
+  // TODO(yun-kwak): Add scalar type
+  TagConnection,
+  EventConnection,
 };
