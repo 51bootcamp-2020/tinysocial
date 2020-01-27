@@ -13,6 +13,7 @@ query getUserEvents($upcomingOrPast: String!) {
     title
     thumbnailUrl
     schedule {
+      id
       startDateTime
       endDateTime
       address
@@ -49,12 +50,10 @@ class EventReviewCardList extends Component {
         reviews: review
       } = event;
       const {currentTab} = this.props;
-      
-      console.log(review)
 
       return (
         <EventReviewCard key={id}
-          id={id} 
+          id={Number(id)} 
           eventTitle={eventTitle} 
           bookTitle={bookTitle}
           bookAuthor={bookAuthor}
@@ -78,7 +77,6 @@ class EventReviewCardList extends Component {
           // TODO(mskwon1): Add data loading page.
           if (loading) return <p>Fetching Data ...</p>
           if (error) return this.renderEventReviewCards(SAMPLE_EVENTS)
-          console.log(data)
           return (this.renderEventReviewCards(data))
         }}
       </Query>

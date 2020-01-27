@@ -17,20 +17,21 @@ import {withRouter} from 'react-router-dom';
 
 const REVIEW_MUTATION = gql`
   mutation mutateReview(
-    $eventid: Int!, 
+    $eventId: Int!, 
     $title: String!, 
     $content: String!, 
     $isPublic: Boolean!
-    ) {
-      createOrModifyReview(
-        eventId: $eventId,
-        title: $title,
-        content: $content,
-        isPublic: $isPublic
-        ) {
-          sucess
+  ) {
+    createOrModifyReview(
+      eventId: $eventId,
+      title: $title,
+      content: $content,
+      isPublic: $isPublic
+      ) {
+        title
+        content
       }
-    }
+  }
 `
 
 class ReviewWritePanel extends Component {
@@ -43,9 +44,9 @@ class ReviewWritePanel extends Component {
     }
   }
 
-  handleChange= (e) => {
+  handleChange = (event) => {
     this.setState({
-      [e.target.name]: e.target.value,
+      [event.target.name]: event.target.value,
     });
   }
 
@@ -64,13 +65,6 @@ class ReviewWritePanel extends Component {
     return ('Private');
   }
 
-  // Send the mutation to the server & redirect to the previous page.
-  handleDone = () => {
-    // TODO(mskwon1): validate data, run mutation, close.
-    const {eventId} = this.props;
-    this.props.onClose();
-  }
-
   componentDidMount() {
     const {review} = this.props;
     review
@@ -83,7 +77,7 @@ class ReviewWritePanel extends Component {
   }
 
   render() {
-    const {onClose, eventId} = this.props;
+    const {onClose, eventId, handleDone} = this.props;
     // TODO(mskwon1): remove this const
     const bookTitle = 'Sapiens';
 
@@ -107,6 +101,7 @@ class ReviewWritePanel extends Component {
           </DialogContentText>
           <TextField onChange={(e) => {this.handleChange(e)}}
             style={{marginBottom:'20px'}}
+            name='title'
             value={this.state.title}
           />
           <DialogContentText>
@@ -114,6 +109,7 @@ class ReviewWritePanel extends Component {
           </DialogContentText>
           <TextField fullWidth
             multiline
+            name='content'
             onChange={(e) => {this.handleChange(e)}}
             rows="6"
             value={this.state.content}
@@ -121,7 +117,7 @@ class ReviewWritePanel extends Component {
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose}>Cancel</Button>
-          <Mutation mutation={REVIEW_MUTATION}
+          {/* <Mutation mutation={REVIEW_MUTATION}
             variables={{
               eventId: eventId,
               title: this.state.title,
@@ -130,16 +126,39 @@ class ReviewWritePanel extends Component {
             }}
             onCompleted={
               (data) => {
-                const success = data.createOrModifyReview
-                if (success) {
-                  onClose();
-                }
+                const {title, content} = data.createOrModifyReview
+                handleDone(title, content);
+              }
+            }
+            onError={
+              (error) => {
+                console.log(error);
               }
             }>
               {(reviewMutation) => {
                 return (<Button onClick={reviewMutation}>Done</Button>)
               }}
-            </Mutation>
+          </Mutation> */}
+          <Mutation mutation={REVIEW_MUTATION}>
+            {(mutate, { loading, error, data }) => {
+              if (loading) return <Button disabled>Done</Button>;
+              if (error) return <Button disabled>Done</Button>;
+              if (data) {
+                const {title, content} = data.createOrModifyReview
+                handleDone(title, content)
+              }
+              {
+                return (
+                  <Button onClick={() => mutate({variables:{
+                    eventId: eventId,
+                    title: this.state.title,
+                    content: this.state.content,
+                    isPublic: this.state.isPublic,
+                  }})}>Done</Button>
+                )
+              }
+            }}
+          </Mutation>
         </DialogActions>
       </Fragment>
     )       

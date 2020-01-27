@@ -15,8 +15,11 @@ class EventReview extends Component {
     super(props);
     this.handleReviewButtonClick = this.handleReviewButtonClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleDone = this.handleDone.bind(this);
     this.state = {
       openWritePanel: false,
+      title: '',
+      content: '',
     }
   }
 
@@ -32,6 +35,22 @@ class EventReview extends Component {
     });
   }
 
+  handleDone(title, content) {
+    this.setState({
+      openWritePanel: false,
+      title: title,
+      content: content,
+    })
+  }
+
+  componentDidMount() {
+    const {review} = this.props 
+    this.setState({
+      title: review ? review.title : '',
+      content: review ? review.content : '',
+    })
+  }
+
   render() {
     // TODO(mskwon1): make eventId as a context.
     const {review, eventId} = this.props
@@ -45,11 +64,11 @@ class EventReview extends Component {
           <Typography variant='subtitle2' 
             align='left' 
             style={{fontWeight:'bold'}}>
-            {review ? review.title : null}
+            {this.state.title}
           </Typography>
           {/* Review content, sample write text if content is undefined.  */}
           <Typography variant='body2' align='left'>
-            {review ? review.content : REVIEW_WRITE_TEXT}
+            {this.state.content}
           </Typography>
         </Grid>
         <Grid item xs={12} align='center'>
@@ -61,6 +80,7 @@ class EventReview extends Component {
           <ReviewWritePanel eventId={eventId}
             review={review}
             onClose={this.handleClose}
+            handleDone={this.handleDone}
           />
         </Dialog>
       </Fragment>
