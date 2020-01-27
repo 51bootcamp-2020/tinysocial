@@ -128,11 +128,7 @@ class SignupFormGeneral extends Component {
                     style={{height: '50px', width: '100%'}}>Sign up</Button>
           </Grid>
           <br/><br/>
-          <Grid item className="align-middle">
-            <p style={{marginLeft: '20px'}}>Do you have account?<Link
-                href='/signin' style={{color: 'red', marginLeft: '20px'}}>Sign
-              In</Link></p>
-          </Grid>
+
         </Grid>
 
         {/* Register button, sends a mutation to the server. */}
@@ -148,7 +144,7 @@ class SignupFormGeneral extends Component {
         {/*    (data) => {*/}
         {/*      const {success, message, token} = data.signUp*/}
         {/*      if (success) {*/}
-        {/*        window.localStorage.setItem('token', token)*/}
+        {/*        document.cookie = 'token=' + token; */}
         {/*        this.props.history.push('/')*/}
         {/*      } else {*/}
         {/*        window.alert('Signin failed with Google Account.')*/}

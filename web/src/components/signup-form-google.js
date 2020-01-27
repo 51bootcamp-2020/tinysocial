@@ -65,7 +65,7 @@ class SignupFormGoogle extends Component {
     return (
 
         <div>
-          {/*sends a mutation to the server. */}
+          {/* Sends a mutation to the server. */}
           <Mutation
               mutation={SIGNUP_MUTATION}
               variables={{
@@ -78,11 +78,11 @@ class SignupFormGoogle extends Component {
                 (data) => {
                   const {success, message, token} = data.signUpWithGoogle;
                   if (success) {
-                    window.localStorage.setItem('token', token);
+                    document.cookie = 'token=' + token;
                     this.props.history.push('/');
                   } else {
                     window.alert('Signup failed ... please contact admin');
-                    this.props.history.push('/signup');
+                    this.props.history.push('/signin');
                   }
                 }
               }
@@ -113,16 +113,6 @@ class SignupFormGoogle extends Component {
               Sign up with Google
             </p>
           </GoogleLogin>
-
-
-          {/*  {(signupMutation) => {*/}
-          {/*    return (<button onClick={() => {*/}
-          {/*      // TODO(Myeong-heeSeo) : input validation. (not for v0)*/}
-          {/*      signupMutation();*/}
-          {/*    }*/}
-          {/*    }>Register</button>)*/}
-          {/*  }}*/}
-          {/*</Mutation>*/}
 
         </div>
     );
