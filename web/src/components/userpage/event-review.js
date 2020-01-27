@@ -35,6 +35,7 @@ class EventReview extends Component {
   render() {
     // TODO(mskwon1): make eventId as a context.
     const {review, eventId} = this.props
+    console.log(review)
     // TODO(mskwon1): make query using eventId to get bookTitle.
     const bookTitle = 'Sapiens'
 
@@ -54,7 +55,7 @@ class EventReview extends Component {
         </Grid>
         <Grid item xs={12} align='center'>
           {/* Review 'Write' button. */}
-          <ReviewWriteButton userHasReview={review !== undefined} 
+          <ReviewWriteButton userHasReview={review} 
             onClick={this.handleReviewButtonClick} />
         </Grid>
         <Dialog open={this.state.openWritePanel} onClose={this.handleClose} fullWidth>

@@ -38,7 +38,7 @@ class EventReviewCardList extends Component {
   // Render EventReviewCard components list.
   renderEventReviewCards(events) {
     // Map event objects to EventReviewCard component.
-    events = events.map((event) => {
+    events = events.userEvents.map((event) => {
       const {
         id, 
         title: eventTitle, 
@@ -50,6 +50,8 @@ class EventReviewCardList extends Component {
       } = event;
       const {currentTab} = this.props;
       
+      console.log(review)
+
       return (
         <EventReviewCard key={id}
           id={id} 
@@ -76,6 +78,7 @@ class EventReviewCardList extends Component {
           // TODO(mskwon1): Add data loading page.
           if (loading) return <p>Fetching Data ...</p>
           if (error) return this.renderEventReviewCards(SAMPLE_EVENTS)
+          console.log(data)
           return (this.renderEventReviewCards(data))
         }}
       </Query>

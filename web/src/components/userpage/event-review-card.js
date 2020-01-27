@@ -72,7 +72,7 @@ class EventReviewCard extends Component {
             {/* Book thumbnail. */}
             <Grid item xs={6} align='center' style={{marginBottom:'10px'}}>
               {/* TODO(mskwon1): Make this as a CardMedia component. */}
-              <img src={require(`../images/${bookImage}`)}/>
+              <img src={require(`../images/sapiens.png`)}/>
             </Grid>
             <Grid container item xs={6} align='left' alignItems='flex-start'>
               <Grid item xs={12}>
