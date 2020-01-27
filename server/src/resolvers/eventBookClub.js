@@ -19,7 +19,6 @@ module.exports.EventBookClub = {
     const eventId = parent.id;
     const reviews = await dataSources.mainAPI.getReviews({
       eventId, userId, currentUserId});
-    console.log("씨발", reviews);
     return reviews;
   },
 };
