@@ -23,38 +23,46 @@ class SignInUp extends Component {
     };
   }
 
+  signIn() {
+    return (
+        <Container className="signin" style={boxStyle} maxWidth='sm'>
+          <Typography variant="h6" style={{fontSize: '14'}}>Sign
+            In</Typography>
+          <br/><br/>
+          <LoginFormGoogle/>
+          {/* Todo(Myounghee): Implement email login component later. */}
+          {/* <LoginFormGeneral/> */}
+          <br/>
+          <p style={{marginLeft: '10px'}}> Don't have an account?
+            <Button color="secondary"
+                    onClick={() => this.setState({login: false})} style={{
+              color: 'red',
+              marginLeft: '10px',
+              outline: '0',
+            }}>Sign
+              Up</Button></p>
+        </Container>
+    );
+  }
+
+  signUp() {
+    return (<Container className="signin" style={boxStyle} maxWidth='sm'>
+      <Typography variant="h6" style={{fontSize: '14'}}>Sign Up</Typography>
+      <br/><br/>
+      <SignUpFormGoogle/>
+      {/* Todo(Myounghee): Implement email signup component later. */}
+      {/* <SignUpFormGeneral/> */}
+      <br/>
+      <p style={{marginLeft: '10px'}}>Already a member?<Button
+          onClick={() => this.setState({login: true})}
+          style={{color: 'red', marginLeft: '10px', outline: '0'}}>Sign
+        In</Button></p>
+    </Container>);
+  }
+
   render() {
     return (
-        this.state.login ? (
-            <Container className="signin" style={boxStyle} maxWidth='sm'>
-              <Typography variant="h6" style={{fontSize: '14'}}>Sign
-                In</Typography>
-              <br/><br/>
-              <LoginFormGoogle/>
-              {/* Todo(Myounghee): Implement email login component later. */}
-              {/* <LoginFormGeneral/> */}
-              <br/>
-              <p style={{marginLeft: '10px'}}> Don't have an account?
-                <Button color="secondary"
-                        onClick={() => this.setState({login: false})} style={{
-                  color: 'red',
-                  marginLeft: '10px',
-                  outline: '0',
-                }}>Sign
-                  Up</Button></p>
-            </Container>
-        ) : (<Container className="signin" style={boxStyle} maxWidth='sm'>
-          <Typography variant="h6" style={{fontSize: '14'}}>Sign Up</Typography>
-          <br/><br/>
-          <SignUpFormGoogle/>
-          {/* Todo(Myounghee): Implement email signup component later. */}
-          {/* <SignUpFormGeneral/> */}
-          <br/>
-          <p style={{marginLeft: '10px'}}>Already a member?<Button
-              onClick={() => this.setState({login: true})}
-              style={{color: 'red', marginLeft: '10px', outline: '0'}}>Sign
-            In</Button></p>
-        </Container>)
+        this.state.login ? this.signIn() : this.signUp()
     );
   };
 }
