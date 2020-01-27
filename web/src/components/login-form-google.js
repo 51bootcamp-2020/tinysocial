@@ -98,40 +98,12 @@ class LoginFormGoogle extends Component {
                     <p style={{
                       width: '228px', height: '28px',
                       fontWeight: 'bold', fontStretch: 'normal',
-                      li    console.log('bye');neHeight: '30px',
+                      lineHeight: '30px',
                       color: '#4a4a4a', fontFamily: 'Roboto', marginBottom: '0',
                     }}>
                       Sign in with Google
                     </p>
                   </GoogleLogin>
-              );
-            }
-            }
-          </Mutation>
-        </div>);
-  }
-}
-
-LoginFormGoogle.propTypes = {};
-
-export default withRouter(LoginFormGoogle);
-      this.setState({
-                          googleId: res.profileObj.googleId,
-                        }, execute_mutation);
-                      }}
-                      onFailure={this.responseFail}
-                      clientId={clientId} // Our client ID
-                  >
-                    <p style={{
-                      width: '228px', height: '28px',
-                      fontWeight: 'bold', fontStretch: 'normal',
-                      li    console.log('bye');neHeight: '30px',
-                      color: '#4a4a4a', fontFamily: 'Roboto', marginBottom: '0',
-                    }}>
-                      Sign in with Google
-                    </p>
-                  </GoogleLogin>
-
               );
             }
             }
