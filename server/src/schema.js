@@ -1,8 +1,8 @@
 const {gql} = require('apollo-server');
 
 const typeDefs = gql`
-    scalar Date
-    scalar DateTime
+  scalar Date
+  scalar DateTime
 
     type Query {
         # Returns certain size of events after the cursor
@@ -18,8 +18,16 @@ const typeDefs = gql`
         # Return the user whose id is 'id'.
         # If not exist, return null
         user(id: ID!): User
+        userEvents(info: String!): [Event]
+        getUserReviews(userId: Int, eventId: Int): Review
     }
-
+    type Review {
+      title: String!
+      content: String!
+      author: User!
+      isPublic: Boolean!
+      event: Event
+    }
     type Mutation {
         signInWithGoogle(googleId: String!): AuthResponse!
         signUpWithGoogle(
@@ -47,6 +55,18 @@ const typeDefs = gql`
         ): AuthResponse!
         # If successful, then return True.  
         logout: Boolean!
+        createReview(
+          eventId: Int!
+          title: String!
+          content: String!
+          isPublic: Boolean!
+        ): Boolean!
+        modifyReview(
+          eventId: Int!
+          title: String!
+          content: String!
+          isPublic: Boolean!
+        ): Boolean!
     }
 
     input EventFilter {
@@ -101,8 +121,8 @@ const typeDefs = gql`
         host: User!
         thumbnailUrl: String
         creationTime: DateTime!
-        # When the schedule of the event is updated,
-        # lastUpdatedTime of the event also need to be updated.
+        # When the schedule of the event is updated, lastUpdatedTime of the
+        # event also need to be updated.
         lastUpdatedTime: DateTime!
         schedule: [EventSchedule]!
         title: String!
@@ -113,6 +133,7 @@ const typeDefs = gql`
         tags: [Tag]!
         participants: [User]!
         maxParticipantNum: Int
+        reviews: [Review]
     }
     
     type EventBookClub implements Event{
@@ -127,8 +148,7 @@ const typeDefs = gql`
         title: String!
         description: String!
         price: Float!
-        # TODO(arin-kwak): Implement image uploading feature
-        # image: Upload!
+        bookImageUrl: String!
         bookTitle: String!
         bookAuthor: String!
         bookDescription: String!
@@ -136,17 +156,17 @@ const typeDefs = gql`
         tags: [Tag]!
         participants: [User]!
         maxParticipantNum: Int
+        reviews: [Review]
     }
 
-    # Every event can have multiple tags.
-    # Tags are predefined by ours(developers)
-    # and used by the event host to categorize his event.
-    # So we are able to categorize events by tags.
-    type Tag {
-        id: ID!
-        name: String!
-        events: [Event]!
-    }
+  # Every event can have multiple tags. Tags are predefined by ours(developers)
+  # and used by the event host to categorize his event. So we are able to
+  # categorize events by tags.
+  type Tag {
+    id: ID!
+    name: String!
+    events: [Event]!
+  }
 
     # TODO(lsh9034): Implement EventConnection.
     # Reference:

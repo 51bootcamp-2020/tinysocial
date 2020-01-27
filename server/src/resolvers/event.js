@@ -1,10 +1,9 @@
 module.exports.Event = {
-  host: async (parent) => {
-  },
-  schedule: async (parent) => {
-  },
-  tags: async (parent) => {
-  },
-  participants: async (parent) => {
+  __resolveType(event, context, info) {
+    if (!event.bookTitle) {
+      return null;
+    }
+    // if you want test Event type Data, change null to 'EventBookClub'
+    return 'EventBookClub';
   },
 };
