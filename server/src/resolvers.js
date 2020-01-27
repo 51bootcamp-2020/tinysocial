@@ -19,10 +19,10 @@ module.exports = {
   Event, // Done(SeongJae)
   EventBookClub, // Done(SiHyun)
   Tag, // Done(SeongJae)
-  AuthResponse,
+  AuthResponse, // Sihyun
   Review, // Done(SeongJae)
   EventSchedule, // Done(SeongJae)
-  TagConnection,
-  EventConnection,
-  DateTime: DateTimeResolver,
+  TagConnection, // Done(SiHyun)
+  EventConnection, // Done(SiHyun)
+  DateTime: DateTimeResolver, // Done(Arin)
 };
