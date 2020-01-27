@@ -9,9 +9,29 @@ import {
   Typography,
   TextField,
 } from '@material-ui/core';
+import {gql} from 'apollo-boost';
+import {Mutation} from 'react-apollo';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
 import {withRouter} from 'react-router-dom';
+
+const REVIEW_MUTATION = gql`
+  mutation mutateReview(
+    $eventid: Int!, 
+    $title: String!, 
+    $content: String!, 
+    $isPublic: Boolean!
+    ) {
+      createOrModifyReview(
+        eventId: $eventId,
+        title: $title,
+        content: $content,
+        isPublic: $isPublic
+        ) {
+          
+        }
+    }
+`
 
 class ReviewWritePanel extends Component {
   constructor(props) {
@@ -63,7 +83,7 @@ class ReviewWritePanel extends Component {
   }
 
   render() {
-    const {onClose} = this.props;
+    const {onClose, eventId} = this.props;
     // TODO(mskwon1): remove this const
     const bookTitle = 'Sapiens';
 
@@ -101,7 +121,25 @@ class ReviewWritePanel extends Component {
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose}>Cancel</Button>
-          <Button onClick={this.handleDone}>Done</Button>
+          <Mutation mutation={REVIEW_MUTATION}
+            variables={{
+              eventId: eventId,
+              title: this.state.title,
+              content: this.state.content,
+              isPublic: this.state.isPublic,
+            }}
+            onCompleted={
+              (data) => {
+                const success = data.createOrModifyReview
+                if (success) {
+                  onClose();
+                }
+              }
+            }>
+              {(reviewMutation) => {
+                return (<Button onClick={reviewMutation}>Done</Button>)
+              }}
+            </Mutation>
         </DialogActions>
       </Fragment>
     )       
