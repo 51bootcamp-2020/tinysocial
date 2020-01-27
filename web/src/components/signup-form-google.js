@@ -63,7 +63,6 @@ class SignupFormGoogle extends Component {
     const {id, email, firstName, lastName} = this.state;
 
     return (
-
         <div>
           {/* Sends a mutation to the server. */}
           <Mutation
@@ -113,7 +112,6 @@ class SignupFormGoogle extends Component {
               Sign up with Google
             </p>
           </GoogleLogin>
-
         </div>
     );
   }

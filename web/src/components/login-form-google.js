@@ -105,7 +105,6 @@ class LoginFormGoogle extends Component {
                       Sign in with Google
                     </p>
                   </GoogleLogin>
-
               );
             }
             }
