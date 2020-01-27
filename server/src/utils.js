@@ -160,7 +160,7 @@ class MainAPI extends DataSource {
         model: this.store.Tag,
         required: true,
       }],
-    });
+    }).map((element)=>(element.tag));
     return tags;
   }
 
@@ -183,6 +183,145 @@ class MainAPI extends DataSource {
       },
     });
     return review;
+  }
+  /**
+   * find tagId using tagName in Tag table
+   * if tagName doesn't exist return empty list
+   * @param {Array} tagName - The list which contain tag name object
+   * @param {Object} tagName[idx] - The object which contain tag Name
+   * @param {String} tagName[idx].name - The name of Tag.
+   * @return {Array} tagId which is matched tagName.
+   */
+  async findTagIdByTagName(tagName) {
+    if (tagName !== undefined && tagName !== null) {
+      tagName = {name: tagName.map((element) => (element.name))};
+    }
+    const tagId = await this.store.Tag.findAll({
+      where: tagName,
+    }).map((element)=>({tagId: element.id}));
+    return tagId;
+  }
+
+  /**
+   * find eventId using tagId in EventTag table.
+   * @param {Array} tagId - The Array which contain tagId object.
+   * @param {object} tagId[idx] - The object which contain tagId
+   * @param {number} tagId[idx].tagId - The id of Tag.
+   * @return {Array} eventId - All events which is matched each tagId.
+   */
+  async findEventIdByTagId(tagId) {
+    if (tagId !== undefined && tagId !== null) {
+      tagId = {tagId: tagId.map((element) => (element.tagId))};
+    }
+    const eventId = await this.store.EventTag.findAll({
+      where: tagId,
+    }).map((element)=>({id: element.eventId}));
+    return eventId;
+  }
+
+  /**
+   * find events without anything in Event table.
+   * @param {number} offset - Start index in event list.
+   * @param {number} limit - THe number of eventId which is returned.
+   * @return {Array} eventsId - eventsId array
+   */
+  async findEventsIdByNothing(offset, limit) {
+    const eventsId = await this.store.Event.findAll({
+      offset: offset,
+      limit: limit,
+    }).map((element) => ({id: element.id}));
+    return eventsId;
+  }
+
+  /**
+   * find events using eventsId & offset & limit in Event table.
+   * @param {Array} eventsId - The array which contain eventsId object.
+   * @param {number} offset - Start index in event list.
+   * @param {number} limit - THe number of eventId which is returned.
+   * @return {Array} eventsWithExtra
+   * - The array which contain event object matched to eventId and event type.
+   */
+  async findEvents(eventsId, offset, limit) {
+    if (eventsId !== undefined && eventsId !== null) {
+      eventsId = {id: eventsId.map((element)=>(element.id))};
+    }
+    const events = await this.store.Event.findAll({
+      where: eventsId,
+      offset: offset,
+      limit: limit,
+      raw: true,
+    });
+    const eventsWithExtra = [];
+    for (let i=0; i<events.length; i++) {
+      const extraField = await this.getExtraField(events[i]);
+      if (extraField === null) continue;
+      eventsWithExtra.push({...events[i], ...extraField});
+    }
+    return eventsWithExtra;
+  }
+
+  async findOneEvent(id) {
+    let event = await this.store.Event.findOne({
+      where: id,
+      raw: true,
+    });
+    const extraField = await this.getExtraField(event);
+    event = {...event, ...extraField};
+    return event;
+  }
+
+  /**
+   * find events using tag name.
+   * In resolver part only use this function if you want to get eventsId using tag name.
+   * @param {Array} tag - The array which contain tag object.
+   * @param {number} offset - Start index in event list.
+   * @param {number} limit - THe number of eventId which is returned.
+   * @param {string} order - sort type
+   * @return {Array} eventsId - eventsId object matched to tag name.
+   */
+  async findEventsIdByTag(tag, offset, limit, order) {
+    let eventsId;
+    if (tag !== undefined) {
+      if (offset===undefined || offset === null) {
+        offset=0;
+      }
+      const tagId = await this.findTagIdByTagName(tag);
+      eventsId = await this.findEventIdByTagId(tagId);
+      eventsId = new Set(eventsId);
+      if (limit !== undefined && limit != null) {
+        eventsId = Array.from(eventsId).slice(offset, offset + limit);
+      } else {
+        eventsId = Array.from(eventsId).slice(offset);
+      }
+    }
+    return eventsId ? eventsId : null;
+  }
+
+  async findTagName(offset, limit) {
+    const tagNames = await this.store.Tag.findAll({
+      offset: offset,
+      limit: limit,
+    });
+    return tagNames;
+  }
+  /**
+   * this function is only use functions in util.js for high quality code.
+   * @param {number} type - The type of event
+   * @return {null|EventBookClub} - The object which is matched type.
+   * If none of type match return null.
+   */
+  getTable(type) {
+    if (type === 0) return this.store.EventBookClub;
+    return null;
+  }
+  async getExtraField(event) {
+    const table = this.getTable(event.type);
+    if (table === null) return null;
+    const extraField = await table.findOne({
+      where: {eventId: event.id},
+      raw: true,
+    });
+    return extraField;
   }
 }
 module.exports = {
