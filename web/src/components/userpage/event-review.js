@@ -35,7 +35,6 @@ class EventReview extends Component {
   render() {
     // TODO(mskwon1): make eventId as a context.
     const {review, eventId} = this.props
-    console.log(review)
     // TODO(mskwon1): make query using eventId to get bookTitle.
     const bookTitle = 'Sapiens'
 

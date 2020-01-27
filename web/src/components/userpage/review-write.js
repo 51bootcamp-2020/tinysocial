@@ -28,8 +28,8 @@ const REVIEW_MUTATION = gql`
         content: $content,
         isPublic: $isPublic
         ) {
-          
-        }
+          sucess
+      }
     }
 `
 
@@ -105,7 +105,7 @@ class ReviewWritePanel extends Component {
           <DialogContentText>
             Title
           </DialogContentText>
-          <TextField onChange={this.handleChange}
+          <TextField onChange={(e) => {this.handleChange(e)}}
             style={{marginBottom:'20px'}}
             value={this.state.title}
           />
@@ -114,7 +114,7 @@ class ReviewWritePanel extends Component {
           </DialogContentText>
           <TextField fullWidth
             multiline
-            onChange={this.handleChange}
+            onChange={(e) => {this.handleChange(e)}}
             rows="6"
             value={this.state.content}
           />
