@@ -16,8 +16,9 @@ class ReviewAPI extends DataSource {
     const title = await this.store.Review.findOne({
       where: {userId, eventId},
       attributes: ['title'],
+      raw: true,
     });
-    return title.get('title');
+    return title;
   }
 
   async getContentOfReview({userId, eventId}) {
