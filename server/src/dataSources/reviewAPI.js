@@ -51,6 +51,33 @@ class ReviewAPI extends DataSource {
     });
     return reviewIds.get('userId', 'eventId');
   }
+
+  async createOrModifyOfReview(reviewInfo) {
+    const review = await this.store.Review.findOne({
+      where: {userId: reviewInfo.userId, eventId: reviewInfo.eventId},
+    });
+    if (review === null) {
+      const flag = await this.store.Review.create({
+        userId: reviewInfo.userId,
+        eventId: reviewInfo.eventId,
+        title: reviewInfo.title,
+        content: reviewInfo.content,
+        isPublic: reviewInfo.isPublic,
+      });
+      if (flag !== null) {
+        return review;
+      }
+    } else {
+      review.title = reviewInfo.title;
+      review.content = reviewInfo.content;
+      review.isPublic = reviewInfo.isPublic;
+      const flag = await review.save();
+      if (flag !== null) {
+        return review;
+      }
+    }
+    return null;
+  }
 }
 
 module.exports={
