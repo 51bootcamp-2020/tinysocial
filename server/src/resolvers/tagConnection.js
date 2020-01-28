@@ -1,6 +1,6 @@
 module.exports.TagConnection = {
-  tags: async (tagConnection) => {
-    return tagConnection;
+  tags: async ({tags}) => {
+    return tags;
   },
 };
 

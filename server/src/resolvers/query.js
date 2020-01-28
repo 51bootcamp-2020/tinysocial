@@ -14,7 +14,7 @@ module.exports.Query = {
     }
     return {
       cursor: after + pageSize,
-      id: eventIds,
+      event: eventIds,
     };
   },
 
@@ -56,7 +56,7 @@ module.exports.Query = {
   },
 
   tagNames: async (_, {pageSize, after = 0}, {dataSources}) => {
-    const tagIds = dataSources.getIdsOfTag({
+    const tagIds = await dataSources.tagAPI.getIdsOfTag({
       limit: pageSize,
       offset: after,
     });
@@ -65,7 +65,7 @@ module.exports.Query = {
     }
     return {
       cursor: after + pageSize,
-      id: tagIds,
+      tags: tagIds,
     };
   },
 };

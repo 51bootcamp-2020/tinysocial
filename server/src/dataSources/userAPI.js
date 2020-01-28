@@ -13,41 +13,45 @@ class UserAPI extends DataSource {
   }
 
   async getFirstNameOfUser(userId) {
-    return (await this.store.User.findOne({
+    return this.store.User.findOne({
       where: {
         id: userId,
       },
       attributes: ['firstName'],
-    })).get('firstName');
+      raw: true,
+    });
   }
 
   async getLastNameOfUser(userId) {
-    return (await this.store.User.findOne({
+    return this.store.User.findOne({
       where: {
         id: userId,
       },
       attributes: ['lastName'],
-    })).get('lastName');
+      raw: true,
+    });
   }
 
   async getEmailOfUser(userId) {
-    return (await this.store.User.findOne({
+    return this.store.User.findOne({
       where: {
         id: userId,
       },
       attributes: ['email'],
-    })).get('email');
+      raw: true,
+    });
   }
 
   async getAgeOfUser(userId) {
     // TODO(yun-kwak): Test this.
     const today = new Date();
-    const birthDate = (await this.store.User.findOne({
+    const birthDate = await this.store.User.findOne({
       where: {
         id: userId,
       },
       attributes: ['birthday'],
-    })).get('birthday');
+      raw: true,
+    });
     let age = today.getFullYear() - birthDate.getFullYear();
     const m = today.getMonth() - birthDate.getMonth();
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
@@ -57,93 +61,101 @@ class UserAPI extends DataSource {
   }
 
   async getAddressOfUser(userId) {
-    return (await this.store.User.findOne({
+    return this.store.User.findOne({
       where: {
         id: userId,
       },
       attributes: ['address'],
-    })).get('address');
+    });
   }
 
   async getPhoneOfUser(userId) {
-    return (await this.store.User.findOne({
+    return this.store.User.findOne({
       where: {
         id: userId,
       },
       attributes: ['phone'],
-    })).get('phone');
+      raw: true,
+    });
   }
 
   async getSelfDescriptionOfUser(userId) {
-    return (await this.store.User.findOne({
+    return this.store.User.findOne({
       where: {
         id: userId,
       },
       attributes: ['selfDescription'],
-    })).get('selfDescription');
+      raw: true,
+    });
   }
 
   async getBirthdayOfUser(userId) {
-    return (await this.store.User.findOne({
+    return this.store.User.findOne({
       where: {
         id: userId,
       },
       attributes: ['birthday'],
-    })).get('birthday');
+      raw: true,
+    });
   }
 
   async getRegistrationDateOfUser(userId) {
-    return (await this.store.User.findOne({
+    return this.store.User.findOne({
       where: {
         id: userId,
       },
       attributes: [['createdAt', 'registrationDate']],
-    })).get('registrationDate');
+      raw: true,
+    });
   }
 
   async getProfileImgUrlOfUser(userId, {arg}) {
-    return (await this.store.User.findOne({
+    return this.store.User.findOne({
       where: {
         id: userId,
       },
       attributes: ['profileImgUrl'],
-    })).get('profileImgUrl');
+      raw: true,
+    });
   }
 
   async getLastInteractionTimeOfUser(userId) {
-    return (await this.store.User.findOne({
+    return this.store.User.findOne({
       where: {
         id: userId,
       },
       attributes: ['lastInteractionTime'],
-    })).get('lastInteractionTime');
+      raw: true,
+    });
   }
 
   async getHostedEventIdsOfUser({userId}) {
-    return (await this.store.Event.findOne({
+    return this.store.Event.findOne({
       where: {
         host: userId,
       },
       attributes: ['id'],
-    })).get('id');
+      raw: true,
+    });
   }
 
   async getParticipatedEventIdsOfUser({userId}) {
-    return (await this.store.EventParticipant.findOne({
+    return this.store.EventParticipant.findOne({
       where: {
         userId,
       },
       attributes: [['eventId', 'id']],
-    })).get('id');
+      raw: true,
+    });
   }
 
   // TODO(seongjae): Rename this function
   async getIdOfUser(userId) {
-    const user = await this.store.User.findOne({
+    return this.store.User.findOne({
       where: {id: userId},
       attributes: ['id'],
+      raw: true,
     });
-    return user.get('id');
   }
 
   async getAuthorOfReview({userId}) {
