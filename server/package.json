@@ -9,7 +9,6 @@
     "dotenv": "^8.2.0",
     "fs": "0.0.1-security",
     "graphql": "^14.5.8",
-    "graphql-scalar": "0.0.11",
     "graphql-scalars": "^1.0.6",
     "jsonwebtoken": "^8.5.1",
     "mariadb": "^2.1.5",
@@ -20,11 +19,19 @@
     "strip-bom-stream": "^4.0.0"
   },
   "scripts": {
-    "start": "cd src && nodemon index.js"
+    "start": "cd src && nodemon index.js",
+    "test": "jest"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
     "eslint-config-google": "^0.14.0",
+    "jest": "^25.1.0",
     "nodemon": "^2.0.2"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/__utils"
+    ]
   }
 }
