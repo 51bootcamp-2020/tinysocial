@@ -3,7 +3,7 @@ module.exports.Mutation = {
   signInWithGoogle: async (_, {googleId}, {dataSources}) => {
     return dataSources.authAPI.signIn({googleId});
   },
-  singUpWithGoogle: async (
+  signUpWithGoogle: async (
     _, {googleId, email, firstName, lastName, profileImgUrl},
     {dataSources}) => {
     return dataSources.authAPI.signUpWithGoogle({

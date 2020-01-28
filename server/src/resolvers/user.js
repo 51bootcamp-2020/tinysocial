@@ -35,7 +35,4 @@ module.exports.User = {
   profileImgUrl: async ({id}, _, {dataSources}) => {
     return dataSources.userAPI.getProfileImgUrlOfUser({userId: id});
   },
-  lastInteractionTime: async ({id}, _, {dataSources}) => {
-    return dataSources.userAPI.getLastInteractionTimeOfUser({userId: id});
-  },
 };
