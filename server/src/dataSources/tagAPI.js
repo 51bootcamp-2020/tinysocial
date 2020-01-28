@@ -19,6 +19,14 @@ class TagAPI extends DataSource {
     });
     return name.get('name');
   }
+  async getIdsOfTag({limit, offset}) {
+    const tagIds = await this.store.Tag.findAll({
+      offset,
+      limit,
+    }).get('id');
+      attributes: ['id'],
+    return tagIds;
+  }
 }
 
 module.exports={

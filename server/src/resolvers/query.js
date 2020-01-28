@@ -1,12 +1,21 @@
 module.exports.Query = {
-  events: async (_, {pageSize, after, eventFilter, eventSort}, {dataSources}) => {
+  events: async (_, {pageSize, after = 0, eventFilter, eventSort}, {dataSources}) => {
+    if (pageSize > 50) {
+      pageSize = 50;
+    }
     const eventIds = dataSources.eventAPI.getIdsOfEvent({
       limit: pageSize,
       offset: after,
       tagIds: eventFilter.tagIds,
       order: eventSort,
     });
-    return eventIds;
+    if (pageSize > eventIds.length) {
+      pageSize = eventIds.length;
+    }
+    return {
+      cursor: after + pageSize,
+      id: eventIds,
+    };
   },
 
   event: async (_, {id}, {dataSources}) => {
@@ -46,5 +55,15 @@ module.exports.Query = {
     return reviews;
   },
 
-  tagNames: async (_, {pageSize, after}, {dataSources}) => { },
+  tagNames: async (_, {pageSize, after = 0}, {dataSources}) => {
+    const tagIds = dataSources.getIdsOfTag({
+      limit: pageSize,
+      offset: after,
+    });
+    
+    return {
+
+      tagIds,
+    };
+  },
 };
