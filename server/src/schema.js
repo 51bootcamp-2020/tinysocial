@@ -17,7 +17,7 @@ const typeDefs = gql`
         # Return the user whose id is 'id'.
         # If not exist, return null
         user(id: ID!): User
-        userEvents(info: String!): [Event]
+        myEvents(info: String!): [Event]
         userReviews(userId: Int, eventId: Int): Review
         tagNames(pageSize: Int, after: Int): TagConnection!
     }
@@ -28,7 +28,6 @@ const typeDefs = gql`
         content: String!
         author: User!
         isPublic: Boolean!
-        event: Event
     }
     type Mutation {
         signInWithGoogle(googleId: String!): AuthResponse!
@@ -56,7 +55,7 @@ const typeDefs = gql`
             token: String!
         ): AuthResponse!
         # If successful, then return True.  
-        logout: Boolean!
+        logOut: Boolean!
         createReview(
             eventId: Int!
             title: String!

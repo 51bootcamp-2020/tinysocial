@@ -1,4 +1,6 @@
 module.exports.Query = {
+  events: async (_, {pageSize, after, eventFilter, eventSort}, {dataSources}) => { },
+
   event: async (_, {id}, {dataSources}) => {
     const event = dataSources.eventAPI.getIdOfEvent(id);
     return event;
@@ -13,7 +15,7 @@ module.exports.Query = {
     return user;
   },
 
-  userEvents: async (_, {upcomingOrPast}, {dataSources, userId}) => {
+  myEvents: async (_, {upcomingOrPast}, {dataSources, userId}) => {
     let eventIds;
     if (upcomingOrPast === 'upcoming') {
       eventIds = await dataSources.eventAPI.getUpcomingEventIdsOfEvent(userId);
@@ -35,4 +37,6 @@ module.exports.Query = {
     const reviews = await dataSources.reviewAPI.getIdsOfReview({userId, eventId});
     return reviews;
   },
+
+  tagNames: async (_, {pageSize, after}, {dataSources}) => { },
 };
