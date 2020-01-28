@@ -4,4 +4,5 @@ module.exports = {
   cannotCreateUserMessage: 'Fail to create the user. Please try again later',
   missingParentIdMessage: 'Missing parent id',
   notImplementMessage: 'Not implemented yet',
+  checkPasswordMessage: 'Password and Re-password is not matched.',
 };
