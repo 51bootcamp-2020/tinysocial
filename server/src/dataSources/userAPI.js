@@ -157,6 +157,15 @@ class UserAPI extends DataSource {
       raw: true,
     });
   }
+
+  async getAuthorOfReview({userId}) {
+    const author = await this.store.User.findOne({
+      where: {id: userId},
+      attributes: ['id'],
+      raw: true,
+    });
+    return author;
+  }
 }
 
 module.exports = {
