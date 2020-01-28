@@ -30,6 +30,7 @@ const REVIEW_MUTATION = gql`
       ) {
         title
         content
+        isPublic
       }
   }
 `
@@ -41,7 +42,6 @@ class ReviewWritePanel extends Component {
       isPublic: false,
       title: '',
       content: '',
-      opened: true,
     }
   }
 
@@ -72,19 +72,20 @@ class ReviewWritePanel extends Component {
       ? this.setState({
         title: review.title,
         content: review.content,
+        isPublic: review.isPublic
       })
       : this.setState({
       })
   }
 
   render() {
-    const {onClose, eventId, handleDone} = this.props;
+    const {bookTitle, onClose, eventId, handleDone} = this.props;
     // TODO(mskwon1): remove this const
-    const bookTitle = 'Sapiens';
+    // const bookTitle = 'Sapiens';
 
     return (
       <Fragment>
-        <DialogTitle>
+        <DialogTitle style={{wordBreak: 'break-all'}}>
           {/* Title */}
           Review on '{bookTitle}'
         </DialogTitle>
@@ -146,20 +147,16 @@ class ReviewWritePanel extends Component {
               title: this.state.title,
               content: this.state.content,
               isPublic: this.state.isPublic,
+            }}
+            onCompleted={(data) => {
+              const {title, content, isPublic} = data.createOrModifyReview;
+              handleDone(title, content, isPublic);
             }}>
             {(mutate, { loading, error, data }) => {
               if (loading) return <Button disabled>Done</Button>;
               if (error) return <Button disabled>Done</Button>;
-              if (data && this.state.opened) {
-                console.log('fdsafdsafsad')
-                const {title, content} = data.createOrModifyReview
-                this.setState({
-                  opened: false
-                })
-                handleDone(title, content)
-              }
               return (
-                <Button onClick={() => mutate()}>Done</Button>
+                <Button onClick={mutate}>Done</Button>
               )
             }}
           </Mutation>

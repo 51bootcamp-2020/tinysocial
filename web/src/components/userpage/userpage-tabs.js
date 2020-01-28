@@ -1,12 +1,12 @@
-import {AppBar, Tabs, Tab} from '@material-ui/core';
+import {AppBar, Grid, Tabs, Tab} from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
 import {withStyles} from '@material-ui/core/styles';
 
-const styles = theme => ({
+const styles = (theme) => ({
   indicator: {
-    background: '#ffff8c'
-  }
+    background: '#ffff8c',
+  },
 });
 
 class ReviewTabs extends Component {
@@ -20,21 +20,29 @@ class ReviewTabs extends Component {
     return (
       <Fragment>
         {/* Upcoming / Past header tabs. */}
-        <AppBar position="static">
-          <Tabs variant="fullWidth" 
-            value={currentTab}
-            onChange={(event, value) => {onTabChange(value)}}
-            style={{background:'#009688'}}
-            classes={{
-              indicator: classes.indicator
-            }}>
-            <Tab value="upcoming" label="Upcoming" style={{
-              textTransform: 'none',
-            }}/>
-            <Tab value="past" label="Past" style={{
-              textTransform: 'none',
-            }}/>
-          </Tabs>
+        <AppBar position="static" style={{background: '#009688'}}>
+          <Grid container>
+            <Grid item xs sm></Grid>
+            <Grid item xs={12} sm={8}>
+              <Tabs variant="fullWidth"
+                value={currentTab}
+                onChange={(event, value) => {
+                  onTabChange(value);
+                }}
+                style={{background: '#009688'}}
+                classes={{
+                  indicator: classes.indicator,
+                }}>
+                <Tab value="upcoming" label="Upcoming" style={{
+                  textTransform: 'none',
+                }}/>
+                <Tab value="past" label="Past" style={{
+                  textTransform: 'none',
+                }}/>
+              </Tabs>
+            </Grid>
+            <Grid item xs sm></Grid>
+          </Grid>
         </AppBar>
       </Fragment>
     );

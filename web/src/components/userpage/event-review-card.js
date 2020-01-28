@@ -1,13 +1,11 @@
 import {
-  Card, 
-  CardContent, 
-  Grid, 
-  Typography
+  Grid,
+  Typography,
 } from '@material-ui/core';
 import EventReview from './event-review';
 import EventSchedule from './event-schedule';
 import PropTypes from 'prop-types';
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {withRouter} from 'react-router-dom';
 
 class EventReviewCard extends Component {
@@ -25,10 +23,10 @@ class EventReviewCard extends Component {
       const {id, startTime, endTime, address} = schedule;
       return (
         <EventSchedule key={id}
-          index={index++} 
-          startTime={startTime} 
-          endTime={endTime} 
-          address={address} 
+          index={index++}
+          startTime={startTime}
+          endTime={endTime}
+          address={address}
         />
       );
     });
@@ -44,55 +42,64 @@ class EventReviewCard extends Component {
 
   render() {
     const {
-      id, 
-      eventTitle, 
+      id,
+      eventTitle,
       bookTitle,
       bookAuthor,
-      bookImage, 
-      schedules, 
-      review, 
-      upcoming
+      bookImage,
+      schedules,
+      review,
+      upcoming,
     } = this.props;
-    
     return (
-      <Card>
-        <CardContent>
-          <Grid container item xs={12}>
-            {/* Event title - will be shown only on upcoming events. */}
+      <Fragment>
+        <Grid container>
+          <Grid item xs></Grid>
+          <Grid item xs={12} sm={8} align='left' style={{paddingLeft: '10px'}}>
             {upcoming && (
-              <Grid item xs={12} align='center'>
-                <Typography variant='h5' 
-                  paragraph 
-                  style={{fontWeight:'bold'}} 
-                  onClick={this.handleEventClick}>
-                  {eventTitle}
-                </Typography>
-              </Grid>
+              <Typography variant='h5'
+                paragraph
+                style={{fontWeight: 'bold'}}
+                onClick={this.handleEventClick}>
+                {eventTitle}
+              </Typography>
             )}
-            {/* Book thumbnail. */}
-            <Grid item xs={6} align='center' style={{marginBottom:'10px'}}>
-              {/* TODO(mskwon1): Make this as a CardMedia component. */}
-              <img src={require(`../images/sapiens.png`)}/>
-            </Grid>
-            <Grid container item xs={6} align='left' alignItems='flex-start'>
-              <Grid item xs={12}>
-                {/* Book title. */}
-                <Typography variant='h5'>
-                  {bookTitle}
-                </Typography>
-                {/* Book author. */}
-                <Typography variant='body2'>
-                  By {bookAuthor}
-                </Typography>
-              </Grid>
-            </Grid>
-            {/* Schedules - will be shown only on upcoming events. */}
-            {upcoming && this.renderSchedules(schedules)}
-            {/* User review. */}
-            <EventReview review={review} eventId={id}/>
           </Grid>
-        </CardContent>
-      </Card>
+          <Grid item xs></Grid>
+        </Grid>
+        <Grid container >
+          <Grid item sm></Grid>
+          <Grid item xs
+            sm={8}
+            align='center'
+            style={{wordBreak: 'break-all', float: 'left'}}>
+            <img src={require(`../images/sapiens.png`)}
+              style={{paddingBottom: '10px', width: '140px', height: '200px'}}/>
+            <Typography variant='h5'>
+              {bookTitle}
+            </Typography>
+            {/* Book author. */}
+            <Typography variant='body2'>
+            By {bookAuthor}
+            </Typography>
+          </Grid>
+          <Grid item sm></Grid>
+        </Grid>
+        <Grid container>
+          <Grid item xs sm></Grid>
+          <Grid item xs={12} sm={8} style={{paddingTop: '10px'}}>
+            {upcoming && this.renderSchedules(schedules)}
+          </Grid>
+          <Grid item xs sm></Grid>
+        </Grid>
+        <Grid container>
+          <Grid item xs sm></Grid>
+          <Grid item xs={12} sm={8}>
+            <EventReview review={review} bookTitle={bookTitle} eventId={id}/>
+          </Grid>
+          <Grid item xs sm></Grid>
+        </Grid>
+      </Fragment>
     );
   }
 }
