@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 const {DataSource} = require('apollo-datasource');
 const APP_SECRET = process.env.SECRET || 'default';
 const {cannotCreateUserMessage, userNotFoundMessage} = require(
