@@ -80,7 +80,7 @@ const typeDefs = gql`
     }
 
     input TagInput {
-        name: String
+        id: Int!
     }
 
     enum EventSort {
