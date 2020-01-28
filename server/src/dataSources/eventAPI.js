@@ -205,7 +205,7 @@ class EventAPI extends DataSource {
       limit: limit,
       offset: offset,
       order: order,
-    });
+    }).get('tagId');
     return eventIds;
   }
 
@@ -245,7 +245,7 @@ class EventAPI extends DataSource {
       where: {id: tagId},
       attributes: ['eventId'],
     });
-    return events.get('eventID');
+    return events.get('eventId');
   }
 }
 module.exports={
