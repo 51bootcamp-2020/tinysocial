@@ -37,21 +37,51 @@ class AuthAPI extends DataSource {
     this.context = config.context;
   }
 
-  async signIn({googleId, email, pw}) {
+  async signInWithGoogle({googleId}) {
+    const userId = this.store.User.findOne({
+      where: {
+        googleId,
+      },
+      attributes: ['id'],
+      raw: true,
+    });
+    if (!userId) {
+      return {
+        success: false,
+        message: userNotFoundMessage,
+        token: null,
+        user: null,
+      };
+    }
+
+    // TODO(lsh9034): expiration time depending on the last user interaction.
+    const token = jwt.sign({userId}, APP_SECRET,
+        {expiresIn: expirationTime});
+
+    return {
+      success: true,
+      message: 'Success',
+      token: token,
+      user: {
+        id: userId,
+      },
+    };
+  }
+  async signIn({email, pw}) {
     let hashedPw;
     if (email && pw) {
       hashedPw = sha256(pw + process.env.PASSWORD_SALT);
     }
-    const userId = (await this.store.User.findOne({
+    const userId = this.store.User.findOne({
       where: {
         email,
         password: hashedPw,
-        googleId,
       },
       attributes: ['id'],
-    })).get('id');
+      raw: true,
+    });
 
-    if (userId === null) {
+    if (!userId) {
       return {
         success: false,
         message: userNotFoundMessage,
