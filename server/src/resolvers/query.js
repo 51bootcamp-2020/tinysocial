@@ -60,10 +60,12 @@ module.exports.Query = {
       limit: pageSize,
       offset: after,
     });
-    
+    if (pageSize > tagIds.length) {
+      pageSize = tagIds.length;
+    }
     return {
-
-      tagIds,
+      cursor: after + pageSize,
+      id: tagIds,
     };
   },
 };

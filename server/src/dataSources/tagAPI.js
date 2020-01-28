@@ -23,8 +23,8 @@ class TagAPI extends DataSource {
     const tagIds = await this.store.Tag.findAll({
       offset,
       limit,
-    }).get('id');
       attributes: ['id'],
+    }).get('id');
     return tagIds;
   }
 }
