@@ -264,7 +264,7 @@ const createStore = () => {
         },
       }, {
         sequelize,
-        modelName: 'EventParticipant',
+        modelName: 'eventParticipant',
       },
   );
   Event.hasMany(EventParticipant);
