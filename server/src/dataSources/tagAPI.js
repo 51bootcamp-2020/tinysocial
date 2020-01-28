@@ -19,14 +19,6 @@ class TagAPI extends DataSource {
     });
     return name.get('name');
   }
-
-  async getEventsOfTag(tagId) {
-    const events = await this.store.Tag.findAll({
-      where: {id: tagId},
-      attributes: ['events'],
-    });
-    return events.get('events');
-  }
 }
 
 module.exports={
