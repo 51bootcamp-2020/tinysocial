@@ -12,7 +12,7 @@ class ReviewAPI extends DataSource {
     this.context = config.context;
   }
 
-  async getTitleOfReview(userId, eventId) {
+  async getTitleOfReview({userId, eventId}) {
     const title = await this.store.Review.findOne({
       where: {userId, eventId},
       attributes: ['title'],
@@ -20,7 +20,7 @@ class ReviewAPI extends DataSource {
     return title.get('title');
   }
 
-  async getContentOfReview(userId, eventId) {
+  async getContentOfReview({userId, eventId}) {
     const content = await this.store.Review.findOne({
       where: {userId, eventId},
       attributes: ['content'],
@@ -28,15 +28,7 @@ class ReviewAPI extends DataSource {
     return content.get('content');
   }
 
-  async getAuthorOfReview(userId, eventId) {
-    const author = await this.store.Review.findOne({
-      where: {userId, eventId},
-      attributes: ['author'],
-    });
-    return author.get('author');
-  }
-
-  async getIsPublicOfReview(userId, eventId) {
+  async getIsPublicOfReview({userId, eventId}) {
     const isPublic = await this.store.Review.findOne({
       where: {userId, eventId},
       attributes: ['isPublic'],
@@ -50,6 +42,7 @@ class ReviewAPI extends DataSource {
       attributes: ['userId', 'eventId'],
       raw: true,
     });
+    console.log("reviewIds:", reviewIds);
     return reviewIds;
     // return reviewIds.get(['userId', 'eventId']);
   }

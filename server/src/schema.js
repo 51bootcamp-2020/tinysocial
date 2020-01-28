@@ -19,7 +19,7 @@ const typeDefs = gql`
         # If not exist, return null
         user(id: ID!): User
         myEvents(info: String!): [Event]
-        userReviews(userId: Int, eventId: Int): Review
+        userReviews(userId: Int, eventId: Int): [Review]
         #if you don't send after, after is 0.
         tagNames(pageSize: Int, after: Int): TagConnection!
     }
