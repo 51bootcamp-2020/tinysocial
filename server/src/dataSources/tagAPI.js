@@ -24,7 +24,8 @@ class TagAPI extends DataSource {
       offset,
       limit,
       attributes: ['id'],
-    }).get('id');
+      raw: true,
+    });
     return tagIds;
   }
 }
