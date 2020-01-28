@@ -7,6 +7,7 @@ const typeDefs = gql`
         # Returns certain size of events after the cursor
         # Reference:
         #  https://www.apollographql.com/docs/tutorial/resolvers/#paginated-queries 
+        #pageSize must be under 50 or same. If you don't send after, after is 0.
         events(pageSize: Int, after: Int,
             eventFilter: EventFilter, eventSort: EventSort): EventConnection!
         # Return specific event whose id is 'id'.
@@ -19,6 +20,7 @@ const typeDefs = gql`
         user(id: ID!): User
         myEvents(info: String!): [Event]
         userReviews(userId: Int, eventId: Int): Review
+        #if you don't send after, after is 0.
         tagNames(pageSize: Int, after: Int): TagConnection!
     }
     type Review {
