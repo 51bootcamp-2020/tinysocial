@@ -8,17 +8,10 @@ module.exports.mockStore = {
   EventParticipant: {},
   EventTag: {},
   Review: {
-    Review: {
-      findAll: jest.fn(),
-      findOne: jest.fn(),
-      findOrCreateOrModify: jest.fn(),
-    },
-    User: {
-
-    },
-    Event: {
-
-    },
+    findAll: jest.fn(),
+    findOne: jest.fn(),
+    creat: jest.fn(),
+    save: jest.fn(),
   },
   Schedule: {
     findOne: jest.fn(),
