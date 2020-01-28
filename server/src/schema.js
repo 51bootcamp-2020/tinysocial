@@ -56,18 +56,12 @@ const typeDefs = gql`
         ): AuthResponse!
         # If successful, then return True.  
         logOut: Boolean!
-        createReview(
+        createOrModifyReview(
             eventId: Int!
             title: String!
             content: String!
             isPublic: Boolean!
-        ): Boolean!
-        modifyReview(
-            eventId: Int!
-            title: String!
-            content: String!
-            isPublic: Boolean!
-        ): Boolean!
+        ): Review!
     }
 
     input EventFilter {
