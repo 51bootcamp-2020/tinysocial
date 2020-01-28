@@ -3,7 +3,12 @@ const {ApolloServer} = require('apollo-server');
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
 
-const {EventAPI, ReviewAPI, TagAPI, UserAPI, AuthAPI} = require('./utils');
+const {EventAPI} = require('./dataSources/eventAPI');
+const {ReviewAPI} = require('./dataSources/reviewAPI');
+const {AuthAPI} = require('./dataSources/authAPI');
+const {TagAPI} = require('./dataSources/tagAPI');
+const {UserAPI} = require('./dataSources/userAPI.js');
+
 const {createStore} = require('./database');
 const jwt = require('jsonwebtoken');
 

@@ -195,3 +195,7 @@ class AuthAPI extends DataSource {
     };
   }
 }
+
+module.exports = {
+  AuthAPI,
+};
