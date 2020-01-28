@@ -144,7 +144,7 @@ class EventAPI extends DataSource {
 
   async getBookAuthorOfEvent({id}) {
     const bookAuthor = await this.store.EventBookClub.findOne({
-      where: {id: eventId},
+      where: {id: id},
       attributes: ['bookAuthor'],
     }).get('bookAuthor');
     return bookAuthor;
@@ -152,7 +152,7 @@ class EventAPI extends DataSource {
 
   async getBookDescriptionOfEvent({id}) {
     const bookDescription = await this.store.EventBookClub.findOne({
-      where: {id: eventId},
+      where: {id: id},
       attributes: ['bookDescription'],
     }).get('bookDescription');
     return bookDescription;
@@ -160,7 +160,7 @@ class EventAPI extends DataSource {
 
   async getBookISBNOfEvent({id}) {
     const bookISBN = await this.store.EventBookClub.findOne({
-      where: {id: eventId},
+      where: {id: id},
       attributes: ['bookISBN'],
     }).get('bookISBN');
     return bookISBN;
@@ -184,7 +184,7 @@ class EventAPI extends DataSource {
 
   async getMaxParticipantNumOfEvent({id}) {
     const maxParticipantNum = await this.store.Event.findOne({
-      where: {id: eventId},
+      where: {id: id},
       attributes: ['maxParticipantNum'],
     }).get('maxParticipantNum');
     return maxParticipantNum;
@@ -197,15 +197,7 @@ class EventAPI extends DataSource {
     });
     return event.get('id');
   }
-
-  async getIdsOfEvent({eventIds, offset, limit, tagIds}) {
-    const event = await this.store.Event.findOne({
-      where: {id: eventId},
-      attributes: ['id'],
-    });
-    return event.get('id');
-  }
-
+  
   async getUpcomingEventIdsOfEvent(userId) {
     const events = await this.store.EventParticipant.findAll({
       where: {userId},
