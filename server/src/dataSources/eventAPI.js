@@ -197,41 +197,37 @@ class EventAPI extends DataSource {
     });
     return event.get('id');
   }
-  
+
   async getUpcomingEventIdsOfEvent(userId) {
     const events = await this.store.EventParticipant.findAll({
       where: {userId},
-      raw: true,
       attributes: ['eventId'],
-      include: [{
-        model: this.store.Schedule,
-        where: {
-          eventId,
-          startDateTime: {
-            [OP.gt]: new Date(),
-          },
-        },
-      }],
     });
-    return events.get('id');
+    const eventId = events.eventId;
+    const upcomingEvents = await this.store.Schedule.findAll({
+      where: {
+        eventId,
+        startDateTime: {[OP.gt]: new Date()},
+      },
+      attributes: ['eventId'],
+    });
+    return upcomingEvents.get('eventId');
   }
 
   async getPastEventIdsOfEvent(userId) {
     const events = await this.store.EventParticipant.findAll({
       where: {userId},
-      raw: true,
       attributes: ['eventId'],
-      include: [{
-        model: this.store.Schedule,
-        where: {
-          eventId,
-          startDateTime: {
-            [OP.lte]: new Date(),
-          },
-        },
-      }],
     });
-    return events.get('id');
+    const eventId = events.eventId;
+    const upcomingEvents = await this.store.Schedule.findAll({
+      where: {
+        eventId,
+        startDateTime: {[OP.lte]: new Date()},
+      },
+      attributes: ['eventId'],
+    });
+    return upcomingEvents.get('eventId');
   }
 }
 module.exports={
