@@ -18,55 +18,62 @@ class EventAPI extends DataSource {
     const startDateTime = await this.store.Schedule.findOne({
       where: {id: scheduleId},
       attributes: ['startDateTime'],
+      raw: true,
     });
-    return startDateTime.get('startDateTime');
+    return startDateTime;
   }
 
   async getEndDateTimeOfEventSchedule(scheduleId) {
     const endDateTime = await this.store.Schedule.findOne({
       where: {id: scheduleId},
       attributes: ['endDateTime'],
+      raw: true,
     });
-    return endDateTime.get('endDateTime');
+    return endDateTime;
   }
 
   async getAddressOfEventSchedule(scheduleId) {
     const address = await this.store.Schedule.findOne({
       where: {id: scheduleId},
       attributes: ['address'],
+      raw: true,
     });
-    return address.get('address');
+    return address;
   }
 
   async getLatitudeOfEventSchedule(scheduleId) {
     const latitude = await this.store.Schedule.findOne({
       where: {id: scheduleId},
       attributes: ['latitude'],
+      raw: true,
     });
-    return latitude.get('latitude');
+    return latitude;
   }
 
   async getLongitudeOfEventSchedule(scheduleId) {
     const longitude = await this.store.Schedule.findOne({
       where: {id: scheduleId},
       attributes: ['longitude'],
+      raw: true,
     });
-    return longitude.get('longitude');
+    return longitude;
   }
 
   async getTypeOfEvent(eventId) {
     const type = await this.store.Event.findOne({
       where: {id: eventId},
       attributes: ['type'],
+      raw: true,
     });
-    return type.get('type');
+    return type;
   }
 
   async getHostIdOfEvent({eventId}) {
     const hostId = await this.store.Event.findOne({
       where: {id: eventId},
       attributes: ['hostId'],
-    }).get('hostId');
+      raw: true,
+    });
     return hostId;
   }
 
@@ -74,7 +81,8 @@ class EventAPI extends DataSource {
     const thumbnailUrl = await this.store.Event.findOne({
       where: {id: id},
       attributes: ['thumbnailUrl'],
-    }).get('thumbnailUrl');
+      raw: true,
+    });
     return thumbnailUrl;
   }
 
@@ -82,7 +90,8 @@ class EventAPI extends DataSource {
     const creationTime = await this.store.Event.findOne({
       where: {id: id},
       attributes: ['createdAt'],
-    }).get('createdAt');
+      raw: true,
+    });
     return creationTime;
   }
 
@@ -90,7 +99,8 @@ class EventAPI extends DataSource {
     const lastUpdatedTime = await this.store.Event.findOne({
       where: {id: id},
       attributes: ['updatedAt'],
-    }).get('updatedAt');
+      raw: true,
+    });
     return lastUpdatedTime;
   }
 
@@ -98,7 +108,8 @@ class EventAPI extends DataSource {
     const schedule = await this.store.Schedule.findAll({
       where: {id: eventId},
       attributes: ['id'],
-    }).get('id');
+      raw: true,
+    });
     return schedule;
   }
 
@@ -106,7 +117,8 @@ class EventAPI extends DataSource {
     const title = await this.store.Event.findOne({
       where: {id: id},
       attributes: ['title'],
-    }).get('title');
+      raw: true,
+    });
     return title;
   }
 
@@ -114,7 +126,8 @@ class EventAPI extends DataSource {
     const description = await this.store.Event.findOne({
       where: {id: id},
       attributes: ['description'],
-    }).get('description');
+      raw: true,
+    });
     return description;
   }
 
@@ -122,7 +135,8 @@ class EventAPI extends DataSource {
     const price = await this.store.Event.findOne({
       where: {id: id},
       attributes: ['price'],
-    }).get('price');
+      raw: true,
+    });
     return price;
   }
 
@@ -130,7 +144,8 @@ class EventAPI extends DataSource {
     const bookImageUrl = await this.store.EventBookClub.findOne({
       where: {id: id},
       attributes: ['bookImageUrl'],
-    }).get('bookImageUrl');
+      raw: true,
+    });
     return bookImageUrl;
   }
 
@@ -138,7 +153,8 @@ class EventAPI extends DataSource {
     const bookTitle = await this.store.EventBookClub.findOne({
       where: {id: id},
       attributes: ['bookTitle'],
-    }).get('bookTitle');
+      raw: true,
+    });
     return bookTitle;
   }
 
@@ -146,7 +162,8 @@ class EventAPI extends DataSource {
     const bookAuthor = await this.store.EventBookClub.findOne({
       where: {id: id},
       attributes: ['bookAuthor'],
-    }).get('bookAuthor');
+      raw: true,
+    });
     return bookAuthor;
   }
 
@@ -154,7 +171,8 @@ class EventAPI extends DataSource {
     const bookDescription = await this.store.EventBookClub.findOne({
       where: {id: id},
       attributes: ['bookDescription'],
-    }).get('bookDescription');
+      raw: true,
+    });
     return bookDescription;
   }
 
@@ -162,7 +180,8 @@ class EventAPI extends DataSource {
     const bookISBN = await this.store.EventBookClub.findOne({
       where: {id: id},
       attributes: ['bookISBN'],
-    }).get('bookISBN');
+      raw: true,
+    });
     return bookISBN;
   }
 
@@ -170,7 +189,8 @@ class EventAPI extends DataSource {
     const tagIds = await this.store.EventTag.findAll({
       where: {id: eventId},
       attributes: ['tagId'],
-    }).get('tagId');
+      raw: true,
+    });
     return tagIds;
   }
 
@@ -178,7 +198,8 @@ class EventAPI extends DataSource {
     const participantIds = await this.store.EventParticipant.findAll({
       where: {id: eventId},
       attributes: ['userId'],
-    }).get('userId');
+      raw: true,
+    });
     return participantIds;
   }
 
@@ -186,7 +207,8 @@ class EventAPI extends DataSource {
     const maxParticipantNum = await this.store.Event.findOne({
       where: {id: id},
       attributes: ['maxParticipantNum'],
-    }).get('maxParticipantNum');
+      raw: true,
+    });
     return maxParticipantNum;
   }
 
@@ -194,8 +216,9 @@ class EventAPI extends DataSource {
     const event = await this.store.Event.findOne({
       where: {id: eventId},
       attributes: ['id'],
+      raw: true,
     });
-    return event.get('id');
+    return event;
   }
 
   async getIdsOfEvent({limit, offset, tagIds, order}) {
@@ -205,7 +228,8 @@ class EventAPI extends DataSource {
       limit: limit,
       offset: offset,
       order: order,
-    }).get('tagId');
+      raw: true,
+    });
     return eventIds;
   }
 
@@ -213,6 +237,7 @@ class EventAPI extends DataSource {
     const events = await this.store.EventParticipant.findAll({
       where: {userId},
       attributes: ['eventId'],
+      raw: true,
     });
     const eventId = events.eventId;
     const upcomingEvents = await this.store.Schedule.findAll({
@@ -221,14 +246,16 @@ class EventAPI extends DataSource {
         startDateTime: {[OP.gt]: new Date()},
       },
       attributes: ['eventId'],
+      raw: true,
     });
-    return upcomingEvents.get('eventId');
+    return upcomingEvents;
   }
 
   async getPastEventIdsOfEvent(userId) {
     const events = await this.store.EventParticipant.findAll({
       where: {userId},
       attributes: ['eventId'],
+      raw: true,
     });
     const eventId = events.eventId;
     const upcomingEvents = await this.store.Schedule.findAll({
@@ -237,15 +264,17 @@ class EventAPI extends DataSource {
         startDateTime: {[OP.lte]: new Date()},
       },
       attributes: ['eventId'],
+      raw: true,
     });
-    return upcomingEvents.get('eventId');
+    return upcomingEvents;
   }
   async getEventsOfTag(tagId) {
     const events = await this.store.EventTag.findAll({
       where: {id: tagId},
       attributes: ['eventId'],
+      raw: true,
     });
-    return events.get('eventId');
+    return events;
   }
 }
 module.exports={
