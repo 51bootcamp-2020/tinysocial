@@ -51,7 +51,7 @@ class LoginFormGoogle extends Component {
       // Store user token to cookie.
       document.cookie = 'token=' + token;
     }
-    this.redirect()
+    this.redirect();
   }
 
   // After authenticated from server, redirect even if success or not.
@@ -60,7 +60,7 @@ class LoginFormGoogle extends Component {
       return this.props.history.push({pathname: '/'});
     else {
       // No user information in our db.
-      return this.props.history.push({pathname: '/signup'})
+      return this.props.history.push({pathname: '/signup'});
     }
   };
 
@@ -75,7 +75,6 @@ class LoginFormGoogle extends Component {
                         this.changeIsMember(
                             /* isSucess= */ data.signInWithGoogle.success,
                             /* token= */ data.signInWithGoogle.token);
-                        // this.redirect();
                       }}
                     onError={
                       (error) => {
