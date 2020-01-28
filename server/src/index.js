@@ -3,7 +3,7 @@ const {ApolloServer} = require('apollo-server');
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
 
-const {EventAPI, ReviewAPI, TagAPI, UserAPI} = require('./utils');
+const {EventAPI, ReviewAPI, TagAPI, UserAPI, AuthAPI} = require('./utils');
 const {createStore} = require('./database');
 const jwt = require('jsonwebtoken');
 
@@ -22,6 +22,7 @@ const dataSources = () => ({
   reviewAPI: new ReviewAPI(store),
   tagAPI: new TagAPI(store),
   userAPI: new UserAPI(store),
+  authAPI: new AuthAPI(store),
 });
 
 const APP_SECRET = process.env.SECRET || 'default';
@@ -53,5 +54,5 @@ const server = new ApolloServer({
 
 if (process.env.NODE_ENV !== 'test') {
   server.listen({port: 15780}).
-      then(({url}) => console.log(`Server running at at ${url}`));
+    then(({url}) => console.log(`Server running at at ${url}`));
 }
