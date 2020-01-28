@@ -7,7 +7,19 @@ module.exports.mockStore = {
   EventBookClub: {},
   EventParticipant: {},
   EventTag: {},
-  Review: {},
+  Review: {
+    Review: {
+      findAll: jest.fn(),
+      findOne: jest.fn(),
+      findOrCreateOrModify: jest.fn(),
+    },
+    User: {
+
+    },
+    Event: {
+
+    },
+  },
   Schedule: {},
   Tag: {},
 };
