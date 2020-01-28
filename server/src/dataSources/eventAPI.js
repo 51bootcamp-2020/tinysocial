@@ -240,6 +240,13 @@ class EventAPI extends DataSource {
     });
     return upcomingEvents.get('eventId');
   }
+  async getEventsOfTag(tagId) {
+    const events = await this.store.EventTag.findAll({
+      where: {id: tagId},
+      attributes: ['eventId'],
+    });
+    return events.get('eventID');
+  }
 }
 module.exports={
   EventAPI,
