@@ -5,4 +5,5 @@ module.exports = {
   missingParentIdMessage: 'Missing parent id',
   notImplementMessage: 'Not implemented yet',
   checkPasswordMessage: 'Password and Re-password is not matched.',
+  cannotFindMessage: 'Cannot find what you request'
 };

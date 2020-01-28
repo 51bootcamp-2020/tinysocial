@@ -10,7 +10,7 @@ module.exports.mockStore = {
   Review: {
     findAll: jest.fn(),
     findOne: jest.fn(),
-    creat: jest.fn(),
+    create: jest.fn(),
     save: jest.fn(),
   },
   Schedule: {

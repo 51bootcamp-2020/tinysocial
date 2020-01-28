@@ -1,7 +1,7 @@
 /* eslint-disable require-jsdoc */
 const {DataSource} = require('apollo-datasource');
 const Sequelize = require('sequelize');
-
+const {cannotFindMessage} = require('../errorMessages');
 class ReviewAPI extends DataSource {
   constructor(store) {
     super();
@@ -13,28 +13,39 @@ class ReviewAPI extends DataSource {
   }
 
   async getTitleOfReview({userId, eventId}) {
-    const title = await this.store.Review.findOne({
+    const titleObj = await this.store.Review.findOne({
       where: {userId, eventId},
       attributes: ['title'],
       raw: true,
     });
-    return title;
+    if(!titleObj){
+      return null;
+    }
+    return titleObj.title;
   }
 
   async getContentOfReview({userId, eventId}) {
-    const content = await this.store.Review.findOne({
+    const contentObj = await this.store.Review.findOne({
       where: {userId, eventId},
       attributes: ['content'],
+      raw: true,
     });
-    return content.get('content');
+    if(!contentObj){
+      return null;
+    }
+    return contentObj.content;
   }
 
   async getIsPublicOfReview({userId, eventId}) {
-    const isPublic = await this.store.Review.findOne({
+    const isPublicObj = await this.store.Review.findOne({
       where: {userId, eventId},
       attributes: ['isPublic'],
+      raw: true,
     });
-    return isPublic.get('isPublic');
+    if(!isPublicObj){
+      return null;
+    }
+    return isPublicObj.isPublic;
   }
 
   async getIdsOfReview({userId, eventId}) {
@@ -43,9 +54,10 @@ class ReviewAPI extends DataSource {
       attributes: ['userId', 'eventId'],
       raw: true,
     });
-    console.log("reviewIds:", reviewIds);
+    if(!reviewIds){
+      return null;
+    }
     return reviewIds;
-    // return reviewIds.get(['userId', 'eventId']);
   }
 
   async createOrModifyOfReview(reviewInfo) {
@@ -61,7 +73,7 @@ class ReviewAPI extends DataSource {
         isPublic: reviewInfo.isPublic,
       });
       if (flag !== null) {
-        return review;
+        return {userId: reviewInfo.userId, eventId: reviewInfo.eventId};
       }
     } else {
       review.title = reviewInfo.title;
@@ -69,7 +81,7 @@ class ReviewAPI extends DataSource {
       review.isPublic = reviewInfo.isPublic;
       const flag = await review.save();
       if (flag !== null) {
-        return review;
+        return {userId: reviewInfo.userId, eventId: reviewInfo.eventId};
       }
     }
     return null;
