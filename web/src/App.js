@@ -10,6 +10,7 @@ import NavBar from './components/navigation/navbar';
 import React, {Fragment} from 'react';
 import Signin from './pages/signin';
 import Emailvalidation from './pages/emailvalidation';
+import Checkout from './pages/checkout';
 
 function App() {
   {/* TODO(Myoung-heeSeo) : Add a state to check if the user is logged in now. */}
@@ -18,6 +19,7 @@ function App() {
       <NavBar/>
       <Router>
         <Switch>
+          <Route path="/checkout" render={() => <Checkout/>} />
           <Route path='/signin' render={() => <Signin/>}/>
           <Route path='/eventlist' render={() => <EventList/>}/>
           <Route path='/about' render={() => <About/>}/>
