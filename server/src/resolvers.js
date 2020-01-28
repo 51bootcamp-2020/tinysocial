@@ -21,14 +21,14 @@ const {EventConnection} = require('./resolvers/eventConnection');
 module.exports = {
   Query,
   Mutation,
-  User, // Done(Arin)
-  Event, // Done(SeongJae)
-  EventBookClub, // Done(SiHyun)
-  Tag, // Done(SeongJae)
-  AuthResponse, // Sihyun
-  Review, // Done(SeongJae)
-  EventSchedule, // Done(SeongJae)
-  TagConnection, // Done(SiHyun)
-  EventConnection, // Done(SiHyun)
-  DateTime: DateTimeResolver, // Done(Arin)
+  User,
+  Event,
+  EventBookClub,
+  Tag,
+  AuthResponse,
+  Review,
+  EventSchedule,
+  TagConnection,
+  EventConnection,
+  DateTime: DateTimeResolver,
 };
