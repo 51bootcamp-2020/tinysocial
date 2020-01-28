@@ -42,21 +42,21 @@ class SignupFormGoogle extends Component {
                     $firstName: String!, 
                     $lastName: String!, 
                     $profileImgUrl: String) {
-      signUpWithGoogle(googleId: $googleId, 
-                        email: $email, 
-                        firstName: $firstName, 
-                        lastName: $lastName, 
-                        profileImgUrl: $profileImgUrl) {
-          success
-          message
-          token
-          user {
-            lastName
-            firstName
-            email
-          }
-        } 
-      }
+                    signUpWithGoogle(googleId: $googleId, 
+                                      email: $email, 
+                                      firstName: $firstName, 
+                                      lastName: $lastName, 
+                                      profileImgUrl: $profileImgUrl) {
+                                      success
+                                      message
+                                      token
+                                      user {
+                                        lastName
+                                        firstName
+                                        email
+                                      }
+                                    } 
+                    }
     `;
 
     // Receive state values for mutation use.
@@ -73,22 +73,20 @@ class SignupFormGoogle extends Component {
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,
               }}
-              onCompleted={
-                (data) => {
-                  const {success, message, token} = data.signUpWithGoogle;
-                  if (success) {
-                    document.cookie = 'token=' + token;
-                    this.props.history.push('/');
-                  } else {
-                    window.alert('Signup failed ... please contact admin');
-                    this.props.history.push('/signin');
-                  }
+              onCompleted={(data) => {
+                const {success, message, token} = data.signUpWithGoogle;
+                if (success) {
+                  document.cookie = 'token=' + token;
+                  this.props.history.push('/');
+                } else {
+                  window.alert('Signup failed ... please contact admin');
+                  this.props.history.push('/signin');
                 }
+              }
               }
           >
             {(mutate, {data, called}) => {
               if (!called && this.state.id !== null) {
-
                 console.log('sent');
                 mutate();
               }
