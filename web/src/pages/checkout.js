@@ -21,12 +21,12 @@ class Checkout extends Component {
     return (
       <Container maxWidth='sm'>
         <br/>
-
         <PurchaseEventItem
           price={this.state.price}
           eventName={this.state.eventName}
           schedule={this.state.schedule}
           imageUrl={this.state.imageUrl} />
+
         <br/>
         <Divider />
         <br/>
