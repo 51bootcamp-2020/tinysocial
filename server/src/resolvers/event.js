@@ -1,6 +1,6 @@
 module.exports.Event = {
   __resolveType({id}, __, {dataSources}) {
-    const type = dataSources.reviewAPI.getTitleOfReview(id);
+    const type = dataSources.Event.getTypeOfEvent(id);
     if (type === 0) {
       return 'EventBookClub';
     }
