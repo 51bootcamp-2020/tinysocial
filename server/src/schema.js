@@ -73,14 +73,10 @@ const typeDefs = gql`
 
     input EventFilter {
         recommendation: Boolean, # User-based recommendation flag
-        tags: [TagInput!]
+        tagIds: [Int!]
         # TODO(yun-kwak): range-based search
         # range: Float,
         # from: String 
-    }
-
-    input TagInput {
-        id: Int!
     }
 
     enum EventSort {
