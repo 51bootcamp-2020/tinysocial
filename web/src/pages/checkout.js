@@ -16,7 +16,6 @@ class Checkout extends Component {
       eventId: '',
     };
   }
-  }
 
   render() {
     return (
@@ -28,7 +27,7 @@ class Checkout extends Component {
           eventName={this.state.eventName}
           schedule={this.state.schedule}
           imageUrl={this.state.imageUrl} />
-c
+
         <br/>
         <Divider />
         <br/>
