@@ -12,7 +12,7 @@ class PaypalPayment extends Component {
 
     this.state = {
       price: props.price,
-      eventId: props.eventId // For redirection
+      eventId: props.eventId, // For redirection
     };
   }
 
