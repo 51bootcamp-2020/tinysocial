@@ -27,7 +27,6 @@ class Checkout extends Component {
           eventName={this.state.eventName}
           schedule={this.state.schedule}
           imageUrl={this.state.imageUrl} />
-
         <br/>
         <Divider />
         <br/>
