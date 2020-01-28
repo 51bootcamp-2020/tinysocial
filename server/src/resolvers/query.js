@@ -1,5 +1,13 @@
 module.exports.Query = {
-  events: async (_, {pageSize, after, eventFilter, eventSort}, {dataSources}) => { },
+  events: async (_, {pageSize, after, eventFilter, eventSort}, {dataSources}) => {
+    const eventIds = dataSources.eventAPI.getIdsOfEvent({
+      limit: pageSize,
+      offset: after,
+      tagIds: eventFilter.tagIds,
+      order: eventSort,
+    });
+    return eventIds;
+  },
 
   event: async (_, {id}, {dataSources}) => {
     const event = dataSources.eventAPI.getIdOfEvent(id);

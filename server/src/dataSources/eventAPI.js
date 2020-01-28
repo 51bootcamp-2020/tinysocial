@@ -197,7 +197,18 @@ class EventAPI extends DataSource {
     });
     return event.get('id');
   }
-  
+
+  async getIdsOfEvent({limit, offset, tagIds, order}) {
+    const eventIds = await this.store.EventTag.findAll({
+      where: {tagId: tagIds},
+      attributes: ['eventId'],
+      limit: limit,
+      offset: offset,
+      order: order,
+    });
+    return eventIds;
+  }
+
   async getUpcomingEventIdsOfEvent(userId) {
     const events = await this.store.EventParticipant.findAll({
       where: {userId},
