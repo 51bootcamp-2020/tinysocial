@@ -16,7 +16,7 @@ module.exports.EventBookClub = {
     return lastUpdatedTime;
   },
   schedule: async ({id}, _, {dataSources}) => {
-    const scheduleIds = dataSources.eventAPI.getScheduleIdsOfEvent({eventId: id});
+    const scheduleIds = await dataSources.eventAPI.getScheduleIdsOfEvent({eventId: id});
     return scheduleIds;
   },
   title: async ({id}, _, {dataSources}) => {
@@ -32,7 +32,7 @@ module.exports.EventBookClub = {
     return price;
   },
   bookImageUrl: async ({id}, _, {dataSources}) => {
-    const bookImageUrl = dataSources.eventAPI.getBookImgageUrlOfEvent(id);
+    const bookImageUrl = dataSources.eventAPI.getBookImageUrlOfEvent(id);
     return bookImageUrl;
   },
   bookTitle: async ({id}, _, {dataSources}) => {

@@ -20,6 +20,8 @@ module.exports.mockStore = {
 
     },
   },
-  Schedule: {},
+  Schedule: {
+    findOne: jest.fn(),
+  },
   Tag: {},
 };

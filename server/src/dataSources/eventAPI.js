@@ -15,138 +15,123 @@ class EventAPI extends DataSource {
   }
 
   async getStartDateTimeOfEventSchedule(scheduleId) {
-    const startDateTime = await this.store.Schedule.findOne({
+    return (await this.store.Schedule.findOne({
       where: {id: scheduleId},
       attributes: ['startDateTime'],
       raw: true,
-    });
-    return startDateTime;
+    })).startDateTime;
   }
 
   async getEndDateTimeOfEventSchedule(scheduleId) {
-    const endDateTime = await this.store.Schedule.findOne({
+    return (await this.store.Schedule.findOne({
       where: {id: scheduleId},
       attributes: ['endDateTime'],
       raw: true,
-    });
-    return endDateTime;
+    })).endDateTime;
   }
 
   async getAddressOfEventSchedule(scheduleId) {
-    const address = await this.store.Schedule.findOne({
+    return (await this.store.Schedule.findOne({
       where: {id: scheduleId},
       attributes: ['address'],
       raw: true,
-    });
-    return address;
+    })).address;
   }
 
   async getLatitudeOfEventSchedule(scheduleId) {
-    const latitude = await this.store.Schedule.findOne({
+    return (await this.store.Schedule.findOne({
       where: {id: scheduleId},
       attributes: ['latitude'],
       raw: true,
-    });
-    return latitude;
+    })).latitude;
   }
 
   async getLongitudeOfEventSchedule(scheduleId) {
-    const longitude = await this.store.Schedule.findOne({
+    return (await this.store.Schedule.findOne({
       where: {id: scheduleId},
       attributes: ['longitude'],
       raw: true,
-    });
-    return longitude;
+    })).longitude;
   }
 
   async getTypeOfEvent(eventId) {
-    const type = await this.store.Event.findOne({
+    return (await this.store.Event.findOne({
       where: {id: eventId},
       attributes: ['type'],
       raw: true,
-    });
-    return type;
+    })).type;
   }
 
   async getHostIdOfEvent({eventId}) {
-    const hostId = await this.store.Event.findOne({
+    return this.store.Event.findOne({
       where: {id: eventId},
       attributes: ['hostId'],
       raw: true,
     });
-    return hostId;
   }
 
   async getThumbnailUrlOfEvent({id}) {
-    const thumbnailUrl = await this.store.Event.findOne({
+    return (await this.store.Event.findOne({
       where: {id: id},
       attributes: ['thumbnailUrl'],
       raw: true,
-    });
-    return thumbnailUrl;
+    })).thumbnailUrl;
   }
 
   async getCreationTimeOfEvent({id}) {
-    const creationTime = await this.store.Event.findOne({
+    return (await this.store.Event.findOne({
       where: {id: id},
       attributes: ['createdAt'],
       raw: true,
-    });
-    return creationTime;
+    })).createdAt;
   }
 
   async getLastUpdatedTime({id}) {
-    const lastUpdatedTime = await this.store.Event.findOne({
+    return (await this.store.Event.findOne({
       where: {id: id},
       attributes: ['updatedAt'],
       raw: true,
-    });
-    return lastUpdatedTime;
+    })).updatedAt;
   }
 
   async getScheduleIdsOfEvent({eventId}) {
-    const schedule = await this.store.Schedule.findAll({
+    return this.store.Schedule.findAll({
       where: {id: eventId},
       attributes: ['id'],
       raw: true,
     });
-    return schedule;
   }
 
   async getTitleOfEvent({id}) {
-    const title = await this.store.Event.findOne({
+    return (await this.store.Event.findOne({
       where: {id: id},
       attributes: ['title'],
       raw: true,
-    });
-    return title;
+    })).title;
   }
 
   async getDescriptionOfEvent({id}) {
-    const description = await this.store.Event.findOne({
+    return (await this.store.Event.findOne({
       where: {id: id},
       attributes: ['description'],
       raw: true,
-    });
-    return description;
+    })).description;
   }
 
   async getPriceOfEvent({id}) {
-    const price = await this.store.Event.findOne({
+    return (await this.store.Event.findOne({
       where: {id: id},
       attributes: ['price'],
       raw: true,
-    });
-    return price;
+    })).price;
   }
 
-  async getBookImgageUrlOfEvent({id}) {
-    const bookImageUrl = await this.store.EventBookClub.findOne({
+  async getBookImageUrlOfEvent({id}) {
+    return (await this.store.EventBookClub.findOne({
       where: {id: id},
       attributes: ['bookImageUrl'],
       raw: true,
-    });
-    return bookImageUrl;
+    })).bookImageUrl;
   }
 
   async getBookTitleOfEvent({id}) {
