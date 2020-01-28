@@ -216,7 +216,7 @@ class EventAPI extends DataSource {
     return events.get('id');
   }
 
-  async getPastEventIdsOfEvent(user) {
+  async getPastEventIdsOfEvent(userId) {
     const events = await this.store.EventParticipant.findAll({
       where: {userId},
       raw: true,
