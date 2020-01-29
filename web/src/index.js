@@ -3,7 +3,7 @@ import {
   ApolloLink,
   concat,
   HttpLink,
-  InMemoryCache
+  InMemoryCache,
 } from 'apollo-boost';
 import {ApolloProvider} from 'react-apollo';
 import App from './App';
@@ -23,21 +23,21 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   operation.setContext({
     headers: {
       authorization: Cookie.get('token') || null,
-    }
+    },
   });
   return forward(operation);
-})
+});
 
 const client = new ApolloClient({
   link: concat(authMiddleware, httpLink),
-  cache: new InMemoryCache
+  cache: new InMemoryCache,
 });
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <App/>
-  </ApolloProvider>
-, document.getElementById('root'));
+    <ApolloProvider client={client}>
+      <App/>
+    </ApolloProvider>
+    , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
