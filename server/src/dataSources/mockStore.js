@@ -25,5 +25,8 @@ module.exports.mockStore = {
   Schedule: {
     findOne: jest.fn(),
   },
-  Tag: {},
+  Tag: {
+    findOne: jest.fn(),
+    findAll: jest.fn(),
+  },
 };

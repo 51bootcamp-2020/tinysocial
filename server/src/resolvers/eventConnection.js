@@ -1,6 +1,5 @@
 module.exports.EventConnection = {
-  events: async ({event}) => {
-    return event;
+  events: async ({events}) => {
+    return events;
   },
 };
-
