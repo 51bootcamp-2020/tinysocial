@@ -64,6 +64,10 @@ const typeDefs = gql`
             content: String!
             isPublic: Boolean!
         ): Review!
+        # If successful, then return True.  
+        joinEvent(
+            orderId: String!
+        ): Boolean!
     }
 
     input EventFilter {
