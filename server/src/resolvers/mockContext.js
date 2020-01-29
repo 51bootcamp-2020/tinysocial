@@ -8,10 +8,10 @@ module.exports.mockContext = {
       getAttributeOfReview: jest.fn(),
       createOrModifyOfReview: jest.fn(),
     },
-    tagAPI: { 
+    tagAPI: {
       getAttributeOfTag: jest.fn(),
       getEventIdsOfTag: jest.fn(),
-     },
+    },
     userAPI: { },
-  }
+  },
 };
