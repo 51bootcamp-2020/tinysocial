@@ -24,6 +24,21 @@ describe('[UserAPI.getAttributeOfUser]', () => {
         toThrow('Unknown column');
   });
 
+  test('returns age if existing user\'s id is passed', async () => {
+    const birthday = new Date();
+    const year = birthday.getFullYear();
+    const month = birthday.getMonth();
+    const day = birthday.getDate();
+    birthday.setFullYear(year - 10);
+    birthday.setMonth(month - 1);
+    birthday.setDate(day - 1);
+
+    mockStore.User.findOne.mockReturnValueOnce(
+        {birthday});
+    const res = await userAPI.getAttributeOfUser('age', 42);
+    expect(res).toEqual(10);
+  });
+
   test('returns first name if existing user\'s id is passed', async () => {
     mockStore.User.findOne.mockReturnValueOnce({firstName: 'YunHyeok'});
     const res = await userAPI.getAttributeOfUser('firstName', 42);
@@ -95,10 +110,6 @@ describe('[UserAPI.getAttributeOfUser]', () => {
 });
 
 describe('[UserAPI.getAgeOfUser]', () => {
-  test('throws error if userId is not passed', async () => {
-    expect(userAPI.getAgeOfUser()).rejects.toThrow(
-        userIdIsNotPassedMessage);
-  });
   test('returns age of the user', async () => {
     const birthday = new Date();
     const year = birthday.getFullYear();

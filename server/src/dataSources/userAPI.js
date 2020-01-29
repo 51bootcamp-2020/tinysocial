@@ -17,6 +17,9 @@ class UserAPI extends DataSource {
     if (userId === undefined) {
       throw new Error(userIdIsNotPassedMessage);
     }
+    if (attributeName === 'age') {
+      return this.getAgeOfUser(userId);
+    }
     if (attributeName === 'registrationDate') {
       attributeName = 'createdAt';
     }
@@ -30,10 +33,9 @@ class UserAPI extends DataSource {
     return (user && user[attributeName]) ? user[attributeName] : null;
   }
 
+  // Internal Method. Do not use this directly. Alternatively consider using
+  // getAttributeOfUser('age', userId);
   async getAgeOfUser(userId) {
-    if (userId === undefined) {
-      throw new Error(userIdIsNotPassedMessage);
-    }
     // TODO(yun-kwak): Test this.
     const today = new Date();
     const birthDate = await this.getAttributeOfUser('birthday',
