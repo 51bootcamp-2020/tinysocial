@@ -1,5 +1,5 @@
 const {UserAPI, userIdIsNotPassedMessage} = require('../userAPI');
-const {mockStore} = require('./mockStore');
+const {mockStore} = require('../mockStore');
 
 const userAPI = new UserAPI(mockStore);
 userAPI.initialize({context: {userId: 1}});
