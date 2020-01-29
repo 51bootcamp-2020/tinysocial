@@ -1,5 +1,6 @@
 module.exports.Query = {
-  events: async (_, {pageSize, after = 0, eventFilter, eventSort}, {dataSources}) => {
+  events: async (
+    _, {pageSize, after = 0, eventFilter, eventSort}, {dataSources}) => {
     if (pageSize > 50) {
       pageSize = 50;
     }
@@ -28,8 +29,7 @@ module.exports.Query = {
   },
 
   user: async (_, {userId}, {dataSources}) => {
-    const user = dataSources.userAPI.getIdOfUser(userId);
-    return user;
+    return {id: userId};
   },
 
   myEvents: async (_, {upcomingOrPast}, {dataSources, userId}) => {
@@ -47,7 +47,8 @@ module.exports.Query = {
     return eventIds;
   },
 
-  userReviews: async (_, {userId, eventId}, {dataSources, userId: currentUserId}) => {
+  userReviews: async (
+    _, {userId, eventId}, {dataSources, userId: currentUserId}) => {
     if (userId === undefined) {
       userId = currentUserId;
     }
