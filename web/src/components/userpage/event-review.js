@@ -65,8 +65,7 @@ class EventReview extends Component {
 
     return (
       <Fragment>
-        <Grid item sm></Grid>
-        <Grid item xs={12} align='center' style={{margin: '15px'}}>
+        <Grid item xs={12} align='center' style={{marginBottom: '15px'}}>
           {/* Review title, null if title is undefined. */}
           <Typography variant='subtitle2'
             align='left'
@@ -78,7 +77,6 @@ class EventReview extends Component {
             {this.state.title === '' ? REVIEW_WRITE_TEXT : this.state.content}
           </Typography>
         </Grid>
-        <Grid item sm></Grid>
         <Grid item xs={12} align='center'>
           {/* Review 'Write' button. */}
           <ReviewWriteButton userHasReview={review}

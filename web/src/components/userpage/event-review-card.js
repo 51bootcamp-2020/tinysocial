@@ -55,7 +55,7 @@ class EventReviewCard extends Component {
       <Fragment>
         <Grid container>
           <Grid item xs></Grid>
-          <Grid item xs={12} sm={8} align='left' style={{paddingLeft: '10px'}}>
+          <Grid item xs={12} sm={8} align='center' style={{paddingLeft: '10px'}}>
             {upcoming && (
               <Typography variant='h5'
                 paragraph
@@ -67,23 +67,24 @@ class EventReviewCard extends Component {
           </Grid>
           <Grid item xs></Grid>
         </Grid>
-        <Grid container >
-          <Grid item sm></Grid>
+        <Grid container justify='center'>
+          {/* <Grid item sm></Grid> */}
           <Grid item xs
             sm={8}
             align='center'
-            style={{wordBreak: 'break-all', float: 'left'}}>
+            style={{wordBreak: 'break-all'}}>
             <img src={require(`../images/sapiens.png`)}
+              // src={bookImage}
               style={{paddingBottom: '10px', width: '140px', height: '200px'}}/>
             <Typography variant='h5'>
               {bookTitle}
             </Typography>
             {/* Book author. */}
             <Typography variant='body2'>
-            By {bookAuthor}
+              By {bookAuthor}
             </Typography>
           </Grid>
-          <Grid item sm></Grid>
+          {/* <Grid item sm></Grid> */}
         </Grid>
         <Grid container>
           <Grid item xs sm></Grid>
@@ -92,12 +93,10 @@ class EventReviewCard extends Component {
           </Grid>
           <Grid item xs sm></Grid>
         </Grid>
-        <Grid container>
-          <Grid item xs sm></Grid>
-          <Grid item xs={12} sm={8}>
+        <Grid container justify='center'>
+          <Grid item xs={10} sm={8}>
             <EventReview review={review} bookTitle={bookTitle} eventId={id}/>
           </Grid>
-          <Grid item xs sm></Grid>
         </Grid>
       </Fragment>
     );
