@@ -54,7 +54,7 @@ class EventAPI extends DataSource {
     if (eventId === undefined || eventId === null) {
       throw new Error(eventIdIsNotPassedMessage);
     }
-    const eventBookClub = this.store.findOne({
+    const eventBookClub = this.store.EventBookClub.findOne({
       where: {id: eventId},
       attributes: [attributeName],
       raw: true,
@@ -94,6 +94,20 @@ class EventAPI extends DataSource {
     return (eventParticipant && isUndefinedOrNull(eventParticipant[attributeName])) ?
         eventParticipant[attributeName] : null;
   }
+
+  async getHostIdOfEvent({eventId}) {
+    if (eventId === undefined || eventId === null) {
+      throw new Error(eventIdIsNotPassedMessage);
+    }
+    const event = await this.store.Event.findOne({
+      where: {eventId: eventId},
+      attributes: ['hostId'],
+      raw: true,
+    });
+    return (event && isUndefinedOrNull(event['hostId'])) ?
+        event['hostId'] : null;
+  }
+
   async getParticipantIdsOfEvent({eventId}) {
     if (eventId === undefined || eventId === null) {
       throw new Error(eventIdIsNotPassedMessage);
