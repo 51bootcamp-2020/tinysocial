@@ -1,19 +1,166 @@
 const {EventAPI} = require('../eventAPI');
 const {mockStore} = require('../mockStore');
+const {
+  scheduleIdIsNotPassedMessage,
+  eventIdIsNotPassedMessage,
+  userIdIsNotPassedMessage,
+} = require('../../errorMessages');
 
 const eventAPI = new EventAPI(mockStore);
 eventAPI.initialize({context: {user: {id: 1}}});
 
-describe('[EventAPI.getStartDateTimeOfEventSchedule]', () => {
-  test('returns null', async () => {
+describe('[EventAPI.getAttributeOfSchedule]', () => {
+  test('throws error if scheduleId is not passed', async () => {
+    expect(eventAPI.getAttributeOfSchedule()).rejects.toThrow(
+        scheduleIdIsNotPassedMessage);
+  });
+
+  test('returns null when passed invalid scheduleId', async () => {
     mockStore.Schedule.findOne.mockReturnValueOnce(null);
-    const res = await eventAPI.getStartDateTimeOfEventSchedule(987654321);
+    const res = await eventAPI.getAttributeOfSchedule('startDateTime', 987654321);
     expect(res).toEqual(null);
   });
 
   test('looks up startDateTime', async () => {
-    mockStore.users.findOrCreate.mockReturnValueOnce();
-    const res = await eventAPI.getStartDateTimeOfEventSchedule(1);
+    mockStore.Schedule.findOne.mockReturnValueOnce({startDateTime: new Date('2020-01-28')});
+    const res = await eventAPI.getAttributeOfSchedule('startDateTime', 1);
+    expect(res - new Date('2020-01-28')).toEqual(0);
+  });
+
+  test('looks up endDateTime', async () => {
+    mockStore.Schedule.findOne.mockReturnValueOnce({endDateTime: new Date('2020-01-28')});
+    const res = await eventAPI.getAttributeOfSchedule('endDateTime', 1);
+    expect(res - new Date('2020-01-28')).toEqual(0);
+  });
+
+  test('looks up address', async () => {
+    mockStore.Schedule.findOne.mockReturnValueOnce({address: 'testAddress'});
+    const res = await eventAPI.getAttributeOfSchedule('address', 1);
+    expect(res).toEqual('testAddress');
+  });
+
+  test('looks up latitude', async () => {
+    mockStore.Schedule.findOne.mockReturnValueOnce({latitude: 123.456});
+    const res = await eventAPI.getAttributeOfSchedule('latitude', 1);
+    expect(res).toEqual(123.456);
+  });
+
+  test('looks up longitude', async () => {
+    mockStore.Schedule.findOne.mockReturnValueOnce({longitude: 123.456});
+    const res = await eventAPI.getAttributeOfSchedule('longitude', 1);
+    expect(res).toEqual(123.456);
+  });
+});
+describe('[EventAPI.getAttributeOfEvent]', () => {
+  test('throws error if eventId is not passed', async () => {
+    expect(eventAPI.getAttributeOfEvent()).rejects.toThrow(
+        scheduleIdIsNotPassedMessage);
+  });
+
+  test('returns null when passed invalid eventId', async () => {
+    mockStore.Event.findOne.mockReturnValueOnce(null);
+    const res = await eventAPI.getAttributeOfEvent('title', 987654321);
+    expect(res).toEqual(null);
+  });
+
+  test('looks up type', async () => {
+    mockStore.Event.findOne.mockReturnValueOnce({type: 0});
+    const res = await eventAPI.getAttributeOfEvent('type', 1);
+    expect(res).toEqual(0);
+  });
+
+  test('looks up creationTime', async () => {
+    mockStore.Event.findOne.mockReturnValueOnce({createdAt: new Date('2020-01-29')});
+    const res = await eventAPI.getAttributeOfEvent('creationTime', 1);
+    expect(res - new Date('2020-01-29')).toEqual(0);
+  });
+
+  test('looks up lastUpdatedTime', async () => {
+    mockStore.Event.findOne.mockReturnValueOnce({updatedAt: new Date('2020-01-29')});
+    const res = await eventAPI.getAttributeOfEvent('lastUpdatedTime', 1);
+    expect(res - new Date('2020-01-29')).toEqual(0);
+  });
+
+  test('looks up title', async () => {
+    mockStore.Event.findOne.mockReturnValueOnce({title: 'Sihyun Event'});
+    const res = await eventAPI.getAttributeOfEvent('title', 1);
+    expect(res).toEqual('Sihyun Event');
+  });
+
+  test('looks up description', async () => {
+    mockStore.Event.findOne.mockReturnValueOnce({description: 'This is Sihyun event'});
+    const res = await eventAPI.getAttributeOfEvent('description', 1);
+    expect(res).toEqual('This is Sihyun event');
+  });
+
+  test('looks up price', async () => {
+    mockStore.Event.findOne.mockReturnValueOnce({price: 1000});
+    const res = await eventAPI.getAttributeOfEvent('price', 1);
+    expect(res).toEqual(1000);
+  });
+
+  test('looks up thumbnailUrl', async () => {
+    mockStore.Event.findOne.mockReturnValueOnce({thumbnailUrl: 'http://lsh9034'});
+    const res = await eventAPI.getAttributeOfEvent('thumbnailUrl', 1);
+    expect(res).toEqual('http://lsh9034');
+  });
+
+  test('looks up maxParticipantNum', async () => {
+    mockStore.Event.findOne.mockReturnValueOnce({maxParticipantNum: 20});
+    const res = await eventAPI.getAttributeOfEvent('maxParticipantNum', 1);
+    expect(res).toEqual(20);
+  });
+
+  test('looks up hostId', async () => {
+    mockStore.Event.findOne.mockReturnValueOnce({hostId: 18});
+    const res = await eventAPI.getHostIdOfEvent({eventId: 1});
+    expect(res).toEqual(18);
+  });
+
+  test('looks up bookTitle', async () => {
+    mockStore.EventBookClub.findOne.mockReturnValueOnce({bookTitle: 'test book title'});
+    const res = await eventAPI.getAttributeOfEvent('bookTitle', 1);
+    expect(res).toEqual('test book title');
+  });
+
+  test('looks up bookAuthor', async () => {
+    mockStore.EventBookClub.findOne.mockReturnValueOnce({bookAuthor: 'Sihyun Lee'});
+    const res = await eventAPI.getAttributeOfEvent('bookAuthor', 1);
+    expect(res).toEqual('Sihyun Lee');
+  });
+
+  test('looks up bookDescription', async () => {
+    mockStore.EventBookClub.findOne.mockReturnValueOnce({bookDescription: 'This is Sihyun book'});
+    const res = await eventAPI.getAttributeOfEvent('bookDescription', 1);
+    expect(res).toEqual('This is Sihyun book');
+  });
+
+  test('looks up bookISBN', async () => {
+    mockStore.EventBookClub.findOne.mockReturnValueOnce({bookISBN: 987654321123456789});
+    const res = await eventAPI.getAttributeOfEvent('bookISBN', 1);
+    expect(res).toEqual(987654321123456789);
+  });
+
+  test('looks up bookImageUrl', async () => {
+    mockStore.EventBookClub.findOne.mockReturnValueOnce({bookImageUrl: 'http://lsh9034'});
+    const res = await eventAPI.getAttributeOfEvent('bookImageUrl', 1);
+    expect(res).toEqual('http://lsh9034');
   });
 });
 
+describe('[EventAPI.getAttributeOfEventParticipant]', () => {
+  test('throws error if eventId and userId is not passed', async () => {
+    expect(eventAPI.getAttributeOfEventParticipant('')).rejects.toThrow(
+        eventIdIsNotPassedMessage);
+  });
+
+  test('throws error if eventId is not passed', async () => {
+    expect(eventAPI.getAttributeOfEventParticipant('', null, 1)).rejects.toThrow(
+        eventIdIsNotPassedMessage);
+  });
+
+  test('throws error if userId is not passed', async () => {
+    expect(eventAPI.getAttributeOfEventParticipant('', 1)).rejects.toThrow(
+        userIdIsNotPassedMessage);
+  });
+});
