@@ -1,6 +1,6 @@
 module.exports.Tag = {
   name: async ({id}, __, {dataSources}) => {
-    const name = dataSources.tagAPI.getNameOfTag(id);
+    const name = dataSources.tagAPI.getAttributeOfTag('name', id);
     return name;
   },
   events: async ({id}, __, {dataSources}) => {
