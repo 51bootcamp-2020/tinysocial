@@ -4,7 +4,7 @@ import {clientId} from './utils.js';
 import {gql} from 'apollo-boost';
 import {Mutation} from 'react-apollo';
 import {withRouter} from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
+import Alert from '@material-ui/lab/Alert';
 import {Button} from '@material-ui/core';
 import 'typeface-roboto';
 
@@ -34,7 +34,10 @@ class LoginFormGoogle extends Component {
 
   // Google login fail callback function
   responseFail = (err) => {
-    // TODO(Myounghee): Make alert function
+    return (
+        // TODO(Myounghee): Make alert function
+        window.alert(err)
+    );
   };
 
   /**
@@ -45,26 +48,23 @@ class LoginFormGoogle extends Component {
   changeIsMember(isSuccess, token) {
     if (isSuccess) {
       this.setState({isMember: true});
-      // Store user token to localStorage
-      // TODO(Myounghee): Refactor data stored to localStorage
-      localStorage.setItem('token', token);
-    } else {
-      // TODO(Myounghee): Implement processing signin failure
+      // Store user token to cookie.
+      document.cookie = 'token=' + token;
     }
+    this.redirect();
   }
 
   // After authenticated from server, redirect even if success or not.
   redirect = () => {
     if (this.state.isMember)
-      return this.props.history.push('/');
-    else
-      return this.props.history.push('/signup');
+      return this.props.history.push({pathname: '/'});
+    else {
+      // No user information in our db.
+      return this.props.history.push({pathname: '/signup'});
+    }
   };
 
-  /**
-   * Social login button and
-   * Send googleId received from google to server using mutation component
-   */
+  // Social login button and send googleId received from google to server using mutation component.
   render() {
     return (
         <div>
@@ -75,11 +75,11 @@ class LoginFormGoogle extends Component {
                         this.changeIsMember(
                             /* isSucess= */ data.signInWithGoogle.success,
                             /* token= */ data.signInWithGoogle.token);
-                        this.redirect();
                       }}
                     onError={
                       (error) => {
-                        // TODO(Myounghee): Implement query error processing
+                        // Implement query error processing
+                        console.log(error);
                       }
                     }>
             {(execute_mutation) => {
@@ -104,7 +104,6 @@ class LoginFormGoogle extends Component {
                       Sign in with Google
                     </p>
                   </GoogleLogin>
-
               );
             }
             }
