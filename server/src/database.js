@@ -7,17 +7,10 @@ const createStore = async () => {
       // TODO(yun-kwak): Make production DB and code.
       throw new Error('Not implemented');
     case 'dev':
-      if (process.env.DB_PASSWORD === undefined) {
-        throw new Error('Env variable DB_PASSWORD is required');
-      }
-      sequelize = new Sequelize('tinysocial', 'arin_kwak',
-          process.env.DB_PASSWORD, {
-            dialect: 'mariadb',
-            host: 'tinysocial-dev.cwup5u7gf2do.us-west-2.rds.amazonaws.com',
-            dialectOptions: {
-              connectTimeout: 1000, // MariaDB connector option
-            },
-          });
+      sequelize = new Sequelize({
+        dialect: 'sqlite',
+        storage: './database.sqlite',
+      });
       break;
 
     case 'test':
