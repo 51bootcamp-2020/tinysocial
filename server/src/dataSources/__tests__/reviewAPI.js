@@ -1,5 +1,5 @@
 const {ReviewAPI, userIdAndEventIdIsNotPassedMessage} = require('../reviewAPI');
-const {mockStore} = require('./mockStore');
+const {mockStore} = require('../mockStore');
 
 const reviewAPI = new ReviewAPI(mockStore);
 reviewAPI.initialize({context: {userId: 1}});

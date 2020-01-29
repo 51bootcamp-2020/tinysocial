@@ -1,5 +1,5 @@
 const {EventAPI} = require('../eventAPI');
-const {mockStore} = require('./mockStore');
+const {mockStore} = require('../mockStore');
 
 const eventAPI = new EventAPI(mockStore);
 eventAPI.initialize({context: {user: {id: 1}}});
