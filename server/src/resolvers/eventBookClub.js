@@ -64,7 +64,8 @@ module.exports.EventBookClub = {
     const maxParticipantNum = dataSources.eventAPI.getAttributeOfEvent('maxParticipantNum', id);
     return maxParticipantNum;
   },
-  reviews: async ({id}, {userIds}, {userId}) =>{
+  // TODO(yun-kwak): Implement reviews resolver
+  reviews: async ({id}, _, {dataSources}) =>{
     if (userIds === undefined) {
       userIds = userId;
     }
