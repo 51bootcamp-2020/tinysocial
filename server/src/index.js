@@ -10,7 +10,7 @@ const {TagAPI} = require('./dataSources/tagAPI');
 const {UserAPI} = require('./dataSources/userAPI.js');
 
 const {createStore} = require('./database');
-const jwt = require('jsonwebtoken');
+const context = require('./context');
 
 if (process.env.NODE_ENV === undefined) {
   console.error('You have to make .env file to run the server.\n' +
@@ -30,30 +30,11 @@ const dataSources = () => ({
   authAPI: new AuthAPI(store),
 });
 
-const APP_SECRET = process.env.SECRET || 'default';
-
-const context = async ({req}) => {
-  if (!req.headers.authorization) {
-    return {
-      userId: null,
-    };
-  }
-  try {
-    const token = req.headers.authorization;
-    const userId = jwt.verify(token, APP_SECRET);
-    const id = userId.id;
-    return {userId: id};
-  } catch (e) {
-    return {
-      userId: null,
-    };
-  }
-};
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   dataSources,
-  context: context,
+  context,
 });
 
 
