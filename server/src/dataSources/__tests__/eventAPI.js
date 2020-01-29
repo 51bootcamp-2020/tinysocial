@@ -4,6 +4,8 @@ const {
   scheduleIdIsNotPassedMessage,
   eventIdIsNotPassedMessage,
   userIdIsNotPassedMessage,
+  tagIdIsNotPassedMessage,
+  notValidValueMessage,
 } = require('../../errorMessages');
 
 const eventAPI = new EventAPI(mockStore);
@@ -155,12 +157,193 @@ describe('[EventAPI.getAttributeOfEventParticipant]', () => {
   });
 
   test('throws error if eventId is not passed', async () => {
-    expect(eventAPI.getAttributeOfEventParticipant('', null, 1)).rejects.toThrow(
-        eventIdIsNotPassedMessage);
+    expect(eventAPI.getAttributeOfEventParticipant('', null, 1)).
+        rejects.
+        toThrow(
+            eventIdIsNotPassedMessage);
   });
 
   test('throws error if userId is not passed', async () => {
     expect(eventAPI.getAttributeOfEventParticipant('', 1)).rejects.toThrow(
         userIdIsNotPassedMessage);
+  });
+
+  test('returns null when passed invalid eventId', async () => {
+    mockStore.EventParticipant.findOne.mockReturnValueOnce(null);
+    const res = await eventAPI.getAttributeOfEventParticipant('userId',
+        987654321, 1);
+    expect(res).toEqual(null);
+  });
+
+  test('returns null when passed invalid scheduleId', async () => {
+    mockStore.EventParticipant.findOne.mockReturnValueOnce(null);
+    const res = await eventAPI.getAttributeOfEventParticipant('userId', 1,
+        987654321);
+    expect(res).toEqual(null);
+  });
+
+  test('looks up eventId', async () => {
+    mockStore.EventParticipant.findOne.mockReturnValueOnce({eventId: 1});
+    const res = await eventAPI.getAttributeOfEventParticipant('eventId', 1, 2);
+    expect(res).toEqual(1);
+  });
+
+  test('looks up userId', async () => {
+    mockStore.EventParticipant.findOne.mockReturnValueOnce({userId: 2});
+    const res = await eventAPI.getAttributeOfEventParticipant('userId', 1, 2);
+    expect(res).toEqual(2);
+  });
+});
+
+describe('[EventAPI.getHostIdOfEvent]', () => {
+  test('throws error if eventId is not passed', async () => {
+    expect(eventAPI.getHostIdOfEvent()).rejects.toThrow(
+        eventIdIsNotPassedMessage);
+  });
+
+  test('returns null when passed invalid eventId', async () => {
+    mockStore.Event.findOne.mockReturnValueOnce(null);
+    const res = await eventAPI.getHostIdOfEvent({eventId: 987654321});
+    expect(res).toEqual(null);
+  });
+
+  test('looks up hostId', async () => {
+    mockStore.Event.findOne.mockReturnValueOnce({hostId: 2});
+    const res = await eventAPI.getHostIdOfEvent({eventId: 1});
+    expect(res).toEqual(2);
+  });
+});
+
+describe('[EventAPI.getParticipantIdsOfEvent]', () => {
+  test('throws error if eventId is not passed', async () => {
+    expect(eventAPI.getParticipantIdsOfEvent()).rejects.toThrow(
+        eventIdIsNotPassedMessage);
+  });
+
+  test('returns empty array when passed invalid eventId', async () => {
+    mockStore.EventParticipant.findAll.mockReturnValueOnce([]);
+    const res = await eventAPI.getParticipantIdsOfEvent({eventId: 987654321});
+    expect(res).toEqual([]);
+  });
+
+  test('looks up hostId', async () => {
+    mockStore.EventParticipant.findAll.mockReturnValueOnce([{hostId: 1}, {hostId: 2}]);
+    const res = await eventAPI.getParticipantIdsOfEvent({eventId: 1});
+    expect(res).toEqual([{hostId: 1}, {hostId: 2}]);
+  });
+});
+
+describe('[EventAPI.getScheduleIdsOfEvent]', () => {
+  test('throws error if eventId is not passed', async () => {
+    expect(eventAPI.getScheduleIdsOfEvent()).rejects.toThrow(
+        eventIdIsNotPassedMessage);
+  });
+
+  test('returns null when passed invalid eventId', async () => {
+    mockStore.Schedule.findAll.mockReturnValueOnce([]);
+    const res = await eventAPI.getScheduleIdsOfEvent({eventId: 987654321});
+    expect(res).toEqual([]);
+  });
+
+  test('looks up hostId', async () => {
+    mockStore.Schedule.findAll.mockReturnValueOnce([{id: 1}, {id: 2}]);
+    const res = await eventAPI.getScheduleIdsOfEvent({eventId: 1});
+    expect(res).toEqual([{id: 1}, {id: 2}]);
+  });
+});
+
+describe('[EventAPI.getTagIdsOfEvent]', () => {
+  test('throws error if eventId is not passed', async () => {
+    expect(eventAPI.getTagIdsOfEvent()).rejects.toThrow(
+        eventIdIsNotPassedMessage);
+  });
+
+  test('returns empty array when passed invalid eventId', async () => {
+    mockStore.EventTag.findAll.mockReturnValueOnce([]);
+    const res = await eventAPI.getTagIdsOfEvent({eventId: 987654321});
+    expect(res).toEqual([]);
+  });
+
+  test('looks up hostId', async () => {
+    mockStore.EventTag.findAll.mockReturnValueOnce([{tagId: 1}, {tagId: 2}]);
+    const res = await eventAPI.getTagIdsOfEvent({eventId: 1});
+    expect(res).toEqual([{tagId: 1}, {tagId: 2}]);
+  });
+});
+
+describe('[EventAPI.getIdsOfEvent]', () => {
+  test('throws error if tagId is not passed', async () => {
+    expect(eventAPI.getIdsOfEvent({offset: 1, limit: 1})).rejects.toThrow(
+        tagIdIsNotPassedMessage);
+  });
+
+  test('throws error if offset or offset is negative', async () => {
+    expect(eventAPI.getIdsOfEvent({offset: -1, limit: 1, tagIds: [1]})).rejects.toThrow(
+        notValidValueMessage);
+  });
+
+  test('throws error if limit or offset is negative', async () => {
+    expect(eventAPI.getIdsOfEvent({offset: 1, limit: -1, tagIds: [1]})).rejects.toThrow(
+        notValidValueMessage);
+  });
+
+  test('returns empty array when passed invalid tagId', async () => {
+    mockStore.EventTag.findAll.mockReturnValueOnce([]);
+    const res = await eventAPI.getIdsOfEvent({limit: 1, offset: 1, tagIds: [987654321]});
+    expect(res).toEqual([]);
+  });
+
+  test('returns array which contain all element when limit has not been passed', async () => {
+    mockStore.EventTag.findAll.mockReturnValueOnce([{eventId: 1}, {eventId: 2}]);
+    const res = await eventAPI.getIdsOfEvent({offset: 0, tagIds: [1]});
+    expect(res).toEqual([{eventId: 1}, {eventId: 2}]);
+  });
+
+  test('looks up eventIds', async () => {
+    mockStore.EventTag.findAll.mockReturnValueOnce([{event: 1}, {event: 2}]);
+    const res = await eventAPI.getIdsOfEvent({offset: 0, limit: 2, tagIds: [1]});
+    expect(res).toEqual([{event: 1}, {event: 2}]);
+  });
+});
+
+describe('[EventAPI.getUpcomingEventIdsOfEvent]', () => {
+  test('throws error if userId is not passed', async () => {
+    expect(eventAPI.getUpcomingEventIdsOfEvent()).rejects.toThrow(
+        userIdIsNotPassedMessage);
+  });
+
+  test('returns empty array when passed invalid userId', async () => {
+    mockStore.EventParticipant.findAll.mockReturnValueOnce([]);
+    mockStore.Schedule.findAll.mockReturnValueOnce([]);
+    const res = await eventAPI.getUpcomingEventIdsOfEvent({userId: 987654321});
+    expect(res).toEqual([]);
+  });
+
+  test('looks up eventIds', async () => {
+    mockStore.EventParticipant.findAll.mockReturnValueOnce([{eventId: 1}, {eventId: 2}]);
+    mockStore.Schedule.findAll.mockReturnValueOnce([{eventId: 1}]);
+    const res = await eventAPI.getUpcomingEventIdsOfEvent({userId: 1});
+    expect(res).toEqual([{eventId: 1}]);
+  });
+});
+
+describe('[EventAPI.getPastEventIdsOfEvent]', () => {
+  test('throws error if userId is not passed', async () => {
+    expect(eventAPI.getPastEventIdsOfEvent()).rejects.toThrow(
+        userIdIsNotPassedMessage);
+  });
+
+  test('returns empty array when passed invalid userId', async () => {
+    mockStore.EventParticipant.findAll.mockReturnValueOnce([]);
+    mockStore.Schedule.findAll.mockReturnValueOnce([]);
+    const res = await eventAPI.getPastEventIdsOfEvent({userId: 987654321});
+    expect(res).toEqual([]);
+  });
+
+  test('looks up eventIds', async () => {
+    mockStore.EventParticipant.findAll.mockReturnValueOnce([{eventId: 1}, {eventId: 2}]);
+    mockStore.Schedule.findAll.mockReturnValueOnce([{eventId: 1}]);
+    const res = await eventAPI.getPastEventIdsOfEvent({userId: 1});
+    expect(res).toEqual([{eventId: 1}]);
   });
 });
