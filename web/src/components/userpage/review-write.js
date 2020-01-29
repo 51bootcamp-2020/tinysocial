@@ -119,28 +119,6 @@ class ReviewWritePanel extends Component {
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose}>Cancel</Button>
-          {/* <Mutation mutation={REVIEW_MUTATION}
-            variables={{
-              eventId: eventId,
-              title: this.state.title,
-              content: this.state.content,
-              isPublic: this.state.isPublic,
-            }}
-            onCompleted={
-              (data) => {
-                const {title, content} = data.createOrModifyReview
-                handleDone(title, content);
-              }
-            }
-            onError={
-              (error) => {
-                console.log(error);
-              }
-            }>
-              {(reviewMutation) => {
-                return (<Button onClick={reviewMutation}>Done</Button>)
-              }}
-          </Mutation> */}
           <Mutation mutation={REVIEW_MUTATION}
             variables={{
               eventId: eventId,
@@ -166,6 +144,16 @@ class ReviewWritePanel extends Component {
   }
 }
 
-ReviewWritePanel.propTypes = {};
+ReviewWritePanel.propTypes = {
+  bookTitle: PropTypes.string,
+  eventId: PropTypes.number,
+  handleDone: PropTypes.func,
+  onClose: PropTypes.func,
+  review: PropTypes.shape({
+    title: PropTypes.string,
+    content: PropTypes.string,
+    isPublic: PropTypes.bool,
+  })
+};
 
 export default withRouter(ReviewWritePanel);

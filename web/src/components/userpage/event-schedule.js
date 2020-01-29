@@ -51,6 +51,11 @@ class EventSchedule extends Component {
   }
 }
 
-EventSchedule.propTypes = {};
+EventSchedule.propTypes = {
+  index: PropTypes.number,
+  startTime: PropTypes.string,
+  endTime: PropTypes.string,
+  address: PropTypes.string,
+};
 
 export default EventSchedule;

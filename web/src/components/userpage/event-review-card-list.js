@@ -4,7 +4,6 @@ import {Container} from '@material-ui/core';
 import PropTypes from 'prop-types';
 import {Query} from 'react-apollo';
 import React, {Component} from 'react';
-import {SAMPLE_EVENTS} from './sample-data';
 
 export const USER_EVENTS_QUERY = gql`
 query getUserEvents($upcomingOrPast: String!) {
@@ -78,7 +77,7 @@ class EventReviewCardList extends Component {
           // TODO(mskwon1): Add data loading page.
           if (loading) return <p>Fetching Data ...</p>;
           // TODO(mskwon1): Add error page.
-          if (error) return <p>Error</p>;
+          if (error) return <p>{error.message}</p>;
           return (this.renderEventReviewCards(data));
         }}
       </Query>
@@ -94,6 +93,8 @@ class EventReviewCardList extends Component {
   }
 }
 
-EventReviewCardList.propTypes = {};
+EventReviewCardList.propTypes = {
+  currentTab: PropTypes.string,
+};
 
 export default EventReviewCardList;

@@ -83,7 +83,8 @@ class EventReview extends Component {
             onClick={this.handleReviewButtonClick} />
         </Grid>
         <Dialog open={this.state.openWritePanel}
-          onClose={this.handleClose} fullWidth>
+          onClose={this.handleClose}
+          fullWidth>
           <ReviewWritePanel eventId={eventId}
             bookTitle={bookTitle}
             review={review}
@@ -96,6 +97,14 @@ class EventReview extends Component {
   }
 }
 
-EventReview.propTypes = {};
+EventReview.propTypes = {
+  bookTitle: PropTypes.string,
+  eventId: PropTypes.number,
+  review: PropTypes.shape({
+    title: PropTypes.string,
+    content: PropTypes.string,
+    isPublic: PropTypes.bool,
+  }),
+};
 
 export default withRouter(EventReview);

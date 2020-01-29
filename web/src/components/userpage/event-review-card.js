@@ -53,9 +53,10 @@ class EventReviewCard extends Component {
     } = this.props;
     return (
       <Fragment>
-        <Grid container>
-          <Grid item xs></Grid>
-          <Grid item xs={12} sm={8} align='center' style={{paddingLeft: '10px'}}>
+        <Grid container justify='center'>
+          <Grid item xs={12}
+            sm={8}
+            align='center' style={{paddingLeft: '10px'}}>
             {upcoming && (
               <Typography variant='h5'
                 paragraph
@@ -65,7 +66,6 @@ class EventReviewCard extends Component {
               </Typography>
             )}
           </Grid>
-          <Grid item xs></Grid>
         </Grid>
         <Grid container justify='center'>
           {/* <Grid item sm></Grid> */}
@@ -73,7 +73,7 @@ class EventReviewCard extends Component {
             sm={8}
             align='center'
             style={{wordBreak: 'break-all'}}>
-            <img src={require(`../images/sapiens.png`)}
+            <img src={bookImage}
               // src={bookImage}
               style={{paddingBottom: '10px', width: '140px', height: '200px'}}/>
             <Typography variant='h5'>
@@ -103,6 +103,24 @@ class EventReviewCard extends Component {
   }
 }
 
-EventReviewCard.propTypes = {};
+EventReviewCard.propTypes = {
+  id: PropTypes.number,
+  eventTitle: PropTypes.string,
+  bookTitle: PropTypes.string,
+  bookAuthor: PropTypes.string,
+  bookImage: PropTypes.string,
+  schedules: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    startDateTime: PropTypes.string,
+    endDateTime: PropTypes.string,
+    address: PropTypes.string,
+  })),
+  review: PropTypes.shape({
+    title: PropTypes.string,
+    content: PropTypes.string,
+    isPublic: PropTypes.bool,
+  }),
+  upcoming: PropTypes.bool,
+};
 
 export default withRouter(EventReviewCard);

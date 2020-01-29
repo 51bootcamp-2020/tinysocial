@@ -10,16 +10,16 @@ class ReviewWriteButton extends Component {
     // When there is no review of the user.
     if (!userHasReview) {
       return (
-        <Button variant="contained" 
-          color="primary" 
-          startIcon={<CreateIcon />} 
+        <Button variant="contained"
+          color="primary"
+          startIcon={<CreateIcon />}
           onClick={onClick}
           style={{
             justifyContent: 'center',
-            width:'200px',
+            width: '200px',
             height: '36px',
             borderRadius: '18px',
-            textTransform: 'none',  
+            textTransform: 'none',
             backgroundColor: '#009688',
           }}>
           Write
@@ -29,25 +29,28 @@ class ReviewWriteButton extends Component {
 
     // When there is a review of the user.
     return (
-      <Button variant="outlined" 
-        color="primary" 
-        startIcon={<CreateIcon />} 
+      <Button variant="outlined"
+        color="primary"
+        startIcon={<CreateIcon />}
         onClick={onClick}
         style={{
           justifyContent: 'center',
-          width:'200px',
+          width: '200px',
           height: '36px',
           borderRadius: '18px',
-          textTransform: 'none',  
+          textTransform: 'none',
           backgroundColor: '#ffffff',
           color: '#009688',
         }}>
         Edit
       </Button>
-    ); 
+    );
   }
 }
 
-ReviewWriteButton.propTypes = {};
+ReviewWriteButton.propTypes = {
+  userHasReview: PropTypes.bool,
+  onClick: PropTypes.func,
+};
 
 export default ReviewWriteButton;

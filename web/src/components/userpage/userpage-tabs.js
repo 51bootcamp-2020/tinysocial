@@ -49,6 +49,10 @@ class ReviewTabs extends Component {
   }
 }
 
-ReviewTabs.propTypes = {};
+ReviewTabs.propTypes = {
+  classes: PropTypes.object,
+  currentTab: PropTypes.string.isRequired,
+  onTabChange: PropTypes.func.isRequired,
+};
 
 export default withStyles(styles)(ReviewTabs);
