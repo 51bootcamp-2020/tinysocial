@@ -66,6 +66,9 @@ const typeDefs = gql`
           title: String!
           content: String!
           isPublic: Boolean!
+        # If successful, then return True.  
+        joinEvent(
+            orderId: String!
         ): Boolean!
     }
 
