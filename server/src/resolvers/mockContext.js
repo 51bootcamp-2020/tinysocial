@@ -4,6 +4,10 @@ module.exports.mockContext = {
     eventAPI: {
       getAttributeOfSchedule: jest.fn(),
       getTypeOfEvent: jest.fn(),
+      getAttributeOfEvent: jest.fn(),
+      getScheduleIdsOfEvent: jest.fn(),
+      getTagIdsOfEvent: jest.fn(),
+      getParticipantIdsOfEvent: jest.fn(),
     },
     reviewAPI: {
       getAttributeOfReview: jest.fn(),
