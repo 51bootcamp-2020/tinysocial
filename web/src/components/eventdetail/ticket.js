@@ -3,55 +3,53 @@ import {
   Grid,
   Typography,
 } from '@material-ui/core';
-import {gql} from 'apollo-boost';
+import PropTypes from 'prop-types';
+import React, {Component} from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import {
   withRouter,
 } from 'react-router-dom';
-import React, {Component} from 'react';
 
 class Ticket extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      eventId: '',
-      price: '',
-    };
   }
   render() {
-    const {eventId, price} = this.state;
     return (
-      <div>
-        <Grid container
-          direction='column'
-          justify='center'
-          alignItems='center'
-          style={{marginTop: 10, marginBottom: 20}}>
-          {/* TODO(YoonYeoHwan): Get price from query. */}
-          <Typography variant='h6'>
-            ${this.state.price ? this.state.price : 0}
-          </Typography>
-
-          {/* TODO(): Develop payment page and connecting to payment page. */}
-          {/* TODO(): Have to make redirect? */}
-          <Fab style={{
-            width: 300,
-            height: 40,
-            marginTop: 10,
-            color: 'white',
-            background: '#009688',
-            textTransform: 'none'}}
-          onClick={() => {
-            this.props.history.push('./payment');
-          }}
-          variant='extended'>
-            <div>
-              Ticket
-            </div>
-          </Fab>
-        </Grid>
-      </div>
+      <Grid container
+        direction='column'
+        justify='center'
+        alignItems='center'
+        style={{marginTop: 10, marginBottom: 20}}>
+        <Typography variant='h6'>
+          ${this.props.children.price ? this.props.children.price : 0}
+        </Typography>
+        {/* TODO(YoonYeoHwan): Have to fix button width. */}
+        <Fab style={{
+          width: '80%',
+          height: 40,
+          marginTop: 10,
+          color: 'white',
+          background: '#009688',
+          textTransform: 'none'}}
+        onClick={() => {
+          this.props.history.push({
+            pathname: `./payment/${this.props.children.id}`,
+          });
+        }}
+        variant='extended'>
+          <div>
+            Ticket
+          </div>
+        </Fab>
+      </Grid>
     );
   }
 }
+
+Ticket.propTypes = {
+  children: PropTypes.element.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
+};
 
 export default withRouter(Ticket);

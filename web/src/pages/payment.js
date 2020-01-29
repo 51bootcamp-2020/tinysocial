@@ -5,6 +5,8 @@ class Payment extends Component {
     return (
       <div>
         {/* TODO(Myoung-heeSeo): Have to implement payment page. */}
+        {/* TODO(Myoung-heeSeo): Have to delete text */}
+        {/* after develop payment page. */}
         Payment
       </div>
     );

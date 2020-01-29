@@ -1,6 +1,7 @@
 import {
   Grid,
 } from '@material-ui/core';
+import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 
 class Eventthumbnail extends Component {
@@ -11,12 +12,16 @@ class Eventthumbnail extends Component {
           {/* TODO(YoonYeoHwan): Get image src from query. */}
           <div style={{height: '100%', width: '100%', overflow: 'hidden'}}>
             <img style={{height: '100%', width: '100%', objectFit: 'cover'}}
-              src='https://www.zincmedia.com/wp-content/uploads/2016/01/600x600.jpg'/>
+              src={this.props.children.thumbnailUrl}/>
           </div>
         </Grid>
       </div>
     );
   }
 }
+
+Eventthumbnail.propTypes = {
+  children: PropTypes.element.isRequired,
+};
 
 export default Eventthumbnail;
