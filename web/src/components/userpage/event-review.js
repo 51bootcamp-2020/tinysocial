@@ -8,7 +8,6 @@ import React, {Component, Fragment} from 'react';
 import ReviewWriteButton from './review-write-button';
 import ReviewWritePanel from './review-write';
 import {REVIEW_WRITE_TEXT} from '../utils';
-import {withRouter} from 'react-router-dom';
 
 class EventReview extends Component {
   constructor(props) {
@@ -107,4 +106,4 @@ EventReview.propTypes = {
   }),
 };
 
-export default withRouter(EventReview);
+export default EventReview;
