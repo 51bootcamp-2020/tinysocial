@@ -29,5 +29,4 @@ describe('[EventScheduleResolver]', () => {
     const res = await EventSchedule.longitude({id: 1}, {}, mockContext);
     expect(res).toBe(1.111111);
   })
-  
 })
