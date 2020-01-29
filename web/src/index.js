@@ -28,7 +28,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 
-// TODO(YoonYeoHwan): Remove this before merge
+// TODO(YoonYeoHwan): Remove this before merge.
 const resolvers = {
   Query: {
     event: (_, {id}) => {
@@ -117,7 +117,7 @@ const client = new ApolloClient({
   link: concat(authMiddleware, httpLink),
   cache: new InMemoryCache,
 
-  // TODO(YoonYeoHwan): Remove this before merge
+  // TODO(YoonYeoHwan): Remove this before merge.
   resolvers,
 });
 

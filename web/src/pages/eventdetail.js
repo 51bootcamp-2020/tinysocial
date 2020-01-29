@@ -39,6 +39,7 @@ class EventDetail extends Component{
   }
 
   Event = ( event_id ) => {
+    // TODO(YoonYeoHwan): '$id:0' will change to '$id:event_id'.
     return (<Query query={EVENT_DETAIL_REQUEST_QUERY} variables={{$id:0}}>
       {({ loading, error, data }) => {
         if (loading) return 'Loading...';
