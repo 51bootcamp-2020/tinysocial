@@ -11,6 +11,7 @@ import React, {Fragment} from 'react';
 import Signin from './pages/signin';
 import Emailvalidation from './pages/emailvalidation';
 import Checkout from './pages/checkout';
+import JoinEvent from './pages/join-event';
 
 function App() {
   {/* TODO(Myoung-heeSeo) : Add a state to check if the user is logged in now. */}
@@ -20,6 +21,7 @@ function App() {
       <Router>
         <Switch>
           <Route path="/checkout" render={() => <Checkout/>} />
+          <Route path="/join-event" render={() => <JoinEvent/>} />
           <Route path='/signin' render={() => <Signin/>}/>
           <Route path='/eventlist' render={() => <EventList/>}/>
           <Route path='/about' render={() => <About/>}/>
