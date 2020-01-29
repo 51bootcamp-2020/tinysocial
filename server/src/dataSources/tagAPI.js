@@ -28,6 +28,15 @@ class TagAPI extends DataSource {
     });
     return tagIds;
   }
+
+  async getEventIdsOfTag({tagId}) {
+    const eventIds = await this.store.EventTag.findAll({
+      where: {id: tagId},
+      attributes: ['eventId'],
+      raw: true,
+    });
+    return eventIds;
+  }
 }
 
 module.exports={
