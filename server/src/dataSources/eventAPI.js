@@ -2,7 +2,15 @@
 const {DataSource} = require('apollo-datasource');
 const Sequelize = require('sequelize');
 const OP = Sequelize.Op;
-
+const {isUndefinedOrNull} = require('../utils');
+const eventBookClubAttributes = [
+  'eventId',
+  'bookTitle',
+  'bookAuthor',
+  'bookDescription',
+  'bookISBN',
+  'bookImageUrl',
+];
 
 class EventAPI extends DataSource {
   constructor(store) {
@@ -14,192 +22,84 @@ class EventAPI extends DataSource {
     this.context = config.context;
   }
 
-  async getStartDateTimeOfEventSchedule(scheduleId) {
-    return (await this.store.Schedule.findOne({
-      where: {id: scheduleId},
-      attributes: ['startDateTime'],
-      raw: true,
-    })).startDateTime;
-  }
-
-  async getEndDateTimeOfEventSchedule(scheduleId) {
-    return (await this.store.Schedule.findOne({
-      where: {id: scheduleId},
-      attributes: ['endDateTime'],
-      raw: true,
-    })).endDateTime;
-  }
-
-  async getAddressOfEventSchedule(scheduleId) {
-    return (await this.store.Schedule.findOne({
-      where: {id: scheduleId},
-      attributes: ['address'],
-      raw: true,
-    })).address;
-  }
-
-  async getLatitudeOfEventSchedule(scheduleId) {
-    return (await this.store.Schedule.findOne({
-      where: {id: scheduleId},
-      attributes: ['latitude'],
-      raw: true,
-    })).latitude;
-  }
-
-  async getLongitudeOfEventSchedule(scheduleId) {
-    return (await this.store.Schedule.findOne({
-      where: {id: scheduleId},
-      attributes: ['longitude'],
-      raw: true,
-    })).longitude;
-  }
-
-  async getTypeOfEvent(eventId) {
-    return (await this.store.Event.findOne({
+  async getAttributeOfEvent(attributeName, eventId) {
+    if (eventBookClubAttributes.includes(attributeName)) {
+      const event = await this.getAttributeOfEventBookClub(attributeName, eventId);
+      return event;
+    }
+    if (attributeName === 'creationTime') {
+      attributeName = 'createdAt';
+    } else if (attributeName === 'lastUpdatedTime') {
+      attributeName = 'updatedAt';
+    }
+    const event = await this.store.Event.findOne({
       where: {id: eventId},
-      attributes: ['type'],
-      raw: true,
-    })).type;
-  }
-
-  async getHostIdOfEvent({eventId}) {
-    return this.store.Event.findOne({
-      where: {id: eventId},
-      attributes: ['hostId'],
+      attributes: [attributeName],
       raw: true,
     });
+    return (event && isUndefinedOrNull(event[attributeName])) ?
+        event[attributeName] : null;
   }
 
-  async getThumbnailUrlOfEvent({id}) {
-    return (await this.store.Event.findOne({
-      where: {id: id},
-      attributes: ['thumbnailUrl'],
-      raw: true,
-    })).thumbnailUrl;
-  }
-
-  async getCreationTimeOfEvent({id}) {
-    return (await this.store.Event.findOne({
-      where: {id: id},
-      attributes: ['createdAt'],
-      raw: true,
-    })).createdAt;
-  }
-
-  async getLastUpdatedTime({id}) {
-    return (await this.store.Event.findOne({
-      where: {id: id},
-      attributes: ['updatedAt'],
-      raw: true,
-    })).updatedAt;
-  }
-
-  async getScheduleIdsOfEvent({eventId}) {
-    return this.store.Schedule.findAll({
+  async getAttributeOfEventBookClub(attributeName, eventId) {
+    const eventBookClub = this.store.findOne({
       where: {id: eventId},
+      attributes: [attributeName],
+      raw: true,
+    });
+    return (eventBookClub && isUndefinedOrNull(eventBookClub[attributeName])) ?
+        eventBookClub[attributeName] : null;
+  }
+
+  async getAttributeOfSchedule(attributeName, scheduleId) {
+    const schedule = await this.store.Schedule.findOne({
+      where: {id: scheduleId},
+      attributes: [attributeName],
+      raw: true,
+    });
+    return (schedule && isUndefinedOrNull(schedule[attributeName])) ?
+        schedule[attributeName] : null;
+  }
+
+  async getAttributeOfEventParticipant(attributeName, eventId, userId) {
+    const eventParticipant = await this.store.EventParticipant.findOne({
+      where: {
+        eventId: eventId,
+        userId: userId,
+      },
+      attributes: attributeName,
+      raw: true,
+    });
+    return (eventParticipant && isUndefinedOrNull(eventParticipant[attributeName])) ?
+        eventParticipant[attributeName] : null;
+  }
+  async getParticipantIdsOfEvent({eventId}) {
+    const participantIds = await this.store.EventParticipant.findAll({
+      where: {eventId: eventId},
+      attributes: ['userId'],
+    });
+    return participantIds;
+  }
+  async getScheduleIdsOfEvent({eventId}) {
+    const schduleIds = await this.store.Schedule.findAll({
+      where: {eventId: eventId},
       attributes: ['id'],
       raw: true,
     });
-  }
-
-  async getTitleOfEvent({id}) {
-    return (await this.store.Event.findOne({
-      where: {id: id},
-      attributes: ['title'],
-      raw: true,
-    })).title;
-  }
-
-  async getDescriptionOfEvent({id}) {
-    return (await this.store.Event.findOne({
-      where: {id: id},
-      attributes: ['description'],
-      raw: true,
-    })).description;
-  }
-
-  async getPriceOfEvent({id}) {
-    return (await this.store.Event.findOne({
-      where: {id: id},
-      attributes: ['price'],
-      raw: true,
-    })).price;
-  }
-
-  async getBookImageUrlOfEvent({id}) {
-    return (await this.store.EventBookClub.findOne({
-      where: {id: id},
-      attributes: ['bookImageUrl'],
-      raw: true,
-    })).bookImageUrl;
-  }
-
-  async getBookTitleOfEvent({id}) {
-    return (await this.store.EventBookClub.findOne({
-      where: {id: id},
-      attributes: ['bookTitle'],
-      raw: true,
-    })).bookTitle;
-  }
-
-  async getBookAuthorOfEvent({id}) {
-    return (await this.store.EventBookClub.findOne({
-      where: {id: id},
-      attributes: ['bookAuthor'],
-      raw: true,
-    })).bookAuthor;
-  }
-
-  async getBookDescriptionOfEvent({id}) {
-    return (await this.store.EventBookClub.findOne({
-      where: {id: id},
-      attributes: ['bookDescription'],
-      raw: true,
-    })).bookDescription;
-  }
-
-  async getBookISBNOfEvent({id}) {
-    return (await this.store.EventBookClub.findOne({
-      where: {id: id},
-      attributes: ['bookISBN'],
-      raw: true,
-    })).bookISBN;
+    return schduleIds;
   }
 
   async getTagIdsOfEvent({eventId}) {
-    return this.store.EventTag.findAll({
+    const tagIds = await this.store.EventTag.findAll({
       where: {id: eventId},
       attributes: ['tagId'],
       raw: true,
     });
-  }
-
-  async getParticipantIdsOfEvent({eventId}) {
-    return this.store.EventParticipant.findAll({
-      where: {id: eventId},
-      attributes: ['userId'],
-      raw: true,
-    });
-  }
-
-  async getMaxParticipantNumOfEvent({id}) {
-    return (await this.store.Event.findOne({
-      where: {id: id},
-      attributes: ['maxParticipantNum'],
-      raw: true,
-    })).maxParticipantNum;
-  }
-
-  async getIdOfEvent(eventId) {
-    return this.store.Event.findOne({
-      where: {id: eventId},
-      attributes: ['id'],
-      raw: true,
-    });
+    return tagIds;
   }
 
   async getIdsOfEvent({limit, offset, tagIds, order}) {
-    return this.store.EventTag.findAll({
+    const event = await this.store.EventTag.findAll({
       where: {tagId: tagIds},
       attributes: ['eventId'],
       limit: limit,
@@ -207,9 +107,10 @@ class EventAPI extends DataSource {
       order: order,
       raw: true,
     });
+    return event;
   }
 
-  async getUpcomingEventIdsOfEvent(userId) {
+  async getUpcomingEventIdsOfEvent({userId}) {
     const events = await this.store.EventParticipant.findAll({
       where: {userId},
       attributes: ['eventId'],
@@ -227,7 +128,7 @@ class EventAPI extends DataSource {
     return upcomingEvents;
   }
 
-  async getPastEventIdsOfEvent(userId) {
+  async getPastEventIdsOfEvent({userId}) {
     const events = await this.store.EventParticipant.findAll({
       where: {userId},
       attributes: ['eventId'],
@@ -243,13 +144,6 @@ class EventAPI extends DataSource {
       raw: true,
     });
     return upcomingEvents;
-  }
-  async getEventIdsOfTag(tagId) {
-    return this.store.EventTag.findAll({
-      where: {id: tagId},
-      attributes: ['eventId'],
-      raw: true,
-    });
   }
 }
 module.exports={
