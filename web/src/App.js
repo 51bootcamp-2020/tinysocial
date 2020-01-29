@@ -13,6 +13,8 @@ import NavBar from './components/navigation/navbar';
 import React from 'react';
 import SignInUp from './pages/signInUp';
 import UserPage from './pages/userpage';
+import Checkout from './pages/checkout';
+import JoinEvent from './pages/join-event';
 
 function App() {
   return (
