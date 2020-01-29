@@ -47,6 +47,10 @@ const typeDefs = gql`
         ): AuthResponse!
         # If successful, then return True.  
         logout: Boolean!
+        # If successful, then return True.  
+        joinEvent(
+            orderId: String!
+        ): Boolean!
     }
 
     input EventFilter {
