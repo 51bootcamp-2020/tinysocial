@@ -3,6 +3,12 @@ const {DataSource} = require('apollo-datasource');
 const Sequelize = require('sequelize');
 const OP = Sequelize.Op;
 const {isUndefinedOrNull} = require('../utils');
+const {
+  userIdIsNotPassedMessage,
+  eventIdIsNotPassedMessage,
+  scheduleIdIsNotPassedMessage,
+  tagIdIsNotPassedMessage,
+} = require('../errorMessages');
 const eventBookClubAttributes = [
   'eventId',
   'bookTitle',
@@ -23,6 +29,9 @@ class EventAPI extends DataSource {
   }
 
   async getAttributeOfEvent(attributeName, eventId) {
+    if (eventId === undefined || eventId === null) {
+      throw new Error(eventIdIsNotPassedMessage);
+    }
     if (eventBookClubAttributes.includes(attributeName)) {
       const event = await this.getAttributeOfEventBookClub(attributeName, eventId);
       return event;
@@ -42,6 +51,9 @@ class EventAPI extends DataSource {
   }
 
   async getAttributeOfEventBookClub(attributeName, eventId) {
+    if (eventId === undefined || eventId === null) {
+      throw new Error(eventIdIsNotPassedMessage);
+    }
     const eventBookClub = this.store.findOne({
       where: {id: eventId},
       attributes: [attributeName],
@@ -52,6 +64,9 @@ class EventAPI extends DataSource {
   }
 
   async getAttributeOfSchedule(attributeName, scheduleId) {
+    if (scheduleId === undefined || scheduleId === null) {
+      throw new Error(scheduleIdIsNotPassedMessage);
+    }
     const schedule = await this.store.Schedule.findOne({
       where: {id: scheduleId},
       attributes: [attributeName],
@@ -62,6 +77,12 @@ class EventAPI extends DataSource {
   }
 
   async getAttributeOfEventParticipant(attributeName, eventId, userId) {
+    if (eventId === undefined || eventId === null) {
+      throw new Error(eventIdIsNotPassedMessage);
+    }
+    if (userId === undefined || userId === null) {
+      throw new Error(userIdIsNotPassedMessage);
+    }
     const eventParticipant = await this.store.EventParticipant.findOne({
       where: {
         eventId: eventId,
@@ -74,6 +95,9 @@ class EventAPI extends DataSource {
         eventParticipant[attributeName] : null;
   }
   async getParticipantIdsOfEvent({eventId}) {
+    if (eventId === undefined || eventId === null) {
+      throw new Error(eventIdIsNotPassedMessage);
+    }
     const participantIds = await this.store.EventParticipant.findAll({
       where: {eventId: eventId},
       attributes: ['userId'],
@@ -81,6 +105,9 @@ class EventAPI extends DataSource {
     return participantIds;
   }
   async getScheduleIdsOfEvent({eventId}) {
+    if (eventId === undefined || eventId === null) {
+      throw new Error(eventIdIsNotPassedMessage);
+    }
     const schduleIds = await this.store.Schedule.findAll({
       where: {eventId: eventId},
       attributes: ['id'],
@@ -90,6 +117,9 @@ class EventAPI extends DataSource {
   }
 
   async getTagIdsOfEvent({eventId}) {
+    if (eventId === undefined || eventId === null) {
+      throw new Error(eventIdIsNotPassedMessage);
+    }
     const tagIds = await this.store.EventTag.findAll({
       where: {id: eventId},
       attributes: ['tagId'],
@@ -99,6 +129,9 @@ class EventAPI extends DataSource {
   }
 
   async getIdsOfEvent({limit, offset, tagIds, order}) {
+    if (tagIds === undefined || tagIds === null) {
+      throw new Error(tagIdIsNotPassedMessage);
+    }
     const event = await this.store.EventTag.findAll({
       where: {tagId: tagIds},
       attributes: ['eventId'],
@@ -111,6 +144,9 @@ class EventAPI extends DataSource {
   }
 
   async getUpcomingEventIdsOfEvent({userId}) {
+    if (userId === undefined || userId === null) {
+      throw new Error(userIdIsNotPassedMessage);
+    }
     const events = await this.store.EventParticipant.findAll({
       where: {userId},
       attributes: ['eventId'],
@@ -129,6 +165,9 @@ class EventAPI extends DataSource {
   }
 
   async getPastEventIdsOfEvent({userId}) {
+    if (userId === undefined || userId === null) {
+      throw new Error(userIdIsNotPassedMessage);
+    }
     const events = await this.store.EventParticipant.findAll({
       where: {userId},
       attributes: ['eventId'],
