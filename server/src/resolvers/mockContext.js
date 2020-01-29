@@ -1,7 +1,9 @@
 module.exports.mockContext = {
   dataSources: {
     authAPI: { },
-    eventAPI: { },
+    eventAPI: {
+      getAttributeOfSchedule: jest.fn(),
+    },
     reviewAPI: {
       getAttributeOfReview: jest.fn(),
       createOrModifyOfReview: jest.fn(),

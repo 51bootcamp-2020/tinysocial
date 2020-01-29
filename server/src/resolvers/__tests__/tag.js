@@ -3,7 +3,7 @@ const {mockContext} = require('../mockContext');
 
 const {getAttributeOfTag, getEventIdsOfTag} = mockContext.dataSources.tagAPI;
 
-describe('[TagResolver.name]', () => {
+describe('[TagResolver]', () => {
   test('returns name', async () => {
     getAttributeOfTag.mockReturnValueOnce('ThisIsTagName1');
     const res = await Tag.name({id: 1}, {}, mockContext);

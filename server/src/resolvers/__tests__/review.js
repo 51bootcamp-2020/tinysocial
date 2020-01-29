@@ -3,7 +3,7 @@ const {mockContext} = require('../mockContext');
 
 const {getAttributeOfReview, createOrModifyOfReview} = mockContext.dataSources.reviewAPI;
 
-describe('[ReviewResolver.title]', () => {
+describe('[ReviewResolver]', () => {
   test('returns title', async () => {
     getAttributeOfReview.mockReturnValueOnce('ThisIsReviewTitle1');
     const res = await Review.title({userId: 1, eventId: 1}, {}, mockContext);
