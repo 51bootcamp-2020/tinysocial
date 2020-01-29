@@ -40,12 +40,7 @@ class PaypalPayment extends Component {
             alert('Transaction completed by ' + details.payer.name.given_name);
 
             // Call the page to save the transaction
-            return fetch('/join-event', {
-              method: 'post',
-              body: JSON.stringify({
-                orderID: data.orderID,
-              }),
-            });
+            return fetch(`/join-event/${this.state.eventId}/${data.orderID}`);
           });
         }}
         options={{
