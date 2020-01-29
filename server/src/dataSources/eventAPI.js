@@ -8,6 +8,7 @@ const {
   eventIdIsNotPassedMessage,
   scheduleIdIsNotPassedMessage,
   tagIdIsNotPassedMessage,
+  notValidValueMessage,
 } = require('../errorMessages');
 const eventBookClubAttributes = [
   'eventId',
@@ -146,6 +147,9 @@ class EventAPI extends DataSource {
     if (tagIds === undefined || tagIds === null) {
       throw new Error(tagIdIsNotPassedMessage);
     }
+    if (limit < 0 || offset < 0) {
+      throw new Error(notValidValueMessage);
+    }
     const event = await this.store.EventTag.findAll({
       where: {tagId: tagIds},
       attributes: ['eventId'],
@@ -166,10 +170,10 @@ class EventAPI extends DataSource {
       attributes: ['eventId'],
       raw: true,
     });
-    const eventId = events.eventId;
+    const eventIds = events.map((element) => (element.eventId));
     const upcomingEvents = await this.store.Schedule.findAll({
       where: {
-        eventId,
+        eventId: eventIds,
         startDateTime: {[OP.gt]: new Date()},
       },
       attributes: ['eventId'],
@@ -187,10 +191,10 @@ class EventAPI extends DataSource {
       attributes: ['eventId'],
       raw: true,
     });
-    const eventId = events.eventId;
+    const eventIds = events.map((element) => (element.eventId));
     const upcomingEvents = await this.store.Schedule.findAll({
       where: {
-        eventId,
+        eventId: eventIds,
         startDateTime: {[OP.lte]: new Date()},
       },
       attributes: ['eventId'],
