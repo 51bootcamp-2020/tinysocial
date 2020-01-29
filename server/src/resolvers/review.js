@@ -7,10 +7,9 @@ module.exports.Review = {
     const content = dataSources.reviewAPI.getAttributeOfReview('content', userId, eventId);
     return content;
   },
-  author: async ({userId}) => {
-    return {
-      id: userId,
-    };
+  author: async ({userId, eventId}, _, {dataSources}) => {
+    const author = dataSources.reviewAPI.getAttributeOfReview('author', userId, eventId);
+    return author;
   },
   isPublic: async ({userId, eventId}, _, {dataSources}) => {
     const isPublic = dataSources.reviewAPI.getAttributeOfReview(
