@@ -1,58 +1,45 @@
 import {
   Box,
   Grid,
-  makeStyles,
   Typography,
 } from '@material-ui/core';
-import React from 'react';
+import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 
-// TODO(YoonYeoHwan): Combine with another useStyles(constants.js) after merging
-const useStyles = makeStyles(theme => ({
-  tags: {
-    margin: 3,
-    borderRadius: 5,
-    borderColor: '#c7c7c7',
-    paddingLeft: 12,
-    paddingRight: 12,
-    paddingTop: 5,
-    paddingBottom: 5,
-  },
-}));
-
-function Tags() {
-  const classes = useStyles();
-  return (
-    // TODO(YoonYeoHwan): Get event tags from query.
-    <div>
+class Tags extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    const tagList = [];
+    const {event} = this.props;
+    for (let i=0; i<event.tags.length; i++) {
+      tagList.push(
+          <Box border={1} style={{
+            borderColor: '#c7c7c7',
+            borderRadius: 5,
+            margin: 3,
+            padding: 5,
+            textAlign: 'center',
+            width: 'max-content',
+          }}>
+            <Typography variant='body2'>
+              {event.tags[i]}
+            </Typography>
+          </Box>,
+      );
+    }
+    return (
       <Grid container direction='row'>
-        <Box className={classes.tags} border={1}>
-          <Typography variant='body2'>
-            Science
-          </Typography>
-        </Box>
-        <Box className={classes.tags} border={1}>
-          <Typography variant='body2'>
-            History
-          </Typography>
-        </Box>
-        <Box className={classes.tags} border={1}>
-          <Typography variant='body2'>
-            Non fiction
-          </Typography>
-        </Box>
-        <Box className={classes.tags} border={1}>
-          <Typography variant='body2'>
-            tag
-          </Typography>
-        </Box>
-        <Box className={classes.tags} border={1}>
-          <Typography variant='body2'>
-            Silicon Valley Bootcamp
-          </Typography>
-        </Box>
+        {tagList}
       </Grid>
-    </div>
-  );
+    );
+  }
+}
+
+Tags.propTypes = {
+  children: PropTypes.element.isRequired,
+  event: PropTypes.element.isRequired,
 }
 
 export default Tags;

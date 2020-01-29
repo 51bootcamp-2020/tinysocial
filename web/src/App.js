@@ -4,10 +4,12 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
+import Emailvalidation from './pages/emailvalidation';
 import Eventdetail from './pages/eventdetail';
 import EventList from './pages/eventlist';
 import Landing from './pages/landing';
 import NavBar from './components/navigation/navbar';
+import Payment from './pages/payment';
 import React, {Fragment} from 'react';
 import SignInUp from './pages/signInUp';
 import Emailvalidation from './pages/emailvalidation';
@@ -23,7 +25,6 @@ function App() {
   return (
     <Fragment>
       <NavBar/>
-      {/* TODO(YoonYeoHwan): Have to delete after develop event detail page */}
       <Router>
         <Switch>
           <Route path='/about' render={() => <About/>}/>
