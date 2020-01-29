@@ -9,4 +9,5 @@ module.exports = {
   eventIdIsNotPassedMessage: 'You have to pass eventId',
   scheduleIdIsNotPassedMessage: 'You have to pass scheduleId',
   userIdIsNotPassedMessage: 'You have to pass userId',
+  tagIdIsNotPassedMessage: 'You have to pass tagId',
 };
