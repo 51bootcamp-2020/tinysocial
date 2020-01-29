@@ -1,6 +1,7 @@
 /* eslint-disable require-jsdoc */
 const {DataSource} = require('apollo-datasource');
-const Sequelize = require('sequelize');
+
+const userIdIsNotPassedMessage = 'You have to pass userId';
 
 class UserAPI extends DataSource {
   constructor(store) {
@@ -12,46 +13,28 @@ class UserAPI extends DataSource {
     this.context = config.context;
   }
 
-  async getFirstNameOfUser(userId) {
-    return this.store.User.findOne({
+  async getAttributeOfUser(attributeName, userId) {
+    if (userId === undefined) {
+      throw new Error(userIdIsNotPassedMessage);
+    }
+    if (attributeName === 'registrationDate') {
+      attributeName = 'createdAt';
+    }
+    const user = await this.store.User.findOne({
       where: {
         id: userId,
       },
-      attributes: ['firstName'],
+      attributes: [attributeName],
       raw: true,
     });
-  }
-
-  async getLastNameOfUser(userId) {
-    return this.store.User.findOne({
-      where: {
-        id: userId,
-      },
-      attributes: ['lastName'],
-      raw: true,
-    });
-  }
-
-  async getEmailOfUser(userId) {
-    return this.store.User.findOne({
-      where: {
-        id: userId,
-      },
-      attributes: ['email'],
-      raw: true,
-    });
+    return (user && user[attributeName]) ? user[attributeName] : null;
   }
 
   async getAgeOfUser(userId) {
     // TODO(yun-kwak): Test this.
     const today = new Date();
-    const birthDate = await this.store.User.findOne({
-      where: {
-        id: userId,
-      },
-      attributes: ['birthday'],
-      raw: true,
-    });
+    const birthDate = await this.getAttributeOfUser('birthday',
+        userId);
     let age = today.getFullYear() - birthDate.getFullYear();
     const m = today.getMonth() - birthDate.getMonth();
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
@@ -60,77 +43,11 @@ class UserAPI extends DataSource {
     return age;
   }
 
-  async getAddressOfUser(userId) {
-    return this.store.User.findOne({
-      where: {
-        id: userId,
-      },
-      attributes: ['address'],
-    });
-  }
-
-  async getPhoneOfUser(userId) {
-    return this.store.User.findOne({
-      where: {
-        id: userId,
-      },
-      attributes: ['phone'],
-      raw: true,
-    });
-  }
-
-  async getSelfDescriptionOfUser(userId) {
-    return this.store.User.findOne({
-      where: {
-        id: userId,
-      },
-      attributes: ['selfDescription'],
-      raw: true,
-    });
-  }
-
-  async getBirthdayOfUser(userId) {
-    return this.store.User.findOne({
-      where: {
-        id: userId,
-      },
-      attributes: ['birthday'],
-      raw: true,
-    });
-  }
-
-  async getRegistrationDateOfUser(userId) {
-    return this.store.User.findOne({
-      where: {
-        id: userId,
-      },
-      attributes: [['createdAt', 'registrationDate']],
-      raw: true,
-    });
-  }
-
-  async getProfileImgUrlOfUser(userId, {arg}) {
-    return this.store.User.findOne({
-      where: {
-        id: userId,
-      },
-      attributes: ['profileImgUrl'],
-      raw: true,
-    });
-  }
-
-  async getLastInteractionTimeOfUser(userId) {
-    return this.store.User.findOne({
-      where: {
-        id: userId,
-      },
-      attributes: ['lastInteractionTime'],
-      raw: true,
-    });
-  }
-
   async getHostedEventIdsOfUser({userId}) {
-    return this.store.Event.findOne({
+    if (userId === undefined) {
+      throw new Error(userIdIsNotPassedMessage);
+    }
+    return this.store.Event.findAll({
       where: {
         host: userId,
       },
@@ -140,7 +57,10 @@ class UserAPI extends DataSource {
   }
 
   async getParticipatedEventIdsOfUser({userId}) {
-    return this.store.EventParticipant.findOne({
+    if (userId === undefined) {
+      throw new Error(userIdIsNotPassedMessage);
+    }
+    return this.store.EventParticipant.findAll({
       where: {
         userId,
       },
@@ -157,17 +77,9 @@ class UserAPI extends DataSource {
       raw: true,
     });
   }
-
-  async getAuthorOfReview({userId}) {
-    const author = await this.store.User.findOne({
-      where: {id: userId},
-      attributes: ['id'],
-      raw: true,
-    });
-    return author;
-  }
 }
 
 module.exports = {
   UserAPI,
+  userIdIsNotPassedMessage,
 };
