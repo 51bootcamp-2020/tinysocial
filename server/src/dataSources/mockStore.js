@@ -7,7 +7,10 @@ module.exports.mockStore = {
     findOne: jest.fn(),
     findAll: jest.fn(),
   },
-  EventBookClub: {},
+  EventBookClub: {
+    findOne: jest.fn(),
+    findAll: jest.fn(),
+  },
   EventParticipant: {
     findOne: jest.fn(),
     findAll: jest.fn(),
