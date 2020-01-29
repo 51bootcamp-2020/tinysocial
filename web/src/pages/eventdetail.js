@@ -76,9 +76,9 @@ class EventDetail extends Component{
 
   render() {
     return (
-      <div>
+      <>
         {this.Event()}
-      </div>
+      </>
     );
   }
 }
