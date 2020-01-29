@@ -15,7 +15,9 @@ module.exports.mockStore = {
     findOne: jest.fn(),
     findAll: jest.fn(),
   },
-  EventTag: {},
+  EventTag: {
+    findAll: jest.fn(),
+  },
   Review: {
     findAll: jest.fn(),
     findOne: jest.fn(),
@@ -24,6 +26,7 @@ module.exports.mockStore = {
   },
   Schedule: {
     findOne: jest.fn(),
+    findAll: jest.fn(),
   },
   Tag: {
     findOne: jest.fn(),
