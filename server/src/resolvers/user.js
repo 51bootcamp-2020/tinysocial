@@ -1,24 +1,24 @@
 module.exports.User = {
   firstName: async ({id}, _, {dataSources}) => {
-    return dataSources.userAPI.getFirstNameOfUser(id);
+    return dataSources.userAPI.getAttributeOfUser('firstName', id);
   },
   lastName: async ({id}, _, {dataSources}) => {
-    return dataSources.userAPI.getLastNameOfUser(id);
+    return dataSources.userAPI.getAttributeOfUser('lastName', id);
   },
   email: async ({id}, _, {dataSources}) => {
-    return dataSources.userAPI.getEmailOfUser(id);
+    return dataSources.userAPI.getAttributeOfUser('email', id);
   },
   age: async ({id}, _, {dataSources}) => {
     return dataSources.userAPI.getAgeOfUser(id);
   },
   address: async ({id}, _, {dataSources}) => {
-    return dataSources.userAPI.getAddressOfUser(id);
+    return dataSources.userAPI.getAttributeOfUser('address', id);
   },
   phone: async ({id}, _, {dataSources}) => {
-    return dataSources.userAPI.getPhoneOfUser(id);
+    return dataSources.userAPI.getAttributeOfUser('phone', id);
   },
   selfDescription: async ({id}, _, {dataSources}) => {
-    return dataSources.userAPI.getSelfDescriptionOfUser(id);
+    return dataSources.userAPI.getAttributeOfUser('selfDescription', id);
   },
   hostedEvents: async ({id}, _, {dataSources}) => {
     return dataSources.eventAPI.getHostedEventIdsOfUser({userId: id});
@@ -27,12 +27,12 @@ module.exports.User = {
     return dataSources.eventAPI.getParticipatedEventIdsOfUser({userId: id});
   },
   birthday: async ({id}, _, {dataSources}) => {
-    return dataSources.userAPI.getBirthdayOfUser({userId: id});
+    return dataSources.userAPI.getAttributeOfUser('birthday', id);
   },
   registrationDate: async ({id}, _, {dataSources}) => {
-    return dataSources.userAPI.getRegistrationDateOfUser({userId: id});
+    return dataSources.userAPI.getAttributeOfUser('registrationDate', id);
   },
   profileImgUrl: async ({id}, _, {dataSources}) => {
-    return dataSources.userAPI.getProfileImgUrlOfUser({userId: id});
+    return dataSources.userAPI.getAttributeOfUser('profileImgUrl', id);
   },
 };
