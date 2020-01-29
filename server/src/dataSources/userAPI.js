@@ -31,6 +31,9 @@ class UserAPI extends DataSource {
   }
 
   async getAgeOfUser(userId) {
+    if (userId === undefined) {
+      throw new Error(userIdIsNotPassedMessage);
+    }
     // TODO(yun-kwak): Test this.
     const today = new Date();
     const birthDate = await this.getAttributeOfUser('birthday',
@@ -65,15 +68,6 @@ class UserAPI extends DataSource {
         userId,
       },
       attributes: [['eventId', 'id']],
-      raw: true,
-    });
-  }
-
-  // TODO(seongjae): Rename this function
-  async getIdOfUser(userId) {
-    return this.store.User.findOne({
-      where: {id: userId},
-      attributes: ['id'],
       raw: true,
     });
   }
