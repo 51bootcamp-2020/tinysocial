@@ -20,6 +20,7 @@ function App() {
       <NavBar/>
       <Switch>
         <Route path="/checkout" render={() => <Checkout/>} />
+        <Route path="/join-event" render={() => <JoinEvent/>} />
         <Route path='/about' render={() => <About/>}/>
         <Route path='/emailvalidation' render={() => <Emailvalidation/>}/>
         <Route path='/error' render={() => <Error/>}/>
