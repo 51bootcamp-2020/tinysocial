@@ -8,10 +8,10 @@ describe('[TagResolver]', () => {
     getAttributeOfTag.mockReturnValueOnce('ThisIsTagName1');
     const res = await Tag.name({id: 1}, {}, mockContext);
     expect(res).toBe('ThisIsTagName1');
-  })
+  });
   test('returns events', async () => {
     getEventIdsOfTag.mockReturnValueOnce([{eventId: 1}]);
     const res = await Tag.events({id: 1}, {}, mockContext);
     expect(res).toEqual([{eventId: 1}]);
-  })
-})
+  });
+});
