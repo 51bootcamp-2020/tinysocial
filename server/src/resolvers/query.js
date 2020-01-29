@@ -20,12 +20,11 @@ module.exports.Query = {
   },
 
   event: async (_, {id}, {dataSources}) => {
-    const eventId = await dataSources.eventAPI.getIdOfEvent(id);
-    return eventId;
+    return {id};
   },
 
   me: async (_, __, {userId}) => {
-    return userId;
+    return {id: userId};
   },
 
   user: async (_, {userId}, {dataSources}) => {
