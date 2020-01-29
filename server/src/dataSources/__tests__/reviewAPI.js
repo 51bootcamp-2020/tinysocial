@@ -1,58 +1,48 @@
-const {ReviewAPI} = require('../reviewAPI');
+const {ReviewAPI, userIdAndEventIdIsNotPassedMessage} = require('../reviewAPI');
 const {mockStore} = require('./mockStore');
 
 const reviewAPI = new ReviewAPI(mockStore);
 reviewAPI.initialize({context: {userId: 1}});
 
-describe('[ReviewAPI.getTitleOfReview', () => {
-  test('looks up title of review', async () => {
-    mockStore.Review.findOne.mockReturnValueOnce({title: 'ThisIsReviewTitle1'});
-    const res = await reviewAPI.getTitleOfReview({userId: 1, eventId: 1});
-    expect(res).toEqual('ThisIsReviewTitle1');
+describe('[ReviewAPI.getAttributeOfReview]', () => {
+  test('throws error if userId is not passed', async () => {
+    expect(reviewAPI.getAttributeOfReview()).rejects.toThrow(
+        userIdAndEventIdIsNotPassedMessage);
   });
-  test('returns null for invalid input', async () => {
-    mockStore.Review.findOne.mockReturnValueOnce(null);
-    const res = await reviewAPI.getTitleOfReview({userId: 22, eventId: 22});
-    expect(res).toEqual(null);    
-  });
-});
 
-describe('[ReviewAPI.getContentOfReview', () => {
-  test('looks up content of review', async () => {
-    mockStore.Review.findOne.mockReturnValueOnce({content: 'ThisIsReviewContent1'});
-    const res = await reviewAPI.getContentOfReview({userId: 1, eventId: 1});
-    expect(res).toEqual('ThisIsReviewContent1');
-  });
-  test('returns null for invalid input', async () => {
+  test('returns null if non-existing review\'s PK is passed', async () => {
     mockStore.Review.findOne.mockReturnValueOnce(null);
-    const res = await reviewAPI.getContentOfReview({userId: 22, eventId: 22});
-    expect(res).toEqual(null);    
-  });
-});
-
-describe('[ReviewAPI.getIsPublicOfReview', () => {
-  test('looks up isPublic of review', async () => {
-    mockStore.Review.findOne.mockReturnValueOnce({isPublic: true});
-    const res = await reviewAPI.getIsPublicOfReview({userId: 1, eventId: 1});
-    expect(res).toBe(true);
-  });
-  test('returns null for invalid input', async () => {
-    mockStore.Review.findOne.mockReturnValueOnce(null);
-    const res = await reviewAPI.getContentOfReview({userId: 22, eventId: 22});
+    const res = await reviewAPI.getAttributeOfReview('title', 42, 42);
     expect(res).toEqual(null);
   });
-});
 
-describe('[ReviewAPI.getIdsOfReview', () => {
-  test('looks up userId and EventId of review', async () => {
-    mockStore.Review.findAll.mockReturnValueOnce([{userId: 1, eventId: 1}]);
-    const res = await reviewAPI.getIdsOfReview({userId: 1, eventId: 1});
-    expect(res).toEqual([{userId: 1, eventId: 1}]);
+  test('throws error if non-existing attributeName is passed ', async () => {
+    mockStore.Review.findOne.mockImplementationOnce(() => {
+      throw new Error('Unknown column');
+    });
+    expect(reviewAPI.getAttributeOfReview('ids', 42, 42)).rejects.
+        toThrow('Unknown column');
   });
-  test('returns null for invalid input', async () => {
-    mockStore.Review.findAll.mockReturnValueOnce(null);
-    const res = await reviewAPI.getIdsOfReview({userId: 22, eventId: 22});
-    expect(res).toEqual(null);
+
+  test('returns title if existing attributeName is passed ', async () => {
+    mockStore.Review.findOne.mockReturnValueOnce({title:
+        'Yuval Noah Harari is GENIUS'});
+    const res = await reviewAPI.getAttributeOfReview('title', 42, 42);
+    expect(res).toEqual('Yuval Noah Harari is GENIUS');
+  });
+
+  test('returns content if existing attributeName is passed ', async () => {
+    mockStore.Review.findOne.mockReturnValueOnce({content:
+        'Yuval Noah Harari is GENIUS'});
+    const res = await reviewAPI.getAttributeOfReview('content', 42, 42);
+    expect(res).toEqual('Yuval Noah Harari is GENIUS');
+  });
+
+  test('returns isPublic if existing attributeName is passed ', async () => {
+    mockStore.Review.findOne.mockReturnValueOnce({isPublic:
+        true});
+    const res = await reviewAPI.getAttributeOfReview('isPublic', 42, 42);
+    expect(res).toEqual(true);
   });
 });
 

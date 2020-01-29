@@ -1,7 +1,7 @@
 /* eslint-disable require-jsdoc */
 const {DataSource} = require('apollo-datasource');
-const Sequelize = require('sequelize');
-const {cannotFindMessage} = require('../errorMessages');
+const userIdAndEventIdIsNotPassedMessage = 'You have to pass userId & eventId';
+
 class ReviewAPI extends DataSource {
   constructor(store) {
     super();
@@ -12,52 +12,17 @@ class ReviewAPI extends DataSource {
     this.context = config.context;
   }
 
-  async getTitleOfReview({userId, eventId}) {
-    const titleObj = await this.store.Review.findOne({
-      where: {userId, eventId},
-      attributes: ['title'],
-      raw: true,
-    });
-    if(!titleObj){
-      return null;
+  async getAttributeOfReview(attributeName, userId, eventId) {
+    if (!(userId && eventId)) {
+      throw new Error(userIdAndEventIdIsNotPassedMessage);
     }
-    return titleObj.title;
-  }
 
-  async getContentOfReview({userId, eventId}) {
-    const contentObj = await this.store.Review.findOne({
+    const review = await this.store.Review.findOne({
       where: {userId, eventId},
-      attributes: ['content'],
+      attributes: [attributeName],
       raw: true,
     });
-    if(!contentObj){
-      return null;
-    }
-    return contentObj.content;
-  }
-
-  async getIsPublicOfReview({userId, eventId}) {
-    const isPublicObj = await this.store.Review.findOne({
-      where: {userId, eventId},
-      attributes: ['isPublic'],
-      raw: true,
-    });
-    if(!isPublicObj){
-      return null;
-    }
-    return isPublicObj.isPublic;
-  }
-
-  async getIdsOfReview({userId, eventId}) {
-    const reviewIds = await this.store.Review.findAll({
-      where: {userId, eventId},
-      attributes: ['userId', 'eventId'],
-      raw: true,
-    });
-    if(!reviewIds){
-      return null;
-    }
-    return reviewIds;
+    return (review && review[attributeName]) ? review[attributeName] : null;
   }
 
   async createOrModifyOfReview(reviewInfo) {
@@ -90,4 +55,5 @@ class ReviewAPI extends DataSource {
 
 module.exports={
   ReviewAPI,
+  userIdAndEventIdIsNotPassedMessage,
 };
