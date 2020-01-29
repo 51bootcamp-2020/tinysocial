@@ -1,6 +1,10 @@
 /* eslint-disable require-jsdoc */
 const {DataSource} = require('apollo-datasource');
 const Sequelize = require('sequelize');
+const {isUndefinedOrNull} = require('../utils');
+const {
+  tagIdIsNotPassedMessage,
+} = require('../errorMessages');
 
 class TagAPI extends DataSource {
   constructor(store) {
@@ -12,13 +16,19 @@ class TagAPI extends DataSource {
     this.context = config.context;
   }
 
-  async getNameOfTag(tagId) {
-    const name = await this.store.Tag.findOne({
+  async getAttributeOfTag(attributeName, tagId) {
+    if (tagId === undefined || tagId === null) {
+      throw new Error(tagIdIsNotPassedMessage);
+    }
+    const tag = await this.store.Tag.findOne({
       where: {id: tagId},
-      attributes: ['name'],
+      attributes: [attributeName],
+      raw: true,
     });
-    return name.get('name');
+    return (tag && isUndefinedOrNull(tag[attributeName])) ?
+        tag[attributeName] : null;
   }
+
   async getIdsOfTag({limit, offset}) {
     const tagIds = await this.store.Tag.findAll({
       offset,
