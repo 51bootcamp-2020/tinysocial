@@ -1,34 +1,7 @@
 import EventReviewCard from './event-review-card';
-import {gql} from 'apollo-boost';
 import {Container} from '@material-ui/core';
 import PropTypes from 'prop-types';
-import {Query} from 'react-apollo';
 import React, {Component} from 'react';
-
-export const USER_EVENTS_QUERY = gql`
-query getUserEvents($upcomingOrPast: String!) {
-  userEvents(upcomingOrPast: $upcomingOrPast) {
-    id
-    title
-    thumbnailUrl
-    schedule {
-      id
-      startDateTime
-      endDateTime
-      address
-    }
-    ... on EventBookClub {
-      bookTitle
-      bookAuthor
-    }
-    reviews {
-      title
-      content
-      isPublic
-    }
-  }
-}
-`;
 
 // TODO(mskwon1): Implement GraphQL Query statements.
 class EventReviewCardList extends Component {
@@ -39,7 +12,7 @@ class EventReviewCardList extends Component {
   // Render EventReviewCard components list.
   renderEventReviewCards(events) {
     // Map event objects to EventReviewCard component.
-    events = events.userEvents.map((event) => {
+    events = events.map((event) => {
       const {
         id,
         title: eventTitle,
@@ -49,7 +22,7 @@ class EventReviewCardList extends Component {
         schedule: schedules,
         reviews: review,
       } = event;
-      const {currentTab} = this.props;
+      const {upcoming} = this.props;
 
       return (
         <EventReviewCard key={id}
@@ -60,7 +33,7 @@ class EventReviewCardList extends Component {
           bookImage={bookImage}
           schedules={schedules}
           review={review}
-          upcoming={currentTab === 'upcoming' ? true : false}
+          upcoming={upcoming}
         />
       );
     });
@@ -69,32 +42,20 @@ class EventReviewCardList extends Component {
     return events;
   }
 
-  sendUserEventsQuery() {
-    return (
-      <Query query={USER_EVENTS_QUERY}
-        variables={{upcomingOrPast: this.props.currentTab}}>
-        {({loading, error, data}) => {
-          // TODO(mskwon1): Add data loading page.
-          if (loading) return <p>Fetching Data ...</p>;
-          // TODO(mskwon1): Add error page.
-          if (error) return <p>Error ...</p>;
-          return (this.renderEventReviewCards(data));
-        }}
-      </Query>
-    );
-  }
-
   render() {
+    const {events} = this.props;
+
     return (
       <Container style={{paddingTop: '10px'}}>
-        {this.sendUserEventsQuery()}
+        {this.renderEventReviewCards(events)}
       </Container>
     );
   }
 }
 
 EventReviewCardList.propTypes = {
-  currentTab: PropTypes.string,
+  events: PropTypes.object,
+  upcoming: PropTypes.bool,
 };
 
 export default EventReviewCardList;

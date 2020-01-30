@@ -1,6 +1,9 @@
-import EventReviewCardList from '../components/userpage/event-review-card-list';
+import Cookie from 'js-cookie';
+import EventReviewCardListContainer
+  from '../containers/event-review-card-list-container';
 import React, {Component, Fragment} from 'react';
 import ReviewTabs from '../components/userpage/userpage-tabs';
+import {withRouter} from 'react-router-dom';
 
 class UserPage extends Component {
   constructor(props) {
@@ -19,14 +22,19 @@ class UserPage extends Component {
   }
 
   render() {
+    if (!Cookie.get('token')) {
+      // Redirect to the signin page.
+      this.props.history.push('/signin');
+    }
+
     return (
       <Fragment>
         <ReviewTabs currentTab={this.state.currentTab}
           onTabChange={this.onTabChange} />
-        <EventReviewCardList currentTab={this.state.currentTab} />
+        <EventReviewCardListContainer currentTab={this.state.currentTab} />
       </Fragment>
     );
   }
 }
 
-export default UserPage;
+export default withRouter(UserPage);
