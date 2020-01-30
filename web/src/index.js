@@ -62,8 +62,8 @@ const resolvers = {
           schedule: [
             {
               id: 1,
-              startDateTime: new Date,
-              endDateTime: new Date,
+              startDateTime: new Date('1999-12-14 00:00:00'),
+              endDateTime: new Date('2000-12-14 00:00:00'),
               address: '31 EL Camino Real Burlingame CA',
               latitude: 145,
               longitude: 123,
@@ -108,8 +108,8 @@ const resolvers = {
           bookAuthor: 'Book Author 123',
           schedule: [{
             id: 1,
-            startDateTime: new Date,
-            endDateTime: new Date,
+            startDateTime: new Date('2000-12-14 12:00:00'),
+            endDateTime: new Date('2000-12-14 12:00:00'),
             address: '31 EL Camino Real Burlingame CA',
             latitude: 145,
             longitude: 123,
