@@ -1,7 +1,7 @@
 const {EventBookClub} = require('../../resolvers');
 const {mockContext} = require('../mockContext');
 
-const {getAttributeOfEvent, getScheduleIdsOfEvent, getTagIdsOfEvent, getParticipantIdsOfEvent} = mockContext.dataSources.reviewAPI;
+const {getAttributeOfEvent, getScheduleIdsOfEvent, getTagIdsOfEvent, getParticipantIdsOfEvent} = mockContext.dataSources.eventAPI;
 
 describe('[EventBookClubResolver]', () => {
   test('returns host', async () => {
