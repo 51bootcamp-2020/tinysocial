@@ -1,4 +1,4 @@
-const APP_SECRET = process.env.SECRET || ' ';
+const APP_SECRET = process.env.SECRET || 'default';
 const {
   cannotCreateUserMessage,
   userNotFoundMessage,
@@ -32,7 +32,10 @@ function passworldVerify(pw) {
 }
 
 module.exports.Mutation = {
-  signInWithGoogle: async (_, {googleId}, {dataSources, userId}) => {
+  logout: async () => {
+  },
+
+  signInWithGoogle: async (_, {googleId}, {dataSources}) => {
     const user = await dataSources.mainAPI.findUser({googleId});
     if (user === null) {
       return {
@@ -44,7 +47,9 @@ module.exports.Mutation = {
     }
 
     // TODO(lsh9034): expiration time depending on the last user interaction.
-    const token = jwt.sign({userId: userId}, APP_SECRET, {expiresIn: expirationTime});
+    const token = jwt.sign(
+        {id: user.id}, APP_SECRET, {expiresIn: expirationTime},
+    );
 
     return {
       success: true,
@@ -81,7 +86,6 @@ module.exports.Mutation = {
     const token = jwt.sign({userId: user.id}, APP_SECRET, {
       expiresIn: '100h',
     });
-
     return {
       success: true,
       message: 'Success',
@@ -90,6 +94,35 @@ module.exports.Mutation = {
     };
   },
 
+  createReview: async (
+    _, {eventId, title, content, isPublic},
+    {dataSources, userId}) => {
+    if (userId === null) {
+      return false;
+    }
+    const isSuccess = await dataSources.mainAPI.
+        createOrModifyReview(
+            {
+              userId, eventId, title, content, isPublic,
+            },
+        );
+    return isSuccess;
+  },
+
+  modifyReview: async (
+    _, {eventId, title, content, isPublic},
+    {dataSources, userId}) => {
+    if (userId === null) {
+      return false;
+    }
+    const isSuccess = await dataSources.mainAPI.
+        createOrModifyReview(
+            {
+              userId, eventId, title, content, isPublic,
+            },
+        );
+    return isSuccess;
+  },
   emailValidate: async (
     _,
     {token},
@@ -183,7 +216,9 @@ module.exports.Mutation = {
 
   signIn: async (_, {email, pw}, {dataSources, userId}) => {
     const hashed_pw = sha256(pw + + process.env.PASSWORD_SALT);
-    const user = await dataSources.mainAPI.findUser({email: email, password: hashed_pw});
+    const user = await dataSources.mainAPI.findUser(
+        {email: email, password: hashed_pw},
+    );
     if (user === null) {
       return {
         success: false,

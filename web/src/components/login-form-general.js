@@ -30,7 +30,7 @@ class LoginFormGeneral extends Component {
   changeIsMember(isSuccess, token) {
     if (isSuccess) {
       this.setState({isMember: true});
-      // Store user token to localStorage
+      // Store user token to localStorage.
       // TODO(Myounghee): Refactor data stored to localStorage
       // localStorage.setItem('token', token);
     }
@@ -79,9 +79,6 @@ class LoginFormGeneral extends Component {
             <br/>
             <br/>
             <Button variant="contained" style={{height: '50px', width: '100%'}}>Sign in</Button>
-            <br/>
-            <br/>
-            <p style={{textAlign: 'center'}}>Don't have an account? <Link href='/signup' style={{color: 'red', marginLeft:'10px'}}>Sign up</Link></p>
           </Grid>
 
         </Grid>
