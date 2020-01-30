@@ -197,7 +197,7 @@ describe('[EventAPI.getAttributeOfEventParticipant]', () => {
 
 describe('[EventAPI.getHostIdOfEvent]', () => {
   test('throws error if eventId is not passed', async () => {
-    expect(eventAPI.getHostIdOfEvent()).rejects.toThrow(
+    expect(eventAPI.getHostIdOfEvent({})).rejects.toThrow(
         eventIdIsNotPassedMessage);
   });
 
@@ -216,7 +216,7 @@ describe('[EventAPI.getHostIdOfEvent]', () => {
 
 describe('[EventAPI.getParticipantIdsOfEvent]', () => {
   test('throws error if eventId is not passed', async () => {
-    expect(eventAPI.getParticipantIdsOfEvent()).rejects.toThrow(
+    expect(eventAPI.getParticipantIdsOfEvent({})).rejects.toThrow(
         eventIdIsNotPassedMessage);
   });
 
@@ -235,7 +235,7 @@ describe('[EventAPI.getParticipantIdsOfEvent]', () => {
 
 describe('[EventAPI.getScheduleIdsOfEvent]', () => {
   test('throws error if eventId is not passed', async () => {
-    expect(eventAPI.getScheduleIdsOfEvent()).rejects.toThrow(
+    expect(eventAPI.getScheduleIdsOfEvent({})).rejects.toThrow(
         eventIdIsNotPassedMessage);
   });
 
@@ -254,7 +254,7 @@ describe('[EventAPI.getScheduleIdsOfEvent]', () => {
 
 describe('[EventAPI.getEventIdsOfTag]', () => {
   test('throws error if tagId is not passed', async () => {
-    expect(eventAPI.getEventIdsOfTag()).rejects.toThrow(
+    expect(eventAPI.getEventIdsOfTag({})).rejects.toThrow(
         tagIdIsNotPassedMessage);
   });
 
@@ -272,11 +272,6 @@ describe('[EventAPI.getEventIdsOfTag]', () => {
 });
 
 describe('[EventAPI.getIdsOfEvent]', () => {
-  test('throws error if tagId is not passed', async () => {
-    expect(eventAPI.getIdsOfEvent({offset: 1, limit: 1})).rejects.toThrow(
-        tagIdIsNotPassedMessage);
-  });
-
   test('throws error if offset or offset is negative', async () => {
     expect(eventAPI.getIdsOfEvent({offset: -1, limit: 1, tagIds: [1]})).rejects.toThrow(
         notValidValueMessage);
@@ -293,7 +288,7 @@ describe('[EventAPI.getIdsOfEvent]', () => {
     expect(res).toEqual([]);
   });
 
-  test('returns array which contain all element when limit has not been passed', async () => {
+  test('returns array which contain all element matched tag when limit has not been passed', async () => {
     mockStore.EventTag.findAll.mockReturnValueOnce([{eventId: 1}, {eventId: 2}]);
     const res = await eventAPI.getIdsOfEvent({offset: 0, tagIds: [1]});
     expect(res).toEqual([{eventId: 1}, {eventId: 2}]);
@@ -304,11 +299,18 @@ describe('[EventAPI.getIdsOfEvent]', () => {
     const res = await eventAPI.getIdsOfEvent({offset: 0, limit: 2, tagIds: [1]});
     expect(res).toEqual([{event: 1}, {event: 2}]);
   });
+
+  test('looks up array which contain all element when tagIds has not been passed', async () => {
+    mockStore.EventTag.findAll.mockReturnValueOnce([{event: 1}, {event: 2}]);
+    const res = await eventAPI.getIdsOfEvent({offset: 0, limit: 2});
+    expect(res).toEqual([{event: 1}, {event: 2}]);
+  });
+
 });
 
 describe('[EventAPI.getUpcomingEventIdsOfEvent]', () => {
   test('throws error if userId is not passed', async () => {
-    expect(eventAPI.getUpcomingEventIdsOfEvent()).rejects.toThrow(
+    expect(eventAPI.getUpcomingEventIdsOfEvent({})).rejects.toThrow(
         userIdIsNotPassedMessage);
   });
 
@@ -329,7 +331,7 @@ describe('[EventAPI.getUpcomingEventIdsOfEvent]', () => {
 
 describe('[EventAPI.getPastEventIdsOfEvent]', () => {
   test('throws error if userId is not passed', async () => {
-    expect(eventAPI.getPastEventIdsOfEvent()).rejects.toThrow(
+    expect(eventAPI.getPastEventIdsOfEvent({})).rejects.toThrow(
         userIdIsNotPassedMessage);
   });
 

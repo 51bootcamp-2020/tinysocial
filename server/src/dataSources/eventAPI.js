@@ -159,6 +159,9 @@ class EventAPI extends DataSource {
   }
 
   async getEventIdsOfTag({tagId}) {
+    if (tagId === undefined || tagId === null) {
+      throw new Error(tagIdIsNotPassedMessage);
+    }
     const eventIds = await this.store.EventTag.findAll({
       where: {id: tagId},
       attributes: ['eventId'],
@@ -168,10 +171,7 @@ class EventAPI extends DataSource {
   }
 
   async getIdsOfEvent({limit, offset, tagIds, order}) {
-    if (tagIds === undefined || tagIds === null) {
-      throw new Error(tagIdIsNotPassedMessage);
-    }
-    if (limit < 0 || offset < 0) {
+    if (limit < 0 || offset < 0) {  
       throw new Error(notValidValueMessage);
     }
     const event = await this.store.EventTag.findAll({
