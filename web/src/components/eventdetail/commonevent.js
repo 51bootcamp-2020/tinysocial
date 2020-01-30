@@ -13,6 +13,8 @@ class CommonEvent extends Component {
     super(props);
   }
   render() {
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'];
     return (
       <div>
         <Grid container direction="row" alignContent='space-between'>
@@ -25,8 +27,9 @@ class CommonEvent extends Component {
             <Grid style={{marginBottom: 10}}>
               <Typography variant='body2'>
                 {/* TODO(YoonYeoHwan): Have to connect with Date query. */}
-                {/* {this.props.children.schedule[0].startDateTime} */}
-                January 29, 2020
+                {monthNames[this.props.children.schedule[0].startDateTime.getMonth()]+ ' '}
+                {this.props.children.schedule[0].startDateTime.getDate() + ', '}
+                {this.props.children.schedule[0].startDateTime.getFullYear()}
               </Typography>
             </Grid>
             <Grid style={{marginBottom: 10, marginTop: 10}}>
