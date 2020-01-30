@@ -50,6 +50,7 @@ const typeDefs = gql`
         # If successful, then return True.  
         joinEvent(
             orderId: String!
+            eventId: String!
         ): Boolean!
     }
 
