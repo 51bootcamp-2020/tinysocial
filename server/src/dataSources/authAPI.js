@@ -39,7 +39,7 @@ class AuthAPI extends DataSource {
   }
 
   async signInWithGoogle({googleId}) {
-    const userId = this.store.User.findOne({
+    const userId = await this.store.User.findOne({
       where: {
         googleId,
       },
@@ -58,14 +58,11 @@ class AuthAPI extends DataSource {
     // TODO(lsh9034): expiration time depending on the last user interaction.
     const token = jwt.sign({userId}, APP_SECRET,
         {expiresIn: expirationTime});
-
     return {
       success: true,
       message: 'Success',
       token: token,
-      user: {
-        id: userId,
-      },
+      user: userId.id,
     };
   }
   async signIn({email, pw}) {
@@ -111,6 +108,7 @@ class AuthAPI extends DataSource {
   }) {
     const user = await this.store.User.findOrCreate({
       where: {googleId},
+      raw: true,
       defaults: {
         email,
         firstName,
@@ -118,7 +116,6 @@ class AuthAPI extends DataSource {
         profileImgUrl: profileImgUrl ? profileImgUrl : '',
       },
     });
-
 
     if (user === null) {
       return {
@@ -136,7 +133,7 @@ class AuthAPI extends DataSource {
       success: true,
       message: 'Success',
       token: token,
-      user,
+      user: user[0].id,
     };
   }
 
