@@ -9,9 +9,9 @@ const jwt = require('jsonwebtoken');
 
 if (process.env.NODE_ENV === undefined) {
   console.error('You have to make .env file to run the server.\n' +
-      'Look at this(https://github.com/motdotla/dotenv) for more information.');
+    'Look at this(https://github.com/motdotla/dotenv) for more information.');
   console.error('If you made .env file but you are seeing this error,' +
-      'make sure you are running Node in the src folder');
+    'make sure you are running Node in the src folder');
   process.exit();
 }
 
@@ -26,7 +26,7 @@ const APP_SECRET = process.env.SECRET || 'default';
 const context = async ({req}) => {
   if (!req.headers.authorization) {
     return {
-      userId: null};
+    userId: null};
   }
   try {
     const token = req.headers.authorization;
@@ -43,7 +43,6 @@ const server = new ApolloServer({
   resolvers,
   dataSources,
   context: context,
-
 });
 
 

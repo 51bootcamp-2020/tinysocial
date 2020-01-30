@@ -9,7 +9,6 @@ class Eventthumbnail extends Component {
     return (
       <div>
         <Grid style={{padding: 15, height: 400, marginBottom: 15}}>
-          {/* TODO(YoonYeoHwan): Get image src from query. */}
           <div style={{height: '100%', width: '100%', overflow: 'hidden'}}>
             <img style={{height: '100%', width: '100%', objectFit: 'cover'}}
               src={this.props.children.thumbnailUrl}/>

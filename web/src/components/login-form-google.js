@@ -4,7 +4,7 @@ import {clientId} from './utils.js';
 import {gql} from 'apollo-boost';
 import {Mutation} from 'react-apollo';
 import {withRouter} from 'react-router-dom';
-import Alert from '@material-ui/lab/Alert';
+// import Alert from '@material-ui/lab/Alert';
 import {Button} from '@material-ui/core';
 import 'typeface-roboto';
 

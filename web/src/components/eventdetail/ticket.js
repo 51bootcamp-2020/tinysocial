@@ -24,7 +24,6 @@ class Ticket extends Component {
         <Typography variant='h6'>
           ${this.props.children.price ? this.props.children.price : 0}
         </Typography>
-        {/* TODO(YoonYeoHwan): Have to fix button width. */}
         <Fab style={{
           width: '80%',
           height: 40,
