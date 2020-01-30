@@ -6,7 +6,7 @@ module.exports.mockContext = {
       getTypeOfEvent: jest.fn(),
       getAttributeOfEvent: jest.fn(),
       getScheduleIdsOfEvent: jest.fn(),
-      getTagIdsOfEvent: jest.fn(),
+      getEventIdsOfTag: jest.fn(),
       getParticipantIdsOfEvent: jest.fn(),
       getHostedEventIdsOfUser: jest.fn(),
       getParticipatedEventIdsOfUser: jest.fn(),
@@ -17,7 +17,7 @@ module.exports.mockContext = {
     },
     tagAPI: {
       getAttributeOfTag: jest.fn(),
-      getEventIdsOfTag: jest.fn(),
+      getTagIdsOfEvent: jest.fn(),
     },
     userAPI: {
       getAttributeOfUser: jest.fn(),
