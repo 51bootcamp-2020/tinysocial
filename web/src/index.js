@@ -32,7 +32,8 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 const resolvers = {
   Query: {
     event: (_, {id}) => {
-      if (id === 1) {
+      console.log(id);
+      if (id == 1) {
         return {
           id: 1,
           title: 'here is title1111',

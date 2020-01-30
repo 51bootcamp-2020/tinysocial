@@ -15,6 +15,7 @@ import {
   withRouter
 } from 'react-router-dom'
 
+// TODO(YoonYeoHwan): Have to delete @client.
 const EVENT_DETAIL_REQUEST_QUERY = gql`
   query getEvent($eventId: ID!) {
     event(id: $eventId) @client {
@@ -67,11 +68,10 @@ class EventDetail extends Component{
 
   Event = () => {
     // TODO(YoonYeoHwan): '$id:0' will change to '$id:eventId'.
-    return (<Query query={EVENT_DETAIL_REQUEST_QUERY} variables={{$id:this.state.eventId}}>
+    return (<Query query={EVENT_DETAIL_REQUEST_QUERY} variables={{eventId:this.state.eventId}}>
       {({ loading, error, data }) => {
         if (loading) return 'Loading...';
         if (error) return `Error! ${error.message}`;
-        console.log(data.event)
         return (
           <Grid container>
             <Grid item sm={8} xs={12}>

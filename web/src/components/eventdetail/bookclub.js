@@ -7,6 +7,9 @@ import NonAvatar from '../../img/noavatar-profile.jpg';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 
+// TODO(YoonYeoHwan): Have to match event address and datetime,
+// because different event schedule has different address.
+// Have to talk about design.
 class Bookclub extends Component {
   constructor(props) {
     super(props);
@@ -59,8 +62,9 @@ class Bookclub extends Component {
             <Typography variant='h6' style={{color: '#009688'}}>
               Location
             </Typography>
+            {/* TODO(YoonYeoHwan): Have to fix UI. */}
             <Typography variant='body2'>
-              {this.props.children.schedule.address}
+              {this.props.children.schedule[0].address}
             </Typography>
           </Grid>
 
