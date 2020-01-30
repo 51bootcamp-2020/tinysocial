@@ -38,6 +38,10 @@ class EventReviewCard extends Component {
   // Redirect to the event detail page
   handleEventClick() {
     // TODO(mskwon1): Redirect to the event detail page with event info
+    this.props.history.push({
+      pathname: '/eventdetail',
+      search: '?id=' + this.props.id,
+    })
   }
 
   render() {

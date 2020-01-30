@@ -77,7 +77,7 @@ class EventReviewCardList extends Component {
           // TODO(mskwon1): Add data loading page.
           if (loading) return <p>Fetching Data ...</p>;
           // TODO(mskwon1): Add error page.
-          if (error) return <p>{error.message}</p>;
+          if (error) return <p>Error ...</p>;
           return (this.renderEventReviewCards(data));
         }}
       </Query>
