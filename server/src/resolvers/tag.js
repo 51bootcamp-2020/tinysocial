@@ -5,7 +5,6 @@ module.exports.Tag = {
   },
   events: async ({id}, __, {dataSources}) => {
     const eventIds = await dataSources.eventAPI.getEventIdsOfTag({tagId: id});
-    console.log("이벤트ids", eventIds);
     return eventIds;
   },
 };

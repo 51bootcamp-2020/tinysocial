@@ -30,7 +30,6 @@ class EventAPI extends DataSource {
   }
 
   async getAttributeOfEvent(attributeName, eventId) {
-    console.log('전달받은 eventId', eventId)
     if (eventId === undefined || eventId === null) {
       throw new Error(eventIdIsNotPassedMessage);
     }
@@ -132,7 +131,6 @@ class EventAPI extends DataSource {
       attributes: [['userId', 'id']],
       raw: true,
     });
-    console.log(participantIds);
     return participantIds;
   }
 
