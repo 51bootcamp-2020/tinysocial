@@ -104,7 +104,8 @@ const Events = [
   },
 ];
 
-const EventBookClub = [
+// eslint-disable-next-line no-unused-vars
+const EventBookClubs = [
   {
     eventId: 1,
     bookTitle: 'The Brain: The Story of You',
@@ -171,7 +172,7 @@ const EventBookClub = [
   },
 ];
 
-const Tag = [
+const Tags = [
   {
     name: 'Science',
   },
@@ -201,5 +202,52 @@ const Tag = [
   },
   {
     name: 'Suspense',
+  },
+];
+
+const EventTags = [
+  {
+    eventId: 1,
+    tagId: 1,
+  },
+  {
+    eventId: 1,
+    tagId: 3,
+  },
+  {
+    eventId: 2,
+    tagId: 9,
+  },
+  {
+    eventId: 2,
+    tagId: 10,
+  },
+  {
+    eventId: 2,
+    tagId: 3,
+  },
+  {
+    eventId: 3,
+    tagId: 6,
+  },
+  {
+    eventId: 4,
+    tagId: 10,
+  },
+  {
+    eventId: 4,
+    tagId: 7,
+  },
+  {
+    eventId: 5,
+    tagId: 5,
+  },
+  {
+    eventId: 5,
+    tagId: 8,
+  },
+  {
+    eventId: 5,
+    tagId: 2,
   },
 ];
