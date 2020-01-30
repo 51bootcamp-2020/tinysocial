@@ -3,6 +3,7 @@ const {DataSource} = require('apollo-datasource');
 const Sequelize = require('sequelize');
 const {isUndefinedOrNull} = require('../utils');
 const {
+  eventIdIsNotPassedMessage,
   tagIdIsNotPassedMessage,
 } = require('../errorMessages');
 
@@ -39,13 +40,16 @@ class TagAPI extends DataSource {
     return tagIds;
   }
 
-  async getEventIdsOfTag({tagId}) {
-    const eventIds = await this.store.EventTag.findAll({
-      where: {id: tagId},
-      attributes: ['eventId'],
+  async getTagIdsOfEvent({eventId}) {
+    if (eventId === undefined || eventId === null) {
+      throw new Error(eventIdIsNotPassedMessage);
+    }
+    const tagIds = await this.store.EventTag.findAll({
+      where: {id: eventId},
+      attributes: ['tagId'],
       raw: true,
     });
-    return eventIds;
+    return tagIds;
   }
 }
 

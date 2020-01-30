@@ -53,7 +53,7 @@ module.exports.EventBookClub = {
   },
 
   tags: async ({id}, __, {dataSources}) => {
-    const tagIds = dataSources.eventAPI.getTagIdsOfEvent({eventId: id});
+    const tagIds = dataSources.tagAPI.getTagIdsOfEvent({eventId: id});
     return tagIds;
   },
   participants: async ({id}, __, {dataSources}) => {

@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const createStore = () => {
+const createStore = async () => {
   let sequelize;
   switch (process.env.NODE_ENV) {
     case 'production':
@@ -291,7 +291,14 @@ const createStore = () => {
   // 'sync'.
   // reference: https://sequelize.org/v5/manual/migrations.html
 
-  sequelize.sync();
+  switch (process.env.NODE_ENV) {
+    case 'test':
+      await sequelize.sync({force: true});
+      break;
+    default:
+      sequelize.sync();
+      break;
+  }
 
   return {
     User,

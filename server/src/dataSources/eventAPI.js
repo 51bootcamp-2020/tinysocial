@@ -132,6 +132,7 @@ class EventAPI extends DataSource {
     });
     return participantIds;
   }
+
   async getScheduleIdsOfEvent({eventId}) {
     if (eventId === undefined || eventId === null) {
       throw new Error(eventIdIsNotPassedMessage);
@@ -157,16 +158,13 @@ class EventAPI extends DataSource {
     });
   }
 
-  async getTagIdsOfEvent({eventId}) {
-    if (eventId === undefined || eventId === null) {
-      throw new Error(eventIdIsNotPassedMessage);
-    }
-    const tagIds = await this.store.EventTag.findAll({
-      where: {id: eventId},
-      attributes: ['tagId'],
+  async getEventIdsOfTag({tagId}) {
+    const eventIds = await this.store.EventTag.findAll({
+      where: {id: tagId},
+      attributes: ['eventId'],
       raw: true,
     });
-    return tagIds;
+    return eventIds;
   }
 
   async getIdsOfEvent({limit, offset, tagIds, order}) {
