@@ -66,6 +66,7 @@ const typeDefs = gql`
           title: String!
           content: String!
           isPublic: Boolean!
+         ): AuthResponse!
         # If successful, then return True.  
         joinEvent(
             orderId: String!
