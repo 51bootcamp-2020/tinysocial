@@ -33,7 +33,6 @@ class Bookclub extends Component {
           <Typography variant='body2' style={{marginBottom: 20}}>
             {this.props.children.host.selfDescription}
           </Typography>
-
           <Grid item>
             <Typography variant='h6' style={{color: '#009688'}}>
               About this event
@@ -42,7 +41,6 @@ class Bookclub extends Component {
               {this.props.children.description}
             </Typography>
           </Grid>
-
           <Grid item>
             <Typography variant='h6' style={{color: '#009688'}}>
               Book
@@ -57,7 +55,6 @@ class Bookclub extends Component {
               {this.props.children.bookDescription}
             </Typography>
           </Grid>
-
           <Grid item direction='column'>
             <Typography variant='h6' style={{color: '#009688'}}>
               Location
@@ -67,7 +64,6 @@ class Bookclub extends Component {
               {this.props.children.schedule[0].address}
             </Typography>
           </Grid>
-
         </Grid>
       </div>
     );

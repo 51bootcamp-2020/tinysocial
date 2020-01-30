@@ -34,7 +34,8 @@ class Ticket extends Component {
           textTransform: 'none'}}
         onClick={() => {
           this.props.history.push({
-            pathname: `./payment/${this.props.children.id}`,
+            pathname: './payment',
+            search: `?id=${this.props.children.id}`,
           });
         }}
         variant='extended'>
