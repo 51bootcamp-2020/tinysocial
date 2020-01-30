@@ -1,6 +1,6 @@
 /* eslint-disable require-jsdoc */
 const {DataSource} = require('apollo-datasource');
-const APP_SECRET = process.env.SECRET || 'default';
+const APP_SECRET = process.env.JWT_SECRET;
 const {cannotCreateUserMessage, userNotFoundMessage} = require(
     '../errorMessages');
 const expirationTime = '100h';
@@ -56,7 +56,7 @@ class AuthAPI extends DataSource {
     }
 
     // TODO(lsh9034): expiration time depending on the last user interaction.
-    const token = jwt.sign({userId}, APP_SECRET,
+    const token = jwt.sign(userId, APP_SECRET,
         {expiresIn: expirationTime});
     return {
       success: true,
@@ -70,7 +70,7 @@ class AuthAPI extends DataSource {
     if (email && pw) {
       hashedPw = sha256(pw + process.env.PASSWORD_SALT);
     }
-    const userId = this.store.User.findOne({
+    const userId = await this.store.User.findOne({
       where: {
         email,
         password: hashedPw,
@@ -91,14 +91,11 @@ class AuthAPI extends DataSource {
     // TODO(lsh9034): expiration time depending on the last user interaction.
     const token = jwt.sign({userId}, APP_SECRET,
         {expiresIn: expirationTime});
-
     return {
       success: true,
       message: 'Success',
       token: token,
-      user: {
-        id: userId,
-      },
+      user: userId,
     };
   }
 
