@@ -12,7 +12,8 @@ class PaypalPayment extends Component {
 
     this.state = {
       price: props.price,
-      eventId: props.eventId // For redirection
+      eventId: props.eventId,
+      userId: props.userId,
     };
   }
 
@@ -22,6 +23,11 @@ class PaypalPayment extends Component {
         createOrder={(data, actions) => {
           return actions.order.create({
             purchase_units: [{
+              description: `userId:${
+                this.state.userId
+              },eventId:${
+                this.state.eventId
+              }`,
               amount: {
                 currency_code: 'USD',
                 value: this.state.price,
