@@ -1,7 +1,7 @@
 module.exports.EventBookClub = {
   host: async ({id}, _, {dataSources}) => {
-    const hostId = dataSources.eventAPI.getAttributeOfEvent('hostId', id);
-    return hostId;
+    const hostId = await dataSources.eventAPI.getAttributeOfEvent('hostId', id);
+    return {id: hostId};
   },
   thumbnailUrl: async ({id}, _, {dataSources}) => {
     const thumbnailUrl = dataSources.eventAPI.getAttributeOfEvent('thumbnailUrl', id);
@@ -53,7 +53,7 @@ module.exports.EventBookClub = {
   },
 
   tags: async ({id}, __, {dataSources}) => {
-    const tagIds = dataSources.tagAPI.getTagIdsOfEvent({eventId: id});
+    const tagIds = await dataSources.tagAPI.getTagIdsOfEvent({eventId: id});
     return tagIds;
   },
   participants: async ({id}, __, {dataSources}) => {
@@ -66,9 +66,7 @@ module.exports.EventBookClub = {
   },
   // TODO(yun-kwak): Implement reviews resolver
   reviews: async ({id}, _, {dataSources}) =>{
-    if (userIds === undefined) {
-      userIds = userId;
-    }
-    return {eventId: id, userId: userIds};
+    const reviews = dataSources.reviewAPI.getReviewsOfEvent({eventId: id});
+    return reviews;
   },
 };

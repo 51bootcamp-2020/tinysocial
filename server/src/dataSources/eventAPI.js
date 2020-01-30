@@ -30,6 +30,7 @@ class EventAPI extends DataSource {
   }
 
   async getAttributeOfEvent(attributeName, eventId) {
+    console.log('전달받은 eventId', eventId)
     if (eventId === undefined || eventId === null) {
       throw new Error(eventIdIsNotPassedMessage);
     }
@@ -102,7 +103,7 @@ class EventAPI extends DataSource {
     }
     return this.store.Event.findAll({
       where: {
-        host: userId,
+        hostId: userId,
       },
       attributes: ['id'],
       raw: true,
@@ -128,8 +129,10 @@ class EventAPI extends DataSource {
     }
     const participantIds = await this.store.EventParticipant.findAll({
       where: {eventId: eventId},
-      attributes: ['userId'],
+      attributes: [['userId', 'id']],
+      raw: true,
     });
+    console.log(participantIds);
     return participantIds;
   }
 
@@ -163,8 +166,8 @@ class EventAPI extends DataSource {
       throw new Error(tagIdIsNotPassedMessage);
     }
     const eventIds = await this.store.EventTag.findAll({
-      where: {id: tagId},
-      attributes: ['eventId'],
+      where: {tagId},
+      attributes: [['eventId', 'id']],
       raw: true,
     });
     return eventIds;

@@ -1,6 +1,7 @@
 module.exports.Event = {
   async __resolveType({id}, {dataSources}) {
-    const type = await dataSources.eventAPI.getTypeOfEvent(id);
+    console.log('__resolveType이 받은 id', id);
+    const type = await dataSources.eventAPI.getAttributeOfEvent('type', id);
     if (type === 0) {
       return 'EventBookClub';
     }

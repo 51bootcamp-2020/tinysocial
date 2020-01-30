@@ -1,4 +1,5 @@
 module.exports.Query = {
+  // TODO(lsh9034): fix eventSort
   events: async (
     _, {pageSize, after = 0, eventFilter, eventSort}, {dataSources}) => {
     if (pageSize > 50) {
