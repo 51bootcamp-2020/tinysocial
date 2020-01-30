@@ -13,7 +13,6 @@ import SignInUp from './pages/signInUp';
 import UserPage from './pages/userpage';
 
 function App() {
-  {/* TODO(Myoung-heeSeo) : Add a state to check if user is logged in now. */}
   return (
     <Router>
       <NavBar/>
