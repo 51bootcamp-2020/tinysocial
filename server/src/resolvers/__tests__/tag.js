@@ -1,7 +1,8 @@
 const {Tag} = require('../../resolvers');
 const {mockContext} = require('../mockContext');
 
-const {getAttributeOfTag, getEventIdsOfTag} = mockContext.dataSources.tagAPI;
+const {getAttributeOfTag} = mockContext.dataSources.tagAPI;
+const {getEventIdsOfTag} = mockContext.dataSources.eventAPI;
 
 describe('[TagResolver]', () => {
   test('returns name', async () => {

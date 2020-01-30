@@ -1,8 +1,8 @@
 const {EventBookClub} = require('../../resolvers');
 const {mockContext} = require('../mockContext');
 
-const {getAttributeOfEvent, getScheduleIdsOfEvent, getTagIdsOfEvent, getParticipantIdsOfEvent} = mockContext.dataSources.eventAPI;
-
+const {getAttributeOfEvent, getScheduleIdsOfEvent, getParticipantIdsOfEvent} = mockContext.dataSources.eventAPI;
+const {getTagIdsOfEvent} = mockContext.dataSources.tagAPI;
 describe('[EventBookClubResolver]', () => {
   test('returns host', async () => {
     getAttributeOfEvent.mockReturnValueOnce(1);
