@@ -53,6 +53,7 @@ class PaypalPayment extends Component {
             options={{
               clientId: clientId,
             }}
+            style={{color: 'silver', label:'pay'}}
         />
     );
   }

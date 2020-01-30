@@ -1,72 +1,77 @@
 import React, {Component} from 'react';
+import 'typeface-roboto';
 import {Grid, Paper, ButtonBase, Typography} from '@material-ui/core';
+import {withRouter} from 'react-router-dom';
 
-const classes = {
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: 10,
-    margin: 'auto',
-    maxWidth: 500,
-  },
-  image: {
-    width: 128,
-    height: 128,
-  },
-  img: {
-    margin: 'auto',
-    display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
-  },
+const eventNameStyle = {
+  fontWeight: 300,
+  fontFamily: 'Roboto',
+  fontSize: '20px',
+  fontWeight: 'normal',
+  letterspacing: 'normal',
+  lineHeight: 1,
 };
 
+const priceStyle = {
+  fontFamily: 'Roboto',
+  fontSize: '20px',
+  fontWeight: 500,
+};
+
+const removeBtnStyle = {
+  cursor: 'pointer',
+  color: '#009688',
+  fontFamily: 'Roboto',
+  fontSize: '14px',
+  fontWeight: 500,
+};
+
+// Purchase Event Item box component.
 class PurchaseEventItem extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      price: props.price,
-      eventName: props.eventName,
-      schedule: props.schedule,
-      imageUrl: props.imageUrl,
-    };
+    // this.state = {
+    //   price: props.price,
+    //   eventName: props.eventName,
+    //   schedule: props.schedule,
+    //   imageUrl: props.imageUrl,
+    // };
   }
 
   render() {
     return (
-      <Paper className={classes.paper} style={{padding: '10px'}}>
-        <Grid container spacing={2}>
-          <Grid item>
-            <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src={this.state.imageUrl} />
-            </ButtonBase>
-          </Grid>
-          <Grid item xs={12} sm container>
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item xs>
-                <Typography gutterBottom variant="subtitle1">
-                  {this.state.eventName}
-                </Typography>
-                <Typography variant="body2" gutterBottom>
-                  {this.state.schedule}
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="body2" style={{cursor: 'pointer', color: '#48C9B0'}}>
-                  Remove
+        <Paper style={{padding: '5%', marginTop: '3%'}}>
+          <Grid container spacing={2}>
+            <Grid item xs={3} sm={2}>
+              <ButtonBase>
+                <img style={{width: '100%', height: '70%'}} alt="complex"
+                     src={require('./images/1.jpg')}/>
+              </ButtonBase>
+            </Grid>
+            <Grid item xs={7} sm container direction="row" spacing={1}>
+              <Grid item xs={10} sm={7}>
+                <Typography gutterBottom variant="subtitle1"
+                            style={eventNameStyle}>
+                  {this.props.eventName}
                 </Typography>
               </Grid>
             </Grid>
+            <Grid item xs={2} style={{textAlign: 'right', paddingTop: '40px'}}>
+              <Typography variant="subtitle1"
+                          style={priceStyle}>{this.props.price}</Typography>
+            </Grid>
+          </Grid>
+          <Grid container justify="flex-end" style={{marginTop: '10%'}}>
             <Grid item>
-              <Typography variant="subtitle1">{this.state.price}</Typography>
+              <Typography variant="body2" style={removeBtnStyle} onClick={()=> {this.props.history.goBack()}}>
+                Remove
+              </Typography>
             </Grid>
           </Grid>
-        </Grid>
-      </Paper>
+        </Paper>
     );
   }
 }
 
-export default PurchaseEventItem;
+export default withRouter(PurchaseEventItem);
