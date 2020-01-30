@@ -9,7 +9,7 @@ describe('[Query]', () => {
   test('returns events', async () => {
     getIdsOfEvent.mockReturnValueOnce([{eventId: 1}]);
     const res = await Query.events({}, {pageSize: 1, after: 1, eventFilter: {recommendation: true, tagIds: [1, 2]}, eventSort: 0}, mockContext);
-    expect(res).toEqual({cursor:2, event: [{eventId: 1}]});
+    expect(res).toEqual({cursor: 2, events: [{eventId: 1}]});
   });
   test('returns event', async () => {
     const res = await Query.event({}, {id: 1});
