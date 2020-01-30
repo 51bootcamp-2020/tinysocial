@@ -46,7 +46,7 @@ class TagAPI extends DataSource {
     }
     const tagIds = await this.store.EventTag.findAll({
       where: {id: eventId},
-      attributes: ['tagId'],
+      attributes: [['tagId', 'id']],
       raw: true,
     });
     return tagIds;
