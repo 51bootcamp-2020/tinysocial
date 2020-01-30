@@ -69,7 +69,7 @@ const createStore = () => {
     // additional street address, city, state, zip code
     address: Sequelize.STRING,
     phone: Sequelize.STRING,
-    selfDescription: Sequelize.STRING,
+    self_description: Sequelize.STRING,
     lastInteractionTime: Sequelize.DATE, // To refresh JWT token
   },
   {
@@ -264,7 +264,7 @@ const createStore = () => {
         },
       }, {
         sequelize,
-        modelName: 'eventParticipant',
+        modelName: 'EventParticipant',
       },
   );
   Event.hasMany(EventParticipant);
