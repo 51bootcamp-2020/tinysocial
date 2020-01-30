@@ -4,13 +4,23 @@ module.exports.Query = {
     if (pageSize > 50) {
       pageSize = 50;
     }
-    const eventIds = dataSources.eventAPI.getIdsOfEvent({
-      limit: pageSize,
-      offset: after,
-      tagIds: eventFilter.tagIds,
-      order: eventSort,
-    });
-    if (pageSize > eventIds.length) {
+    let eventIds = [];
+    if (eventFilter !== undefined && eventFilter !== null) {
+      eventIds = await dataSources.eventAPI.getIdsOfEvent({
+        limit: pageSize,
+        offset: after,
+        tagIds: eventFilter.tagIds,
+        order: eventSort,
+      });
+      if (pageSize > eventIds.length) {
+        pageSize = eventIds.length;
+      }
+    } else {
+      eventIds = await dataSources.eventAPI.getIdsOfEvent({
+        limit: pageSize,
+        offset: after,
+        order: eventSort,
+      });
       pageSize = eventIds.length;
     }
     return {

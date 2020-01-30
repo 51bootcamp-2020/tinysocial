@@ -171,11 +171,15 @@ class EventAPI extends DataSource {
   }
 
   async getIdsOfEvent({limit, offset, tagIds, order}) {
-    if (limit < 0 || offset < 0) {  
+    if (limit < 0 || offset < 0) {
       throw new Error(notValidValueMessage);
     }
+    let tagIdsObject = undefined;
+    if (tagIds !== undefined && tagIds !== null) {
+      tagIdsObject = {tagId: tagIds};
+    }
     const event = await this.store.EventTag.findAll({
-      where: {tagId: tagIds},
+      where: tagIdsObject,
       attributes: ['eventId'],
       limit: limit,
       offset: offset,
