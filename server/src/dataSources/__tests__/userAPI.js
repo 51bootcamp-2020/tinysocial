@@ -1,7 +1,9 @@
 const {UserAPI, userIdIsNotPassedMessage} = require('../userAPI');
+const {EventAPI} = require('../eventAPI');
 const {mockStore} = require('../mockStore');
 
 const userAPI = new UserAPI(mockStore);
+const eventAPI = new EventAPI(mockStore);
 userAPI.initialize({context: {userId: 1}});
 
 describe('[UserAPI.getAttributeOfUser]', () => {
@@ -129,14 +131,14 @@ describe('[UserAPI.getAgeOfUser]', () => {
 describe('[UserAPI.getHostedEventIdsOfUser]', () => {
   test('returns empty array if user didn\'t host any  event', async () => {
     mockStore.Event.findAll.mockReturnValueOnce([]);
-    const res = await userAPI.getHostedEventIdsOfUser({userId: 42});
+    const res = await eventAPI.getHostedEventIdsOfUser({userId: 42});
     expect(res).toEqual([]);
   });
 
   test('returns array which contains event objects ' +
     'if user hosted events', async () => {
     mockStore.Event.findAll.mockReturnValueOnce([{id: 1}, {id: 2}]);
-    const res = await userAPI.getHostedEventIdsOfUser({userId: 42});
+    const res = await eventAPI.getHostedEventIdsOfUser({userId: 42});
     expect(res).toEqual([{id: 1}, {id: 2}]);
   });
 });
@@ -145,14 +147,14 @@ describe('[UserAPI.getParticipatedEventIdsOfUser]', () => {
   test('returns empty array if user didn\'t participate any event',
       async () => {
         mockStore.EventParticipant.findAll.mockReturnValueOnce([]);
-        const res = await userAPI.getParticipatedEventIdsOfUser({userId: 42});
+        const res = await eventAPI.getParticipatedEventIdsOfUser({userId: 42});
         expect(res).toEqual([]);
       });
 
   test('returns array which contains event objects ' +
     'if user participated events', async () => {
     mockStore.EventParticipant.findAll.mockReturnValueOnce([{id: 1}, {id: 2}]);
-    const res = await userAPI.getParticipatedEventIdsOfUser({userId: 42});
+    const res = await eventAPI.getParticipatedEventIdsOfUser({userId: 42});
     expect(res).toEqual([{id: 1}, {id: 2}]);
   });
 });

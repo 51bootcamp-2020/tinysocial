@@ -37,7 +37,7 @@ describe('[EventBookClubResolver]', () => {
   test('returns description', async () => {
     getAttributeOfEvent.mockReturnValueOnce('ThisIsEventBookClubDescription1');
     const res = await EventBookClub.description({id: 1}, {}, mockContext);
-    expect(res).toBe('ThisIsEventBookClubDescription');
+    expect(res).toBe('ThisIsEventBookClubDescription1');
   });
   test('returns price', async () => {
     getAttributeOfEvent.mockReturnValueOnce(1);
@@ -77,7 +77,7 @@ describe('[EventBookClubResolver]', () => {
   test('returns participants', async () => {
     getParticipantIdsOfEvent.mockReturnValueOnce([{userId: 1}]);
     const res = await EventBookClub.participants({id: 1}, {}, mockContext);
-    expect(res).toBe([{userId: 1}]);
+    expect(res).toEqual([{userId: 1}]);
   });
   test('returns maxParticipantNum', async () => {
     getAttributeOfEvent.mockReturnValueOnce(5);

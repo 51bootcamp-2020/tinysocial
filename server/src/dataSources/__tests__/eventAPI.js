@@ -56,7 +56,7 @@ describe('[EventAPI.getAttributeOfSchedule]', () => {
 describe('[EventAPI.getAttributeOfEvent]', () => {
   test('throws error if eventId is not passed', async () => {
     expect(eventAPI.getAttributeOfEvent()).rejects.toThrow(
-        scheduleIdIsNotPassedMessage);
+        eventIdIsNotPassedMessage);
   });
 
   test('returns null when passed invalid eventId', async () => {
@@ -258,9 +258,9 @@ describe('[EventAPI.getEventIdsOfTag]', () => {
         tagIdIsNotPassedMessage);
   });
 
-  test('returns null when passed invalid eventId', async () => {
+  test('returns null when passed invalid tagId', async () => {
     mockStore.EventTag.findAll.mockReturnValueOnce([]);
-    const res = await eventAPI.getEventIdsOfTag({eventId: 987654321});
+    const res = await eventAPI.getEventIdsOfTag({tagId: 987654321});
     expect(res).toEqual([]);
   });
 
