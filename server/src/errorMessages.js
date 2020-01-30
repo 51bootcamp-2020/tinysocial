@@ -10,5 +10,6 @@ module.exports = {
   scheduleIdIsNotPassedMessage: 'You have to pass scheduleId',
   userIdIsNotPassedMessage: 'You have to pass userId',
   tagIdIsNotPassedMessage: 'You have to pass tagId',
+  googleIdNotPassedMessage: 'You have to pass googleId',
   notValidValueMessage: 'You passed not valid value',
 };
