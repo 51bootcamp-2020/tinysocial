@@ -26,7 +26,7 @@ module.exports.Query = {
     }
     return {
       cursor: after + pageSize,
-      event: eventIds,
+      events: eventIds,
     };
   },
 

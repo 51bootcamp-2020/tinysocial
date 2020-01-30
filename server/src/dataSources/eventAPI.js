@@ -181,12 +181,13 @@ class EventAPI extends DataSource {
     }
     const event = await this.store.EventTag.findAll({
       where: tagIdsObject,
-      attributes: ['eventId'],
+      attributes: [['eventId', 'id']],
       limit: limit,
       offset: offset,
       order: order,
       raw: true,
     });
+    console.log("event",event);
     return event;
   }
 
