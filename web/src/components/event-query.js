@@ -10,8 +10,8 @@ class EventQuery extends Component {
 
   // Query for bringing event sending to server
   EVENT_REQUEST_QUERY = gql`
-    query{
-      events(pageSize : ${this.props.pageSize}){
+    query ($pageSize : Int!){
+      events (pageSize: $pageSize){
         cursor,
         events{
             id,
@@ -33,14 +33,15 @@ class EventQuery extends Component {
   // TODO(Lhyejin): Implement Featured Information component for landing page
   FeaturedInfoComponent = () => {
     let featuredInfo = [];
-    featuredInfo.push()
+    featuredInfo.push();
     return featuredInfo;
   };
 
   // Sending event request query to server
   render() {
     return (
-      <Query query={this.EVENT_REQUEST_QUERY}>
+      <Query query={this.EVENT_REQUEST_QUERY}
+            variables={{pageSize: this.props.pageSize}}>
       {({loading, error, data}) => {
         if (loading) return "Loading...";
         if (error) return `Error! ${error.message}`;
@@ -51,6 +52,6 @@ class EventQuery extends Component {
   };
 }
 
-EventQuery.propTypes = {}
+EventQuery.propTypes = {};
 
 export default EventQuery;

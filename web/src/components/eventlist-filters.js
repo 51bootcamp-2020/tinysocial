@@ -1,110 +1,147 @@
 import React, {Component} from 'react';
 import {
-  ToggleButton,
-  ToggleButtonGroup,
-  Jumbotron
-} from 'react-bootstrap';
-import {
-  Button
+  Typography
 } from '@material-ui/core';
-import {gql} from 'apollo-boost';
-import {Query} from "react-apollo";
+import {
+  ToggleButton,
+  ToggleButtonGroup
+} from '@material-ui/lab';
+import {withStyles, createMuiTheme, ThemeProvider} from '@material-ui/core';
 
+function StandaloneToggleButton() {
+  const [selected, setSelected] = React.useState(false);
+
+  return (
+      <ToggleButton
+          value="check"
+          selected={selected}
+          onChange={() => {
+            setSelected(!selected);
+          }}>
+        xx
+      </ToggleButton>
+  );
+}
+
+// tag button style
+const tagButtonStyle = {
+  buttonGroup: {
+    width: '100%',
+    overflow: 'scroll',
+    '&::-webkit-scrollbar': {
+    display: 'none'
+    }
+  },
+  buttonShape: {
+    borderRadius: '30px',
+    border: 'solid 1px rgba(0, 0, 0, 0.12)',
+    margin: '2%',
+    padding: '0 3% 0 3%'
+  },
+  buttonText: {
+    padding: '1% 5% 1% 5%',
+  }
+};
+
+// override Toggle style
+const theme = createMuiTheme({
+  overrides: {
+    MuiToggleButton: {
+      label: {
+        fontFamily: 'LibreFranklin',
+        fontSize: '14px',
+        fontWeight: 'normal',
+        fontStretch: 'normal',
+        fontStyle: 'normal',
+        lineHeight: 1.43,
+        letterSpacing: '0.25px',
+        textAlign: 'center',
+        color: 'rgba(0, 0, 0, 0.87)'
+      }
+    }
+  }
+});
 
 class EventlistFilters extends Component {
   constructor(props) {
     // Get area selection from props.
     super(props);
 
+    // Save the arrays of filter names and filter toggle(selected or not) in state.
+    // Todo: mapping filterNames string-integer(enum) after db builiding complete.
+    const filterNames = [
+      'Art', 'History', 'Business', 'SciFi', 'Sport',
+      'Cartton', 'Movie', 'Fiction', 'Non Fiction', 'Animal', 'Picture',
+      'Travel'];
+    const filterToggles = [];
 
-  //
-  //   // Save the arrays of filter names and filter toggle(selected or not) in state.
-  //   // Todo: mapping filterNames string-integer(enum) after db builiding complete.
-    const filterNames = ['BookClub', 'Movie', 'Wine', 'SciFi', 'Sport'];
-    // const filterToggles = [];
-  //
-  //   for (let filterIndex = 0; filterIndex < filterNames.length; filterIndex++)
-  //     filterToggles.push(false);
-  //
-  //   this.state = {
-  //     filterNames: filterNames,
-  //     filterToggles: filterToggles,
-  //   };
+    // for (let filterIndex = 0; filterIndex < filterNames.length; filterIndex++)
+    //   filterToggles.push(false);
+
+    this.state = {
+      filterNames: filterNames,
+      filterToggles: filterToggles,
+    };
   }
-  //
-  //
-  // // Function for update filter toggled value to new value.
-  // toggleHandler = val => {
-  //   const updatedFilterToggles = [];
-  //   for (let filterIndex = 0; filterIndex < this.state.filterToggles.length; filterIndex++)
-  //     updatedFilterToggles.push(false);
-  //   for (let updatedValIndex = 0; updatedValIndex < val.length; updatedValIndex++)
-  //     updatedFilterToggles[val[updatedValIndex]] = true;
-  //
-  //   this.setState({
-  //     filterToggles: updatedFilterToggles,
-  //   });
-  // };
-  //
-  // // Function for display toggle button group for event filter.
-  // ToggleButtonGroupControlled = () => {
-  //   const filtersComp = [];
-  //
-  //   // Match each toggle button to filterNames for display.
-  //   for (let filterIndex = 0; filterIndex < this.state.filterNames.length; filterIndex++) {
-  //     filtersComp.push(
-  //         <ToggleButton id={filterIndex} value={filterIndex} key={this.state.filterNames[filterIndex]}>
-  //           {this.state.filterNames[filterIndex]}
-  //         </ToggleButton>);
-  //   }
-  //
-  //   // Show the filter-button group.
-  //   return (
-  //       <ToggleButtonGroup type="checkbox" onChange={this.toggleHandler}>
-  //         {filtersComp}
-  //       </ToggleButtonGroup>);
-  // };
-  //
 
-
-  // TAG_REQUEST_QUERY = gql`
-  //   query(){
-  //
-  // }
-  // `;
-  // tag 버튼 클릭했을 때 실행되는 콜백함수 태그 스트링이 event cards에
-  // props로 들어간다.
-  tagButtonCallBack = (tagName) => {
-
+  /**
+   * tag button을 눌렀을 때, 콜백함수
+   * 부모에게 태그 전달 부모는
+   * @param event
+   * @param value
+   */
+  TagButtonOnClick = (event, value) => {
+    console.log('ddjdjdj');
+    console.log(value);
+    this.props.onCreate(value)
   };
 
-  // tag button 보여주기
-  // @params
-  tagButtonGroup = (tagName) => {
-    return(
-      <div>
+  TagButtonClicked = (event, value) => {
+    console.log('button ' + value)
+  };
+  /**
+   * tag button list 만들기
+   * @param {Array<String>} tagNames : tag가 들어있는 list
+   * @return {Array<Button>} tagButtonArray
+   */
+  ViewTagButtons = (tagNames) => {
+    const { classes } = this.props;
+    const tagButtonArray = [];
 
-      </div>
-    )
+    for (let tagIndex =0; tagIndex < this.state.filterNames.length; ++tagIndex)
+    {
+      tagButtonArray.push(
+          <ToggleButton variant='outlined'
+                        // onChange={this.TagButtonClicked}
+                        className={classes.buttonShape}
+                        key={tagIndex}
+                        value={tagIndex}
+                        label={tagIndex}>
+            {this.state.filterNames[tagIndex]}
+          </ToggleButton>
+      )
+    }
+    return tagButtonArray;
   };
 
-
-  // // Render of cards component.
+  // Render of cards component.
   render() {
+    const { classes } = this.props;
     return (
-          // <this.ToggleButtonGroupControlled/>
-        // <Query query={this.TAG_REQUEST_QUERY}>
-        //   {{
-        //
-        //   }}
-        //
-        // </Query>
-        <div>
-        </div>
-    )
+        // <Grid>
+        <ThemeProvider theme={theme}>
+          <ToggleButtonGroup size='large'
+                             onChange={this.TagButtonOnClick}
+                             value={this.state.filterToggles}
+                             className={classes.buttonGroup}>
+            <this.ViewTagButtons />
+          </ToggleButtonGroup>
+        </ThemeProvider>
+        // </Grid>
+
+    );
   }
 }
 
 EventlistFilters.propTypes = {};
-
-export default EventlistFilters;
+export default withStyles(tagButtonStyle)(EventlistFilters);

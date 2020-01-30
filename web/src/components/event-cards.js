@@ -11,26 +11,35 @@ import {
 } from '@material-ui/core';
 import {withStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
+// Event Cards css style
 const eventCardStyle = {
   cards: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: '3%'
-   }
+    paddingTop: '2%',
+   },
+  cardContent: {
+    height: '100%',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
+  }
+
 };
 
+// Event Card css overriding
 const theme = createMuiTheme({
   overrides: {
     MuiCard: {
       root: {
         height: '450px',
         backgroundColor: '#ffffff',
-        marginBottom: '10%',
-        marginLeft: '5%',
-        marginRight: '5%'
+        margin: '0 10% 10% 10%'
       }
     },
     MuiCardHeader: {
+      content: {
+        width: '80%'
+      },
       title: {
         height: '24px',
         fontFamily: 'LibreFranklin',
@@ -40,10 +49,12 @@ const theme = createMuiTheme({
         fontStyle: 'normal',
         lineHeight: 'normal',
         letterSpacing: '0.25px',
-        color: 'rgba(0, 0, 0, 0.87)'
+        color: 'rgba(0, 0, 0, 0.87)',
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis'
       },
       subheader: {
-        width: '168px',
         height: '20px',
         fontFamily: 'LibreFranklin',
         fontSize: '14px',
@@ -59,6 +70,11 @@ const theme = createMuiTheme({
       img: {
         height: '55%'
       }
+    },
+    MuiCardContent: {
+      root: {
+        height: '30%'
+      }
     }
   }
 });
@@ -68,9 +84,13 @@ class EventCards extends Component {
     super(props);
   }
 
+  CardClicked = () => {
+    console.log('click success')
+  };
+
   render() {
     const {classes} = this.props;
-    const cards = [[]];
+    const cards = [];
 
     for (let cardIndex = 0; cardIndex < this.props.children.length; cardIndex++) {
 
@@ -83,8 +103,9 @@ class EventCards extends Component {
       /* src={this.props.children[cardIndex].host.profileImgUrl} */
       /*  */
       cards[cards.length - 1].push(
-          <Grid item xs={12} sm={6} md={4} key={this.props.children[cardIndex].id}>
-              <Card className={classes.card}>
+          <Grid item xs={12} sm={6} md={4} key={this.props.children[cardIndex].id} >
+              <Card className={classes.card}
+                    onClick={this.CardClicked}>
                   {/* Image section of Card */}
                   <CardMedia
                     component="img"
@@ -104,7 +125,8 @@ class EventCards extends Component {
                   />
                   {/* Content section of Card */}
                   <CardContent>
-                    <Typography>
+                    <Typography
+                                className={classes.cardContent}>
                       {this.props.children[cardIndex].description}
                     </Typography>
                   </CardContent>
@@ -119,12 +141,10 @@ class EventCards extends Component {
 
     const decks = [];
     // Push the cards list in decks
-    for (let cardIndex = 0; cardIndex < cards.length; cardIndex++) {
+    for (let cardIndex = 0; cardIndex < cards.length; ++cardIndex) {
       decks.push(
-      //     {/*<Grid container justify="space-between"*/}
-      //     {/*      className={eventCardStyle.cards}>*/}
           <ThemeProvider theme={theme}>
-            <Grid container xs={12} spacing={8} justify='space-between' className={classes.cards}>
+            <Grid container xs={12} justify='space-around' className={classes.cards}>
               {cards[cardIndex]}
             </Grid>
           </ThemeProvider>
