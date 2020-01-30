@@ -58,7 +58,7 @@ module.exports.Mutation = {
   joinEvent: async (
     _,
     {orderId, eventId},
-    {dataSources},
+    {dataSources, userId},
   ) => {
     const orderID = orderId;
 
@@ -79,6 +79,10 @@ module.exports.Mutation = {
     console.log(order.result.purchase_units[0].amount);
     console.log(order.result.purchase_units[0].payee);
     console.log(order.result.purchase_units[0].payments);
+    if (order.result.purchase_units[0].description !==
+        `userId:${userId},eventId:${eventId}`) {
+      return false;
+    }
     if (order.result.purchase_units[0].amount.currency_code !== 'USD' ||
         order.result.purchase_units[0].amount.value !== '0.01') {
       return false;
