@@ -1,4 +1,6 @@
-require('dotenv').config();
+'use strict';
+require('dotenv').config({path: require('path').
+    resolve(process.cwd(), 'src/.env')});
 const {ApolloServer} = require('apollo-server');
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
@@ -9,9 +11,6 @@ const {AuthAPI} = require('./dataSources/authAPI');
 const {TagAPI} = require('./dataSources/tagAPI');
 const {UserAPI} = require('./dataSources/userAPI.js');
 
-const {createStore} = require('./database');
-const context = require('./context');
-
 if (process.env.NODE_ENV === undefined) {
   console.error('You have to make .env file to run the server.\n' +
     'Look at this(https://github.com/motdotla/dotenv) for more information.');
@@ -20,7 +19,13 @@ if (process.env.NODE_ENV === undefined) {
   process.exit();
 }
 
-const store = createStore();
+const {createStore} = require('./database');
+const context = require('./context');
+
+let store;
+createStore().then(((s) => {
+  store = s;
+}));
 
 const dataSources = () => ({
   eventAPI: new EventAPI(store),
@@ -42,3 +47,18 @@ if (process.env.NODE_ENV !== 'test') {
   server.listen({port: 15780}).
       then(({url}) => console.log(`Server running at at ${url}`));
 }
+
+module.exports = {
+  dataSources,
+  context,
+  typeDefs,
+  resolvers,
+  ApolloServer,
+  store,
+  server,
+  EventAPI,
+  ReviewAPI,
+  TagAPI,
+  UserAPI,
+  AuthAPI,
+};
