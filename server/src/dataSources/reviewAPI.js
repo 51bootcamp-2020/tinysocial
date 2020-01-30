@@ -57,7 +57,7 @@ class ReviewAPI extends DataSource {
   async getIdsOfReview({userId, eventId}) {
     const Ids = await this.store.Review.findAll({
       where: {userId, eventId},
-      attributes: [['userId', 'eventId']],
+      attributes: ['userId', 'eventId'],
       raw: true,
     });
     return Ids;
