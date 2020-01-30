@@ -1,15 +1,15 @@
 module.exports.AuthResponse = {
-  success: async ({success}) => {
-    return success;
+  success: async (parent) => {
+    return parent.success;
   },
-  message: async ({message}) => {
-    return message;
+  message: async (parent) => {
+    return parent.message;
   },
-  token: async ({token}) => {
-    return token;
+  token: async (parent) => {
+    return parent.token;
   },
-  user: async ({id}) => {
-    return {id};
+  user: async (parent) => {
+    return {id: parent.user}
   },
 };
 

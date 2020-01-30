@@ -55,8 +55,8 @@ class EventAPI extends DataSource {
     if (eventId === undefined || eventId === null) {
       throw new Error(eventIdIsNotPassedMessage);
     }
-    const eventBookClub = this.store.EventBookClub.findOne({
-      where: {id: eventId},
+    const eventBookClub = await this.store.EventBookClub.findOne({
+      where: {eventId},
       attributes: [attributeName],
       raw: true,
     });
