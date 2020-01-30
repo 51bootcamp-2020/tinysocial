@@ -1,17 +1,20 @@
 import React, {Component} from 'react';
 import EventCards from './event-cards';
 import {gql} from 'apollo-boost';
-import { Query } from "react-apollo";
+import {Query} from "react-apollo";
 
 class EventQuery extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      currentCursor: 0
+    }
   }
 
   // Query for bringing event sending to server
   EVENT_REQUEST_QUERY = gql`
-    query ($pageSize : Int!){
-      events (pageSize: $pageSize){
+    query ($pageSize : Int, $eventFilter : EventFilter){
+      events (pageSize: $pageSize, eventFilter: $eventFilter){
         cursor,
         events{
             id,
@@ -28,7 +31,7 @@ class EventQuery extends Component {
             
         }
       }
-      }`;
+    }`;
 
   // TODO(Lhyejin): Implement Featured Information component for landing page
   FeaturedInfoComponent = () => {
@@ -41,11 +44,17 @@ class EventQuery extends Component {
   render() {
     return (
       <Query query={this.EVENT_REQUEST_QUERY}
-            variables={{pageSize: this.props.pageSize}}>
+            variables={{pageSize: this.props.pageSize,
+                        eventFilter: this.props.selectedTagIds}}
+            onCompleted={data => {this.setState({currentCursor: data.events.cursor})}}>
       {({loading, error, data}) => {
         if (loading) return "Loading...";
         if (error) return `Error! ${error.message}`;
-        return(<EventCards>{data.events.events}</EventCards>)
+        return(
+            <div>
+              <EventCards>{data.events.events}</EventCards>
+            </div>
+        )
       }}
       </Query>
     )

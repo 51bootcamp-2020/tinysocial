@@ -69,18 +69,13 @@ class EventlistFilters extends Component {
 
     // Save the arrays of filter names and filter toggle(selected or not) in state.
     // Todo: mapping filterNames string-integer(enum) after db builiding complete.
-    const filterNames = [
-      'Art', 'History', 'Business', 'SciFi', 'Sport',
-      'Cartton', 'Movie', 'Fiction', 'Non Fiction', 'Animal', 'Picture',
-      'Travel'];
     const filterToggles = [];
 
     // for (let filterIndex = 0; filterIndex < filterNames.length; filterIndex++)
     //   filterToggles.push(false);
 
     this.state = {
-      filterNames: filterNames,
-      filterToggles: filterToggles,
+      filterToggles: [],
     };
   }
 
@@ -96,7 +91,7 @@ class EventlistFilters extends Component {
     this.props.onCreate(value)
   };
 
-  TagButtonClicked = (event, value) => {
+  HandlerTagButton = (event, value) => {
     console.log('button ' + value)
   };
   /**
@@ -108,16 +103,15 @@ class EventlistFilters extends Component {
     const { classes } = this.props;
     const tagButtonArray = [];
 
-    for (let tagIndex =0; tagIndex < this.state.filterNames.length; ++tagIndex)
+    for (let tagIndex =0; tagIndex < this.props.filterNames.length; ++tagIndex)
     {
       tagButtonArray.push(
           <ToggleButton variant='outlined'
-                        // onChange={this.TagButtonClicked}
+                        onChange={this.HandlerTagButton}
                         className={classes.buttonShape}
-                        key={tagIndex}
-                        value={tagIndex}
-                        label={tagIndex}>
-            {this.state.filterNames[tagIndex]}
+                        value={this.props.filterNames[tagIndex].id}
+                        label={this.props.filterNames[tagIndex].id}>
+            {this.props.filterNames[tagIndex].name}
           </ToggleButton>
       )
     }

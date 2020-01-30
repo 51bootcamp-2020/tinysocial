@@ -84,6 +84,7 @@ class EventCards extends Component {
     super(props);
   }
 
+  // card를 클릭했을 때, 이벤트 디테일 페이지로 event id 넘겨줌.
   CardClicked = () => {
     console.log('click success')
   };
@@ -103,9 +104,10 @@ class EventCards extends Component {
       /* src={this.props.children[cardIndex].host.profileImgUrl} */
       /*  */
       cards[cards.length - 1].push(
-          <Grid item xs={12} sm={6} md={4} key={this.props.children[cardIndex].id} >
+          <Grid item xs={12} sm={6} md={4} >
               <Card className={classes.card}
-                    onClick={this.CardClicked}>
+                    onClick={this.CardClicked}
+                    key={this.props.children[cardIndex].id}>
                   {/* Image section of Card */}
                   <CardMedia
                     component="img"
