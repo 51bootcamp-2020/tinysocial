@@ -36,6 +36,7 @@ const typeDefs = gql`
             lastName: String!
             profileImgUrl: String
         ): AuthResponse!
+<<<<<<< HEAD
         # Default Sign Up / Sign In
         signUp(
             email: String!

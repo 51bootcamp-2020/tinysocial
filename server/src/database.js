@@ -77,6 +77,7 @@ const createStore = () => {
         modelName: 'user',
       });
 
+
   Event.init({
     id: {
       type: Sequelize.INTEGER,
