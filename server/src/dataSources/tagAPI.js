@@ -45,7 +45,7 @@ class TagAPI extends DataSource {
       throw new Error(eventIdIsNotPassedMessage);
     }
     const tagIds = await this.store.EventTag.findAll({
-      where: {id: eventId},
+      where: {eventId},
       attributes: [['tagId', 'id']],
       raw: true,
     });

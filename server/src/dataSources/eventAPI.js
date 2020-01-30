@@ -102,7 +102,7 @@ class EventAPI extends DataSource {
     }
     return this.store.Event.findAll({
       where: {
-        host: userId,
+        hostId: userId,
       },
       attributes: ['id'],
       raw: true,
@@ -128,7 +128,8 @@ class EventAPI extends DataSource {
     }
     const participantIds = await this.store.EventParticipant.findAll({
       where: {eventId: eventId},
-      attributes: ['userId'],
+      attributes: [['userId', 'id']],
+      raw: true,
     });
     return participantIds;
   }
@@ -163,8 +164,8 @@ class EventAPI extends DataSource {
       throw new Error(tagIdIsNotPassedMessage);
     }
     const eventIds = await this.store.EventTag.findAll({
-      where: {id: tagId},
-      attributes: ['eventId'],
+      where: {tagId},
+      attributes: [['eventId', 'id']],
       raw: true,
     });
     return eventIds;

@@ -1,7 +1,9 @@
 /* eslint-disable require-jsdoc */
 const {DataSource} = require('apollo-datasource');
-const userIdAndEventIdIsNotPassedMessage = 'You have to pass userId & eventId';
-
+const {
+  userIdAndEventIdIsNotPassedMessage,
+  eventIdIsNotPassedMessage,
+} = require('../errorMessages');
 class ReviewAPI extends DataSource {
   constructor(store) {
     super();
@@ -59,6 +61,18 @@ class ReviewAPI extends DataSource {
       raw: true,
     });
     return Ids;
+  }
+  
+  async getReviewsOfEvent({eventId}) {
+    if (eventId === undefined || eventId === null){
+      throw new Error(eventIdIsNotPassedMessage);
+    }
+    const reviews = await this.store.Review.findAll({
+      where: {eventId},
+      attributes: ['eventId', 'userId'],
+      raw: true,
+    });
+    return reviews;
   }
 }
 

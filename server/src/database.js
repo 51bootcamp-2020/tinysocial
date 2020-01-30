@@ -290,7 +290,7 @@ const createStore = async () => {
   // TODO(arin-kwak): In production phase, consider using migration instead of
   // 'sync'.
   // reference: https://sequelize.org/v5/manual/migrations.html
-
+  
   switch (process.env.NODE_ENV) {
     case 'test':
       await sequelize.sync({force: true});
