@@ -3,23 +3,23 @@ const Users = [
     firstName: 'Sihyun',
     lastName: 'Lee',
     googleId: 'lsh9034@kookmin.ac.kr',
-    birthday: new Date(1999, 12, 14),
+    birthday: new Date('1999-12-14'),
     profileImgUrl: 'https://fimg4.pann.com/new/download.jsp?FileID=49592267',
     address: '31 El Camino RealBurlingame, CA 94010',
     phone: '+821084277033',
     selfDescription: 'Sihyun is stupid',
-    lastInteractionTime: Date.now(), // To refresh JWT token
+    lastInteractionTime: new Date(), // To refresh JWT token
   },
   {
     firstName: 'Yunhyeok',
     lastName: 'Kwak',
     facebookId: 'Yunhyeok facebookId',
     profileImgUrl: 'https://i.ytimg.com/vi/KEgC50mX8ho/maxresdefault.jpg',
-    birthday: new Date(1997, 9, 6),
+    birthday: new Date('1997-9-6'),
     address: '338 South Fremont Street, San Mateo, CA',
     phone: '+1234567890',
     selfDescription: 'Yunhyeok is babo',
-    lastInteractionTime: Date.now(), // To refresh JWT token
+    lastInteractionTime: new Date(), // To refresh JWT token
   },
   {
     firstName: 'Seongjae',
@@ -27,13 +27,13 @@ const Users = [
     profileImgUrl: 'https://m.soonsoobeauty.com/web/upload/NNEditor/20190220/ECB0B8EC9DB4EC8AAC.jpg',
     password: 'qwer1234!',
     email: 'Seongjae@naver.com',
-    birthday: new Date(1996, 11, 12),
+    birthday: new Date('1996-4-22'),
     // TODO(yun-kwak): Split the address into street address,
     // additional street address, city, state, zip code
     address: '50 E 3rd Ave, San Mateo, CA 94401',
     phone: '+1029384756',
     selfDescription: 'Seongjae is big man',
-    lastInteractionTime: Date.now(), // To refresh JWT token
+    lastInteractionTime: new Date(), // To refresh JWT token
   },
 ];
 
@@ -103,3 +103,129 @@ const Events = [
     maxParticipantNum: 50,
   },
 ];
+
+const Schedule = [
+  {
+    startDateTime: new Date('2020-1-20 12:00'),
+    endDateTime: new Date('2020-1-20 13:15'),
+    address: '120 S Ellsworth Ave San Mateo, CA 94401',
+    latitude: 37.566269,
+    longitude: -122.324986,
+    eventId: 1
+  },
+  {
+    startDateTime: new Date('2020-2-5 13:30'),
+    endDateTime: new Date('2020-2-5 14:45'),
+    address: '120 S Ellsworth Ave San Mateo, CA 94401',
+    latitude: 37.566269,
+    longitude: -122.324986,
+    eventId: 1
+  },
+  {
+    startDateTime: new Date('2020-2-10 15:00'),
+    endDateTime: new Date('2020-2-5 16:15'),
+    address: '1 Baldwin Ave San Mateo, CA 94401',
+    latitude: 37.565898,
+    longitude: -122.327813,
+    eventId: 1
+  },
+  {
+    startDateTime: new Date('2020-1-5 12:00'),
+    endDateTime: new Date('2020-1-5 13:15'),
+    address: 'Carlstrom Productions, Inc., 204 2nd Ave Suite 129, San Mateo, CA 94401',
+    latitude: 37.565773,
+    longitude: -122.323952,
+    eventId: 2,
+  },
+  {
+    startDateTime: new Date('2020-1-13 12:00'),
+    endDateTime: new Date('2020-1-13 13:15'),
+    address: 'Carlstrom Productions, Inc., 204 2nd Ave Suite 129, San Mateo, CA 94401',
+    latitude: 37.565773,
+    longitude: -122.323952,
+    eventId: 2,
+  },
+  {
+    startDateTime: new Date('2020-4-22 00:00'),
+    endDateTime: new Date('2020-4-22 23:15'),
+    address: 'Kokko, 509 2nd Ave, San Mateo, CA 94401',
+    latitude: 37.567726,
+    longitude: -122.321456,
+    eventId: 3,
+  },
+  {
+    startDateTime: new Date('2020-2-25 10:00'),
+    endDateTime: new Date('2020-2-25 14:15'),
+    address: 'San Mateo Public Library, 55 W 3rd Ave, San Mateo, CA 94402Kokko, 509 2nd Ave, San Mateo, CA 94401',
+    latitude: 37.562245,
+    longitude: -122.326853,
+    eventId: 4,
+  },
+  {
+    startDateTime: new Date('2020-1-1 00:00'),
+    endDateTime: new Date('2020-1-1 24:00'),
+    address: 'San Mateo Central Park, 50 E 5th Ave, San Mateo, CA 94401',
+    latitude: 37.561321,
+    longitude: -122.323487,
+    eventId: 5,
+  },
+];
+
+const EventParticipant = [
+  {
+    userId: 1,
+    eventId: 1,
+  },
+  {
+    userId: 2,
+    eventId: 1,
+  },
+  {
+    userId: 1,
+    eventId: 2,
+  },
+  {
+    userId: 2,
+    eventId: 2,
+  },
+  {
+    userId: 3,
+    eventId: 2,
+  },
+  {
+    userId: 3,
+    eventId: 3,
+  },
+  {
+    userId: 2,
+    eventId: 4,
+  },
+  {
+    userId: 1,
+    eventId: 5,
+  },
+]
+
+const Review = [
+  {
+    userId: 1,
+    eventId: 2,
+    title: 'This event was so funny!!',
+    content: 'It was so funny but a little bit boring',
+    isPublic: true,
+  },
+  {
+    userId: 2,
+    eventId: 1,
+    title: 'It was terrible book.',
+    content: 'The book is so biased. I think it\'s author is racist',
+    isPublic: false,
+  },
+  {
+    userId: 3,
+    eventId: 2,
+    title: 'Just common book and event',
+    content: 'It was not interestd. But my friends Sihyun like this.',
+    isPublic: false,
+  },
+]
