@@ -6,7 +6,7 @@ import {Query} from 'react-apollo';
 
 export const USER_EVENTS_QUERY = gql`
 query getUserEvents($upcomingOrPast: String!) {
-  userEvents(upcomingOrPast: $upcomingOrPast) {
+  myEvents(upcomingOrPast: $upcomingOrPast) {
     id
     title
     thumbnailUrl
@@ -41,6 +41,7 @@ class EventReviewCardListContainer extends Component {
           if (loading) return <p>Fetching Data ...</p>;
           // TODO(mskwon1): Add error page.
           if (error) return <p>Error ...</p>;
+          console.log(data);
           return (
             <EventReviewCardList events={data.userEvents}
               upcoming={currentTab === 'upcoming' ? true : false} />

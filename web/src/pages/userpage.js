@@ -3,7 +3,7 @@ import EventReviewCardListContainer
   from '../containers/event-review-card-list-container';
 import React, {Component, Fragment} from 'react';
 import ReviewTabs from '../components/userpage/userpage-tabs';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Redirect} from 'react-router-dom';
 
 class UserPage extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class UserPage extends Component {
   render() {
     if (!Cookie.get('token')) {
       // Redirect to the signin page.
-      this.props.history.push('/signin');
+      return <Redirect to="/signin" />;
     }
 
     return (
