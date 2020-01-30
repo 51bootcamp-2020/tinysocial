@@ -22,43 +22,26 @@ if (process.env.NODE_ENV === undefined) {
 const {createStore} = require('./database');
 const context = require('./context');
 
-let store;
-createStore().then(((s) => {
-  store = s;
-}));
+let dataSources; let server;
+createStore().then((store) => {
+  dataSources = () => ({
+    eventAPI: new EventAPI(store),
+    reviewAPI: new ReviewAPI(store),
+    tagAPI: new TagAPI(store),
+    userAPI: new UserAPI(store),
+    authAPI: new AuthAPI(store),
+  });
 
-const dataSources = () => ({
-  eventAPI: new EventAPI(store),
-  reviewAPI: new ReviewAPI(store),
-  tagAPI: new TagAPI(store),
-  userAPI: new UserAPI(store),
-  authAPI: new AuthAPI(store),
+  server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    dataSources,
+    context,
+  });
+
+  if (process.env.NODE_ENV !== 'test') {
+    server.listen({port: 15780}).
+        then(({url}) => console.log(`Server running at at ${url}`));
+  }
 });
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  dataSources,
-  context,
-});
-
-
-if (process.env.NODE_ENV !== 'test') {
-  server.listen({port: 15780}).
-      then(({url}) => console.log(`Server running at at ${url}`));
-}
-
-module.exports = {
-  dataSources,
-  context,
-  typeDefs,
-  resolvers,
-  ApolloServer,
-  store,
-  server,
-  EventAPI,
-  ReviewAPI,
-  TagAPI,
-  UserAPI,
-  AuthAPI,
-};
