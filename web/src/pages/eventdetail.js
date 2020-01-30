@@ -16,38 +16,38 @@ import {
 } from 'react-router-dom'
 
 const EVENT_DETAIL_REQUEST_QUERY = gql`
-    query getEvent($eventId: ID!) {
-        event(id: $eventId) @client {
-            id,
-            title,
-            thumbnailUrl,
-            description,
-            price,
-            tags @client {
-                id,
-                name
-            },
-            ... on EventBookClub @client {
-                bookTitle,
-                bookDescription,
-                bookAuthor
-            },
-            schedule @client {
-                id,
-                startDateTime,
-                endDateTime,
-                address,
-                latitude,
-                longitude,
-            },
-            host @client {
-                firstName,
-                lastName,
-                selfDescription,
-                profileImgUrl
-            }
-        }
-    }`;
+  query getEvent($eventId: ID!) {
+    event(id: $eventId) @client {
+      id,
+      title,
+      thumbnailUrl,
+      description,
+      price,
+      tags @client {
+        id,
+        name
+      },
+      ... on EventBookClub @client {
+        bookTitle,
+        bookDescription,
+        bookAuthor
+      },
+      schedule @client {
+        id,
+        startDateTime,
+        endDateTime,
+        address,
+        latitude,
+        longitude,
+      },
+      host @client {
+        firstName,
+        lastName,
+        selfDescription,
+        profileImgUrl
+      }
+    }
+  }`;
 
 class EventDetail extends Component{
   constructor(props){
