@@ -55,4 +55,40 @@ module.exports.Mutation = {
     });
     return review;
   },
+  joinEvent: async (
+    _,
+    {orderId, eventId},
+    {dataSources},
+  ) => {
+    const orderID = orderId;
+
+    // Call PayPal to get the transaction details
+    const request = new checkoutNodeJssdk.orders.OrdersGetRequest(orderID);
+
+    let order;
+    try {
+      order = await payPalClient.client().execute(request);
+    } catch (err) {
+      // Handle any errors from the call
+      console.error(err);
+      return false;
+    }
+
+    // Validate the transaction details are as expected
+    console.log(order.result);
+    console.log(order.result.purchase_units[0].amount);
+    console.log(order.result.purchase_units[0].payee);
+    console.log(order.result.purchase_units[0].payments);
+    if (order.result.purchase_units[0].amount.currency_code !== 'USD' ||
+        order.result.purchase_units[0].amount.value !== '0.01') {
+      return false;
+    }
+
+    // Save the transaction in your database
+    // await database.saveTransaction(orderID);
+
+
+    // Return a successful response to the client
+    return true;
+  },
 };
