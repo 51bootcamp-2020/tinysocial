@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-
+const {TESTDATA} = require('./testData');
 const createStore = async () => {
   let sequelize;
   switch (process.env.NODE_ENV) {
@@ -294,7 +294,16 @@ const createStore = async () => {
 
   switch (process.env.NODE_ENV) {
     case 'test':
-      await sequelize.sync({force: true});
+      sequelize.sync({force: true}).then(async() =>{
+        await User.create(TESTDATA.UsersData);
+        await Event.create(TESTDATA.EventsData);
+        await Schedule.create(TESTDATA.ScheduleData);
+        await EventParticipant.create(TESTDATA.EventParticipantData);
+        await Review.create(TESTDATA.ReviewData);
+        await EventBookClub.create(EventBookClubsData);
+        await Tag.create(TESTDATA.TagsData)
+        await EventTag.create(TESTDATA.EventTagsData)
+      });
       break;
     default:
       sequelize.sync();
