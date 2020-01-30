@@ -1,8 +1,8 @@
 const {gql} = require('apollo-server');
 
 const typeDefs = gql`
-  scalar Date
-  scalar DateTime
+    scalar Date
+    scalar DateTime
 
     type Query {
         # Returns certain size of events after the cursor
@@ -22,11 +22,11 @@ const typeDefs = gql`
         getUserReviews(userId: Int, eventId: Int): Review
     }
     type Review {
-      title: String!
-      content: String!
-      author: User!
-      isPublic: Boolean!
-      event: Event
+        title: String!
+        content: String!
+        author: User!
+        isPublic: Boolean!
+        event: Event
     }
     type Mutation {
         signInWithGoogle(googleId: String!): AuthResponse!
@@ -56,16 +56,16 @@ const typeDefs = gql`
         # If successful, then return True.  
         logout: Boolean!
         createReview(
-          eventId: Int!
-          title: String!
-          content: String!
-          isPublic: Boolean!
+            eventId: Int!
+            title: String!
+            content: String!
+            isPublic: Boolean!
         ): Boolean!
         modifyReview(
-          eventId: Int!
-          title: String!
-          content: String!
-          isPublic: Boolean!
+            eventId: Int!
+            title: String!
+            content: String!
+            isPublic: Boolean!
         ): Boolean!
         # If successful, then return True.  
         joinEvent(
@@ -81,18 +81,18 @@ const typeDefs = gql`
         # range: Float,
         # from: String 
     }
-    
+
     input TagInput {
         name: String
     }
-    
+
     enum EventSort {
         BEST_MATCH,
         NEWEST,
         MOST_MEMBERS,
         TIME_CLOSEST,
     }
-    
+
     type AuthResponse {
         success: Boolean!
         # Contains error message, if not successful
@@ -140,7 +140,7 @@ const typeDefs = gql`
         maxParticipantNum: Int
         reviews: [Review]
     }
-    
+
     type EventBookClub implements Event{
         id: ID!
         host: User!
@@ -164,14 +164,14 @@ const typeDefs = gql`
         reviews: [Review]
     }
 
-  # Every event can have multiple tags. Tags are predefined by ours(developers)
-  # and used by the event host to categorize his event. So we are able to
-  # categorize events by tags.
-  type Tag {
-    id: ID!
-    name: String!
-    events: [Event]!
-  }
+    # Every event can have multiple tags. Tags are predefined by ours(developers)
+    # and used by the event host to categorize his event. So we are able to
+    # categorize events by tags.
+    type Tag {
+        id: ID!
+        name: String!
+        events: [Event]!
+    }
 
     # TODO(lsh9034): Implement EventConnection.
     # Reference:
