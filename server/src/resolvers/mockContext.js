@@ -8,6 +8,8 @@ module.exports.mockContext = {
       getScheduleIdsOfEvent: jest.fn(),
       getTagIdsOfEvent: jest.fn(),
       getParticipantIdsOfEvent: jest.fn(),
+      getHostedEventIdsOfUser: jest.fn(),
+      getParticipatedEventIdsOfUser: jest.fn(),
     },
     reviewAPI: {
       getAttributeOfReview: jest.fn(),
@@ -17,6 +19,9 @@ module.exports.mockContext = {
       getAttributeOfTag: jest.fn(),
       getEventIdsOfTag: jest.fn(),
     },
-    userAPI: { },
+    userAPI: {
+      getAttributeOfUser: jest.fn(),
+      getAgeOfUser: jest.fn(),
+    },
   },
 };
