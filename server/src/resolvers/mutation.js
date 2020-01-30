@@ -1,7 +1,7 @@
 const errorMessage = require('../errorMessages');
 module.exports.Mutation = {
   signInWithGoogle: async (_, {googleId}, {dataSources}) => {
-    return dataSources.authAPI.signIn({googleId});
+    return dataSources.authAPI.signInWithGoogle({googleId});
   },
   signUpWithGoogle: async (
     _, {googleId, email, firstName, lastName, profileImgUrl},

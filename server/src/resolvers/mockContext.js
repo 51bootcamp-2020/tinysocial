@@ -1,6 +1,13 @@
 module.exports.mockContext = {
   userId: 1,
   dataSources: {
+    authAPI: {
+      signInWithGoogle: jest.fn(),
+      signUpWithGoogle: jest.fn(),
+      signIn: jest.fn(),
+      signUp: jest.fn(),
+      emailValidate: jest.fn(),
+    },
     eventAPI: {
       getUpcomingEventIdsOfEvent: jest.fn(),
       getPastEventIdsOfEvent: jest.fn(),
