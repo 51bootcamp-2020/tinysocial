@@ -170,3 +170,36 @@ const EventBookClub = [
     bookImageUrl: 'https://images-na.ssl-images-amazon.com/images/I/519EaLpjEHL._SX329_BO1,204,203,200_.jpg',
   },
 ];
+
+const Tag = [
+  {
+    name: 'Science',
+  },
+  {
+    name: 'Romance',
+  },
+  {
+    name: 'History',
+  },
+  {
+    name: 'Fiction',
+  },
+  {
+    name: 'Business',
+  },
+  {
+    name: 'Essay',
+  },
+  {
+    name: 'Self Improvement',
+  },
+  {
+    name: 'Art',
+  },
+  {
+    name: 'Biography',
+  },
+  {
+    name: 'Suspense',
+  },
+];
