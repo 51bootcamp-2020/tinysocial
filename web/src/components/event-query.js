@@ -12,7 +12,7 @@ class EventQuery extends Component {
   }
 
   // Query for bringing event sending to server
-  EVENT_REQUEST_QUERY = gql`
+  EVENT_REQUEST_QUERY = gql`    
     query ($pageSize : Int, $eventFilter : EventFilter){
       events (pageSize: $pageSize, eventFilter: $eventFilter){
         cursor,

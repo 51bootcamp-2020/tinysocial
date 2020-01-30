@@ -23,7 +23,6 @@ const eventCardStyle = {
     overflow: 'hidden',
     textOverflow: 'ellipsis'
   }
-
 };
 
 // Event Card css overriding

@@ -12,9 +12,6 @@ class EventList extends Component {
 
   constructor() {
     super();
-    const tag = {
-
-    }
     this.state = {
       isTagNames : false,
       allTags : [
@@ -42,8 +39,6 @@ class EventList extends Component {
   HandlerTagName = (data) => {
     console.log('page' + data)
   };
-
-
 
   render() {
     return (
