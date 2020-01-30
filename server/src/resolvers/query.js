@@ -29,7 +29,7 @@ module.exports.Query = {
     };
   },
 
-  event: async (_, {id}, {dataSources}) => {
+  event: async (_, {id}) => {
     return {id};
   },
 
@@ -37,7 +37,7 @@ module.exports.Query = {
     return {id: userId};
   },
 
-  user: async (_, {userId}, {dataSources}) => {
+  user: async (_, {userId}) => {
     return {id: userId};
   },
 
