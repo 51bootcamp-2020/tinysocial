@@ -47,32 +47,6 @@ class UserAPI extends DataSource {
     }
     return age;
   }
-
-  async getHostedEventIdsOfUser({userId}) {
-    if (userId === undefined) {
-      throw new Error(userIdIsNotPassedMessage);
-    }
-    return this.store.Event.findAll({
-      where: {
-        host: userId,
-      },
-      attributes: ['id'],
-      raw: true,
-    });
-  }
-
-  async getParticipatedEventIdsOfUser({userId}) {
-    if (userId === undefined) {
-      throw new Error(userIdIsNotPassedMessage);
-    }
-    return this.store.EventParticipant.findAll({
-      where: {
-        userId,
-      },
-      attributes: [['eventId', 'id']],
-      raw: true,
-    });
-  }
 }
 
 module.exports = {
