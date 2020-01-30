@@ -1,75 +1,103 @@
-import React, {Component} from 'react';
 import BookClub from '../components/eventdetail/bookclub';
 import CommonEvent from '../components/eventdetail/commonevent';
 import EventThumbNail from '../components/eventdetail/eventthumbnail';
 import {gql} from 'apollo-boost';
-import Ticket from '../components/eventdetail/ticket';
-import {Query} from 'react-apollo';
 import {
   Hidden,
   Divider,
   Grid,
 } from '@material-ui/core';
+import Ticket from '../components/eventdetail/ticket';
+import {Query} from 'react-apollo';
+import queryString from 'query-string'
+import React, {Component} from 'react';
+import {
+  withRouter
+} from 'react-router-dom'
 
 const EVENT_DETAIL_REQUEST_QUERY = gql`
-  query getEvent($id:Int!) {
-    event(id:$id) @client { 
-      id,
-      title,
-      thumbnailUrl,
-      description,
-      price,
-      tags,
-      bookTitle,
-      bookDescription,
-      bookAuthor,
-      address,
-      host @client {
-        firstName,
-        lastName,
-        description,
-        profileImgUrl
-      }
-    }
-  }`;
+    query getEvent($eventId: ID!) {
+        event(id: $eventId) @client {
+            id,
+            title,
+            thumbnailUrl,
+            description,
+            price,
+            tags @client {
+                id,
+                name
+            },
+            ... on EventBookClub @client {
+                bookTitle,
+                bookDescription,
+                bookAuthor
+            },
+            schedule @client {
+                id,
+                startDateTime,
+                endDateTime,
+                address,
+                latitude,
+                longitude,
+            },
+            host @client {
+                firstName,
+                lastName,
+                selfDescription,
+                profileImgUrl
+            }
+        }
+    }`;
 
 class EventDetail extends Component{
   constructor(props){
     super(props);
+    this.state = {
+      eventId: ''
+    }
   }
 
-  Event = ( event_id ) => {
-    // TODO(YoonYeoHwan): '$id:0' will change to '$id:event_id'.
-    return (<Query query={EVENT_DETAIL_REQUEST_QUERY} variables={{$id:0}}>
+  // TODO(YoonYeoHwan): Catch error if query string didn't come.
+  componentDidMount() {
+    const query = queryString.parse(this.props.location.search);
+    this.setState({
+      eventId: query.id
+    })
+  }
+
+  Event = () => {
+    // TODO(YoonYeoHwan): '$id:0' will change to '$id:eventId'.
+    return (<Query query={EVENT_DETAIL_REQUEST_QUERY} variables={{$id:this.state.eventId}}>
       {({ loading, error, data }) => {
         if (loading) return 'Loading...';
         if (error) return `Error! ${error.message}`;
+        console.log(data.event)
         return (
-            <Grid container>
-              <Grid item sm={8} xs={12}>
-                <EventThumbNail>
-                  {data.event}
-                </EventThumbNail>
-              </Grid>
-              <Grid item sm={4} xs={12}>
-                <CommonEvent>
-                  {data.event}
-                </CommonEvent>
-              </Grid>
-              <Grid item sm={8} xs={12}>
-                <BookClub>
-                  {data.event}
-                </BookClub>
-              </Grid>
-              <Hidden smUp>
-                <Grid item xs={12}>
-                  <Divider/>
-                  <Ticket>
-                    {data.event}
-                  </Ticket>
-                </Grid>
-              </Hidden>
+          <Grid container>
+            <Grid item sm={8} xs={12}>
+              <EventThumbNail>
+                {data.event}
+              </EventThumbNail>
             </Grid>
+            <Grid item sm={4} xs={12}>
+              <CommonEvent>
+                {data.event}
+              </CommonEvent>
+            </Grid>
+            <Grid item sm={8} xs={12}>
+              <BookClub>
+                {data.event}
+              </BookClub>
+            </Grid>
+            <Hidden smUp>
+              <Grid item xs={12}>
+                <Divider/>
+                <Ticket>
+                  {data.event}
+                </Ticket>
+              </Grid>
+            </Hidden>
+          </Grid>
         );
     }}
     </Query>)
@@ -84,4 +112,4 @@ class EventDetail extends Component{
   }
 }
 
-export default EventDetail;
+export default withRouter(EventDetail);

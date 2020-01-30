@@ -28,7 +28,7 @@ class Bookclub extends Component {
             </Typography>
           </Grid>
           <Typography variant='body2' style={{marginBottom: 20}}>
-            {this.props.children.host.description}
+            {this.props.children.host.selfDescription}
           </Typography>
 
           <Grid item>
@@ -60,7 +60,7 @@ class Bookclub extends Component {
               Location
             </Typography>
             <Typography variant='body2'>
-              {this.props.children.address}
+              {/*{this.props.children.schedule.location}*/}
             </Typography>
           </Grid>
 

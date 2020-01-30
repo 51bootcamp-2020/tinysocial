@@ -24,7 +24,7 @@ class Tags extends Component {
             width: 'max-content',
           }}>
             <Typography variant='body2'>
-              {event.tags[i]}
+              {event.tags[i].name}
             </Typography>
           </Box>,
       );
