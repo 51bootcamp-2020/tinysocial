@@ -13,7 +13,8 @@ class Checkout extends Component {
       eventName: 'Brief summary of Human History',
       schedule: 'January 29, 2020 10:30 AM - 1:30 PM',
       imageUrl: './images/tmp_book.png',
-      eventId: '',
+      eventId: 'helloEvent',
+      userId: 'helloUser',
     };
   }
 
@@ -32,7 +33,7 @@ class Checkout extends Component {
         <Divider />
         <br/>
 
-        <PaypalPayment price={this.state.price} eventId={this.state.eventId} />
+        <PaypalPayment price={this.state.price} eventId={this.state.eventId} userId={this.state.userId} />
       </Container>
     );
   }
