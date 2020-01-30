@@ -8,7 +8,7 @@ import EventList from './pages/eventlist';
 import Landing from './pages/landing';
 import NavBar from './components/navigation/navbar';
 import React, {Fragment} from 'react';
-import Signin from './pages/signin';
+import SignInUp from './pages/signInUp';
 import Emailvalidation from './pages/emailvalidation';
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
       <NavBar/>
       <Router>
         <Switch>
-          <Route path='/signin' render={() => <Signin/>}/>
+          <Route path='/signin' render={() => <SignInUp/>}/>
           <Route path='/eventlist' render={() => <EventList/>}/>
           <Route path='/about' render={() => <About/>}/>
           <Route path='/' render={() => <Landing/>}/>
