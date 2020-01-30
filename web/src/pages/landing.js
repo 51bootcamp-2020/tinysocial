@@ -23,7 +23,7 @@ class Landing extends Component {
     const {classes} = this.props;
     return (
         <Grid container justify="space-between" className={classes.root}>
-          <Grid item xs='auto'>
+          <Grid item xs={12}>
             <LandingDescription />
             <EventQuery pageSize={6} />
           </Grid>
