@@ -46,14 +46,15 @@ class PaypalPayment extends Component {
             // Show a success message to your buyer
             alert('Transaction completed by ' + details.payer.name.given_name);
 
-            // Call the page to save the transaction
-            return fetch(`/join-event/${eventId}/${data.orderID}`);
-          });
-        }}
-        options={{
-          clientId: clientId,
-        }}
-      />
+                // Call the page to save the transaction
+                return fetch(`/join-event/${eventId}/${data.orderID}`);
+              });
+            }}
+            options={{
+              clientId: clientId,
+            }}
+            style={{color: 'silver', label:'pay'}}
+        />
     );
   }
 }
