@@ -13,11 +13,6 @@ import Payment from './pages/payment';
 import React, {Fragment} from 'react';
 import SignInUp from './pages/signInUp';
 
-const client = new ApolloClient({
-  // TODO(arin-kwak): need update uri.
-  uri: 'http://localhost:15780',
-});
-
 function App() {
   // TODO(Myoung-heeSeo): Add a state to check if the user is logged in now.
   return (
