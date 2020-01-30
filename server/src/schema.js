@@ -47,7 +47,7 @@ const typeDefs = gql`
             lastName: String!
             pw: String!
             repw: String!
-        ): AuthResponse!
+        ): SignUpAuthResponse!
         signIn(
             email: String!
             pw: String!
@@ -89,7 +89,10 @@ const typeDefs = gql`
         token: String
         user: User
     }
-
+    type SignUpAuthResponse {
+        success: Boolean!
+        message: String
+    }
     type User {
         id: ID!
         firstName: String!

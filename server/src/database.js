@@ -61,6 +61,7 @@ const createStore = async () => {
     googleId: Sequelize.STRING,
     facebookId: Sequelize.STRING,
     profileImgUrl: Sequelize.STRING,
+    password: Sequelize.STRING,
     email: {
       type: Sequelize.STRING, allowNull: false,
     },
@@ -290,7 +291,7 @@ const createStore = async () => {
   // TODO(arin-kwak): In production phase, consider using migration instead of
   // 'sync'.
   // reference: https://sequelize.org/v5/manual/migrations.html
-  
+
   switch (process.env.NODE_ENV) {
     case 'test':
       await sequelize.sync({force: true});
