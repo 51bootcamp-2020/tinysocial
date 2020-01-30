@@ -1,4 +1,9 @@
 const errorMessage = require('../errorMessages');
+
+// Paypal API Info
+const checkoutNodeJssdk = require('@paypal/checkout-server-sdk');
+const payPalClient = require('../paypal-client');
+
 module.exports.Mutation = {
   signInWithGoogle: async (_, {googleId}, {dataSources}) => {
     return dataSources.authAPI.signInWithGoogle({googleId});
