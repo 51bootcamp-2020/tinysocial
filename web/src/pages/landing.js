@@ -16,13 +16,16 @@ class Landing extends Component {
   constructor(props) {
     super(props);
   }
+
+  // TODO(Lhyejin): server에서 user의 정보를 가져와서, eventQuery에 tagId넣어주기.
+
   render() {
     const {classes} = this.props;
     return (
         <Grid container justify="space-between" className={classes.root}>
           <Grid item xs='auto'>
             <LandingDescription />
-            <EventQuery pageSize='6' />
+            <EventQuery pageSize={6} />
           </Grid>
         </Grid>
     );
