@@ -96,6 +96,19 @@ class EventAPI extends DataSource {
         eventParticipant[attributeName] : null;
   }
 
+  async getHostedEventIdsOfUser({userId}) {
+    if (userId === undefined) {
+      throw new Error(userIdIsNotPassedMessage);
+    }
+    return this.store.Event.findAll({
+      where: {
+        host: userId,
+      },
+      attributes: ['id'],
+      raw: true,
+    });
+  }
+  
   async getHostIdOfEvent({eventId}) {
     if (eventId === undefined || eventId === null) {
       throw new Error(eventIdIsNotPassedMessage);
@@ -129,6 +142,19 @@ class EventAPI extends DataSource {
       raw: true,
     });
     return schduleIds;
+  }
+  
+  async getParticipatedEventIdsOfUser({userId}) {
+    if (userId === undefined) {
+      throw new Error(userIdIsNotPassedMessage);
+    }
+    return this.store.EventParticipant.findAll({
+      where: {
+        userId,
+      },
+      attributes: [['eventId', 'id']],
+      raw: true,
+    });
   }
 
   async getTagIdsOfEvent({eventId}) {
