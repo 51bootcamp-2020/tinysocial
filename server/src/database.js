@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const createStore = () => {
+const createStore = async () => {
   let sequelize;
   switch (process.env.NODE_ENV) {
     case 'production':
@@ -54,6 +54,7 @@ const createStore = () => {
     googleId: Sequelize.STRING,
     facebookId: Sequelize.STRING,
     profileImgUrl: Sequelize.STRING,
+    password: Sequelize.STRING,
     email: {
       type: Sequelize.STRING, allowNull: false,
     },
@@ -62,7 +63,7 @@ const createStore = () => {
     // additional street address, city, state, zip code
     address: Sequelize.STRING,
     phone: Sequelize.STRING,
-    self_description: Sequelize.STRING,
+    selfDescription: Sequelize.STRING,
     lastInteractionTime: Sequelize.DATE, // To refresh JWT token
   },
   {
@@ -257,7 +258,7 @@ const createStore = () => {
         },
       }, {
         sequelize,
-        modelName: 'EventParticipant',
+        modelName: 'eventParticipant',
       },
   );
   Event.hasMany(EventParticipant);
@@ -284,7 +285,14 @@ const createStore = () => {
   // 'sync'.
   // reference: https://sequelize.org/v5/manual/migrations.html
 
-  sequelize.sync();
+  switch (process.env.NODE_ENV) {
+    case 'test':
+      await sequelize.sync({force: true});
+      break;
+    default:
+      sequelize.sync();
+      break;
+  }
 
   return {
     User,
