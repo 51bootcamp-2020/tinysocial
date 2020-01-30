@@ -12,42 +12,48 @@ class PaypalPayment extends Component {
 
     this.state = {
       price: props.price,
-      eventId: props.eventId, // For redirection
+      eventId: props.eventId,
+      userId: props.userId,
     };
   }
 
   render() {
     return (
-      <PayPalButton
-        createOrder={(data, actions) => {
-          return actions.order.create({
-            purchase_units: [{
-              amount: {
-                currency_code: 'USD',
-                value: this.state.price,
-              },
-            }],
-            application_context: {
-              shipping_preference: 'NO_SHIPPING',
-            },
-          });
-        }}
-        onApprove={(data, actions) => {
-          // Capture the funds from the transaction
-          console.log('approved: ', data, actions);
-          const eventId = this.state.eventId;
-          return actions.order.capture().then(function(details) {
-            // Show a success message to your buyer
-            alert('Transaction completed by ' + details.payer.name.given_name);
+        <PayPalButton
+            createOrder={(data, actions) => {
+              return actions.order.create({
+                purchase_units: [{
+                  description: `userId:${
+                      this.state.userId
+                  },eventId:${
+                      this.state.eventId
+                  }`,
+                  amount: {
+                    currency_code: 'USD',
+                    value: this.state.price,
+                  },
+                }],
+                application_context: {
+                  shipping_preference: 'NO_SHIPPING',
+                },
+              });
+            }}
+            onApprove={(data, actions) => {
+              // Capture the funds from the transaction
+              console.log('approved: ', data, actions);
+              const eventId = this.state.eventId;
+              return actions.order.capture().then(function(details) {
+                // Show a success message to your buyer
+                alert('Transaction completed by ' + details.payer.name.given_name);
 
-            // Call the page to save the transaction
-            return fetch(`/join-event/${eventId}/${data.orderID}`);
-          });
-        }}
-        options={{
-          clientId: clientId,
-        }}
-      />
+                // Call the page to save the transaction
+                return fetch(`/join-event/${eventId}/${data.orderID}`);
+              });
+            }}
+            options={{
+              clientId: clientId,
+            }}
+        />
     );
   }
 }

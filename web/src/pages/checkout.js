@@ -13,26 +13,28 @@ class Checkout extends Component {
       eventName: 'Brief summary of Human History',
       schedule: 'January 29, 2020 10:30 AM - 1:30 PM',
       imageUrl: './images/tmp_book.png',
-      eventId: '',
+      eventId: 'helloEvent',
+      userId: 'helloUser',
     };
   }
 
   render() {
     return (
-      <Container maxWidth='sm'>
-        <br/>
+        <Container maxWidth='sm'>
+          <br/>
 
-        <PurchaseEventItem
-          price={this.state.price}
-          eventName={this.state.eventName}
-          schedule={this.state.schedule}
-          imageUrl={this.state.imageUrl} />
-        <br/>
-        <Divider />
-        <br/>
+          <PurchaseEventItem
+              price={this.state.price}
+              eventName={this.state.eventName}
+              schedule={this.state.schedule}
+              imageUrl={this.state.imageUrl} />
 
-        <PaypalPayment price={this.state.price} eventId={this.state.eventId} />
-      </Container>
+          <br/>
+          <Divider />
+          <br/>
+
+          <PaypalPayment price={this.state.price} eventId={this.state.eventId} userId={this.state.userId} />
+        </Container>
     );
   }
 }
