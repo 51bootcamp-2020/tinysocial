@@ -5,13 +5,12 @@ import {Mutation} from 'react-apollo';
 import ParticipateSuccess from '../components/participate-success';
 import {withRouter} from 'react-router-dom';
 
-// Todo: get boolean return value
+// Todo(Myoung-hee): Redirect to error page when error occured.
+// Todo(Myoung-hee): Change @client to real db access.
 // Join event mutation for mutate the event-user participate.
 const JOINEVENT_QUERY = gql`
   mutation ($eventId: String!, $orderId: String!){
-    joinEvent @client (eventId: $eventId, orderId: $orderId){
-      bool
-    }
+    joinEvent @client (eventId: $eventId, orderId: $orderId)
   }`;
 
 const containerStyle = {
@@ -47,8 +46,9 @@ class JoinEvent extends Component {
                         orderId: this.props.location.state.orderId,
                       }}
                       onCompleted={(data) => {
+                        console.log(data)
                         this.setState({
-                          participateResult: true,
+                          participateResult: data.joinEvent,
                         });
                       }}
                       onError={

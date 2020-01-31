@@ -22,6 +22,7 @@ const SIGNIN_QUERY = gql`
           }
         }`;
 
+// Todo(Myoung-hee): Redirect to error page when error occured.
 class LoginFormGoogle extends Component {
 
   constructor(props) {
@@ -59,7 +60,7 @@ class LoginFormGoogle extends Component {
     if (this.state.isMember)
       return this.props.history.push({pathname: '/'});
     else {
-      // No user information in our db.
+      // No user informaton in our db.
       return this.props.history.push({pathname: '/signup'});
     }
   };

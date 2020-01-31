@@ -30,6 +30,7 @@ const h4Style = {
   letterSpacing: '0.25px',
 };
 
+// Todo(Myoung-hee): Redirect to error page when error occured.
 // Component when event-user participate is successed after payment.
 class ParticipateSuccess extends Component {
   constructor(props) {
