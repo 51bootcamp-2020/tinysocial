@@ -14,6 +14,8 @@ module.exports = {
       type: 0,
       thumbnailUrl: 'https://content.fortune.com/wp-content/uploads/2020/01/Book-Review-Splendid-and-Vile-Uncanny-Valley-Ladys-Handbook.jpg',
       maxParticipantNum: 50,
+      createdAt: new Date(2020, 1, 1),
+      updatedAt: new Date(2020, 1, 1),
     },
     {
       hostId: 2,
@@ -28,6 +30,8 @@ module.exports = {
       type: 0,
       thumbnailUrl: 'https://assets.readitforward.com/wp-content/uploads/2019/11/RIF-Q4-Books-We-Cant-Wait-To-Read-2020-RJD-1200x90011-12-830x625.jpg',
       maxParticipantNum: 50,
+      createdAt: new Date(2020, 2, 11),
+      updatedAt: new Date(2020, 2, 11),
     },
     {
       hostId: 3,
@@ -39,6 +43,8 @@ module.exports = {
       type: 0,
       thumbnailUrl: 'https://d7hftxdivxxvm.cloudfront.net/?resize_to=width&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2FFjHJr7y8AehClP2DtD8onQ%252Fbooks1.jpg&width=800&quality=80',
       maxParticipantNum: 50,
+      createdAt: new Date(2020, 3, 13),
+      updatedAt: new Date(2020, 3, 13),
     },
     {
       hostId: 2,
@@ -56,6 +62,8 @@ module.exports = {
       type: 0,
       thumbnailUrl: 'https://i.pinimg.com/originals/ca/32/30/ca3230ac0ba85141d8a6b09dd5f549f2.jpg',
       maxParticipantNum: 50,
+      createdAt: new Date(2020, 9, 6),
+      updatedAt: new Date(2020, 9, 6),
     },
     {
       hostId: 1,
@@ -65,6 +73,8 @@ module.exports = {
       type: 0,
       thumbnailUrl: 'http://rodrigocorral.com/uploads/projects/Area-X-1415742492.jpg',
       maxParticipantNum: 50,
+      createdAt: new Date(2020, 11, 17),
+      updatedAt: new Date(2020, 11, 17),
     }], {});
   },
 

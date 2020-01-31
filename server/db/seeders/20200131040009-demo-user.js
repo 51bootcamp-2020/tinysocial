@@ -14,6 +14,8 @@ module.exports = {
         email: 'lsh9034@kookmin.ac.kr',
         selfDescription: 'Sihyun is stupid',
         lastInteractionTime: new Date(), // To refresh JWT token
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         firstName: 'Yunhyeok',
@@ -26,6 +28,8 @@ module.exports = {
         email: 'Yunhyeok facebookId',
         selfDescription: 'Yunhyeok is babo',
         lastInteractionTime: new Date(), // To refresh JWT token
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         firstName: 'Seongjae',
@@ -40,6 +44,8 @@ module.exports = {
         phone: '+1029384756',
         selfDescription: 'Seongjae is big man',
         lastInteractionTime: new Date(), // To refresh JWT token
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     ], {});
   },

@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
-  }, {});
+  }, {timestamps: false});
   Review.associate = function(models) {
     // associations can be defined here
     Review.belongsTo(models.User);

@@ -9,6 +9,8 @@ module.exports = {
         title: 'This event was so funny!!',
         content: 'It was so funny but a little bit boring',
         isPublic: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         userId: 2,
@@ -16,6 +18,8 @@ module.exports = {
         title: 'It was terrible book.',
         content: 'The book is so biased. I think it\'s author is racist',
         isPublic: false,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         userId: 3,
@@ -23,6 +27,8 @@ module.exports = {
         title: 'Just common book and event',
         content: 'It was not interestd. But my friends Sihyun like this.',
         isPublic: false,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     ], {});
   },

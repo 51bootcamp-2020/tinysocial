@@ -26,6 +26,8 @@ module.exports = {
           key: 'id',
         },
       },
+      description: Sequelize.TEXT,
+      price: Sequelize.FLOAT,
       type: {type: Sequelize.INTEGER},
       thumbnailUrl: {type: Sequelize.TEXT},
       maxParticipantNum: {type: Sequelize.INTEGER},
