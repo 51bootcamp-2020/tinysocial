@@ -20,8 +20,8 @@ module.exports = {
         eventId: 1,
       },
       {
-        startDateTime: new Date('2020-2-10 15:00'),
-        endDateTime: new Date('2020-2-5 16:15'),
+        startDateTime: new Date('2020-2-5 15:00'),
+        endDateTime: new Date('2020-2-10 16:15'),
         address: '1 Baldwin Ave San Mateo, CA 94401',
         latitude: 37.565898,
         longitude: -122.327813,
