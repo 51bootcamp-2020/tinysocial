@@ -3,7 +3,7 @@ const {mockContext} = require('../mockContext');
 
 describe('[EventConnectionResolver]', () => {
   test('returns events', async () => {
-    const res = await EventConnection.events({events: [{id:1, id:2}], cursor: 3});
-    expect(res).toEqual([{id:1, id:2}]);
-  })
-})
+    const res = await EventConnection.events({events: [{id: 1, id: 2}], cursor: 3});
+    expect(res).toEqual([{id: 1, id: 2}]);
+  });
+});

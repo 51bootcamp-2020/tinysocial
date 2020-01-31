@@ -1,4 +1,3 @@
-/* eslint-disable require-jsdoc */
 const {DataSource} = require('apollo-datasource');
 
 const userIdIsNotPassedMessage = 'You have to pass userId';

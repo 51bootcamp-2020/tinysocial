@@ -1,5 +1,5 @@
 require('dotenv').config({path: require('path').
-    resolve(process.cwd(), './src/.env')});
+    resolve(process.cwd(), '.env')});
 
 const {AuthAPI} = require('../authAPI');
 const {mockStore} = require('../mockStore');
@@ -44,7 +44,7 @@ describe('[authAPI.signInWithGoogle]', () => {
     });
   });
 });
-//TODO(lsh9034): implement unit test.
+// TODO(lsh9034): implement unit test.
 describe('[authAPI.signUpWithGoogle]', () => {
   test('throws error if googleId is not passed', async () => {
     expect(authAPI.signUpWithGoogle({})).rejects.toThrow(

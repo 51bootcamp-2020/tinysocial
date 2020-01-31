@@ -1,4 +1,3 @@
-/* eslint-disable require-jsdoc */
 const {DataSource} = require('apollo-datasource');
 const Sequelize = require('sequelize');
 const OP = Sequelize.Op;
@@ -191,7 +190,6 @@ class EventAPI extends DataSource {
       raw: true,
     });
     // TODO(lsh9034): implement logic order by order parameter.
-    console.log("eventIds", eventIds);
     eventIds = eventIds.map((element) => (element.id));
     const scheduleId = await this.store.Schedule.findAll({
       where: {id: eventIds},
@@ -201,18 +199,15 @@ class EventAPI extends DataSource {
       ],
       raw: true,
     });
-    console.log('scheduleId', scheduleId);
     const check = new Array(scheduleId.length + 1).fill(0);
     const sortedEventIdsBySchedule = [];
     for (let i=0; i<scheduleId.length; i++) {
-      console.log('check', check);
       if (check[scheduleId[i].eventId]) {
         continue;
       }
       check[scheduleId[i].eventId] = 1;
       sortedEventIdsBySchedule.push({id: scheduleId[i].eventId});
     }
-    console.log('sorted', sortedEventIdsBySchedule);
     return sortedEventIdsBySchedule;
   }
 

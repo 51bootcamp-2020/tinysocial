@@ -9,7 +9,7 @@ module.exports.AuthResponse = {
     return parent.token;
   },
   user: async (parent) => {
-    return {id: parent.user}
+    return {id: parent.user};
   },
 };
 
