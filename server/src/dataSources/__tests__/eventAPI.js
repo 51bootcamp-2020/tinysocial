@@ -305,7 +305,6 @@ describe('[EventAPI.getIdsOfEvent]', () => {
     const res = await eventAPI.getIdsOfEvent({offset: 0, limit: 2});
     expect(res).toEqual([{event: 1}, {event: 2}]);
   });
-
 });
 
 describe('[EventAPI.getUpcomingEventIdsOfEvent]', () => {

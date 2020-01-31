@@ -9,12 +9,6 @@ module.exports.toPromise = toPromise;
  */
 
 const startTestServer = async (server) => {
-  console.log(server);
-  // if using apollo-server-express...
-  // const app = express();
-  // server.applyMiddleware({ app });
-  // const httpServer = await app.listen(0);
-
   const httpServer = await server.listen({port: 0});
 
   const link = new HttpLink({

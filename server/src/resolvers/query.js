@@ -23,7 +23,6 @@ module.exports.Query = {
         order: eventSort,
       });
       pageSize = eventIds.length;
-      console.log("pageSize", pageSize);
     }
     return {
       cursor: after + pageSize,

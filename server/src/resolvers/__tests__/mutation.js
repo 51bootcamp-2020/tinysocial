@@ -7,12 +7,12 @@ const {createOrModifyOfReview} = mockContext.dataSources.reviewAPI;
 describe('[Mutation]', () => {
   test('signInWithGoogle', async () => {
     signInWithGoogle.mockReturnValueOnce({success: true, message: 'Success', token: 'TOKEN', user: {id: 1}});
-    const res = await Mutation.signInWithGoogle({}, {googleId: "test@test.com"}, mockContext);
+    const res = await Mutation.signInWithGoogle({}, {googleId: 'test@test.com'}, mockContext);
     expect(res).toEqual({success: true, message: 'Success', token: 'TOKEN', user: {id: 1}});
   });
   test('signUpWithGoogle', async () => {
     signUpWithGoogle.mockReturnValueOnce({success: true, message: 'Success', token: 'TOKEN', user: {id: 1}});
-    const res = await Mutation.signUpWithGoogle({}, {googleId: "test@test.com"}, mockContext);
+    const res = await Mutation.signUpWithGoogle({}, {googleId: 'test@test.com'}, mockContext);
     expect(res).toEqual({success: true, message: 'Success', token: 'TOKEN', user: {id: 1}});
   });
   test('signIn', async () => {
@@ -38,4 +38,4 @@ describe('[Mutation]', () => {
     const res = await Mutation.createOrModifyReview({}, {eventId: 1, title: 'testTitle', content: 'testContent', isPublic: true}, mockContext);
     expect(res).toEqual({userId: 1, eventId: 1});
   });
-})
+});

@@ -1,7 +1,7 @@
 const {User} = require('../../resolvers');
 const {mockContext} = require('../mockContext');
 
-const {getAttributeOfUser, getAgeOfUser, } = mockContext.dataSources.userAPI;
+const {getAttributeOfUser, getAgeOfUser} = mockContext.dataSources.userAPI;
 const {getParticipatedEventIdsOfUser, getHostedEventIdsOfUser} = mockContext.dataSources.eventAPI;
 describe('[UserResolver]', () => {
   test('returns firstName', async () => {
@@ -45,9 +45,9 @@ describe('[UserResolver]', () => {
     expect(res).toEqual([{id: 1}, {id: 2}]);
   });
   test('returns participatedEvents', async () => {
-    getParticipatedEventIdsOfUser.mockReturnValueOnce([{id: 1, eventId:2}, {id: 2, eventId:1}]);
+    getParticipatedEventIdsOfUser.mockReturnValueOnce([{id: 1, eventId: 2}, {id: 2, eventId: 1}]);
     const res = await User.participatedEvents({id: 1}, {}, mockContext);
-    expect(res).toEqual([{id: 1, eventId:2}, {id: 2, eventId:1}]);
+    expect(res).toEqual([{id: 1, eventId: 2}, {id: 2, eventId: 1}]);
   });
   test('returns birthday', async () => {
     getAttributeOfUser.mockReturnValueOnce(new Date('1996-04-22 12:45:00'));
