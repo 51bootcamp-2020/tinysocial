@@ -291,7 +291,7 @@ const createStore = async () => {
   // TODO(arin-kwak): In production phase, consider using migration instead of
   // 'sync'.
   // reference: https://sequelize.org/v5/manual/migrations.html
-
+  let sync;
   switch (process.env.NODE_ENV) {
     case 'test':
       sequelize.sync({force: true}).then(async() =>{
@@ -305,8 +305,11 @@ const createStore = async () => {
         await EventTag.create(TESTDATA.EventTagsData)
       });
       break;
+    case 'dev':
+      sync = sequelize.sync();
+      break;
     default:
-      sequelize.sync();
+      sync = sequelize.sync();
       break;
   }
 
@@ -320,6 +323,7 @@ const createStore = async () => {
     Schedule,
     EventParticipant,
     sequelize,
+    sync,
   };
 };
 

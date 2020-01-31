@@ -4,22 +4,23 @@
   "private": true,
   "dependencies": {
     "apollo-datasource": "latest",
+    "apollo-link-http": "latest",
     "apollo-server": "^2.9.15",
+    "apollo-server-lambda": "^2.9.16",
     "csv-parser": "^2.3.2",
     "dotenv": "^8.2.0",
     "fs": "0.0.1-security",
-    "graphql": "^14.5.8",
+    "graphql": "^14.6.0",
     "graphql-scalars": "^1.0.6",
     "graphql-tag": "^2.10.1",
     "jsonwebtoken": "^8.5.1",
     "mariadb": "^2.1.5",
+    "node-fetch": "latest",
     "sendmail": "^1.6.1",
     "sequelize": "^5.21.3",
     "sha256": "^0.2.0",
     "sqlite3": "^4.1.1",
-    "strip-bom-stream": "^4.0.0",
-    "apollo-link-http": "latest",
-    "node-fetch": "latest"
+    "strip-bom-stream": "^4.0.0"
   },
   "scripts": {
     "start": "node src/index.js",
@@ -33,7 +34,8 @@
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-jest": "^23.6.0",
     "jest": "^25.1.0",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "sequelize-cli": "^5.5.1"
   },
   "jest": {
     "testPathIgnorePatterns": [

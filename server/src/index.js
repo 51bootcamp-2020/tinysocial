@@ -1,7 +1,9 @@
 'use strict';
-require('dotenv').config({path: require('path').
-    resolve(process.cwd(), 'src/.env')});
-const {ApolloServer} = require('apollo-server');
+require('dotenv').config({
+  path: require('path').
+      resolve(process.cwd(), 'src/.env'),
+});
+const {ApolloServer} = require('apollo-server-lambda');
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
 
@@ -22,26 +24,32 @@ if (process.env.NODE_ENV === undefined) {
 const {createStore} = require('./database');
 const context = require('./context');
 
-let dataSources; let server;
-createStore().then((store) => {
-  dataSources = () => ({
-    eventAPI: new EventAPI(store),
-    reviewAPI: new ReviewAPI(store),
-    tagAPI: new TagAPI(store),
-    userAPI: new UserAPI(store),
-    authAPI: new AuthAPI(store),
-  });
-
-  server = new ApolloServer({
+const server = (async function constructServer() {
+  const store = await createStore();
+  return new ApolloServer({
     typeDefs,
     resolvers,
-    dataSources,
+    dataSources: () => ({
+      eventAPI: new EventAPI(store),
+      reviewAPI: new ReviewAPI(store),
+      tagAPI: new TagAPI(store),
+      userAPI: new UserAPI(store),
+      authAPI: new AuthAPI(store),
+    }),
     context,
   });
+})();
+console.log(server);
 
-  if (process.env.NODE_ENV !== 'test') {
-    server.listen({port: 15780}).
-        then(({url}) => console.log(`Server running at at ${url}`));
-  }
+if (process.env.NODE_ENV === 'dev') {
+  server.listen({port: 15780}).
+      then(({url}) => console.log(`Server running at at ${url}`));
+}
+exports.graphqlHandler = server.createHandler({
+  cors: {
+    origin: true,
+    credentials: true,
+  },
 });
 
+exports.sync = store.sync;
