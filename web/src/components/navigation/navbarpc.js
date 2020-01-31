@@ -1,58 +1,89 @@
 import {
   AppBar,
+  Avatar,
   Grid,
   Typography,
 } from '@material-ui/core';
+import Cookie from 'js-cookie';
 import {
-  BrowserRouter,
-  Route,
+  Link,
 } from 'react-router-dom';
 import Logo from '../../img/tinysocial-logo.png';
 import React from 'react';
 
-function NavBarPC() {
+function NavBarPC(props) {
+  const loggedIn = Cookie.get('token') ? true : false;
+  const {profilepic} = props;
+
   return (
-    <BrowserRouter>
-      <div>
-        <Route path="/"
-          render={({location}) => (
-            <>
-              <AppBar position='static' color='default'>
-                <Grid container alignItems='center' direction='row'
-                  justify='space-between'
-                  style={{paddingTop: 10, paddingBottom: 10}}>
-                  <Grid justify='flex-start'>
-                    <a href='/' style={{padding: 20}}>
-                      <img src={Logo}/>
-                    </a>
-                  </Grid>
-                  <Grid justify='flex-end'>
-                    <Grid container direction='row'>
-                      <a href='/eventlist'>
-                        <Typography variant='h6' style={{textTransform: 'none', color: 'black', marginLeft: 20, marginRight: 20}}>
-                          Events
-                        </Typography>
-                      </a>
-                      <a href='/about'>
-                        {/* TODO(YoonYeoHwan) : Need to implement About page. Now just linked to landing page. */}
-                        <Typography variant='h6' style={{textTransform: 'none', color: 'black', marginLeft: 20, marginRight: 20}}>
-                          About
-                        </Typography>
-                      </a>
-                      <a href="/signin">
-                        <Typography variant='h6' style={{textTransform: 'none', color: 'black', marginLeft: 20, marginRight: 30}}>
-                          Sign in
-                        </Typography>
-                      </a>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </AppBar>
-            </>
-          )}
-        />
-      </div>
-    </BrowserRouter>
+    <AppBar position='static' color='default'>
+      <Grid container alignItems='center' direction='row'
+        justify='space-between'
+        style={{paddingTop: 10, paddingBottom: 10}}>
+        <Grid justify='flex-start'>
+          <a href='/' style={{padding: 20}}>
+            <img src={Logo}/>
+          </a>
+        </Grid>
+        <Grid justify='flex-end'>
+          <Grid container direction='row'>
+            <Link to='/eventlist'>
+              <Typography variant='h6'
+                style={{
+                  textTransform: 'none',
+                  color: 'black',
+                  marginLeft: 20,
+                  marginRight: 20}}>
+                Events
+              </Typography>
+            </Link>
+            <Link to='/about'>
+              {/* TODO(YoonYeoHwan) : Need to implement About page. */}
+              <Typography variant='h6'
+                style={{
+                  textTransform: 'none',
+                  color: 'black',
+                  marginLeft: 20,
+                  marginRight: 20}}>
+                About
+              </Typography>
+            </Link>
+            {
+              loggedIn ?
+              (
+                <Link to="/signout">
+                  <Typography variant='h6'
+                    style={{
+                      textTransform: 'none',
+                      color: 'black',
+                      marginLeft: 20,
+                      marginRight: 30}}>
+                    Sign Out
+                  </Typography>
+                </Link>
+              ) :
+              (
+                <Link to="/signin">
+                  <Typography variant='h6'
+                    style={{
+                      textTransform: 'none',
+                      color: 'black',
+                      marginLeft: 20,
+                      marginRight: 30}}>
+                    Sign In
+                  </Typography>
+                </Link>
+              )
+            }
+            {loggedIn &&
+              <Link to='/userpage' style={{paddingRight: '20px'}}>
+                <Avatar alt='seulgi' src={profilepic}/>
+              </Link>
+            }
+          </Grid>
+        </Grid>
+      </Grid>
+    </AppBar>
   );
 }
 
