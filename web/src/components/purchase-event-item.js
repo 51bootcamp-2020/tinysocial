@@ -22,7 +22,7 @@ const removeBtnStyle = {
   cursor: 'pointer',
   color: '#009688',
   fontFamily: 'Roboto',
-  fontSize: '14px',
+  fontSize: '15px',
   fontWeight: 500,
 };
 
@@ -39,14 +39,20 @@ class PurchaseEventItem extends Component {
     // };
   }
 
+  cancelBtnRedirect = () => {
+    if(this.props.eventId!='') {
+      this.props.history.goBack()
+    }
+      else this.props.history.push('/')
+  }
   render() {
     return (
         <Paper style={{padding: '5%', marginTop: '3%'}}>
-          <Grid container spacing={2}>
-            <Grid item xs={3} sm={2}>
-              <ButtonBase>
-                <img style={{width: '100%', height: '70%'}} alt="complex"
-                     src={require('./images/1.jpg')}/>
+          <Grid container spacing={2} style={{height: '150px'}}>
+            <Grid item xs={3} sm={2} >
+              <ButtonBase >
+                <img alt="complex"
+                     src={require('./images/1.jpg')} style={{width: '100%', height: '100%'}}/>
               </ButtonBase>
             </Grid>
             <Grid item xs={7} sm container direction="row" spacing={1}>
@@ -62,9 +68,9 @@ class PurchaseEventItem extends Component {
                           style={priceStyle}>{this.props.price}</Typography>
             </Grid>
           </Grid>
-          <Grid container justify="flex-end" style={{marginTop: '10%'}}>
+          <Grid container justify="flex-end" style={{marginTop: '3%'}}>
             <Grid item>
-              <Typography variant="body2" style={removeBtnStyle} onClick={()=> {this.props.history.goBack()}}>
+              <Typography variant="body2" style={removeBtnStyle} onClick={this.cancelBtnRedirect}>
                 Remove
               </Typography>
             </Grid>
