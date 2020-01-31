@@ -16,25 +16,24 @@ import {
   withRouter
 } from 'react-router-dom'
 
-// TODO(YoonYeoHwan): Have to delete @client.
 const EVENT_DETAIL_REQUEST_QUERY = gql`
   query getEvent($eventId: ID!) {
-    event(id: $eventId) @client {
+    event(id: $eventId) {
       id,
       title,
       thumbnailUrl,
       description,
       price,
-      tags @client {
+      tags {
         id,
         name
       },
-      ... on EventBookClub @client {
+      ... on EventBookClub {
         bookTitle,
         bookDescription,
         bookAuthor
       },
-      schedule @client {
+      schedule {
         id,
         startDateTime,
         endDateTime,
@@ -42,7 +41,7 @@ const EVENT_DETAIL_REQUEST_QUERY = gql`
         latitude,
         longitude,
       },
-      host @client {
+      host {
         firstName,
         lastName,
         selfDescription,
