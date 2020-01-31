@@ -27,6 +27,7 @@
     "react-paypal-button-v2": "^2.6.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
+    "typeface-libre-franklin": "0.0.75",
     "typeface-roboto": "0.0.75",
     "typescript": "^3.7.4"
   },
