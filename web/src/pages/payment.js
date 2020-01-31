@@ -4,9 +4,7 @@ class Payment extends Component {
   render() {
     return (
       <div>
-        {/* TODO(Myoung-heeSeo): Have to implement payment page. */}
-        {/* TODO(Myoung-heeSeo): Have to delete text */}
-        {/* after develop payment page. */}
+        {/* TODO(Myoung-heeSeo): Have to delete text after implement page. */}
         Payment
       </div>
     );
