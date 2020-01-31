@@ -15,7 +15,7 @@ import * as serviceWorker from './service-worker';
 
 const httpLink = new HttpLink({
   // TODO(arin-kwak): change this after deploying.
-  uri: 'http://localhost:15780',
+  uri: 'http://ec2-34-223-231-126.us-west-2.compute.amazonaws.com:15780/',
 });
 
 //  This adds token info to the context when communicating with server.
