@@ -27,6 +27,112 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 
+const resolvers = {
+  Query: {
+    event: (_, {id}) => {
+      if (id == 1) {
+        return {
+          id: 1,
+          title: 'here is title1111',
+          thumbnailUrl: 'https://t1.daumcdn.net/cfile/tistory/2220144955FE3FCA20',
+          description: 'Learning Ethics by analysing behavior of Sang-geon Yun',
+          price: 999999.99,
+          tags: [
+            {
+              id: 1,
+              name: 'Science',
+              __typename: 'Tag',
+            },
+            {
+              id: 2,
+              name: 'History',
+              __typename: 'Tag',
+            },
+            {
+              id: 3,
+              name: 'Non fiction',
+              __typename: 'Tag',
+            },
+          ],
+          bookTitle: 'Book Title 1',
+          bookDescription: 'Book Description 2',
+          bookAuthor: 'Book Author 123',
+          schedule: [
+            {
+              id: 1,
+              startDateTime: new Date('1999-12-14 00:00:00'),
+              endDateTime: new Date('2000-12-14 00:00:00'),
+              address: '31 EL Camino Real Burlingame CA',
+              latitude: 145,
+              longitude: 123,
+              __typename: 'Schedule',
+            },
+          ],
+          host: {
+            firstName: 'Sihyun',
+            lastName: 'Lee',
+            selfDescription: 'He doesnt have a girlfrined',
+            profileImgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUawwCjirMLsTmrnqzcgcDgVFWiY4wwBKm99MJ8A89ZK52u1QyHA&s',
+            __typename: 'User',
+          },
+          __typename: Event,
+        };
+      } else if (id == 2) {
+        return {
+          id: 2,
+          title: 'here is title2222',
+          thumbnailUrl: 'https://t1.daumcdn.net/cfile/tistory/2220144955FE3FCA20',
+          description: 'Learning Ethics by analysing behavior of Sang-geon Yun',
+          price: 999999.99,
+          tags: [
+            {
+              id: 1,
+              name: 'Science',
+              __typename: 'Tag',
+            },
+            {
+              id: 2,
+              name: 'History',
+              __typename: 'Tag',
+            },
+            {
+              id: 3,
+              name: 'Non fiction',
+              __typename: 'Tag',
+            },
+          ],
+          bookTitle: 'Book Title 1',
+          bookImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUawwCjirMLsTmrnqzcgcDgVFWiY4wwBKm99MJ8A89ZK52u1QyHA&s',
+          bookDescription: 'Book Description 2',
+          bookAuthor: 'Book Author 123',
+          schedule: [{
+            id: 1,
+            startDateTime: new Date('2000-12-14 12:00:00'),
+            endDateTime: new Date('2000-12-14 12:00:00'),
+            address: '31 EL Camino Real Burlingame CA',
+            latitude: 145,
+            longitude: 123,
+            __typename: 'Schedule',
+          }],
+          host: {
+            firstName: 'Sihyun',
+            lastName: 'Lee',
+            selfDescription: 'He doesnt have a girlfrined',
+            profileImgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUawwCjirMLsTmrnqzcgcDgVFWiY4wwBKm99MJ8A89ZK52u1QyHA&s',
+            __typename: 'User',
+          },
+          __typename: Event,
+        };
+      }
+    },
+  },
+  Event: {
+    host: ({host}) => {
+      return host;
+    },
+  },
+};
+
 const client = new ApolloClient({
   link: concat(authMiddleware, httpLink),
   cache: new InMemoryCache,
