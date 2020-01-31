@@ -108,7 +108,7 @@ class EventAPI extends DataSource {
       raw: true,
     });
   }
-  
+
   async getHostIdOfEvent({eventId}) {
     if (eventId === undefined || eventId === null) {
       throw new Error(eventIdIsNotPassedMessage);
@@ -145,7 +145,7 @@ class EventAPI extends DataSource {
     });
     return schduleIds;
   }
-  
+
   async getParticipatedEventIdsOfUser({userId}) {
     if (userId === undefined) {
       throw new Error(userIdIsNotPassedMessage);
@@ -209,7 +209,7 @@ class EventAPI extends DataSource {
       attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('eventId')), 'id']],
       raw: true,
     });
-      return upcomingEvents;
+    return upcomingEvents;
   }
 
   async getPastEventIdsOfEvent({userId}) {

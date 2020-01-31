@@ -13,7 +13,7 @@ module.exports.Query = {
         tagIds: eventFilter.tagIds,
         order: eventSort,
       });
-      if (pageSize > eventIds.length) {
+      if (pageSize > eventIds.length || pageSize === undefined || pageSize === null) {
         pageSize = eventIds.length;
       }
     } else {
@@ -23,6 +23,7 @@ module.exports.Query = {
         order: eventSort,
       });
       pageSize = eventIds.length;
+      console.log("pageSize", pageSize);
     }
     return {
       cursor: after + pageSize,
@@ -71,7 +72,7 @@ module.exports.Query = {
       limit: pageSize,
       offset: after,
     });
-    if (pageSize > tagIds.length) {
+    if (pageSize > tagIds.length || pageSize === undefined || pageSize === null) {
       pageSize = tagIds.length;
     }
     return {
