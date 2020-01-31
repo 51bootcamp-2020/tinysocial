@@ -181,7 +181,7 @@ class EventAPI extends DataSource {
     if (tagIds !== undefined && tagIds !== null) {
       tagIdsObject = {tagId: tagIds};
     }
-    let eventIds = await this.store.EventTag.findAll({
+    const eventIds = await this.store.EventTag.findAll({
       where: tagIdsObject,
       attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('eventId')), 'id']],
       limit: limit,
@@ -189,26 +189,31 @@ class EventAPI extends DataSource {
       order: order,
       raw: true,
     });
+    return eventIds;
     // TODO(lsh9034): implement logic order by order parameter.
-    eventIds = eventIds.map((element) => (element.id));
-    const scheduleId = await this.store.Schedule.findAll({
-      where: {id: eventIds},
-      attributes: ['id', 'eventId'],
-      order: [
-        ['startDateTime', 'ASC'],
-      ],
-      raw: true,
-    });
-    const check = new Array(scheduleId.length + 1).fill(0);
-    const sortedEventIdsBySchedule = [];
-    for (let i=0; i<scheduleId.length; i++) {
-      if (check[scheduleId[i].eventId]) {
-        continue;
-      }
-      check[scheduleId[i].eventId] = 1;
-      sortedEventIdsBySchedule.push({id: scheduleId[i].eventId});
-    }
-    return sortedEventIdsBySchedule;
+    // console.log("eventIds", eventIds);
+    // eventIds = eventIds.map((element) => (element.id));
+    // const scheduleId = await this.store.Schedule.findAll({
+    //   where: {eventId: eventIds},
+    //   attributes: ['id', 'eventId'],
+    //   order: [
+    //     ['startDateTime', 'ASC'],
+    //   ],
+    //   raw: true,
+    // });
+    // console.log('scheduleId', scheduleId);
+    // const check = new Array(scheduleId.length + 1).fill(0);
+    // const sortedEventIdsBySchedule = [];
+    // for (let i=0; i<scheduleId.length; i++) {
+    //   console.log('check', check);
+    //   if (check[scheduleId[i].eventId]) {
+    //     continue;
+    //   }
+    //   check[scheduleId[i].eventId] = 1;
+    //   sortedEventIdsBySchedule.push({id: scheduleId[i].eventId});
+    // }
+    // console.log('sorted', sortedEventIdsBySchedule);
+    // return sortedEventIdsBySchedule;
   }
 
   async getUpcomingEventIdsOfEvent({userId}) {
