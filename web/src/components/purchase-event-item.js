@@ -12,13 +12,23 @@ const eventNameStyle = {
   lineHeight: 1,
 };
 
+const bookTitleStyle = {
+  fontWeight: 300,
+  fontFamily: 'Roboto',
+  fontSize: '15px',
+  fontWeight: 'normal',
+  letterspacing: 'normal',
+  lineHeight: 1,
+};
+
 const priceStyle = {
   fontFamily: 'Roboto',
   fontSize: '20px',
   fontWeight: 500,
+  textAlign: 'right'
 };
 
-const removeBtnStyle = {
+const cancelBtnStyle = {
   cursor: 'pointer',
   color: '#009688',
   fontFamily: 'Roboto',
@@ -30,48 +40,49 @@ const removeBtnStyle = {
 class PurchaseEventItem extends Component {
   constructor(props) {
     super(props);
-
-    // this.state = {
-    //   price: props.price,
-    //   eventName: props.eventName,
-    //   schedule: props.schedule,
-    //   imageUrl: props.imageUrl,
-    // };
   }
 
+  // Cancel button for cancel the payment with redirection
   cancelBtnRedirect = () => {
     if(this.props.eventId!='') {
+      // Todo(Myoung-hee) : change history to event detail with id
       this.props.history.goBack()
     }
       else this.props.history.push('/')
   }
+
   render() {
     return (
+        // Purchase event item with event information props received from checkout page
         <Paper style={{padding: '5%', marginTop: '3%'}}>
           <Grid container spacing={2} style={{height: '150px'}}>
             <Grid item xs={3} sm={2} >
-              <ButtonBase >
+              <ButtonBase style={{width: '100%', height: '80%'}}>
                 <img alt="complex"
-                     src={require('./images/1.jpg')} style={{width: '100%', height: '100%'}}/>
+                     src={this.props.imageUrl} style={{width: '100%', height: '100%'}}/>
               </ButtonBase>
             </Grid>
-            <Grid item xs={7} sm container direction="row" spacing={1}>
-              <Grid item xs={10} sm={7}>
+            <Grid item xs={9} sm={10} container direction="row" spacing={1}>
+              <Grid item xs={12}>
                 <Typography gutterBottom variant="subtitle1"
                             style={eventNameStyle}>
                   {this.props.eventName}
                 </Typography>
+                <Typography gutterBottom variant="subtitle2"
+                            style={bookTitleStyle}>
+                  {this.props.bookTitle}
+                </Typography>
               </Grid>
-            </Grid>
-            <Grid item xs={2} style={{textAlign: 'right', paddingTop: '40px'}}>
-              <Typography variant="subtitle1"
-                          style={priceStyle}>{this.props.price}</Typography>
+              <Grid item xs={12} style={{paddingTop: '10px'}}>
+                <Typography variant="subtitle1" align='right'
+                            style={priceStyle}>${this.props.price}</Typography>
+              </Grid>
             </Grid>
           </Grid>
           <Grid container justify="flex-end" style={{marginTop: '3%'}}>
             <Grid item>
-              <Typography variant="body2" style={removeBtnStyle} onClick={this.cancelBtnRedirect}>
-                Remove
+              <Typography variant="body2" style={cancelBtnStyle} onClick={this.cancelBtnRedirect}>
+                Cancel
               </Typography>
             </Grid>
           </Grid>

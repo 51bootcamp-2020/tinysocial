@@ -4,7 +4,7 @@ module.exports.Query = {
     _, {pageSize, after = 0, eventFilter, eventSort}, {dataSources}) => {
     if (pageSize > 50) {
       pageSize = 50;
-    }
+ data.event   }
     let eventIds = [];
     if (eventFilter !== undefined && eventFilter !== null) {
       eventIds = await dataSources.eventAPI.getIdsOfEvent({
