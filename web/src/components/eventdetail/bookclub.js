@@ -9,7 +9,6 @@ import React, {Component} from 'react';
 
 // TODO(YoonYeoHwan): Have to match event address and datetime,
 // because different event schedule has different address.
-// Have to talk about design.
 class Bookclub extends Component {
   constructor(props) {
     super(props);

@@ -13,8 +13,8 @@ class CommonEvent extends Component {
     super(props);
   }
   render() {
-    const monthNames = ['January', 'February', 'March', 'April', 'May',
-      'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const date = this.props.children.schedule[0].startDateTime
+    const month = date.toLocaleString('default', {month: 'long'})
     return (
       <div>
         <Grid container direction="row" alignContent='space-between'>
@@ -26,10 +26,7 @@ class CommonEvent extends Component {
             </Grid>
             <Grid style={{marginBottom: 10}}>
               <Typography variant='body2'>
-                {monthNames[this.props.children.schedule[0]
-                    .startDateTime.getMonth()] + ' '}
-                {this.props.children.schedule[0].startDateTime.getDate() + ', '}
-                {this.props.children.schedule[0].startDateTime.getFullYear()}
+                {month} {date.getDate()}, {date.getFullYear()}
               </Typography>
             </Grid>
             <Grid style={{marginBottom: 10, marginTop: 10}}>
