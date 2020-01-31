@@ -8,6 +8,7 @@ const TESTDATA= {
       profileImgUrl: 'https://fimg4.pann.com/new/download.jsp?FileID=49592267',
       address: '31 El Camino RealBurlingame, CA 94010',
       phone: '+821084277033',
+      email: 'lsh9034@kookmin.ac.kr',
       selfDescription: 'Sihyun is stupid',
       lastInteractionTime: new Date(), // To refresh JWT token
     },
@@ -19,6 +20,7 @@ const TESTDATA= {
       birthday: new Date('1997-9-6'),
       address: '338 South Fremont Street, San Mateo, CA',
       phone: '+1234567890',
+      email: 'Yunhyeok facebookId',
       selfDescription: 'Yunhyeok is babo',
       lastInteractionTime: new Date(), // To refresh JWT token
     },
@@ -321,7 +323,7 @@ const TESTDATA= {
       name: 'Suspense',
     },
   ],
-  EventTags: [
+  EventTagsData: [
     {
       eventId: 1,
       tagId: 1,

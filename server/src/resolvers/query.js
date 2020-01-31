@@ -45,7 +45,6 @@ module.exports.Query = {
   myEvents: async (_, {upcomingOrPast}, {dataSources, userId}) => {
     let eventIds;
     if (upcomingOrPast === 'upcoming') {
-      console.log(userId);
       eventIds = dataSources.eventAPI.getUpcomingEventIdsOfEvent({userId});
     } else if (upcomingOrPast === 'past') {
       eventIds = dataSources.eventAPI.getPastEventIdsOfEvent({userId});

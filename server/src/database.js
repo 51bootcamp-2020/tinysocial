@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const {TESTDATA} = require('./testData');
+const TESTDATA = require('./testData');
 const createStore = async () => {
   let sequelize;
   switch (process.env.NODE_ENV) {
@@ -56,21 +56,21 @@ const createStore = async () => {
       autoIncrement: true,
     },
     createdAt: Sequelize.DATE,
-    firstName: {type: Sequelize.STRING, allowNull: false},
-    lastName: {type: Sequelize.STRING, allowNull: false},
-    googleId: Sequelize.STRING,
-    facebookId: Sequelize.STRING,
-    profileImgUrl: Sequelize.STRING,
-    password: Sequelize.STRING,
+    firstName: {type: Sequelize.TEXT, allowNull: false},
+    lastName: {type: Sequelize.TEXT, allowNull: false},
+    googleId: Sequelize.TEXT,
+    facebookId: Sequelize.TEXT,
+    profileImgUrl: Sequelize.TEXT,
+    password: Sequelize.TEXT,
     email: {
-      type: Sequelize.STRING, allowNull: false,
+      type: Sequelize.TEXT, allowNull: false,
     },
     birthday: Sequelize.DATE,
     // TODO(yun-kwak): Split the address into street address,
     // additional street address, city, state, zip code
-    address: Sequelize.STRING,
-    phone: Sequelize.STRING,
-    selfDescription: Sequelize.STRING,
+    address: Sequelize.TEXT,
+    phone: Sequelize.TEXT,
+    selfDescription: Sequelize.TEXT,
     lastInteractionTime: Sequelize.DATE, // To refresh JWT token
   },
   {
@@ -94,7 +94,7 @@ const createStore = async () => {
       },
     },
     title: Sequelize.STRING,
-    description: Sequelize.STRING,
+    description: Sequelize.TEXT,
     price: Sequelize.FLOAT,
     // 'type' specifies which type of the event is.
     // Enum type is not SQL-standard and it is hard to add a new enum value.
@@ -102,7 +102,7 @@ const createStore = async () => {
     // So we define type as INTEGER.
     // 0: BookClub
     type: Sequelize.INTEGER,
-    thumbnailUrl: Sequelize.STRING,
+    thumbnailUrl: Sequelize.TEXT,
     maxParticipantNum: Sequelize.INTEGER,
   }, {
     sequelize,
@@ -123,17 +123,17 @@ const createStore = async () => {
       allowNull: false,
     },
     bookAuthor: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false,
     },
     bookDescription: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
     },
     bookISBN: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING(20),
     },
     bookImageUrl: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
     },
   }, {
     sequelize,
@@ -160,11 +160,11 @@ const createStore = async () => {
       },
     },
     title: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false,
     },
     content: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
     },
     isPublic: {
       type: Sequelize.BOOLEAN,
@@ -187,7 +187,7 @@ const createStore = async () => {
       autoIncrement: true,
     },
     name: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false,
     },
   }, {
@@ -229,7 +229,7 @@ const createStore = async () => {
     endDateTime: Sequelize.DATE,
     // TODO(yun-kwak): Split the address into country, state, city, zip, street,
     // additionalStreetAddress
-    address: Sequelize.STRING,
+    address: Sequelize.TEXT,
     latitude: Sequelize.FLOAT,
     longitude: Sequelize.FLOAT,
     eventId: {
@@ -300,7 +300,7 @@ const createStore = async () => {
         await Schedule.create(TESTDATA.ScheduleData);
         await EventParticipant.create(TESTDATA.EventParticipantData);
         await Review.create(TESTDATA.ReviewData);
-        await EventBookClub.create(EventBookClubsData);
+        await EventBookClub.create(TESTDATA.EventBookClubsData);
         await Tag.create(TESTDATA.TagsData)
         await EventTag.create(TESTDATA.EventTagsData)
       });
