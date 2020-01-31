@@ -109,17 +109,17 @@ class EventAPI extends DataSource {
     });
   }
 
+  //TODO(lsh9034): Move this function to userAPI.js
   async getHostIdOfEvent({eventId}) {
     if (eventId === undefined || eventId === null) {
       throw new Error(eventIdIsNotPassedMessage);
     }
-    const event = await this.store.Event.findOne({
+    const hostId = await this.store.Event.findOne({
       where: {eventId: eventId},
-      attributes: ['hostId'],
+      attributes: [['hostId', 'id']],
       raw: true,
     });
-    return (event && isUndefinedOrNull(event['hostId'])) ?
-        event['hostId'] : null;
+    return hostId;
   }
 
   async getParticipantIdsOfEvent({eventId}) {
