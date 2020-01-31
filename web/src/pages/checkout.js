@@ -21,17 +21,18 @@ class Checkout extends Component {
   }
 
   EVENT_REQUEST_QUERY = gql`
-    query ($id : ID!){
-      event (id: $id){
-          id,
-          title,
-          description,
-#         host{
-#            profileImgUrl
-#         },
-#         thumbnailUrl,
-#         price
+    query getEvent ($id : ID!){
+      event (id: $id) @client {
+         id,
+         title,
+         description,
+         thumbnailUrl,
+         price
+         ... on EventBookClub {
+          bookImageUrl
+          bookTitle
          }
+      }
     }`;
 
   componentWillMount() {
@@ -46,59 +47,58 @@ class Checkout extends Component {
   render() {
     console.log(this.state.eventId + 'hiiiiiiiiiiiii');
     return (
-        // <Query query={this.event_query}
-        //        variables={{id: this.state.eventId}}
-        // >
-        //   {({loading, error, data}) => {
-        //     if (loading) return 'Loading...';
-        //     if (error) return `Error! ${error.message}`;
-        //     return (
-        //         <Container maxWidth='md'>
-        //           <br/>
-        //
-        //           <PurchaseEventItem
-        //               price={data.event.price}
-        //               eventId={data.event.id}
-        //               eventName={data.event.title}
-        //               // schedule={this.state.schedule}
-        //               imageUrl={data.event.thumbnailUrl} />
-        //
-        //           <br/>
-        //           <Divider/>
-        //           <br/>
-        //           <Container maxWidth='sm'>
-        //             <PaypalPayment price={data.event.price}
-        //                            eventId={data.event.id}
-        //                            userId={this.state.userId}/>
-        //           </Container>
-        //         </Container>
-        //
-        //         // <EventCards>{data.events.events}</EventCards>
-        //
-        //     );
-        //   }}
-        // // </Query>
-        <Container maxWidth='md'>
-          <br/>
+        <Query query={this.EVENT_REQUEST_QUERY}
+               variables={{id: this.state.eventId}}
+        >
+          {({loading, error, data}) => {
+            if (loading) return 'Loading...';
+            if (error) return `Error! ${error.message}`;
+            return (
+                <Container maxWidth='md'>
+                  <br/>
+                  {console.log(data)}
+                  <PurchaseEventItem
+                      price={data.event.price}
+                      eventId={data.event.id}
+                      eventName={data.event.title}
+                      imageUrl={data.event.bookImageUrl}
+                      bookTitle={data.event.bookTitle}/>
 
-          <PurchaseEventItem
-              price={this.state.price}
-              eventId={this.state.id}
-              eventName={this.state.title}
-              // schedule={this.state.schedule}
-              imageUrl={this.state.thumbnailUrl} />
+                  <br/>
+                  <Divider/>
+                  <br/>
+                  <Container maxWidth='sm'>
+                    <PaypalPayment price={data.event.price}
+                                   eventId={data.event.id}
+                                   userId={this.state.userId}/>
+                  </Container>
+                </Container>
 
-          <br/>
-          <Divider/>
-          <br/>
-          <Container maxWidth='sm'>
-            <PaypalPayment price={this.state.price}
-                           eventId={this.state.id}
-                           userId={this.state.userId}/>
-          </Container>
-        </Container>
+                // <EventCards>{data.events.events}</EventCards>
 
-        // <EventCards>{data.events.events}</EventCards>
+            );
+          }}
+        </Query>
+        // <Container maxWidth='md'>
+        //   <br/>
+        //
+        //   <PurchaseEventItem
+        //       price={this.state.price}
+        //       eventId={this.state.id}
+        //       eventName={this.state.title}
+        //       // schedule={this.state.schedule}
+        //       imageUrl={this.state.thumbnailUrl} />
+        //
+        //   <br/>
+        //   <Divider/>
+        //   <br/>
+        //   <Container maxWidth='sm'>
+        //     <PaypalPayment price={this.state.price}
+        //                    eventId={this.state.id}
+        //                    userId={this.state.userId}/>
+        //   </Container>
+        // </Container>
+
     );
   }
 }
