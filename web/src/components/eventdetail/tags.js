@@ -38,7 +38,6 @@ class Tags extends Component {
 }
 
 Tags.propTypes = {
-  children: PropTypes.element.isRequired,
   event: PropTypes.element.isRequired,
 }
 
