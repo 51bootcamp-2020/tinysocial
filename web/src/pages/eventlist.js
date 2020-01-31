@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import EventlistFilters from '../components/eventlist-filters';
 import EventCardsQuery from '../components/event-cards-query';
-import Grid from '@material-ui/core/Grid';
+import EventlistFilters from '../components/eventlist-filters';
 import {gql} from 'apollo-boost';
+import Grid from '@material-ui/core/Grid';
 import {Query} from "react-apollo";
+import React, {Component} from 'react';
 
 class EventList extends Component {
 

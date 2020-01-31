@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
 import EventCards from './event-cards';
 import {gql} from 'apollo-boost';
 import {Query} from "react-apollo";
+import React, {Component} from 'react';
 
 class EventCardsQuery extends Component {
   constructor(props) {

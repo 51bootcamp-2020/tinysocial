@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import LandingDescription from '../components/landing-description';
 import EventCardsQuery from '../components/event-cards-query';
-import {withStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import LandingDescription from '../components/landing-description';
+import PropTypes from 'prop-types';
+import React, {Component} from 'react';
+import {withStyles} from '@material-ui/core/styles';
 
 // TODO(Lhyejin): Bring user information from server and Fix eventQuery.
 
