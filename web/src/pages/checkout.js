@@ -4,6 +4,8 @@ import PurchaseEventItem from '../components/purchase-event-item';
 import {Container, Divider} from '@material-ui/core';
 import queryString from 'query-string';
 import {withRouter} from 'react-router-dom';
+import {gql} from 'apollo-boost';
+import {Query} from 'react-apollo';
 
 class Checkout extends Component {
   constructor(props) {
@@ -11,43 +13,92 @@ class Checkout extends Component {
 
     this.state = {
       price: '0.01',
-      eventName: 'Brief summary of Human History',
-      schedule: 'January 29, 2020 10:30 AM - 1:30 PM',
+      title: 'Brief summary of Human History',
       imageUrl: './images/tmp_book.png',
-      eventId: '',
-      userId: 'helloUser',
+      eventId: 2,
+      userId: 4,
     };
   }
 
-  componentWillMount() {
-    const query = queryString.parse(this.props.location.search)
-    this.setState({
-      eventId: query.id
-    })
-  }
+  EVENT_REQUEST_QUERY = gql`
+    query ($id : ID!){
+      event (id: $id){
+          id,
+          title,
+          description,
+#         host{
+#            profileImgUrl
+#         },
+#         thumbnailUrl,
+#         price
+         }
+    }`;
 
-  componentDidMount() {
-    console.log(this.state.eventId)
+  componentWillMount() {
+    const query = queryString.parse(this.props.location.search);
+    {
+      query.id && this.setState({
+        eventId: query.id
+      });
+    }
   }
 
   render() {
+    console.log(this.state.eventId + 'hiiiiiiiiiiiii');
     return (
+        // <Query query={this.event_query}
+        //        variables={{id: this.state.eventId}}
+        // >
+        //   {({loading, error, data}) => {
+        //     if (loading) return 'Loading...';
+        //     if (error) return `Error! ${error.message}`;
+        //     return (
+        //         <Container maxWidth='md'>
+        //           <br/>
+        //
+        //           <PurchaseEventItem
+        //               price={data.event.price}
+        //               eventId={data.event.id}
+        //               eventName={data.event.title}
+        //               // schedule={this.state.schedule}
+        //               imageUrl={data.event.thumbnailUrl} />
+        //
+        //           <br/>
+        //           <Divider/>
+        //           <br/>
+        //           <Container maxWidth='sm'>
+        //             <PaypalPayment price={data.event.price}
+        //                            eventId={data.event.id}
+        //                            userId={this.state.userId}/>
+        //           </Container>
+        //         </Container>
+        //
+        //         // <EventCards>{data.events.events}</EventCards>
+        //
+        //     );
+        //   }}
+        // // </Query>
         <Container maxWidth='md'>
           <br/>
 
           <PurchaseEventItem
               price={this.state.price}
-              eventName={this.state.eventName}
-              schedule={this.state.schedule}
-              imageUrl={this.state.imageUrl} />
+              eventId={this.state.id}
+              eventName={this.state.title}
+              // schedule={this.state.schedule}
+              imageUrl={this.state.thumbnailUrl} />
 
           <br/>
-          <Divider />
+          <Divider/>
           <br/>
           <Container maxWidth='sm'>
-            <PaypalPayment price={this.state.price} eventId={this.state.eventId} userId={this.state.userId} />
+            <PaypalPayment price={this.state.price}
+                           eventId={this.state.id}
+                           userId={this.state.userId}/>
           </Container>
         </Container>
+
+        // <EventCards>{data.events.events}</EventCards>
     );
   }
 }
