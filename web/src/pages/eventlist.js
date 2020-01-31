@@ -10,9 +10,9 @@ class EventList extends Component {
   constructor() {
     super();
     this.state = {
-      isTagNames : false,
-      allTags : [],
-      selectedTagIds : [],
+      isTagNames: false,
+      allTags: [],
+      selectedTagIds: [],
       eventListPageSize: 9,
       currentCursor: 0
     }
@@ -40,7 +40,7 @@ class EventList extends Component {
 
   /**
    * Set selectedTagIds state using selectedTags parameter
-   * @param selectedTags {Array<boolean>} : selected tag array
+   * @param {Array<boolean>} selectedTags: selected tag array
    */
   HandlerTagName = (selectedTags) => {
     // Initialize cursor
@@ -48,7 +48,7 @@ class EventList extends Component {
 
     const selectedTagIds = [];
     // Put selected tag id in selctedTagIds array
-    for(let tagIndex=0; tagIndex< this.state.allTags.length; ++tagIndex)
+    for(let tagIndex = 0; tagIndex < this.state.allTags.length; ++tagIndex)
     {
       if(selectedTags[tagIndex]){
         selectedTagIds.push(this.state.allTags[tagIndex].id);

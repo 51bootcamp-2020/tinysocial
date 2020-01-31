@@ -138,8 +138,9 @@ class EventCards extends Component {
             />
             {/* Content section of Card */}
             <CardContent>
-              { /* 장소:{this.props.events[cardIndex].schedule[0].address}*/}
-              <Typography> 장소 </Typography>
+              <Typography>
+                { /* {this.props.events[cardIndex].schedule[0].address}*/}
+              </Typography>
               <Typography
                 className={classes.cardContent}>
                 {this.props.events[cardIndex].description}

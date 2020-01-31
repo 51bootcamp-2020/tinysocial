@@ -48,8 +48,8 @@ class EventlistFilters extends Component {
   constructor(props) {
     /**
      * Props
-     * filterNames {Array<object tag>} : Entire tag Information
-     * onCreate : HandlerTagName function of parent(eventlist.js)
+     * @param filterNames {Array<object tag>}: Entire tag Information
+     * @param onCreate {function()}: HandlerTagName function of parent
      */
     super(props);
 
@@ -67,6 +67,8 @@ class EventlistFilters extends Component {
    * Handler function, When Tag Button is clicked
    * Reverse filterClicked state clicked
    * Send filterClicked to parent component using onCreate function
+   * @param {Object} event
+   * @param {int} value: index of selected tag
    */
   HandlerTagButton = (event, value) => {
     let filterClicked = [...this.state.filterClicked];
@@ -85,13 +87,13 @@ class EventlistFilters extends Component {
     const { classes } = this.props;
     const tagButtonArray = [];
 
-    for (let tagIndex =0; tagIndex < this.props.filterNames.length; ++tagIndex)
+    for (let tagIndex = 0; tagIndex < this.props.filterNames.length; ++tagIndex)
     {
       tagButtonArray.push(
           <ToggleButton variant='outlined'
                         onChange={this.HandlerTagButton}
                         className={classes.buttonShape}
-                        value={this.props.filterNames[tagIndex].id}
+                        value={tagIndex}
                         label={this.props.filterNames[tagIndex].id}
                         selected={this.state.filterClicked[tagIndex]}
           >

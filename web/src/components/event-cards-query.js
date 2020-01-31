@@ -7,11 +7,11 @@ class EventCardsQuery extends Component {
   constructor(props) {
     /**
      * Props
-     * pageSize {int} : Number of event card that bring from server once
-     * selectedTagIds {Array<Int>} : Array of selected tag id
-     * isRecommended {boolean} : whether recommend or not (current not use)
-     * after {int} :
-     * onCreate : HandlerCurrentCursor function of parent(eventlist.js)
+     * @param {int} pageSize: Number of event card that bring from server once
+     * @param {Array<int>} selectedTagIds: Array of selected tag id
+     * @param {boolean} isRecommended: whether recommend or not (current not use)
+     * @param {int} after: Endpoint Index of Event Cards
+     * @param {function()} onCreate: HandlerCurrentCursor function of parent
      * */
     super(props);
     this.state = {
@@ -21,9 +21,9 @@ class EventCardsQuery extends Component {
 
   // Query for bringing event sending to server
   // TODO(Lhyejin): Use Information that currently don't use,
-  //  after server compelte
+  //  After server complete
   EVENT_REQUEST_QUERY = gql`    
-    query ($pageSize : Int, $after: Int, $eventFilter : EventFilter){
+    query ($pageSize: Int, $after: Int, $eventFilter: EventFilter){
       events (pageSize: $pageSize, after: $after, eventFilter: $eventFilter){
           cursor,
           events{
