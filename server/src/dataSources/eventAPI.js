@@ -206,10 +206,10 @@ class EventAPI extends DataSource {
         eventId: eventIds,
         startDateTime: {[OP.gt]: new Date()},
       },
-      attributes: ['eventId'],
+      attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('eventId')), 'id']],
       raw: true,
     });
-    return upcomingEvents;
+      return upcomingEvents;
   }
 
   async getPastEventIdsOfEvent({userId}) {
@@ -227,7 +227,7 @@ class EventAPI extends DataSource {
         eventId: eventIds,
         startDateTime: {[OP.lte]: new Date()},
       },
-      attributes: ['eventId'],
+      attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('eventId')), 'id']],
       raw: true,
     });
     return upcomingEvents;

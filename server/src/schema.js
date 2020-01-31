@@ -148,7 +148,7 @@ const typeDefs = gql`
         bookTitle: String!
         bookAuthor: String!
         bookDescription: String!
-        bookISBN: Int!
+        bookISBN: String!
         tags: [Tag]!
         participants: [User]!
         maxParticipantNum: Int
