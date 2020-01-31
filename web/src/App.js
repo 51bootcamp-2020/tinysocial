@@ -5,6 +5,7 @@ import {
   Switch,
 } from 'react-router-dom';
 import Emailvalidation from './pages/emailvalidation';
+import Error from './pages/error';
 import Eventdetail from './pages/eventdetail';
 import EventList from './pages/eventlist';
 import Landing from './pages/landing';
@@ -27,6 +28,7 @@ function App() {
           <Route path='/payment' render={() => <Payment/>}/>
           <Route path='/signin' render={() => <SignInUp/>}/>
           <Route path='/' render={() => <Landing/>}/>
+          <Route path='/error' render={() => <Error/>}/>
         </Switch>
       </Router>
     </Fragment>

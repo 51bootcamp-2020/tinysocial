@@ -13,8 +13,8 @@ class CommonEvent extends Component {
     super(props);
   }
   render() {
-    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'];
+    const monthNames = ['January', 'February', 'March', 'April', 'May',
+      'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     return (
       <div>
         <Grid container direction="row" alignContent='space-between'>
