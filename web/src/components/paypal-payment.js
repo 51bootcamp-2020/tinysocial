@@ -6,6 +6,7 @@ import {withRouter} from 'react-router-dom';
 // Need to change this to real ID
 const clientId = 'AfAbl-JI-15trlwhVjwNCTiL1OxhogGyEN4OYAPE4KJX9xPmUKIHWZuO61_5lPHa84jyw27-3zszt1ak';
 
+// Todo(Myoung-hee): Redirect to error page when error occured.
 // Paypal payment button to participate in event.
 class PaypalPayment extends Component {
   constructor(props) {

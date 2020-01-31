@@ -9,6 +9,7 @@ const freeBtnStyle = {
   outline: 0,
 };
 
+// Todo(Myoung-hee): Redirect to error page when error occured.
 // Free payment button to participate in event.
 class FreePayment extends Component {
   constructor(props) {
@@ -25,8 +26,8 @@ class FreePayment extends Component {
       pathname: '/join-event',
       state: {
         eventId: this.props.eventId,
-        orderId: 0,
-        price: 0,
+        orderId: '0',
+        price: '0',
       },
     });
   };

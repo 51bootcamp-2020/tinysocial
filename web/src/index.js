@@ -140,6 +140,15 @@ const resolvers = {
       }
     },
   },
+  Mutation: {
+    joinEvent: () => {
+      return {
+        data: {
+          joinEvent: true
+        }
+      }
+    }
+  },
   Event: {
     host: ({host}) => {
       return host;
