@@ -181,13 +181,13 @@ class EventAPI extends DataSource {
     }
     const event = await this.store.EventTag.findAll({
       where: tagIdsObject,
-      attributes: [['eventId', 'id']],
+      attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('eventId')), 'id']],
       limit: limit,
       offset: offset,
       order: order,
       raw: true,
     });
-    console.log("event",event);
+    console.log('event', event);
     return event;
   }
 
