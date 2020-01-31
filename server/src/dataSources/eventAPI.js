@@ -178,7 +178,7 @@ class EventAPI extends DataSource {
       throw new Error(notValidValueMessage);
     }
     let tagIdsObject = undefined;
-    if (tagIds !== undefined && tagIds !== null) {
+    if (tagIds !== undefined && tagIds !== null && tagIds.length !== 0) {
       tagIdsObject = {tagId: tagIds};
     }
     let eventIds = await this.store.EventTag.findAll({
@@ -188,7 +188,6 @@ class EventAPI extends DataSource {
       raw: true,
     });
     // TODO(lsh9034): implement logic order by order parameter.
-    console.log('eventIds', eventIds);
     eventIds = eventIds.map((element) => (element.id));
     const scheduleId = await this.store.Schedule.findAll({
       where: {eventId: eventIds},
@@ -198,18 +197,15 @@ class EventAPI extends DataSource {
       ],
       raw: true,
     });
-    console.log('scheduleId', scheduleId);
     const check = new Array(scheduleId.length + 1).fill(0);
     let sortedEventIdsBySchedule = [];
     for (let i=0; i<scheduleId.length; i++) {
-      console.log('check', check);
       if (check[scheduleId[i].eventId]) {
         continue;
       }
       check[scheduleId[i].eventId] = 1;
       sortedEventIdsBySchedule.push({id: scheduleId[i].eventId});
     }
-    console.log('sorted', sortedEventIdsBySchedule);
     if (limit === undefined || limit === null) {
       limit = sortedEventIdsBySchedule.length - offset;
     }
