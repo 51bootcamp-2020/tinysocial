@@ -109,7 +109,7 @@ class EventAPI extends DataSource {
     });
   }
 
-  //TODO(lsh9034): Move this function to userAPI.js
+  // TODO(lsh9034): Move this function to userAPI.js
   async getHostIdOfEvent({eventId}) {
     if (eventId === undefined || eventId === null) {
       throw new Error(eventIdIsNotPassedMessage);
@@ -182,7 +182,7 @@ class EventAPI extends DataSource {
     if (tagIds !== undefined && tagIds !== null) {
       tagIdsObject = {tagId: tagIds};
     }
-    const event = await this.store.EventTag.findAll({
+    let eventIds = await this.store.EventTag.findAll({
       where: tagIdsObject,
       attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('eventId')), 'id']],
       limit: limit,
@@ -190,8 +190,30 @@ class EventAPI extends DataSource {
       order: order,
       raw: true,
     });
-    console.log('event', event);
-    return event;
+    // TODO(lsh9034): implement logic order by order parameter.
+    console.log("eventIds", eventIds);
+    eventIds = eventIds.map((element) => (element.id));
+    const scheduleId = await this.store.Schedule.findAll({
+      where: {id: eventIds},
+      attributes: ['id', 'eventId'],
+      order: [
+        ['startDateTime', 'ASC'],
+      ],
+      raw: true,
+    });
+    console.log('scheduleId', scheduleId);
+    const check = new Array(scheduleId.length + 1).fill(0);
+    const sortedEventIdsBySchedule = [];
+    for (let i=0; i<scheduleId.length; i++) {
+      console.log('check', check);
+      if (check[scheduleId[i].eventId]) {
+        continue;
+      }
+      check[scheduleId[i].eventId] = 1;
+      sortedEventIdsBySchedule.push({id: scheduleId[i].eventId});
+    }
+    console.log('sorted', sortedEventIdsBySchedule);
+    return sortedEventIdsBySchedule;
   }
 
   async getUpcomingEventIdsOfEvent({userId}) {
