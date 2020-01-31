@@ -58,7 +58,6 @@ class EventDetail extends Component{
     }
   }
 
-  // TODO(YoonYeoHwan): Catch error if query string didn't come.
   componentDidMount() {
     const query = queryString.parse(this.props.location.search);
     this.setState({
@@ -67,38 +66,46 @@ class EventDetail extends Component{
   }
 
   Event = () => {
-    // TODO(YoonYeoHwan): '$id:0' will change to '$id:eventId'.
     return (<Query query={EVENT_DETAIL_REQUEST_QUERY} variables={{eventId:this.state.eventId}}>
       {({ loading, error, data }) => {
         if (loading) return 'Loading...';
         if (error) return `Error! ${error.message}`;
-        return (
-            <Grid container>
-              <Grid item sm={8} xs={12}>
-                <EventThumbNail>
-                  {data.event}
-                </EventThumbNail>
-              </Grid>
-              <Grid item sm={4} xs={12}>
-                <CommonEvent>
-                  {data.event}
-                </CommonEvent>
-              </Grid>
-              <Grid item sm={8} xs={12}>
-                <BookClub>
-                  {data.event}
-                </BookClub>
-              </Grid>
-              <Hidden smUp>
-                <Grid item xs={12}>
-                  <Divider/>
-                  <Ticket>
+        if (data) {
+          return (
+              <Grid container>
+                <Grid item sm={8} xs={12}>
+                  <EventThumbNail>
                     {data.event}
-                  </Ticket>
+                  </EventThumbNail>
                 </Grid>
-              </Hidden>
-            </Grid>
-        );
+                <Grid item sm={4} xs={12}>
+                  <CommonEvent>
+                    {data.event}
+                  </CommonEvent>
+                </Grid>
+                <Grid item sm={8} xs={12}>
+                  <BookClub>
+                    {data.event}
+                  </BookClub>
+                </Grid>
+                <Hidden smUp>
+                  <Grid item xs={12}>
+                    <Divider/>
+                    <Ticket>
+                      {data.event}
+                    </Ticket>
+                  </Grid>
+                </Hidden>
+              </Grid>
+          );
+        } else {
+          return (
+            <div>
+              error
+            </div>
+          )
+        }
+
       }}
     </Query>)
   }

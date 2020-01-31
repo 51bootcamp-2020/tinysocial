@@ -79,7 +79,7 @@ const resolvers = {
           },
           __typename: Event,
         };
-      } else {
+      } else if (id == 2) {
         return {
           id: 2,
           title: 'here is title2222',

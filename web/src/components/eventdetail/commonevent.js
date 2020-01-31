@@ -26,8 +26,8 @@ class CommonEvent extends Component {
             </Grid>
             <Grid style={{marginBottom: 10}}>
               <Typography variant='body2'>
-                {/* TODO(YoonYeoHwan): Have to connect with Date query. */}
-                {monthNames[this.props.children.schedule[0].startDateTime.getMonth()]+ ' '}
+                {monthNames[this.props.children.schedule[0]
+                    .startDateTime.getMonth()] + ' '}
                 {this.props.children.schedule[0].startDateTime.getDate() + ', '}
                 {this.props.children.schedule[0].startDateTime.getFullYear()}
               </Typography>
