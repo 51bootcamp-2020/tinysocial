@@ -14,6 +14,7 @@ module.exports.mockStore = {
   EventParticipant: {
     findOne: jest.fn(),
     findAll: jest.fn(),
+    create: jest.fn(),
   },
   EventTag: {
     findAll: jest.fn(),

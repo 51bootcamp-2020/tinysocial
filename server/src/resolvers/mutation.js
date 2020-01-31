@@ -1,9 +1,4 @@
 const errorMessage = require('../errorMessages');
-
-// Paypal API Info
-const checkoutNodeJssdk = require('@paypal/checkout-server-sdk');
-const payPalClient = require('../paypal-client');
-
 module.exports.Mutation = {
   signInWithGoogle: async (_, {googleId}, {dataSources}) => {
     return dataSources.authAPI.signInWithGoogle({googleId});
@@ -65,39 +60,6 @@ module.exports.Mutation = {
     {orderId, eventId},
     {dataSources, userId},
   ) => {
-    const orderID = orderId;
-
-    // Call PayPal to get the transaction details
-    const request = new checkoutNodeJssdk.orders.OrdersGetRequest(orderID);
-
-    let order;
-    try {
-      order = await payPalClient.client().execute(request);
-    } catch (err) {
-      // Handle any errors from the call
-      console.error(err);
-      return false;
-    }
-
-    // Validate the transaction details are as expected
-    console.log(order.result);
-    console.log(order.result.purchase_units[0].amount);
-    console.log(order.result.purchase_units[0].payee);
-    console.log(order.result.purchase_units[0].payments);
-    if (order.result.purchase_units[0].description !==
-        `userId:${userId},eventId:${eventId}`) {
-      return false;
-    }
-    if (order.result.purchase_units[0].amount.currency_code !== 'USD' ||
-        order.result.purchase_units[0].amount.value !== '0.01') {
-      return false;
-    }
-
-    // Save the transaction in your database
-    // await database.saveTransaction(orderID);
-
-
-    // Return a successful response to the client
-    return true;
+    return dataSources.joinEventAPI.validateJoin({orderId, eventId, userId});
   },
 };
