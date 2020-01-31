@@ -14,19 +14,6 @@ class EventReviewCard extends Component {
     super(props);
   }
 
-  parseDateToString(date) {
-    const monthNames = ['January', 'February', 'March', 'April', 'May',
-      'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    const result = monthNames[date.getMonth()] + ' ' +
-      date.getDate() + ', ' +
-      date.getFullYear() + ' ' +
-      date.getHours() + ':' +
-      date.getMinutes() + ':' +
-      date.getSeconds();
-
-    return result;
-  }
-
   // Render Schedule object list into a EventSchedule component list.
   renderSchedules(schedules) {
     // This is for displaying schedule number.
@@ -35,8 +22,16 @@ class EventReviewCard extends Component {
     // Map Schedule objects to EventSchedule components.
     schedules = schedules.map((schedule) => {
       const {id, startDateTime, endDateTime, address} = schedule;
-      const startTime= this.parseDateToString(startDateTime);
-      const endTime = this.parseDateToString(endDateTime);
+      const options = {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+      };
+      // The format will be like : 1/30/2020, 10:42 PM.
+      const startTime= startDateTime.toLocaleString('en-US', options);
+      const endTime = endDateTime.toLocaleString('en-US', options);
       return (
         <EventSchedule key={id}
           index={index++}

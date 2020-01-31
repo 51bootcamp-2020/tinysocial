@@ -1,5 +1,5 @@
-import EventReviewCard from './event-review-card';
 import {Container} from '@material-ui/core';
+import EventReviewCard from './event-review-card';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 
