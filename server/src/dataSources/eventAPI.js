@@ -184,8 +184,6 @@ class EventAPI extends DataSource {
     let eventIds = await this.store.EventTag.findAll({
       where: tagIdsObject,
       attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('eventId')), 'id']],
-      limit: limit,
-      offset: offset,
       order: order,
       raw: true,
     });
@@ -202,7 +200,7 @@ class EventAPI extends DataSource {
     });
     console.log('scheduleId', scheduleId);
     const check = new Array(scheduleId.length + 1).fill(0);
-    const sortedEventIdsBySchedule = [];
+    let sortedEventIdsBySchedule = [];
     for (let i=0; i<scheduleId.length; i++) {
       console.log('check', check);
       if (check[scheduleId[i].eventId]) {
@@ -212,6 +210,10 @@ class EventAPI extends DataSource {
       sortedEventIdsBySchedule.push({id: scheduleId[i].eventId});
     }
     console.log('sorted', sortedEventIdsBySchedule);
+    if (limit === undefined || limit === null) {
+      limit = sortedEventIdsBySchedule.length - offset;
+    }
+    sortedEventIdsBySchedule = sortedEventIdsBySchedule.slice(offset, offset + limit);
     return sortedEventIdsBySchedule;
   }
 
