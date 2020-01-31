@@ -80,8 +80,6 @@ class ReviewWritePanel extends Component {
 
   render() {
     const {bookTitle, onClose, eventId, handleDone} = this.props;
-    // TODO(mskwon1): remove this const
-    // const bookTitle = 'Sapiens';
 
     return (
       <Fragment>

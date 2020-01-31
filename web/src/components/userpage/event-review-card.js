@@ -6,11 +6,25 @@ import EventReview from './event-review';
 import EventSchedule from './event-schedule';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import {withRouter} from 'react-router-dom';
 
 class EventReviewCard extends Component {
   constructor(props) {
     super(props);
+  }
+
+  parseDateToString(date) {
+    const monthNames = ['January', 'February', 'March', 'April', 'May',
+      'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const result = monthNames[date.getMonth()] + ' ' +
+      date.getDate() + ', ' +
+      date.getFullYear() + ' ' +
+      date.getHours() + ':' +
+      date.getMinutes() + ':' +
+      date.getSeconds();
+
+    return result;
   }
 
   // Render Schedule object list into a EventSchedule component list.
@@ -20,7 +34,9 @@ class EventReviewCard extends Component {
 
     // Map Schedule objects to EventSchedule components.
     schedules = schedules.map((schedule) => {
-      const {id, startTime, endTime, address} = schedule;
+      const {id, startDateTime, endDateTime, address} = schedule;
+      const startTime= this.parseDateToString(startDateTime);
+      const endTime = this.parseDateToString(endDateTime);
       return (
         <EventSchedule key={id}
           index={index++}
@@ -37,11 +53,10 @@ class EventReviewCard extends Component {
 
   // Redirect to the event detail page
   handleEventClick() {
-    // TODO(mskwon1): Redirect to the event detail page with event info
     this.props.history.push({
       pathname: '/eventdetail',
       search: '?id=' + this.props.id,
-    })
+    });
   }
 
   render() {
@@ -115,8 +130,8 @@ EventReviewCard.propTypes = {
   bookImage: PropTypes.string,
   schedules: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
-    startDateTime: PropTypes.string,
-    endDateTime: PropTypes.string,
+    startDateTime: PropTypes.instanceOf(Date),
+    endDateTime: PropTypes.instanceOf(Date),
     address: PropTypes.string,
   })),
   review: PropTypes.shape({
@@ -125,6 +140,7 @@ EventReviewCard.propTypes = {
     isPublic: PropTypes.bool,
   }),
   upcoming: PropTypes.bool,
+  history: ReactRouterPropTypes.history,
 };
 
 export default withRouter(EventReviewCard);

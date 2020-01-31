@@ -54,7 +54,6 @@ class EventReview extends Component {
   }
 
   render() {
-    // TODO(mskwon1): make event  Id as a context.
     const {bookTitle, eventId} = this.props;
     const review = {
       title: this.state.title,

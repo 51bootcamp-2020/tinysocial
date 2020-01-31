@@ -3,7 +3,6 @@ import {Container} from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 
-// TODO(mskwon1): Implement GraphQL Query statements.
 class EventReviewCardList extends Component {
   constructor(props) {
     super(props);
