@@ -9,6 +9,8 @@ import {Query} from 'react-apollo';
 import Cookie from 'js-cookie';
 import FreePayment from '../components/free-payment';
 
+// Todo(Myoung-hee): Redirect to error page when error occured.
+// Todo(Myoung-hee): Change @client to real db access.
 // Checkout page component for payment.
 class Checkout extends Component {
   constructor(props) {

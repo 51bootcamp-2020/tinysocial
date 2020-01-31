@@ -15,6 +15,7 @@ const boxStyle = {
   border: '2px solid #9b9b9b',
 };
 
+// Todo(Myoung-hee): Redirect to error page when error occured.
 class SignInUp extends Component {
   constructor(props) {
     super(props);

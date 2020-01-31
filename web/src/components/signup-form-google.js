@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 
+// Todo(Myoung-hee): Redirect to error page when error occured.
 class SignupFormGoogle extends Component {
   constructor(props) {
     super(props);

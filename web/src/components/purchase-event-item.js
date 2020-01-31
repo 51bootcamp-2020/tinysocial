@@ -37,6 +37,7 @@ const cancelBtnStyle = {
   fontWeight: 500,
 };
 
+// Todo(Myoung-hee): Redirect to error page when error occured.
 // Purchase Event Item box component.
 class PurchaseEventItem extends Component {
   constructor(props) {
@@ -46,7 +47,7 @@ class PurchaseEventItem extends Component {
   // Redirect to eventlist page or root page if the cancel button is clicked.
   cancelBtnRedirect = () => {
     if (this.props.eventId != '') {
-      // Todo(Myoung-hee) : change history to event detail with id
+      // Todo(Myoung-hee) : Change history to event detail with id.
       this.props.history.push('/eventlist');
     } else this.props.history.push('/');
   };
