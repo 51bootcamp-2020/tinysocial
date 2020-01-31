@@ -77,7 +77,7 @@ class EventReview extends Component {
         </Grid>
         <Grid item xs={12} align='center'>
           {/* Review 'Write' button. */}
-          <ReviewWriteButton userHasReview={review}
+          <ReviewWriteButton userHasReview={review.title ? true : false}
             onClick={this.handleReviewButtonClick} />
         </Grid>
         <Dialog open={this.state.openWritePanel}

@@ -9,7 +9,6 @@ query getUserEvents($upcomingOrPast: String!) {
   myEvents(upcomingOrPast: $upcomingOrPast) {
     id
     title
-    thumbnailUrl
     schedule {
       id
       startDateTime
@@ -18,6 +17,7 @@ query getUserEvents($upcomingOrPast: String!) {
     }
     ... on EventBookClub {
       bookTitle
+      bookImageUrl
       bookAuthor
     }
     reviews {

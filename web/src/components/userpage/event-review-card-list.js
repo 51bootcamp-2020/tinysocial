@@ -17,7 +17,7 @@ class EventReviewCardList extends Component {
         title: eventTitle,
         bookTitle,
         bookAuthor,
-        thumbnailUrl: bookImage,
+        bookImageUrl: bookImage,
         schedule: schedules,
         reviews: review,
       } = event;
@@ -53,7 +53,7 @@ class EventReviewCardList extends Component {
 }
 
 EventReviewCardList.propTypes = {
-  events: PropTypes.object,
+  events: PropTypes.arrayOf(PropTypes.object),
   upcoming: PropTypes.bool,
 };
 

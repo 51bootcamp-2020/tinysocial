@@ -5,20 +5,20 @@
 const SAMPLE_SCHEDULES = [
   {
     id: 1,
-    startTime: 'January 15th 09:00',
-    endTime: 'Januray 15th 12:00',
+    startDateTime: new Date(),
+    endDateTime: new Date(),
     address: '31 El Camino',
   },
   {
     id: 2,
-    startTime: 'January 15th 13:00',
-    endTime: 'Januray 15th 15:00',
+    startDateTime: new Date(),
+    endDateTime: new Date(),
     address: '31 El Camino',
   },
   {
     id: 3,
-    startTime: 'January 15th 16:00',
-    endTime: 'Januray 15th 18:00',
+    startDateTime: new Date(),
+    endDateTime: new Date(),
     address: '31 El Camino',
   },
 ];
@@ -31,11 +31,13 @@ module.exports = {
       title: 'Summary of Human History',
       bookTitle: 'Sapiens',
       bookAuthor: 'Yuval Harari',
-      thumbnailUrl: 'sapiens.png',
+      bookImageUrl: 'https://images-na.ssl-images-amazon.com/images/I/' +
+        '41%2BlolL22gL._SX314_BO1,204,203,200_.jpg',
       schedule: SAMPLE_SCHEDULES,
       reviews: {
         title: 'Sapiens is best',
         content: 'actually its not',
+        isPublic: true,
       },
     },
     {
@@ -43,7 +45,8 @@ module.exports = {
       title: 'Nothing of Human History',
       bookTitle: 'Sapiens',
       bookAuthor: 'Yuval Harari',
-      thumbnailUrl: 'sapiens.png',
+      bookImageUrl: 'https://images-na.ssl-images-amazon.com/images/I/' +
+        '41%2BlolL22gL._SX314_BO1,204,203,200_.jpg',
       schedule: SAMPLE_SCHEDULES,
       reviews: undefined,
     },
