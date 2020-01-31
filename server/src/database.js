@@ -1,29 +1,25 @@
 const Sequelize = require('sequelize');
-const TESTDATA = require('./testData');
-const createStore = async () => {
+
+const createStore = () => {
   let sequelize;
   switch (process.env.NODE_ENV) {
     case 'production':
       // TODO(yun-kwak): Make production DB and code.
       throw new Error('Not implemented');
     case 'dev':
-      if (process.env.DB_PASSWORD === undefined) {
-        throw new Error('Env variable DB_PASSWORD is required');
-      }
       sequelize = new Sequelize('tinysocial', 'arin_kwak',
-          process.env.DB_PASSWORD, {
+          process.env.DB_DEV_PASSWORD, {
             dialect: 'mariadb',
-            host: 'tinysocial-dev.cwup5u7gf2do.us-west-2.rds.amazonaws.com',
+            host: process.env.DB_DEV_HOST,
             dialectOptions: {
               connectTimeout: 1000, // MariaDB connector option
             },
           });
       break;
-
     case 'test':
       sequelize = new Sequelize({
         dialect: 'sqlite',
-        storage: './database.sqlite',
+        storage: 'database.sqlite',
       });
       break;
 
@@ -75,7 +71,7 @@ const createStore = async () => {
   },
   {
     sequelize,
-    modelName: 'user',
+    modelName: 'User',
   });
 
   Event.init({
@@ -106,7 +102,7 @@ const createStore = async () => {
     maxParticipantNum: Sequelize.INTEGER,
   }, {
     sequelize,
-    modelName: 'event',
+    modelName: 'Event',
   });
 
   EventBookClub.init({
@@ -137,7 +133,7 @@ const createStore = async () => {
     },
   }, {
     sequelize,
-    modelName: 'eventBookClub',
+    modelName: 'EventBookClub',
     timestamps: false,
   },
   );
@@ -172,7 +168,7 @@ const createStore = async () => {
     },
   }, {
     sequelize,
-    modelName: 'review',
+    modelName: 'Review',
   },
   );
 
@@ -192,7 +188,7 @@ const createStore = async () => {
     },
   }, {
     sequelize,
-    modelName: 'tag',
+    modelName: 'Tag',
     timestamps: false,
   });
 
@@ -215,7 +211,7 @@ const createStore = async () => {
     },
   }, {
     sequelize,
-    modelName: 'eventTag',
+    modelName: 'EventTag',
     timestamps: false,
   });
 
@@ -241,7 +237,7 @@ const createStore = async () => {
     },
   }, {
     sequelize,
-    modelName: 'schedule',
+    modelName: 'Schedule',
     timestamps: false,
   });
 
@@ -265,7 +261,7 @@ const createStore = async () => {
         },
       }, {
         sequelize,
-        modelName: 'eventParticipant',
+        modelName: 'EventParticipant',
       },
   );
   Event.hasMany(EventParticipant);
@@ -287,32 +283,6 @@ const createStore = async () => {
   EventTag.belongsTo(Event);
   Event.hasMany(EventTag);
 
-  // Synchronize the models with the database
-  // TODO(arin-kwak): In production phase, consider using migration instead of
-  // 'sync'.
-  // reference: https://sequelize.org/v5/manual/migrations.html
-  let sync;
-  switch (process.env.NODE_ENV) {
-    case 'test':
-      sequelize.sync({force: true}).then(async() =>{
-        await User.create(TESTDATA.UsersData);
-        await Event.create(TESTDATA.EventsData);
-        await Schedule.create(TESTDATA.ScheduleData);
-        await EventParticipant.create(TESTDATA.EventParticipantData);
-        await Review.create(TESTDATA.ReviewData);
-        await EventBookClub.create(TESTDATA.EventBookClubsData);
-        await Tag.create(TESTDATA.TagsData)
-        await EventTag.create(TESTDATA.EventTagsData)
-      });
-      break;
-    case 'dev':
-      sync = sequelize.sync();
-      break;
-    default:
-      sync = sequelize.sync();
-      break;
-  }
-
   return {
     User,
     Tag,
@@ -323,7 +293,6 @@ const createStore = async () => {
     Schedule,
     EventParticipant,
     sequelize,
-    sync,
   };
 };
 
