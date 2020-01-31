@@ -54,6 +54,7 @@ class Checkout extends Component {
   }
 
   render() {
+    console.log(this.state.eventId + 'hiiiiiiiiiiiii');
     return (
         // Send query to request event.
         <Query query={this.EVENT_REQUEST_QUERY}
