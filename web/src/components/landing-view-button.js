@@ -2,12 +2,11 @@ import {Button,
   Box,
   Grid,
 } from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
 import React from 'react';
 import {withRouter} from 'react-router-dom'
-import {makeStyles} from '@material-ui/core/styles';
 
-// Redirect 'Popular' and 'View All' Button to event list page
-// TODO(Lhyejin): Add css style
+// View Button css style
 const LandingViewButtonStyle = makeStyles(theme => ({
   root: {
     padding: '0 3% 0 3%'
@@ -36,6 +35,7 @@ const LandingViewButtonStyle = makeStyles(theme => ({
 
 }));
 
+// Redirect 'Popular' and 'View All' Button to event list page
 const LandingViewButton = props => {
   const landingViewButtonStyle = LandingViewButtonStyle();
   return (

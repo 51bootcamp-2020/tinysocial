@@ -1,15 +1,15 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import {
-  Avatar, Button,
+  Avatar,
   Card,
-  CardActionArea, CardActions,
   CardContent,
   CardHeader,
   CardMedia,
   Grid, Typography,
 } from '@material-ui/core';
-import {withStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import {createMuiTheme, withStyles, ThemeProvider} from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom'
 
 // Event Cards css style
 const eventCardStyle = {
@@ -25,14 +25,14 @@ const eventCardStyle = {
   }
 };
 
-// Event Card css overriding
+// Overriding Card Component css style
 const theme = createMuiTheme({
   overrides: {
     MuiCard: {
       root: {
         height: '450px',
         backgroundColor: '#ffffff',
-        margin: '0 10% 10% 10%'
+        margin: '0 7% 10% 7%'
       }
     },
     MuiCardHeader: {
@@ -72,7 +72,8 @@ const theme = createMuiTheme({
     },
     MuiCardContent: {
       root: {
-        height: '30%'
+        height: '20%',
+        paddingTop: 0
       }
     }
   }
@@ -83,31 +84,36 @@ class EventCards extends Component {
     super(props);
   }
 
-  // card를 클릭했을 때, 이벤트 디테일 페이지로 event id 넘겨줌.
-  CardClicked = () => {
-    console.log('click success')
+  // Redirect to event detail page, When each card is clicked
+  CardClicked = (eventId) => {
+    return this.props.history.push({
+      pathname: '/eventdetail',
+      search: `?id=${eventId}`
+    })
   };
 
+  // Render of Event Cards
   render() {
     const {classes} = this.props;
     const cards = [];
 
-    for (let cardIndex = 0; cardIndex < this.props.children.length; cardIndex++) {
-
+    for (let cardIndex = 0; cardIndex < this.props.events.length; cardIndex++)
+    {
       if (cardIndex % 3 === 0) {
         cards.push([]);
       }
       // Push each card component in cards
-
-      /* image={this.props.children[cardIndex].thumbnailUrl */
-      /* src={this.props.children[cardIndex].host.profileImgUrl} */
-      /*  */
       cards[cards.length - 1].push(
           <Grid item xs={12} sm={6} md={4} >
               <Card className={classes.card}
-                    onClick={this.CardClicked}
-                    key={this.props.children[cardIndex].id}>
+                    key={this.props.events[cardIndex].id}
+                    value={this.props.events[cardIndex].id}
+                    onClick={
+                      () => this.CardClicked(this.props.events[cardIndex].id)
+                    }
+              >
                   {/* Image section of Card */}
+                  {/* image={this.props.events[cardIndex].thumbnailUrl */}
                   <CardMedia
                     component="img"
                     alt="CardsImage"
@@ -115,46 +121,49 @@ class EventCards extends Component {
                     title="Cards Image"
                   />
                   {/* Header section of Card */}
+                  {/* src={this.props.events[cardIndex].host.profileImgUrl}*/}
+                  {/* subheader={this.props.events[cardIndex].schedule[0].startDateTime*/}
                   <CardHeader
                       avatar={
                         <Avatar alt="Example User Name"
                                 src={require('./images/' + (cardIndex + 1) + '.jpg')}
                         />
                       }
-                      title={this.props.children[cardIndex].title}
+                      title={this.props.events[cardIndex].title}
                       subheader="September 14, 2016"
                   />
                   {/* Content section of Card */}
                   <CardContent>
+                    { /* 장소:{this.props.events[cardIndex].schedule[0].address}*/ }
+                    <Typography> 장소 </Typography>
                     <Typography
                                 className={classes.cardContent}>
-                      {this.props.children[cardIndex].description}
+                      {this.props.events[cardIndex].description}
                     </Typography>
                   </CardContent>
-                {/* Button below the card content */}
-                <CardActions>
-                  <Button color="primary">Detail</Button>
-                </CardActions>
               </Card>
           </Grid>,
       );
     }
 
-    const decks = [];
     // Push the cards list in decks
-    for (let cardIndex = 0; cardIndex < cards.length; ++cardIndex) {
+    const decks = [];
+    for (let cardIndex = 0; cardIndex < cards.length; ++cardIndex)
+    {
       decks.push(
-          <ThemeProvider theme={theme}>
             <Grid container xs={12} justify='space-around' className={classes.cards}>
               {cards[cardIndex]}
             </Grid>
-          </ThemeProvider>
       );
     }
-    return decks;
+
+    return (
+      <ThemeProvider theme={theme}>
+        {decks}
+      </ThemeProvider>);
   }
 }
 
 EventCards.propTypes = {};
 
-export default withStyles(eventCardStyle)(EventCards);
+export default withRouter(withStyles(eventCardStyle)(EventCards));

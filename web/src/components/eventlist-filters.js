@@ -46,6 +46,11 @@ const theme = createMuiTheme({
 
 class EventlistFilters extends Component {
   constructor(props) {
+    /**
+     * Props
+     * filterNames {Array<object tag>} : Entire tag Information
+     * onCreate : HandlerTagName function of parent(eventlist.js)
+     */
     super(props);
 
     // Save the arrays of filter toggle(selected or not) in state.
@@ -69,7 +74,7 @@ class EventlistFilters extends Component {
     filterClicked[value] = !this.state.filterClicked[value];
     this.setState({ filterClicked: filterClicked });
 
-    this.props.onCreate(filterClicked);
+    this.props.onCreate(/* selectedTags= */ filterClicked);
   };
 
   /**

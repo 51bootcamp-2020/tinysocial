@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import LandingDescription from '../components/landing-description';
-import EventQuery from '../components/event-query';
+import EventCardsQuery from '../components/event-cards-query';
 import {withStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
+// TODO(Lhyejin): Bring user information from server and Fix eventQuery.
+
+// LandingPage css style
 const landingPageStyle = {
   root: {
     paddingLeft: '2%',
@@ -15,9 +18,19 @@ const landingPageStyle = {
 class Landing extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      currentCursor: 0
+    }
   }
 
-  // TODO(Lhyejin): server에서 user의 정보를 가져와서, eventQuery에 tagId넣어주기.
+  /**
+   * Set cursor received from EventCardsQuery Component to currentCursor state
+   * @param cursor {int} : cursor viewed in current landing page
+   */
+  HandlerCurrentCursor = (cursor) => {
+    this.setState({currentCursor: cursor})
+  };
 
   render() {
     const {classes} = this.props;
@@ -25,7 +38,9 @@ class Landing extends Component {
         <Grid container justify="space-between" className={classes.root}>
           <Grid item xs={12}>
             <LandingDescription />
-            <EventQuery pageSize={6} />
+            <EventCardsQuery pageSize={6}
+                             after={this.state.currentCursor}
+                             onCreate={this.HandlerCurrentCursor}/>
           </Grid>
         </Grid>
     );
