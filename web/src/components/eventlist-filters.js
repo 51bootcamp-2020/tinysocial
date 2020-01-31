@@ -1,29 +1,11 @@
-import React, {Component} from 'react';
-import {
-  Typography
-} from '@material-ui/core';
+import {createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core';
 import {
   ToggleButton,
   ToggleButtonGroup
 } from '@material-ui/lab';
-import {withStyles, createMuiTheme, ThemeProvider} from '@material-ui/core';
+import React, {Component} from 'react';
 
-function StandaloneToggleButton() {
-  const [selected, setSelected] = React.useState(false);
-
-  return (
-      <ToggleButton
-          value="check"
-          selected={selected}
-          onChange={() => {
-            setSelected(!selected);
-          }}>
-        xx
-      </ToggleButton>
-  );
-}
-
-// tag button style
+// Toggle Button css style
 const tagButtonStyle = {
   buttonGroup: {
     width: '100%',
@@ -43,7 +25,7 @@ const tagButtonStyle = {
   }
 };
 
-// override Toggle style
+// Override Toggle style
 const theme = createMuiTheme({
   overrides: {
     MuiToggleButton: {
@@ -64,42 +46,37 @@ const theme = createMuiTheme({
 
 class EventlistFilters extends Component {
   constructor(props) {
-    // Get area selection from props.
     super(props);
 
-    // Save the arrays of filter names and filter toggle(selected or not) in state.
-    // Todo: mapping filterNames string-integer(enum) after db builiding complete.
-    const filterToggles = [];
-
-    // for (let filterIndex = 0; filterIndex < filterNames.length; filterIndex++)
-    //   filterToggles.push(false);
+    // Save the arrays of filter toggle(selected or not) in state.
+    const filterClicked = [];
+    for (let tagIndex = 0; tagIndex < this.props.filterNames.length; tagIndex++)
+      filterClicked.push(false);
 
     this.state = {
-      filterToggles: [],
+      filterClicked: filterClicked,
     };
   }
 
   /**
-   * tag button을 눌렀을 때, 콜백함수
-   * 부모에게 태그 전달 부모는
-   * @param event
-   * @param value
+   * Handler function, When Tag Button is clicked
+   * Reverse filterClicked state clicked
+   * Send filterClicked to parent component using onCreate function
    */
-  TagButtonOnClick = (event, value) => {
-    console.log('ddjdjdj');
-    console.log(value);
-    this.props.onCreate(value)
+  HandlerTagButton = (event, value) => {
+    let filterClicked = [...this.state.filterClicked];
+
+    filterClicked[value] = !this.state.filterClicked[value];
+    this.setState({ filterClicked: filterClicked });
+
+    this.props.onCreate(filterClicked);
   };
 
-  HandlerTagButton = (event, value) => {
-    console.log('button ' + value)
-  };
   /**
-   * tag button list 만들기
-   * @param {Array<String>} tagNames : tag가 들어있는 list
-   * @return {Array<Button>} tagButtonArray
+   * Create tag button list
+   * @return {Array<ToggleButton>} tagButtonArray
    */
-  ViewTagButtons = (tagNames) => {
+  ViewTagButtons = () => {
     const { classes } = this.props;
     const tagButtonArray = [];
 
@@ -110,7 +87,9 @@ class EventlistFilters extends Component {
                         onChange={this.HandlerTagButton}
                         className={classes.buttonShape}
                         value={this.props.filterNames[tagIndex].id}
-                        label={this.props.filterNames[tagIndex].id}>
+                        label={this.props.filterNames[tagIndex].id}
+                        selected={this.state.filterClicked[tagIndex]}
+          >
             {this.props.filterNames[tagIndex].name}
           </ToggleButton>
       )
@@ -118,21 +97,17 @@ class EventlistFilters extends Component {
     return tagButtonArray;
   };
 
-  // Render of cards component.
+  // Render of filters component
   render() {
     const { classes } = this.props;
     return (
-        // <Grid>
         <ThemeProvider theme={theme}>
           <ToggleButtonGroup size='large'
-                             onChange={this.TagButtonOnClick}
-                             value={this.state.filterToggles}
+                             value={this.state.filterClicked}
                              className={classes.buttonGroup}>
             <this.ViewTagButtons />
           </ToggleButtonGroup>
         </ThemeProvider>
-        // </Grid>
-
     );
   }
 }
