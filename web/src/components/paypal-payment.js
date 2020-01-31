@@ -1,62 +1,64 @@
 import React, {Component} from 'react';
 import {PayPalButton} from 'react-paypal-button-v2';
-import {} from '@material-ui/core';
+import {withRouter} from 'react-router-dom';
 
 // This clientId is sandbox ID
 // Need to change this to real ID
 const clientId = 'AfAbl-JI-15trlwhVjwNCTiL1OxhogGyEN4OYAPE4KJX9xPmUKIHWZuO61_5lPHa84jyw27-3zszt1ak';
 
+// Paypal payment button to participate in event.
 class PaypalPayment extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      price: props.price,
-      eventId: props.eventId,
-      userId: props.userId,
-    };
   }
 
   render() {
     return (
+        // Request paypal payment.
         <PayPalButton
             createOrder={(data, actions) => {
               return actions.order.create({
-                purchase_units: [{
-                  description: `userId:${
-                      this.state.userId
-                  },eventId:${
-                      this.state.eventId
-                  }`,
-                  amount: {
-                    currency_code: 'USD',
-                    value: this.state.price,
-                  },
-                }],
+                purchase_units: [
+                  {
+                    description: `userId:${
+                        this.props.userId
+                    },eventId:${
+                        this.props.eventId
+                    }`,
+                    amount: {
+                      currency_code: 'USD',
+                      value: this.props.price,
+                    },
+                  }],
                 application_context: {
                   shipping_preference: 'NO_SHIPPING',
                 },
               });
             }}
+            // Payment with Paypal approved.
             onApprove={(data, actions) => {
-              // Capture the funds from the transaction
               console.log('approved: ', data, actions);
-              const eventId = this.state.eventId;
               return actions.order.capture().then(function(details) {
-                // Show a success message to your buyer
-                alert('Transaction completed by ' + details.payer.name.given_name);
-
-                // Call the page to save the transaction
-                return fetch(`/join-event/${eventId}/${data.orderID}`);
-              });
+              }).then(
+                  // Redirect to join-event page with give props.
+                  this.props.history.push({
+                    pathname: '/join-event',
+                    state: {
+                      eventId: this.props.eventId,
+                      orderId: data.orderID,
+                      price: this.props.price,
+                    },
+                  }),
+              );
             }}
             options={{
               clientId: clientId,
             }}
-            style={{color: 'silver', label:'pay'}}
+            style={{color: 'silver', label: 'pay', height: 54}}
         />
     );
   }
 }
 
-export default PaypalPayment;
+export default withRouter(PaypalPayment);

@@ -30,6 +30,19 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 
 const resolvers = {
   Query: {
+    me: () => {
+      console.log('왔다')
+      return {
+        id: 1,
+        firstName: 'Kwon',
+        lastName: 'Minsu',
+        email: 'dsad',
+        hostedEvents: [],
+        participatedEvents: [],
+        registrationDate: new Date(),
+        __typename: 'User'
+      }
+    },
     event: (_, {id}) => {
       if (id == 1) {
         return {
@@ -37,7 +50,7 @@ const resolvers = {
           title: 'here is title1111',
           thumbnailUrl: 'https://t1.daumcdn.net/cfile/tistory/2220144955FE3FCA20',
           description: 'Learning Ethics by analysing behavior of Sang-geon Yun',
-          price: 999999.99,
+          price: 0,
           tags: [
             {
               id: 1,
@@ -56,6 +69,7 @@ const resolvers = {
             },
           ],
           bookTitle: 'Book Title 1',
+          bookImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUawwCjirMLsTmrnqzcgcDgVFWiY4wwBKm99MJ8A89ZK52u1QyHA&s',
           bookDescription: 'Book Description 2',
           bookAuthor: 'Book Author 123',
           schedule: [
@@ -84,7 +98,7 @@ const resolvers = {
           title: 'here is title2222',
           thumbnailUrl: 'https://t1.daumcdn.net/cfile/tistory/2220144955FE3FCA20',
           description: 'Learning Ethics by analysing behavior of Sang-geon Yun',
-          price: 999999.99,
+          price: 2,
           tags: [
             {
               id: 1,
@@ -132,6 +146,8 @@ const resolvers = {
       return host;
     },
   },
+
+
 };
 
 const client = new ApolloClient({
