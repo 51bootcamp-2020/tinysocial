@@ -3,6 +3,7 @@ const {mockContext} = require('../mockContext');
 
 const {signInWithGoogle, signUpWithGoogle, signIn, signUp, emailValidate} = mockContext.dataSources.authAPI;
 const {createOrModifyOfReview} = mockContext.dataSources.reviewAPI;
+const {validateJoin} = mockContext.dataSources.joinEventAPI;
 
 describe('[Mutation]', () => {
   test('signInWithGoogle', async () => {
@@ -38,4 +39,9 @@ describe('[Mutation]', () => {
     const res = await Mutation.createOrModifyReview({}, {eventId: 1, title: 'testTitle', content: 'testContent', isPublic: true}, mockContext);
     expect(res).toEqual({userId: 1, eventId: 1});
   });
-});
+  test('joinEvent', async () => {
+    validateJoin.mockReturnValueOnce(true);
+    const res = await Mutation.joinEvent({}, {orderId: '42', eventId: 42, userId: 42}, mockContext);
+    expect(res).toEqual(true);
+  });
+})
