@@ -58,7 +58,7 @@ class EventCardsQuery extends Component {
         if (error) return `Error! ${error.message}`;
         return(
             <div>
-              <EventCards events={data.events.events}></EventCards>
+              <EventCards events={data.events.events} />
             </div>
         )
       }}
