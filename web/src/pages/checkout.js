@@ -6,7 +6,10 @@ import queryString from 'query-string';
 import {withRouter} from 'react-router-dom';
 import {gql} from 'apollo-boost';
 import {Query} from 'react-apollo';
+import Cookie from 'js-cookie';
+import FreePayment from '../components/free-payment';
 
+// Checkout page component for payment.
 class Checkout extends Component {
   constructor(props) {
     super(props);
@@ -20,6 +23,7 @@ class Checkout extends Component {
     };
   }
 
+  // Event query for payment information.
   EVENT_REQUEST_QUERY = gql`
     query getEvent ($id : ID!){
       event (id: $id) @client {
@@ -33,20 +37,25 @@ class Checkout extends Component {
           bookTitle
          }
       }
+      
+      me @client {
+        id
+      }
     }`;
 
+  // Get eventId by querystring in url.
   componentWillMount() {
     const query = queryString.parse(this.props.location.search);
     {
       query.id && this.setState({
-        eventId: query.id
+        eventId: query.id,
       });
     }
   }
 
   render() {
-    console.log(this.state.eventId + 'hiiiiiiiiiiiii');
     return (
+        // Send query to request event.
         <Query query={this.EVENT_REQUEST_QUERY}
                variables={{id: this.state.eventId}}
         >
@@ -56,7 +65,7 @@ class Checkout extends Component {
             return (
                 <Container maxWidth='md'>
                   <br/>
-                  {console.log(data)}
+                  {/* Show event item to purchase with informations received from query. */}
                   <PurchaseEventItem
                       price={data.event.price}
                       eventId={data.event.id}
@@ -66,39 +75,23 @@ class Checkout extends Component {
 
                   <br/>
                   <Divider/>
-                  <br/>
-                  <Container maxWidth='sm'>
-                    <PaypalPayment price={data.event.price}
-                                   eventId={data.event.id}
-                                   userId={this.state.userId}/>
+
+                  {/* Button components for payment. */}
+                  <Container maxWidth='xs'
+                             style={{textAlign: 'center', marginTop: '40px'}}>
+                    {data.event.price == '0' ? (
+                        <FreePayment eventId={data.event.id}
+                                     userId={data.me.id}/>
+                    ) : (
+                        <PaypalPayment price={data.event.price}
+                                       eventId={data.event.id}
+                                       userId={data.me.id}/>
+                    )}
                   </Container>
                 </Container>
-
-                // <EventCards>{data.events.events}</EventCards>
-
             );
           }}
         </Query>
-        // <Container maxWidth='md'>
-        //   <br/>
-        //
-        //   <PurchaseEventItem
-        //       price={this.state.price}
-        //       eventId={this.state.id}
-        //       eventName={this.state.title}
-        //       // schedule={this.state.schedule}
-        //       imageUrl={this.state.thumbnailUrl} />
-        //
-        //   <br/>
-        //   <Divider/>
-        //   <br/>
-        //   <Container maxWidth='sm'>
-        //     <PaypalPayment price={this.state.price}
-        //                    eventId={this.state.id}
-        //                    userId={this.state.userId}/>
-        //   </Container>
-        // </Container>
-
     );
   }
 }

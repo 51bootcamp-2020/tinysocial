@@ -3,6 +3,7 @@ import 'typeface-roboto';
 import {Grid, Paper, ButtonBase, Typography} from '@material-ui/core';
 import {withRouter} from 'react-router-dom';
 
+// Styles
 const eventNameStyle = {
   fontWeight: 300,
   fontFamily: 'Roboto',
@@ -25,7 +26,7 @@ const priceStyle = {
   fontFamily: 'Roboto',
   fontSize: '20px',
   fontWeight: 500,
-  textAlign: 'right'
+  textAlign: 'right',
 };
 
 const cancelBtnStyle = {
@@ -42,24 +43,24 @@ class PurchaseEventItem extends Component {
     super(props);
   }
 
-  // Cancel button for cancel the payment with redirection
+  // Redirect to eventlist page or root page if the cancel button is clicked.
   cancelBtnRedirect = () => {
-    if(this.props.eventId!='') {
+    if (this.props.eventId != '') {
       // Todo(Myoung-hee) : change history to event detail with id
-      this.props.history.goBack()
-    }
-      else this.props.history.push('/')
-  }
+      this.props.history.push('/eventlist');
+    } else this.props.history.push('/');
+  };
 
   render() {
     return (
-        // Purchase event item with event information props received from checkout page
+        // Purchase event item with event information props received from checkout page.
         <Paper style={{padding: '5%', marginTop: '3%'}}>
           <Grid container spacing={2} style={{height: '150px'}}>
-            <Grid item xs={3} sm={2} >
+            <Grid item xs={3} sm={2}>
               <ButtonBase style={{width: '100%', height: '80%'}}>
                 <img alt="complex"
-                     src={this.props.imageUrl} style={{width: '100%', height: '100%'}}/>
+                     src={this.props.imageUrl}
+                     style={{width: '100%', height: '100%'}}/>
               </ButtonBase>
             </Grid>
             <Grid item xs={9} sm={10} container direction="row" spacing={1}>
@@ -81,7 +82,9 @@ class PurchaseEventItem extends Component {
           </Grid>
           <Grid container justify="flex-end" style={{marginTop: '3%'}}>
             <Grid item>
-              <Typography variant="body2" style={cancelBtnStyle} onClick={this.cancelBtnRedirect}>
+              {/* Cancel Button */}
+              <Typography variant="body2" style={cancelBtnStyle}
+                          onClick={this.cancelBtnRedirect}>
                 Cancel
               </Typography>
             </Grid>

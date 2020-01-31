@@ -28,6 +28,7 @@
     "react-router-dom": "^5.1.2",
     "react-router-prop-types": "^1.0.4",
     "react-scripts": "3.3.0",
+    "typeface-libre-franklin": "0.0.75",
     "typeface-roboto": "0.0.75",
     "typescript": "^3.7.4"
   },
