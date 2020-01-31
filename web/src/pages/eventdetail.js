@@ -1,5 +1,6 @@
 import BookClub from '../components/eventdetail/bookclub';
 import CommonEvent from '../components/eventdetail/commonevent';
+import Error from '../pages/error';
 import EventThumbNail from '../components/eventdetail/eventthumbnail';
 import {gql} from 'apollo-boost';
 import {
@@ -98,14 +99,7 @@ class EventDetail extends Component{
                 </Hidden>
               </Grid>
           );
-        } else {
-          return (
-            <div>
-              error
-            </div>
-          )
-        }
-
+        } else return <Error/>
       }}
     </Query>)
   }
