@@ -46,9 +46,9 @@ class MainAPI extends DataSource {
     return users && users[0] ? users[0] : null;
   }
 
-  async getUserPastEvents(userId) {
+  async getUserPastEvents(info) {
     const events = await this.store.EventParticipant.findAll({
-      where: {userId: userId},
+      where: {userId: info.userId},
       include: [
         {
           model: this.store.Event,
@@ -69,9 +69,9 @@ class MainAPI extends DataSource {
     return events.map((event) => event.event);
   }
 
-  async getUserUpcomingEvents(userId) {
+  async getUserUpcomingEvents(info) {
     const events = await this.store.EventParticipant.findAll({
-      where: {userId: userId},
+      where: {userId: info.userId},
       include: [
         {
           model: this.store.Event,
@@ -101,29 +101,19 @@ class MainAPI extends DataSource {
     return eventWithType;
   }
 
-  async getReviews(reviewInfo) {
-    let review;
-    if (reviewInfo.userId === undefined) {
-      review = await this.store.Review.findOne({
-        where: {
-          eventId: reviewInfo.eventId,
-          userId: reviewInfo.currentUserId,
-        },
-      });
-    } else {
-      review = await this.store.Review.findAll({
-        where: {
-          eventId: reviewInfo.eventId,
-          userId: reviewInfo.userId,
-        },
-      });
-    }
+  async getUserReviews(info) {
+    const review = await this.store.Review.findOne({
+      where: {
+        eventId: info.eventId,
+        userId: info.userId,
+      },
+    });
     return review;
   }
 
   async createOrModifyReview(reviewInfo) {
-    const review = await this.getReviews({
-      currentUserId: reviewInfo.userId, eventId: reviewInfo.eventId,
+    const review = await this.getUserReviews({
+      userId: reviewInfo.userId, eventId: reviewInfo.eventId,
     });
     if (review === null) {
       const flag = await this.store.Review.create({
@@ -134,7 +124,7 @@ class MainAPI extends DataSource {
         isPublic: reviewInfo.isPublic,
       });
       if (flag !== null) {
-        return review;
+        return true;
       }
     } else {
       review.title = reviewInfo.title;
@@ -142,10 +132,10 @@ class MainAPI extends DataSource {
       review.isPublic = reviewInfo.isPublic;
       const flag = await review.save();
       if (flag !== null) {
-        return review;
+        return true;
       }
     }
-    return null;
+    return false;
   }
 
   async getHostFromEvent(hostId) {
@@ -185,11 +175,14 @@ class MainAPI extends DataSource {
     return participants.map((participant) => participant.user);
   }
 
-  async getAuthorFromReview(userId) {
-    const author = await this.store.User.findOne({
-      where: {id: userId},
+  async getReviewFromEvent(info) {
+    const review = await this.store.Review.findOne({
+      where: {
+        userId: info.userId,
+        eventId: info.eventId,
+      },
     });
-    return author;
+    return review;
   }
 }
 module.exports = {

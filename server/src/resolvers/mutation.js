@@ -90,19 +90,34 @@ module.exports.Mutation = {
     };
   },
 
-  createOrModifyReview: async (
+  createReview: async (
     _, {eventId, title, content, isPublic},
     {dataSources, userId}) => {
     if (userId === null) {
       return false;
     }
-    const review = await dataSources.mainAPI.
+    const isSuccess = await dataSources.mainAPI.
         createOrModifyReview(
             {
               userId, eventId, title, content, isPublic,
             },
         );
-    return review;
+    return isSuccess;
+  },
+
+  modifyReview: async (
+    _, {eventId, title, content, isPublic},
+    {dataSources, userId}) => {
+    if (userId === null) {
+      return false;
+    }
+    const isSuccess = await dataSources.mainAPI.
+        createOrModifyReview(
+            {
+              userId, eventId, title, content, isPublic,
+            },
+        );
+    return isSuccess;
   },
   emailValidate: async (
     _,
@@ -210,9 +225,7 @@ module.exports.Mutation = {
     }
 
     // TODO(lsh9034): expiration time depending on the last user interaction.
-    const token = jwt.sign(
-        {userId: email}, APP_SECRET, {expiresIn: expirationTime},
-    );
+    const token = jwt.sign({userId: email}, APP_SECRET, {expiresIn: expirationTime});
 
     return {
       success: true,

@@ -18,8 +18,8 @@ const typeDefs = gql`
         # Return the user whose id is 'id'.
         # If not exist, return null
         user(id: ID!): User
-        userEvents(upcomingOrPast: String!): [Event]
-        getReviews(userId: Int, eventId: Int): Review
+        userEvents(info: String!): [Event]
+        getUserReviews(userId: Int, eventId: Int): Review
     }
     type Review {
       title: String!
@@ -55,12 +55,18 @@ const typeDefs = gql`
         ): AuthResponse!
         # If successful, then return True.  
         logout: Boolean!
-        createOrModifyReview(
+        createReview(
           eventId: Int!
           title: String!
           content: String!
           isPublic: Boolean!
-        ): Review!
+        ): Boolean!
+        modifyReview(
+          eventId: Int!
+          title: String!
+          content: String!
+          isPublic: Boolean!
+        ): Boolean!
     }
 
     input EventFilter {
@@ -127,7 +133,7 @@ const typeDefs = gql`
         tags: [Tag]!
         participants: [User]!
         maxParticipantNum: Int
-        reviews: Review
+        reviews: [Review]
     }
     
     type EventBookClub implements Event{
@@ -150,7 +156,7 @@ const typeDefs = gql`
         tags: [Tag]!
         participants: [User]!
         maxParticipantNum: Int
-        reviews: Review
+        reviews: [Review]
     }
 
   # Every event can have multiple tags. Tags are predefined by ours(developers)
