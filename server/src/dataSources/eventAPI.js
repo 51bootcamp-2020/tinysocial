@@ -142,6 +142,9 @@ class EventAPI extends DataSource {
       where: {eventId: eventId},
       attributes: ['id'],
       raw: true,
+      order: [
+        ['startDateTime', 'ASC'],
+      ],
     });
     return schduleIds;
   }
