@@ -18,18 +18,16 @@ const landingPageStyle = {
 class Landing extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      currentCursor: 0
-    }
+    this.currentCursor = 0;
+    this.pageSize = 5;
   }
 
   /**
-   * Set cursor received from EventCardsQuery Component to currentCursor state
+   * Set cursor received from EventCardsQuery Component to currentCursor
    * @param cursor {int} : cursor viewed in current landing page
    */
   HandlerCurrentCursor = (cursor) => {
-    this.setState({currentCursor: cursor})
+    this.currentCursor = 0
   };
 
   render() {
@@ -38,8 +36,8 @@ class Landing extends Component {
         <Grid container justify="space-between" className={classes.root}>
           <Grid item xs={12}>
             <LandingDescription />
-            <EventCardsQuery pageSize={6}
-                             after={this.state.currentCursor}
+            <EventCardsQuery pageSize={this.pageSize}
+                             after={this.currentCursor}
                              onCreate={this.HandlerCurrentCursor}/>
           </Grid>
         </Grid>

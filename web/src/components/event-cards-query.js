@@ -30,14 +30,14 @@ class EventCardsQuery extends Component {
               id,
               title,
               description,
-#              host{
-#                  profileImgUrl
-#              },
-#              thumbnailUrl,
-#              schedule{
-#                  startDateTime
-#                  address
-#              }
+              host{
+                  profileImgUrl
+              },
+              thumbnailUrl,
+              schedule{
+                  startDateTime
+                  address
+              }
           }
       }
     }`;
@@ -49,8 +49,11 @@ class EventCardsQuery extends Component {
             variables={{pageSize: this.props.pageSize,
                         after: this.props.after,
                         eventFilter: {recommendation: this.props.isRecommended,
-                                      tags: this.props.selectedTagIds}}}
+                                      tagIds: this.props.selectedTagIds}
+                        }}
             onCompleted={data => {
+              // TODO(Lhyejin): Handle Undefined Error
+              if (data === undefined) return;
               this.props.onCreate(/* cursor= */ data.events.cursor)}
             }>
       {({loading, error, data}) => {

@@ -86,17 +86,14 @@ class EventlistFilters extends Component {
   ViewTagButtons = () => {
     const { classes } = this.props;
     const tagButtonArray = [];
-
-    for (let tagIndex = 0; tagIndex < this.props.filterNames.length; ++tagIndex)
-    {
+    for(let tagIndex = 0; tagIndex < this.props.filterNames.length; ++tagIndex){
       tagButtonArray.push(
           <ToggleButton variant='outlined'
                         onChange={this.HandlerTagButton}
                         className={classes.buttonShape}
                         value={tagIndex}
                         label={this.props.filterNames[tagIndex].id}
-                        selected={this.state.filterClicked[tagIndex]}
-          >
+                        selected={this.state.filterClicked[tagIndex]}>
             {this.props.filterNames[tagIndex].name}
           </ToggleButton>
       )

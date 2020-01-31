@@ -27,6 +27,10 @@ const eventCardStyle = {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
+  locationText: {
+    fontSize: '15px',
+    color: 'rgba(0, 0, 1, 0.5)'
+  }
 };
 
 // Overriding Card Component css style
@@ -112,37 +116,25 @@ class EventCards extends Component {
                 key={this.props.events[cardIndex].id}
                 value={this.props.events[cardIndex].id}
                 onClick={
-                  () => this.CardClicked(this.props.events[cardIndex].id)
-                }
-          >
+                  () => this.CardClicked(this.props.events[cardIndex].id)}>
             {/* Image section of Card */}
-            {/* image={this.props.events[cardIndex].thumbnailUrl */}
             <CardMedia
               component="img"
               alt="CardsImage"
-              image={require('./images/' + (cardIndex + 1) + '.jpg')}
-              title="Cards Image"
-            />
+              image={this.props.events[cardIndex].thumbnailUrl}
+              title="Cards Image"/>
             {/* Header section of Card */}
-            {/* src={this.props.events[cardIndex].host.profileImgUrl}*/}
-            {/* subheader={this.props.events[cardIndex]
-                            .schedule[0].startDateTime*/}
-            <CardHeader
-              avatar={
-                <Avatar alt="Example User Name"
-                        src={require('./images/' + (cardIndex + 1) + '.jpg')}
-                />
-              }
-              title={this.props.events[cardIndex].title}
-              subheader="September 14, 2016"
-            />
+            <CardHeader avatar={<Avatar alt="Example User Name"
+                        src={this.props.events[cardIndex].host.profileImgUrl}/>}
+                        title={this.props.events[cardIndex].title}
+                        subheader={this.props.events[cardIndex].
+                                    schedule[0].startDateTime.slice(0,10)}/>
             {/* Content section of Card */}
             <CardContent>
-              <Typography>
-                { /* {this.props.events[cardIndex].schedule[0].address}*/}
+              <Typography className={classes.locationText}>
+                {this.props.events[cardIndex].schedule[0].address}
               </Typography>
-              <Typography
-                className={classes.cardContent}>
+              <Typography className={classes.cardContent}>
                 {this.props.events[cardIndex].description}
               </Typography>
             </CardContent>
