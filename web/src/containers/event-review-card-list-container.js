@@ -40,10 +40,10 @@ class EventReviewCardListContainer extends Component {
           // TODO(mskwon1): Add data loading page.
           if (loading) return <p>Fetching Data ...</p>;
           // TODO(mskwon1): Add error page.
-          if (error) return <p>Error ...</p>;
+          if (error) return <p>{error.message}</p>;
           console.log(data);
           return (
-            <EventReviewCardList events={data.userEvents}
+            <EventReviewCardList events={data.myEvents}
               upcoming={currentTab === 'upcoming' ? true : false} />
           );
         }}

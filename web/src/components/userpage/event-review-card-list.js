@@ -1,4 +1,4 @@
-import {Container} from '@material-ui/core';
+import {Container, Typography} from '@material-ui/core';
 import EventReviewCard from './event-review-card';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
@@ -10,6 +10,14 @@ class EventReviewCardList extends Component {
 
   // Render EventReviewCard components list.
   renderEventReviewCards(events) {
+    if (events.length === 0) {
+      const upcomingOrPast = this.props.upcoming ? 'upcoming' : 'past';
+      return (
+        <Typography variant='h5' align='center'>
+          You have no {upcomingOrPast} events ... let's take one!
+        </Typography>
+      );
+    }
     // Map event objects to EventReviewCard component.
     events = events.map((event) => {
       const {
