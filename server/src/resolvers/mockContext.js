@@ -36,5 +36,8 @@ module.exports.mockContext = {
       getAttributeOfUser: jest.fn(),
       getAgeOfUser: jest.fn(),
     },
+    joinEventAPI: {
+      validateJoin: jest.fn(),
+    },
   },
 };
