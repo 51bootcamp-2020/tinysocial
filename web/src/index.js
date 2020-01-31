@@ -3,7 +3,7 @@ import {
   ApolloLink,
   concat,
   HttpLink,
-  InMemoryCache
+  InMemoryCache,
 } from 'apollo-boost';
 import {ApolloProvider} from 'react-apollo';
 import App from './App';
@@ -23,15 +23,14 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   operation.setContext({
     headers: {
       authorization: Cookie.get('token') || null,
-    }
+    },
   });
   return forward(operation);
-})
+});
 
 const resolvers = {
   Query: {
     me: () => {
-      console.log('왔다')
       return {
         id: 1,
         firstName: 'Kwon',
@@ -40,8 +39,8 @@ const resolvers = {
         hostedEvents: [],
         participatedEvents: [],
         registrationDate: new Date(),
-        __typename: 'User'
-      }
+        __typename: 'User',
+      };
     },
     event: (_, {id}) => {
       if (id == 1) {
@@ -120,15 +119,16 @@ const resolvers = {
           bookImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUawwCjirMLsTmrnqzcgcDgVFWiY4wwBKm99MJ8A89ZK52u1QyHA&s',
           bookDescription: 'Book Description 2',
           bookAuthor: 'Book Author 123',
-          schedule: [{
-            id: 1,
-            startDateTime: new Date('2000-12-14 12:00:00'),
-            endDateTime: new Date('2000-12-14 12:00:00'),
-            address: '31 EL Camino Real Burlingame CA',
-            latitude: 145,
-            longitude: 123,
-            __typename: 'Schedule',
-          }],
+          schedule: [
+            {
+              id: 1,
+              startDateTime: new Date('2000-12-14 12:00:00'),
+              endDateTime: new Date('2000-12-14 12:00:00'),
+              address: '31 EL Camino Real Burlingame CA',
+              latitude: 145,
+              longitude: 123,
+              __typename: 'Schedule',
+            }],
           host: {
             firstName: 'Sihyun',
             lastName: 'Lee',
@@ -147,7 +147,6 @@ const resolvers = {
     },
   },
 
-
 };
 
 const client = new ApolloClient({
@@ -157,10 +156,10 @@ const client = new ApolloClient({
 });
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <App/>
-  </ApolloProvider>
-, document.getElementById('root'));
+    <ApolloProvider client={client}>
+      <App/>
+    </ApolloProvider>
+    , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
