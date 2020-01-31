@@ -13,7 +13,7 @@ class Tags extends Component {
   render() {
     const tagList = [];
     const {event} = this.props;
-    for (let i=0; i<event.tags.length; i++) {
+    for (let i in event.tags) {
       tagList.push(
           <Box border={1} style={{
             borderColor: '#c7c7c7',
