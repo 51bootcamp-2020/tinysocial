@@ -24,8 +24,8 @@ function NavBarMobile(props) {
   const [state, setState] = React.useState({
     left: false,
   });
-  const loggedIn = Cookie.get('token') ? true : false;
-  const {profilepic} = props;
+  const {profilepic, error} = props;
+  const loggedIn = !error && Cookie.get('token') ? true : false;
 
   const toggleDrawer = (side, open) => (event) => {
     if (event.type == 'keydown' &&

@@ -12,8 +12,8 @@ import Logo from '../../img/tinysocial-logo.png';
 import React from 'react';
 
 function NavBarPC(props) {
-  const loggedIn = Cookie.get('token') ? true : false;
-  const {profilepic} = props;
+  const {profilepic, error} = props;
+  const loggedIn = !error && Cookie.get('token') ? true : false;
 
   return (
     <AppBar position='static' color='default'>
