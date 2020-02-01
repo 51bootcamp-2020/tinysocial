@@ -6,3 +6,4 @@ module.exports.User = {
   participatedEvents: async (parent) => {
   },
 };
+
