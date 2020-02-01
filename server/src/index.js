@@ -39,6 +39,7 @@ const server = new ApolloServer({
     authAPI: new AuthAPI(store),
   }),
   context,
+  tracing: true,
 });
 
 switch (process.env.NODE_ENV) {
