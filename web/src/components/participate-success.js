@@ -36,7 +36,6 @@ class ParticipateSuccess extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
   }
 
   render() {
@@ -60,13 +59,13 @@ class ParticipateSuccess extends Component {
               <Fab
                   variant="extended"
                   style={{
-                    width: '220px',
+                    width: '280px',
                     height: '44px',
                     backgroundColor: '#009688',
                   }} onClick={() => this.props.history.push('/')}
               >
-                <Typography style={returnBtnStyle}>Return to
-                  homepage</Typography>
+                {/* Todo(Myoung-hee): Change link to user page */}
+                <Typography style={returnBtnStyle}>Check my booking event</Typography>
               </Fab>
             </Grid>
           </Grid>
