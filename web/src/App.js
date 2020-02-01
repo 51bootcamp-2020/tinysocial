@@ -14,6 +14,9 @@ import Payment from './pages/payment';
 import React, {Fragment} from 'react';
 import SignInUp from './pages/signInUp';
 import UserPage from './pages/userpage';
+import Emailvalidation from './pages/emailvalidation';
+import Checkout from './pages/checkout';
+import JoinEvent from './pages/join-event';
 
 function App() {
   return (
@@ -25,7 +28,8 @@ function App() {
         <Route path='/error' render={() => <Error/>}/>
         <Route path='/eventdetail' render={() => <Eventdetail/>}/>
         <Route path='/eventlist' render={() => <EventList/>}/>
-        <Route path='/payment' render={() => <Payment/>}/>
+        <Route path='/checkout' render={() => <Payment/>}/>
+        <Route path="/join-event" render={() => <JoinEvent/>} />
         <Route path='/signin' render={() => <SignInUp/>}/>
         <Route path='/userpage' render={() => <UserPage/>}/>
         <Route path='/' render={() => <Landing/>}/>
