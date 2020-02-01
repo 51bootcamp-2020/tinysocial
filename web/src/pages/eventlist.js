@@ -4,14 +4,13 @@ import {gql} from 'apollo-boost';
 import Grid from '@material-ui/core/Grid';
 import {Query} from "react-apollo";
 import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom'
 
 class EventList extends Component {
 
   constructor(props) {
     super(props);
     this.currentCursor = 0;
-    this.eventListPageSize = 3;
+    this.eventListPageSize = 5;
     this.state = {
       isTagNames: false,
       allTags: [],
@@ -19,10 +18,10 @@ class EventList extends Component {
     }
   }
 
-  // Initialize currentCursor, When Redirect Link Button clicked.
-  componentWillReceiveProps(nextProps) {
-    (nextProps.location.state === 'reload') && (this.currentCursor = 0);
-  }
+  // // Initialize currentCursor, When Redirect Link Button clicked.
+  // UNSAFE_componentWillReceiveProps(nextProps) {
+  //   (nextProps.location.state === 'reload') && (this.currentCursor = 0);
+  // }
 
   // Query that bring Tag Names
   TAGNAMES_REQUEST_QUERY = gql`
@@ -35,23 +34,13 @@ class EventList extends Component {
       }
     }`;
 
-  // Handler Scroll
-  handleScroll = ({ currentTarget }, onLoadMore) => {
-    if (
-      currentTarget.scrollTop + currentTarget.clientHeight >=
-      currentTarget.scrollHeight
-    ) {
-      onLoadMore();
-    }
-  };
-
-  /**
-   * Set cursor received from EventCardsQuery Component to currentCursor state
-   * @param cursor {int} : Endpoint of current viewed EventCard
-   */
-  HandlerCurrentCursor = (cursor) => {
-    this.currentCursor = cursor;
-  };
+  // /**
+  //  * Set cursor received from EventCardsQuery Component to currentCursor state
+  //  * @param cursor {int} : Endpoint of current viewed EventCard
+  //  */
+  // HandlerCurrentCursor = (cursor) => {
+  //   this.currentCursor = cursor;
+  // };
 
   /**
    * Set selectedTagIds state using selectedTags parameter
@@ -99,10 +88,9 @@ class EventList extends Component {
                 </Grid>
                 <Grid item xs={12}>
                   <EventCardsQuery pageSize={this.eventListPageSize}
-                                   after={this.currentCursor}
                                    isRecommended={false}
                                    selectedTagIds={this.state.selectedTagIds}
-                                   onCreate={this.HandlerCurrentCursor} />
+                                   />
                 </Grid>
               </Grid>)
           }
@@ -113,4 +101,4 @@ class EventList extends Component {
 
 EventList.propTypes = {};
 
-export default withRouter(EventList);
+export default EventList;
