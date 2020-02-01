@@ -62,7 +62,7 @@ class ParticipateSuccess extends Component {
                     width: '280px',
                     height: '44px',
                     backgroundColor: '#009688',
-                  }} onClick={() => this.props.history.push('/')}
+                  }} onClick={() => this.props.history.push('/userpage')}
               >
                 {/* Todo(Myoung-hee): Change link to user page */}
                 <Typography style={returnBtnStyle}>Check my booking event</Typography>
