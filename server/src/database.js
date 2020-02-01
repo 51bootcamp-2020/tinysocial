@@ -7,23 +7,19 @@ const createStore = () => {
       // TODO(yun-kwak): Make production DB and code.
       throw new Error('Not implemented');
     case 'dev':
-      if (process.env.DB_PASSWORD === undefined) {
-        throw new Error('Env variable DB_PASSWORD is required');
-      }
       sequelize = new Sequelize('tinysocial', 'arin_kwak',
-          process.env.DB_PASSWORD, {
+          process.env.DB_DEV_PASSWORD, {
             dialect: 'mariadb',
-            host: 'tinysocial-dev.cwup5u7gf2do.us-west-2.rds.amazonaws.com',
+            host: process.env.DB_DEV_HOST,
             dialectOptions: {
               connectTimeout: 1000, // MariaDB connector option
             },
           });
       break;
-
     case 'test':
       sequelize = new Sequelize({
         dialect: 'sqlite',
-        storage: './database.sqlite',
+        storage: 'database.sqlite',
       });
       break;
 
@@ -56,25 +52,26 @@ const createStore = () => {
       autoIncrement: true,
     },
     createdAt: Sequelize.DATE,
-    firstName: {type: Sequelize.STRING, allowNull: false},
-    lastName: {type: Sequelize.STRING, allowNull: false},
-    googleId: Sequelize.STRING,
-    facebookId: Sequelize.STRING,
-    profileImgUrl: Sequelize.STRING,
+    firstName: {type: Sequelize.TEXT, allowNull: false},
+    lastName: {type: Sequelize.TEXT, allowNull: false},
+    googleId: Sequelize.TEXT,
+    facebookId: Sequelize.TEXT,
+    profileImgUrl: Sequelize.TEXT,
+    password: Sequelize.TEXT,
     email: {
-      type: Sequelize.STRING, allowNull: false,
+      type: Sequelize.TEXT, allowNull: false,
     },
     birthday: Sequelize.DATE,
     // TODO(yun-kwak): Split the address into street address,
     // additional street address, city, state, zip code
-    address: Sequelize.STRING,
-    phone: Sequelize.STRING,
-    self_description: Sequelize.STRING,
+    address: Sequelize.TEXT,
+    phone: Sequelize.TEXT,
+    selfDescription: Sequelize.TEXT,
     lastInteractionTime: Sequelize.DATE, // To refresh JWT token
   },
   {
     sequelize,
-    modelName: 'user',
+    modelName: 'User',
   });
 
   Event.init({
@@ -93,7 +90,7 @@ const createStore = () => {
       },
     },
     title: Sequelize.STRING,
-    description: Sequelize.STRING,
+    description: Sequelize.TEXT,
     price: Sequelize.FLOAT,
     // 'type' specifies which type of the event is.
     // Enum type is not SQL-standard and it is hard to add a new enum value.
@@ -101,11 +98,11 @@ const createStore = () => {
     // So we define type as INTEGER.
     // 0: BookClub
     type: Sequelize.INTEGER,
-    thumbnailUrl: Sequelize.STRING,
+    thumbnailUrl: Sequelize.TEXT,
     maxParticipantNum: Sequelize.INTEGER,
   }, {
     sequelize,
-    modelName: 'event',
+    modelName: 'Event',
   });
 
   EventBookClub.init({
@@ -122,21 +119,21 @@ const createStore = () => {
       allowNull: false,
     },
     bookAuthor: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false,
     },
     bookDescription: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
     },
     bookISBN: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING(20),
     },
     bookImageUrl: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
     },
   }, {
     sequelize,
-    modelName: 'eventBookClub',
+    modelName: 'EventBookClub',
     timestamps: false,
   },
   );
@@ -159,11 +156,11 @@ const createStore = () => {
       },
     },
     title: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false,
     },
     content: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
     },
     isPublic: {
       type: Sequelize.BOOLEAN,
@@ -171,7 +168,7 @@ const createStore = () => {
     },
   }, {
     sequelize,
-    modelName: 'review',
+    modelName: 'Review',
   },
   );
 
@@ -186,12 +183,12 @@ const createStore = () => {
       autoIncrement: true,
     },
     name: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false,
     },
   }, {
     sequelize,
-    modelName: 'tag',
+    modelName: 'Tag',
     timestamps: false,
   });
 
@@ -214,7 +211,7 @@ const createStore = () => {
     },
   }, {
     sequelize,
-    modelName: 'eventTag',
+    modelName: 'EventTag',
     timestamps: false,
   });
 
@@ -228,7 +225,7 @@ const createStore = () => {
     endDateTime: Sequelize.DATE,
     // TODO(yun-kwak): Split the address into country, state, city, zip, street,
     // additionalStreetAddress
-    address: Sequelize.STRING,
+    address: Sequelize.TEXT,
     latitude: Sequelize.FLOAT,
     longitude: Sequelize.FLOAT,
     eventId: {
@@ -240,7 +237,7 @@ const createStore = () => {
     },
   }, {
     sequelize,
-    modelName: 'schedule',
+    modelName: 'Schedule',
     timestamps: false,
   });
 
@@ -285,13 +282,6 @@ const createStore = () => {
   EventTag.belongsTo(Tag);
   EventTag.belongsTo(Event);
   Event.hasMany(EventTag);
-
-  // Synchronize the models with the database
-  // TODO(arin-kwak): In production phase, consider using migration instead of
-  // 'sync'.
-  // reference: https://sequelize.org/v5/manual/migrations.html
-
-  sequelize.sync();
 
   return {
     User,

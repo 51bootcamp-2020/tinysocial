@@ -1,172 +1,82 @@
 module.exports.Query = {
-  events: async (_, {pageSize, after}, context) => {
-    // Temporary data for test event list page.
-    const events_list = [
-      {
-        id: 0,
-        host: 0,
-        creationTime: '',
-        lastUpdatedTime: '',
-        schedule: [],
-        title: 'Is Sang-geon Good?',
-        description: 'Learning Ethics by analysing behavior of Sang-geon Yun',
-        price: 999999.99,
-        maxParticipants: 1000,
-        tags: [],
-        participants: [],
-      },
-      {
-        id: 1,
-        host: 0,
-        creationTime: '',
-        lastUpdatedTime: '',
-        schedule: [],
-        title: 'Introduction to Algorithm',
-        description: 'Basic to ICPC World Final...',
-        price: 999999.99,
-        maxParticipants: 1000,
-        tags: [],
-        participants: [],
-      },
-      {
-        id: 2,
-        host: 0,
-        creationTime: '',
-        lastUpdatedTime: '',
-        schedule: [],
-        title: 'What is meaning of life?',
-        description: 'Sometimes we thinking about huge size of the universe. ' +
-            'Compare to what humanity accomplished so far,' +
-            ' the universe seems wast of space... isn\' it?',
-        price: 999999.99,
-        maxParticipants: 1000,
-        tags: [],
-        participants: [],
-      },
-      {
-        id: 3,
-        host: 0,
-        creationTime: '',
-        lastUpdatedTime: '',
-        schedule: [],
-        title: 'If AI gets self awareness...',
-        description: 'That means bad thing to human? YES.' +
-            ' But in a perspective of evolution? NO.',
-        price: 999999.99,
-        maxParticipants: 1000,
-        tags: [],
-        participants: [],
-      },
-      {
-        id: 4,
-        host: 0,
-        creationTime: '',
-        lastUpdatedTime: '',
-        schedule: [],
-        title: 'When Space X going to launch a rocket to the Mars?',
-        description: 'Let\'s analyse the probability!',
-        price: 999999.99,
-        maxParticipants: 1000,
-        tags: [],
-        participants: [],
-      },
-      {
-        id: 5,
-        host: 0,
-        creationTime: '',
-        lastUpdatedTime: '',
-        schedule: [],
-        title: 'title1',
-        description: 'description1',
-        price: 999999.99,
-        maxParticipants: 1000,
-        tags: [],
-        participants: [],
-      },
-      {
-        id: 6,
-        host: 0,
-        creationTime: '',
-        lastUpdatedTime: '',
-        schedule: [],
-        title: 'title2',
-        description: 'description2',
-        price: 999999.99,
-        maxParticipants: 1000,
-        tags: [],
-        participants: [],
-      },
-      {
-        id: 7,
-        host: 0,
-        creationTime: '',
-        lastUpdatedTime: '',
-        schedule: [],
-        title: 'title3',
-        description: 'description3',
-        price: 999999.99,
-        maxParticipants: 1000,
-        tags: [],
-        participants: [],
-      },
-      {
-        id: 8,
-        host: 0,
-        creationTime: '',
-        lastUpdatedTime: '',
-        schedule: [],
-        title: 'title4',
-        description: 'description4',
-        price: 999999.99,
-        maxParticipants: 1000,
-        tags: [],
-        participants: [],
-      },
-    ];
-
-    let ret = [];
-    let max_size = Math.min(events_list.length, pageSize);
-    max_size = Math.min(max_size, 9);
-    ret = events_list.slice(0, max_size);
-
+  // TODO(lsh9034): fix eventSort
+  events: async (
+    _, {pageSize, after = 0, eventFilter, eventSort}, {dataSources}) => {
+    if (pageSize > 50) {
+      pageSize = 50;
+ data.event   }
+    let eventIds = [];
+    if (eventFilter !== undefined && eventFilter !== null) {
+      eventIds = await dataSources.eventAPI.getIdsOfEvent({
+        limit: pageSize,
+        offset: after,
+        tagIds: eventFilter.tagIds,
+        order: eventSort,
+      });
+      if (pageSize > eventIds.length || pageSize === undefined || pageSize === null) {
+        pageSize = eventIds.length;
+      }
+    } else {
+      eventIds = await dataSources.eventAPI.getIdsOfEvent({
+        limit: pageSize,
+        offset: after,
+        order: eventSort,
+      });
+      pageSize = eventIds.length;
+    }
     return {
-      cursor: 8,
-      events: ret,
+      cursor: after + pageSize,
+      events: eventIds,
     };
   },
-  event: async (_, {id}) => { },
-  me: async (_, __, context) => { },
-  user: async (_, {id}) => { },
-  userEvents: async (_, {upcomingOrPast}, {dataSources, userId}) => {
-    let events;
+
+  event: async (_, {id}) => {
+    return {id};
+  },
+
+  me: async (_, __, {userId}) => {
+    return {id: userId};
+  },
+
+  user: async (_, {userId}) => {
+    return {id: userId};
+  },
+
+  myEvents: async (_, {upcomingOrPast}, {dataSources, userId}) => {
+    let eventIds;
     if (upcomingOrPast === 'upcoming') {
-      events = await dataSources.mainAPI.getUserUpcomingEvents({userId});
+      eventIds = dataSources.eventAPI.getUpcomingEventIdsOfEvent({userId});
     } else if (upcomingOrPast === 'past') {
-      events = await dataSources.mainAPI.getUserPastEvents({userId});
+      eventIds = dataSources.eventAPI.getPastEventIdsOfEvent({userId});
     } else {
       return null;
     }
-    if (events === null) {
+    if (eventIds === null) {
       return null;
     }
-    const result = await Promise.all(events.map((event) => {
-      switch (event.type) {
-        case 0:
-          return dataSources.mainAPI.getBookClubEvent(event);
-      }
-    }));
-    return result;
+    return eventIds;
   },
-  getUserReviews: async (
-    _, {userId, eventId}, {dataSources, userId: currentUserId},
-  ) => {
+
+  userReviews: async (
+    _, {userId, eventId}, {dataSources, userId: currentUserId}) => {
     if (userId === undefined) {
       userId = currentUserId;
     }
-    const reviews = await dataSources.mainAPI.getUserReviews({userId, eventId});
-    if (reviews === undefined) {
-      return null;
-    }
+    const reviews = dataSources.reviewAPI.getIdsOfReview({userId, eventId});
     return reviews;
+  },
+
+  tagNames: async (_, {pageSize, after = 0}, {dataSources}) => {
+    const tagIds = await dataSources.tagAPI.getIdsOfTag({
+      limit: pageSize,
+      offset: after,
+    });
+    if (pageSize > tagIds.length || pageSize === undefined || pageSize === null) {
+      pageSize = tagIds.length;
+    }
+    return {
+      cursor: after + pageSize,
+      tags: tagIds,
+    };
   },
 };

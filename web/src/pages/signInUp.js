@@ -12,15 +12,24 @@ const boxStyle = {
   display: 'flex',
   alignItems: 'center',
   flexDirection: 'Column',
-  border: '2px solid #9b9b9b',
+  // border: '2px solid #9b9b9b',
 };
 
+// Todo(Myoung-hee): Redirect to error page when error occured.
 class SignInUp extends Component {
   constructor(props) {
     super(props);
+    this.handleLoginStateChange = this.handleLoginStateChange.bind(this);
     this.state = {
-      login: true,
+      loginComponent: true,
     };
+  }
+
+  // Set state to show signup component when try signin with no user information
+  handleLoginStateChange(isSignin) {
+    this.setState({
+      loginComponent: isSignin,
+    });
   }
 
   signIn() {
@@ -29,17 +38,18 @@ class SignInUp extends Component {
           <Typography variant="h6" style={{fontSize: '14'}}>Sign
             In</Typography>
           <br/><br/>
-          <LoginFormGoogle/>
+          <LoginFormGoogle handleLogin={this.handleLoginStateChange}/>
           {/* Todo(Myounghee): Implement email login component later. */}
           {/* <LoginFormGeneral/> */}
           <br/>
           <p style={{marginLeft: '10px'}}> Don't have an account?
             <Button color="secondary"
-                    onClick={() => this.setState({login: false})} style={{
-              color: 'red',
-              marginLeft: '10px',
-              outline: '0',
-            }}>Sign
+                    onClick={() => this.setState({loginComponent: false})}
+                    style={{
+                      color: 'red',
+                      marginLeft: '10px',
+                      outline: '0',
+                    }}>Sign
               Up</Button></p>
         </Container>
     );
@@ -54,7 +64,7 @@ class SignInUp extends Component {
       {/* <SignUpFormGeneral/> */}
       <br/>
       <p style={{marginLeft: '10px'}}>Already a member?<Button
-          onClick={() => this.setState({login: true})}
+          onClick={() => this.setState({loginComponent: true})}
           style={{color: 'red', marginLeft: '10px', outline: '0'}}>Sign
         In</Button></p>
     </Container>);
@@ -62,7 +72,7 @@ class SignInUp extends Component {
 
   render() {
     return (
-        this.state.login ? this.signIn() : this.signUp()
+        this.state.loginComponent ? this.signIn() : this.signUp()
     );
   };
 }

@@ -1,13 +1,13 @@
 const {gql} = require('apollo-server');
 
 const typeDefs = gql`
-  scalar Date
-  scalar DateTime
+    scalar DateTime
 
     type Query {
         # Returns certain size of events after the cursor
         # Reference:
         #  https://www.apollographql.com/docs/tutorial/resolvers/#paginated-queries 
+        #pageSize must be under 50 or same. If you don't send after, after is 0.
         events(pageSize: Int, after: Int,
             eventFilter: EventFilter, eventSort: EventSort): EventConnection!
         # Return specific event whose id is 'id'.
@@ -18,15 +18,18 @@ const typeDefs = gql`
         # Return the user whose id is 'id'.
         # If not exist, return null
         user(id: ID!): User
-        userEvents(info: String!): [Event]
-        getUserReviews(userId: Int, eventId: Int): Review
+        myEvents(upcomingOrPast: String!): [Event]
+        userReviews(userId: Int, eventId: Int): [Review]
+        #if you don't send after, after is 0.
+        tagNames(pageSize: Int, after: Int): TagConnection!
     }
     type Review {
-      title: String!
-      content: String!
-      author: User!
-      isPublic: Boolean!
-      event: Event
+        eventId: ID!
+        userId: ID!
+        title: String!
+        content: String!
+        author: User!
+        isPublic: Boolean!
     }
     type Mutation {
         signInWithGoogle(googleId: String!): AuthResponse!
@@ -44,7 +47,7 @@ const typeDefs = gql`
             lastName: String!
             pw: String!
             repw: String!
-        ): AuthResponse!
+        ): SignUpAuthResponse!
         signIn(
             email: String!
             pw: String!
@@ -54,40 +57,35 @@ const typeDefs = gql`
             token: String!
         ): AuthResponse!
         # If successful, then return True.  
-        logout: Boolean!
-        createReview(
-          eventId: Int!
-          title: String!
-          content: String!
-          isPublic: Boolean!
-        ): Boolean!
-        modifyReview(
-          eventId: Int!
-          title: String!
-          content: String!
-          isPublic: Boolean!
+        logOut: Boolean!
+        createOrModifyReview(
+            eventId: Int!
+            title: String!
+            content: String!
+            isPublic: Boolean!
+        ): Review!
+        # If successful, then return True.  
+        joinEvent(
+            orderId: String!
+            eventId: String!
         ): Boolean!
     }
 
     input EventFilter {
         recommendation: Boolean, # User-based recommendation flag
-        tags: [TagInput!]
+        tagIds: [ID!]
         # TODO(yun-kwak): range-based search
         # range: Float,
         # from: String 
     }
-    
-    input TagInput {
-        name: String
-    }
-    
+
     enum EventSort {
         BEST_MATCH,
         NEWEST,
         MOST_MEMBERS,
         TIME_CLOSEST,
     }
-    
+
     type AuthResponse {
         success: Boolean!
         # Contains error message, if not successful
@@ -96,7 +94,10 @@ const typeDefs = gql`
         token: String
         user: User
     }
-
+    type SignUpAuthResponse {
+        success: Boolean!
+        message: String
+    }
     type User {
         id: ID!
         firstName: String!
@@ -110,8 +111,8 @@ const typeDefs = gql`
         selfDescription: String
         hostedEvents: [Event]! # Events hosted by this user.
         participatedEvents: [Event]! # Events participated by this user.
-        birthday: Date
-        registrationDate: Date!
+        birthday: DateTime
+        registrationDate: DateTime!
         profileImgUrl: String
         lastInterationTime: DateTime
     }
@@ -135,7 +136,7 @@ const typeDefs = gql`
         maxParticipantNum: Int
         reviews: [Review]
     }
-    
+
     type EventBookClub implements Event{
         id: ID!
         host: User!
@@ -152,21 +153,25 @@ const typeDefs = gql`
         bookTitle: String!
         bookAuthor: String!
         bookDescription: String!
-        bookISBN: Int!
+        bookISBN: String!
         tags: [Tag]!
         participants: [User]!
         maxParticipantNum: Int
         reviews: [Review]
     }
 
-  # Every event can have multiple tags. Tags are predefined by ours(developers)
-  # and used by the event host to categorize his event. So we are able to
-  # categorize events by tags.
-  type Tag {
-    id: ID!
-    name: String!
-    events: [Event]!
-  }
+    # Every event can have multiple tags. Tags are predefined by ours(developers)
+    # and used by the event host to categorize his event. So we are able to
+    # categorize events by tags.
+    type Tag {
+        id: ID!
+        name: String!
+        events: [Event]!
+    }
+    type TagConnection {
+        cursor: Int!
+        tags: [Tag]!
+    }
 
     # TODO(lsh9034): Implement EventConnection.
     # Reference:
