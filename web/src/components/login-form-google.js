@@ -15,10 +15,6 @@ const SIGNIN_QUERY = gql`
             success
             message
             token
-            user{
-              firstName
-              lastName
-            }
           }
         }`;
 
@@ -61,7 +57,8 @@ class LoginFormGoogle extends Component {
       return this.props.history.push({pathname: '/'});
     else {
       // No user informaton in our db.
-      return this.props.history.push({pathname: '/signup'});
+      const {handleLogin} = this.props;
+      handleLogin(false);
     }
   };
 
@@ -80,7 +77,7 @@ class LoginFormGoogle extends Component {
                     onError={
                       (error) => {
                         // Implement query error processing
-                        console.log(error);
+                        console.log('error', error);
                       }
                     }>
             {(execute_mutation) => {

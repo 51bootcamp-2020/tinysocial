@@ -58,7 +58,9 @@ class Checkout extends Component {
         // Send query to request event.
         <Query query={this.EVENT_REQUEST_QUERY}
                variables={{id: this.state.eventId}}
-               onError={this.props.history.push('/signin')}
+               onError={error => {
+                 this.props.history.push('/signin');
+               }}
         >
           {({loading, error, data}) => {
             if (loading) return 'Loading...';
