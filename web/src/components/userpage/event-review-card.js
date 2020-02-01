@@ -1,13 +1,12 @@
 import {
-  Card, 
-  CardContent, 
-  Grid, 
-  Typography
+  Grid,
+  Typography,
 } from '@material-ui/core';
 import EventReview from './event-review';
 import EventSchedule from './event-schedule';
 import PropTypes from 'prop-types';
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import {withRouter} from 'react-router-dom';
 
 class EventReviewCard extends Component {
@@ -22,13 +21,23 @@ class EventReviewCard extends Component {
 
     // Map Schedule objects to EventSchedule components.
     schedules = schedules.map((schedule) => {
-      const {id, startTime, endTime, address} = schedule;
+      const {id, startDateTime, endDateTime, address} = schedule;
+      const options = {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+      };
+      // The format will be like : 1/30/2020, 10:42 PM.
+      const startTime= startDateTime.toLocaleString('en-US', options);
+      const endTime = endDateTime.toLocaleString('en-US', options);
       return (
         <EventSchedule key={id}
-          index={index++} 
-          startTime={startTime} 
-          endTime={endTime} 
-          address={address} 
+          index={index++}
+          startTime={startTime}
+          endTime={endTime}
+          address={address}
         />
       );
     });
@@ -39,64 +48,94 @@ class EventReviewCard extends Component {
 
   // Redirect to the event detail page
   handleEventClick() {
-    // TODO(mskwon1): Redirect to the event detail page with event info
+    this.props.history.push({
+      pathname: '/eventdetail',
+      search: '?id=' + this.props.id,
+    });
   }
 
   render() {
     const {
-      id, 
-      eventTitle, 
+      id,
+      eventTitle,
       bookTitle,
       bookAuthor,
-      bookImage, 
-      schedules, 
-      review, 
-      upcoming
+      bookImage,
+      schedules,
+      review,
+      upcoming,
     } = this.props;
-    
     return (
-      <Card>
-        <CardContent>
-          <Grid container item xs={12}>
-            {/* Event title - will be shown only on upcoming events. */}
+      <Fragment>
+        <Grid container justify='center'>
+          <Grid item xs={12}
+            sm={8}
+            align='center' style={{paddingLeft: '10px'}}>
             {upcoming && (
-              <Grid item xs={12} align='center'>
-                <Typography variant='h5' 
-                  paragraph 
-                  style={{fontWeight:'bold'}} 
-                  onClick={this.handleEventClick}>
-                  {eventTitle}
-                </Typography>
-              </Grid>
+              <Typography variant='h5'
+                paragraph
+                style={{fontWeight: 'bold'}}
+                onClick={this.handleEventClick}>
+                {eventTitle}
+              </Typography>
             )}
-            {/* Book thumbnail. */}
-            <Grid item xs={6} align='center' style={{marginBottom:'10px'}}>
-              {/* TODO(mskwon1): Make this as a CardMedia component. */}
-              <img src={require(`../images/${bookImage}`)}/>
-            </Grid>
-            <Grid container item xs={6} align='left' alignItems='flex-start'>
-              <Grid item xs={12}>
-                {/* Book title. */}
-                <Typography variant='h5'>
-                  {bookTitle}
-                </Typography>
-                {/* Book author. */}
-                <Typography variant='body2'>
-                  By {bookAuthor}
-                </Typography>
-              </Grid>
-            </Grid>
-            {/* Schedules - will be shown only on upcoming events. */}
-            {upcoming && this.renderSchedules(schedules)}
-            {/* User review. */}
-            <EventReview review={review} eventId={id}/>
           </Grid>
-        </CardContent>
-      </Card>
+        </Grid>
+        <Grid container justify='center'>
+          {/* <Grid item sm></Grid> */}
+          <Grid item xs
+            sm={8}
+            align='center'
+            style={{wordBreak: 'break-all'}}>
+            <img src={bookImage}
+              // src={bookImage}
+              style={{paddingBottom: '10px', width: '140px', height: '200px'}}/>
+            <Typography variant='h5'>
+              {bookTitle}
+            </Typography>
+            {/* Book author. */}
+            <Typography variant='body2'>
+              By {bookAuthor}
+            </Typography>
+          </Grid>
+          {/* <Grid item sm></Grid> */}
+        </Grid>
+        <Grid container>
+          <Grid item xs sm></Grid>
+          <Grid item xs={12} sm={8} style={{paddingTop: '10px'}}>
+            {upcoming && this.renderSchedules(schedules)}
+          </Grid>
+          <Grid item xs sm></Grid>
+        </Grid>
+        <Grid container justify='center'>
+          <Grid item xs={10} sm={8}>
+            <EventReview review={review} bookTitle={bookTitle} eventId={id}/>
+          </Grid>
+        </Grid>
+      </Fragment>
     );
   }
 }
 
-EventReviewCard.propTypes = {};
+EventReviewCard.propTypes = {
+  id: PropTypes.number,
+  eventTitle: PropTypes.string,
+  bookTitle: PropTypes.string,
+  bookAuthor: PropTypes.string,
+  bookImage: PropTypes.string,
+  schedules: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    startDateTime: PropTypes.instanceOf(Date),
+    endDateTime: PropTypes.instanceOf(Date),
+    address: PropTypes.string,
+  })),
+  review: PropTypes.shape({
+    title: PropTypes.string,
+    content: PropTypes.string,
+    isPublic: PropTypes.bool,
+  }),
+  upcoming: PropTypes.bool,
+  history: ReactRouterPropTypes.history,
+};
 
 export default withRouter(EventReviewCard);

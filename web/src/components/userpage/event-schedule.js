@@ -1,6 +1,6 @@
 import {
-  Grid, 
-  Typography
+  Grid,
+  Typography,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
@@ -9,7 +9,7 @@ class EventSchedule extends Component {
   constructor(props) {
     super(props);
   }
-  
+
   render() {
     const {index, startTime, endTime, address} = this.props;
 
@@ -17,14 +17,15 @@ class EventSchedule extends Component {
       <Fragment>
         <Grid item xs={12} align='center'>
           {/* Schedule title with index. */}
-          <Typography variant='subtitle1' style={{fontWeight:'bold', color:'#009688'}}>
+          <Typography variant='subtitle1'
+            style={{fontWeight: 'bold', color: '#009688'}}>
             Schedule {index}
           </Typography>
         </Grid>
         <Grid container item xs={12} align='center' alignItems='flex-start'>
-          <Grid item xs={6}>
+          <Grid item xs sm>
             {/* Date & Time header. */}
-            <Typography variant='subtitle2' style={{fontWeight:'bold'}}>
+            <Typography variant='subtitle2' style={{fontWeight: 'bold'}}>
               Date & Time
             </Typography>
             {/* Date & time content. */}
@@ -34,9 +35,9 @@ class EventSchedule extends Component {
               {endTime}
             </Typography>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs sm>
             {/* Location header. */}
-            <Typography variant='subtitle2' style={{fontWeight:'bold'}}>
+            <Typography variant='subtitle2' style={{fontWeight: 'bold'}}>
               Location
             </Typography>
             {/* Location content. */}
@@ -50,6 +51,11 @@ class EventSchedule extends Component {
   }
 }
 
-EventSchedule.propTypes = {};
+EventSchedule.propTypes = {
+  index: PropTypes.number,
+  startTime: PropTypes.string,
+  endTime: PropTypes.string,
+  address: PropTypes.string,
+};
 
 export default EventSchedule;
