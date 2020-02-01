@@ -23,7 +23,7 @@ module.exports = {
       },
       {
         eventId: 2,
-        bookTitle: 'Trail of Lightning (1) (The Sixth World)',
+        bookTitle: 'Trail of Lightning(The Sixth World)',
         bookAuthor: 'Rebecca Roanhorse',
         bookDescription: 'Nebula Award Finalist for Best Novel' +
           'One of Bustle’s Top 20 “landmark sci-fi and fantasy novels” of the decade' +
@@ -63,6 +63,83 @@ module.exports = {
         bookISBN: '1338635174',
         bookImageUrl: 'https://images-na.ssl-images-amazon.com/images/I/519EaLpjEHL._SX329_BO1,204,203,200_.jpg',
       },
+      {
+        eventId: 6,
+        bookTitle: 'Harry Potter and the Sorcerer\'s Stone: The Illustrated Edition',
+        bookAuthor: 'J.K. Rowling',
+        bookDescription: 'The beloved first book of the Harry Potter series,' +
+            ' now fully illustrated by award-winning artist Jim Kay.\n' +
+            '\n' +
+            'For the first time, J.K. Rowling\'s beloved Harry Potter books will be presented in lavishly' +
+            ' illustrated full-color editions.' +
+            ' Kate Greenaway-award-winning artist Jim Kay has created over 100 stunning illustrations,' +
+            ' making this deluxe format a perfect gift as much for a child being introduced to the series,' +
+            ' as for the dedicated fan.',
+        bookISBN: '0545790352',
+        bookImageUrl: 'https://images-na.ssl-images-amazon.com/images/I/61Ddo7TSTCL._SX422_BO1,204,203,200_.jpg',
+      },
+      {
+        eventId: 7,
+        bookTitle: 'Belonging: A German Reckons with History and Home',
+        bookAuthor: 'Nora Krug',
+        bookDescription: 'This “ingenious reckoning with the past” (The New York Times),' +
+            ' by award-winning artist Nora Krug investigates the hidden truths of her family’s wartime history in Nazi Germany.',
+        bookISBN: '1476796629',
+        bookImageUrl: 'https://images-na.ssl-images-amazon.com/images/I/51PHWzGBrAL._SX360_BO1,204,203,200_.jpg',
+      },
+      {
+        eventId: 8,
+        bookTitle: 'Directorate S: The C.I.A. and America\'s Secret Wars in Afghanistan and Pakistan',
+        bookAuthor: 'Steve Coll',
+        bookDescription: 'This “ingenious reckoning with the past” (The New York Times),' +
+            ' by award-winning artist Nora Krug investigates the hidden truths of her family’s wartime history in Nazi Germany.',
+        bookISBN: '0143132504',
+        bookImageUrl: 'https://images-na.ssl-images-amazon.com/images/I/51PHWzGBrAL._SX360_BO1,204,203,200_.jpg',
+      },
+      {
+        eventId: 9,
+        bookTitle: 'Canned: The Rise and Fall of Consumer Confidence in the American Food Industry',
+        bookAuthor: 'Anna Zeide',
+        bookDescription: 'A century and a half ago, when the food industry was first taking root,' +
+            ' few consumers trusted packaged foods. Americans had just begun to shift away from eating foods' +
+            ' that they grew themselves or purchased from neighbors. With the advent of canning, consumers' +
+            ' were introduced to foods produced by unknown hands and packed in corrodible metal that seemed' +
+            ' to defy the laws of nature by resisting decay.',
+        bookISBN: '0520290682',
+        bookImageUrl: 'https://images-na.ssl-images-amazon.com/images/I/51vHXBJGURL._SX327_BO1,204,203,200_.jpg',
+      },
+      {
+        eventId: 10,
+        bookTitle: 'The Overstory',
+        bookAuthor: 'Richard Powers',
+        bookDescription: '"The best novel ever written about trees, and really just one of the best novels, period." ―Ann Patchett',
+        bookISBN: '039335668X',
+        bookImageUrl: 'https://images-na.ssl-images-amazon.com/images/I/51t47tHiewL._SX331_BO1,204,203,200_.jpg',
+      },
+      {
+        eventId: 11,
+        bookTitle: 'Milkman',
+        bookAuthor: 'Anna Burns',
+        bookDescription: '“Everything about this novel rings true. . . . Original, funny, disarmingly oblique and unique.”―The Guardian',
+        bookISBN: '1644450003',
+        bookImageUrl: 'https://images-na.ssl-images-amazon.com/images/I/41eOX0cBT8L._SX331_BO1,204,203,200_.jpg',
+      },
+      {
+        eventId: 12,
+        bookTitle: 'There There',
+        bookAuthor: 'Tommy Orange',
+        bookDescription: 'One of the Best Books of the Year: The Washington Post, NPR,' +
+            ' Time, O, The Oprah Magazine, San Francisco Chronicle, Entertainment Weekly,' +
+            ' The Boston Globe, GQ, The Dallas Morning News, Buzzfeed, BookPage, Publishers Weekly,' +
+            ' Library Journal, Kirkus Reviews   ',
+        bookISBN: '0525520376',
+        bookImageUrl: 'https://images-na.ssl-images-amazon.com/images/I/51RuAbKH%2BtL._SX326_BO1,204,203,200_.jpg',
+      },
+
+
+
+
+
     ], {});
   },
 
