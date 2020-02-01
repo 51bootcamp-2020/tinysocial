@@ -30,8 +30,8 @@ class EventReviewCard extends Component {
         minute: 'numeric',
       };
       // The format will be like : 1/30/2020, 10:42 PM.
-      const startTime= startDateTime.toLocaleString('en-US', options);
-      const endTime = endDateTime.toLocaleString('en-US', options);
+      const startTime= new Date(startDateTime).toLocaleString('en-US', options);
+      const endTime = new Date(endDateTime).toLocaleString('en-US', options);
       return (
         <EventSchedule key={id}
           index={index++}
@@ -107,8 +107,8 @@ class EventReviewCard extends Component {
           </Grid>
           <Grid item xs sm></Grid>
         </Grid>
-        <Grid container justify='center'>
-          <Grid item xs={10} sm={8}>
+        <Grid container justify='center' style={{paddingBottom: '20px'}}>
+          <Grid item xs={12} sm={8}>
             <EventReview review={review} bookTitle={bookTitle} eventId={id}/>
           </Grid>
         </Grid>
@@ -125,8 +125,8 @@ EventReviewCard.propTypes = {
   bookImage: PropTypes.string,
   schedules: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
-    startDateTime: PropTypes.instanceOf(Date),
-    endDateTime: PropTypes.instanceOf(Date),
+    startDateTime: PropTypes.string,
+    endDateTime: PropTypes.string,
     address: PropTypes.string,
   })),
   review: PropTypes.shape({

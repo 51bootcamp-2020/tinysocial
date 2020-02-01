@@ -39,7 +39,7 @@ class EventReviewCardList extends Component {
           bookAuthor={bookAuthor}
           bookImage={bookImage}
           schedules={schedules}
-          review={review}
+          review={review[0]}
           upcoming={upcoming}
         />
       );
@@ -53,7 +53,7 @@ class EventReviewCardList extends Component {
     const {events} = this.props;
 
     return (
-      <Container style={{paddingTop: '10px'}}>
+      <Container style={{paddingTop: '20px'}}>
         {this.renderEventReviewCards(events)}
       </Container>
     );
