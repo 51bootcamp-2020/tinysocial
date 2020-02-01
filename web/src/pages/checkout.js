@@ -6,11 +6,9 @@ import queryString from 'query-string';
 import {withRouter} from 'react-router-dom';
 import {gql} from 'apollo-boost';
 import {Query} from 'react-apollo';
-import Cookie from 'js-cookie';
 import FreePayment from '../components/free-payment';
 
 // Todo(Myoung-hee): Redirect to error page when error occured.
-// Todo(Myoung-hee): Change @client to real db access.
 // Checkout page component for payment.
 class Checkout extends Component {
   constructor(props) {
@@ -28,7 +26,7 @@ class Checkout extends Component {
   // Event query for payment information.
   EVENT_REQUEST_QUERY = gql`
     query getEvent ($id : ID!){
-      event (id: $id) @client {
+      event (id: $id) {
          id,
          title,
          description,
@@ -40,7 +38,7 @@ class Checkout extends Component {
          }
       }
       
-      me @client {
+      me {
         id
       }
     }`;
@@ -60,6 +58,7 @@ class Checkout extends Component {
         // Send query to request event.
         <Query query={this.EVENT_REQUEST_QUERY}
                variables={{id: this.state.eventId}}
+               onError={this.props.history.push('/signin')}
         >
           {({loading, error, data}) => {
             if (loading) return 'Loading...';

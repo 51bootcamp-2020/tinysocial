@@ -15,7 +15,7 @@ import * as serviceWorker from './service-worker';
 
 const httpLink = new HttpLink({
   // TODO(arin-kwak): change this after deploying.
-  uri: 'http://localhost:15780',
+  uri: 'http://ec2-34-223-231-126.us-west-2.compute.amazonaws.com:15780/',
 });
 
 //  This adds token info to the context when communicating with server.
@@ -27,136 +27,6 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   });
   return forward(operation);
 });
-
-const resolvers = {
-  Query: {
-    me: () => {
-      return {
-        id: 1,
-        firstName: 'Kwon',
-        lastName: 'Minsu',
-        email: 'dsad',
-        hostedEvents: [],
-        participatedEvents: [],
-        registrationDate: new Date(),
-        __typename: 'User',
-      };
-    },
-    event: (_, {id}) => {
-      if (id == 1) {
-        return {
-          id: 1,
-          title: 'here is title1111',
-          thumbnailUrl: 'https://t1.daumcdn.net/cfile/tistory/2220144955FE3FCA20',
-          description: 'Learning Ethics by analysing behavior of Sang-geon Yun',
-          price: 0,
-          tags: [
-            {
-              id: 1,
-              name: 'Science',
-              __typename: 'Tag',
-            },
-            {
-              id: 2,
-              name: 'History',
-              __typename: 'Tag',
-            },
-            {
-              id: 3,
-              name: 'Non fiction',
-              __typename: 'Tag',
-            },
-          ],
-          bookTitle: 'Book Title 1',
-          bookImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUawwCjirMLsTmrnqzcgcDgVFWiY4wwBKm99MJ8A89ZK52u1QyHA&s',
-          bookDescription: 'Book Description 2',
-          bookAuthor: 'Book Author 123',
-          schedule: [
-            {
-              id: 1,
-              startDateTime: new Date('1999-12-14 00:00:00'),
-              endDateTime: new Date('2000-12-14 00:00:00'),
-              address: '31 EL Camino Real Burlingame CA',
-              latitude: 145,
-              longitude: 123,
-              __typename: 'Schedule',
-            },
-          ],
-          host: {
-            firstName: 'Sihyun',
-            lastName: 'Lee',
-            selfDescription: 'He doesnt have a girlfrined',
-            profileImgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUawwCjirMLsTmrnqzcgcDgVFWiY4wwBKm99MJ8A89ZK52u1QyHA&s',
-            __typename: 'User',
-          },
-          __typename: Event,
-        };
-      } else if (id == 2) {
-        return {
-          id: 2,
-          title: 'here is title2222',
-          thumbnailUrl: 'https://t1.daumcdn.net/cfile/tistory/2220144955FE3FCA20',
-          description: 'Learning Ethics by analysing behavior of Sang-geon Yun',
-          price: 2,
-          tags: [
-            {
-              id: 1,
-              name: 'Science',
-              __typename: 'Tag',
-            },
-            {
-              id: 2,
-              name: 'History',
-              __typename: 'Tag',
-            },
-            {
-              id: 3,
-              name: 'Non fiction',
-              __typename: 'Tag',
-            },
-          ],
-          bookTitle: 'Book Title 1',
-          bookImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUawwCjirMLsTmrnqzcgcDgVFWiY4wwBKm99MJ8A89ZK52u1QyHA&s',
-          bookDescription: 'Book Description 2',
-          bookAuthor: 'Book Author 123',
-          schedule: [
-            {
-              id: 1,
-              startDateTime: new Date('2000-12-14 12:00:00'),
-              endDateTime: new Date('2000-12-14 12:00:00'),
-              address: '31 EL Camino Real Burlingame CA',
-              latitude: 145,
-              longitude: 123,
-              __typename: 'Schedule',
-            }],
-          host: {
-            firstName: 'Sihyun',
-            lastName: 'Lee',
-            selfDescription: 'He doesnt have a girlfrined',
-            profileImgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUawwCjirMLsTmrnqzcgcDgVFWiY4wwBKm99MJ8A89ZK52u1QyHA&s',
-            __typename: 'User',
-          },
-          __typename: Event,
-        };
-      }
-    },
-  },
-  Mutation: {
-    joinEvent: () => {
-      return {
-        data: {
-          joinEvent: true
-        }
-      }
-    }
-  },
-  Event: {
-    host: ({host}) => {
-      return host;
-    },
-  },
-
-};
 
 const client = new ApolloClient({
   link: concat(authMiddleware, httpLink),
