@@ -138,9 +138,9 @@ describe('[EventAPI.getAttributeOfEvent]', () => {
   });
 
   test('looks up bookISBN', async () => {
-    mockStore.EventBookClub.findOne.mockReturnValueOnce({bookISBN: 987654321123456789});
+    mockStore.EventBookClub.findOne.mockReturnValueOnce({bookISBN: '987654321123456789'});
     const res = await eventAPI.getAttributeOfEvent('bookISBN', 1);
-    expect(res).toEqual(987654321123456789);
+    expect(res).toEqual('987654321123456789');
   });
 
   test('looks up bookImageUrl', async () => {
@@ -305,7 +305,6 @@ describe('[EventAPI.getIdsOfEvent]', () => {
     const res = await eventAPI.getIdsOfEvent({offset: 0, limit: 2});
     expect(res).toEqual([{event: 1}, {event: 2}]);
   });
-
 });
 
 describe('[EventAPI.getUpcomingEventIdsOfEvent]', () => {

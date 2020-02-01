@@ -1,5 +1,5 @@
-/* eslint-disable require-jsdoc */
 const {DataSource} = require('apollo-datasource');
+const {isUndefinedOrNull} = require('../utils');
 const {
   userIdAndEventIdIsNotPassedMessage,
   eventIdIsNotPassedMessage,
@@ -24,7 +24,10 @@ class ReviewAPI extends DataSource {
       attributes: [attributeName],
       raw: true,
     });
-    return (review && review[attributeName]) ? review[attributeName] : null;
+    if (attributeName === 'isPublic') {
+      review[attributeName] = !!review[attributeName];
+    }
+    return (review && isUndefinedOrNull(review[attributeName])) ? review[attributeName] : null;
   }
 
   async createOrModifyOfReview(reviewInfo) {
@@ -62,9 +65,9 @@ class ReviewAPI extends DataSource {
     });
     return Ids;
   }
-  
+
   async getReviewsOfEvent({eventId}) {
-    if (eventId === undefined || eventId === null){
+    if (eventId === undefined || eventId === null) {
       throw new Error(eventIdIsNotPassedMessage);
     }
     const reviews = await this.store.Review.findAll({

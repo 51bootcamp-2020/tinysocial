@@ -73,7 +73,7 @@ const typeDefs = gql`
 
     input EventFilter {
         recommendation: Boolean, # User-based recommendation flag
-        tagIds: [Int!]
+        tagIds: [ID!]
         # TODO(yun-kwak): range-based search
         # range: Float,
         # from: String 
@@ -153,7 +153,7 @@ const typeDefs = gql`
         bookTitle: String!
         bookAuthor: String!
         bookDescription: String!
-        bookISBN: Int!
+        bookISBN: String!
         tags: [Tag]!
         participants: [User]!
         maxParticipantNum: Int

@@ -13,7 +13,7 @@ module.exports.Query = {
         tagIds: eventFilter.tagIds,
         order: eventSort,
       });
-      if (pageSize > eventIds.length) {
+      if (pageSize > eventIds.length || pageSize === undefined || pageSize === null) {
         pageSize = eventIds.length;
       }
     } else {
@@ -45,9 +45,9 @@ module.exports.Query = {
   myEvents: async (_, {upcomingOrPast}, {dataSources, userId}) => {
     let eventIds;
     if (upcomingOrPast === 'upcoming') {
-      eventIds = dataSources.eventAPI.getUpcomingEventIdsOfEvent(userId);
+      eventIds = dataSources.eventAPI.getUpcomingEventIdsOfEvent({userId});
     } else if (upcomingOrPast === 'past') {
-      eventIds = dataSources.eventAPI.getPastEventIdsOfEvent(userId);
+      eventIds = dataSources.eventAPI.getPastEventIdsOfEvent({userId});
     } else {
       return null;
     }
@@ -71,7 +71,7 @@ module.exports.Query = {
       limit: pageSize,
       offset: after,
     });
-    if (pageSize > tagIds.length) {
+    if (pageSize > tagIds.length || pageSize === undefined || pageSize === null) {
       pageSize = tagIds.length;
     }
     return {

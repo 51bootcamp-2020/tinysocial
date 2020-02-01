@@ -1,7 +1,6 @@
 // E2E test
 'use strict';
-require('dotenv').config({path: require('path').
-    resolve(process.cwd(), 'src/.env')});
+require('dotenv').config();
 const {ApolloServer} = require('apollo-server');
 const typeDefs = require('../schema');
 const resolvers = require('../resolvers');
@@ -63,8 +62,6 @@ const EVENT_DETAIL_REQUEST_QUERY = gql`
             }
         }
     }`;
-
-
 
 describe('Server - e2e', () => {
   let stop;

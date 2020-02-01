@@ -8,12 +8,12 @@ const {validateJoin} = mockContext.dataSources.joinEventAPI;
 describe('[Mutation]', () => {
   test('signInWithGoogle', async () => {
     signInWithGoogle.mockReturnValueOnce({success: true, message: 'Success', token: 'TOKEN', user: {id: 1}});
-    const res = await Mutation.signInWithGoogle({}, {googleId: "test@test.com"}, mockContext);
+    const res = await Mutation.signInWithGoogle({}, {googleId: 'test@test.com'}, mockContext);
     expect(res).toEqual({success: true, message: 'Success', token: 'TOKEN', user: {id: 1}});
   });
   test('signUpWithGoogle', async () => {
     signUpWithGoogle.mockReturnValueOnce({success: true, message: 'Success', token: 'TOKEN', user: {id: 1}});
-    const res = await Mutation.signUpWithGoogle({}, {googleId: "test@test.com"}, mockContext);
+    const res = await Mutation.signUpWithGoogle({}, {googleId: 'test@test.com'}, mockContext);
     expect(res).toEqual({success: true, message: 'Success', token: 'TOKEN', user: {id: 1}});
   });
   test('signIn', async () => {

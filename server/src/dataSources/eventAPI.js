@@ -1,4 +1,3 @@
-/* eslint-disable require-jsdoc */
 const {DataSource} = require('apollo-datasource');
 const Sequelize = require('sequelize');
 const OP = Sequelize.Op;
@@ -108,18 +107,18 @@ class EventAPI extends DataSource {
       raw: true,
     });
   }
-  
+
+  // TODO(lsh9034): Move this function to userAPI.js
   async getHostIdOfEvent({eventId}) {
     if (eventId === undefined || eventId === null) {
       throw new Error(eventIdIsNotPassedMessage);
     }
-    const event = await this.store.Event.findOne({
+    const hostId = await this.store.Event.findOne({
       where: {eventId: eventId},
-      attributes: ['hostId'],
+      attributes: [['hostId', 'id']],
       raw: true,
     });
-    return (event && isUndefinedOrNull(event['hostId'])) ?
-        event['hostId'] : null;
+    return hostId;
   }
 
   async getParticipantIdsOfEvent({eventId}) {
@@ -142,10 +141,13 @@ class EventAPI extends DataSource {
       where: {eventId: eventId},
       attributes: ['id'],
       raw: true,
+      order: [
+        ['startDateTime', 'ASC'],
+      ],
     });
     return schduleIds;
   }
-  
+
   async getParticipatedEventIdsOfUser({userId}) {
     if (userId === undefined) {
       throw new Error(userIdIsNotPassedMessage);
@@ -176,19 +178,39 @@ class EventAPI extends DataSource {
       throw new Error(notValidValueMessage);
     }
     let tagIdsObject = undefined;
-    if (tagIds !== undefined && tagIds !== null) {
+    if (tagIds !== undefined && tagIds !== null && tagIds.length !== 0) {
       tagIdsObject = {tagId: tagIds};
     }
-    const event = await this.store.EventTag.findAll({
+    let eventIds = await this.store.EventTag.findAll({
       where: tagIdsObject,
-      attributes: [['eventId', 'id']],
-      limit: limit,
-      offset: offset,
+      attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('eventId')), 'id']],
       order: order,
       raw: true,
     });
-    console.log("event",event);
-    return event;
+    // TODO(lsh9034): implement logic order by order parameter.
+    eventIds = eventIds.map((element) => (element.id));
+    const scheduleId = await this.store.Schedule.findAll({
+      where: {eventId: eventIds},
+      attributes: ['id', 'eventId'],
+      order: [
+        ['startDateTime', 'ASC'],
+      ],
+      raw: true,
+    });
+    const check = new Array(scheduleId.length + 1).fill(0);
+    let sortedEventIdsBySchedule = [];
+    for (let i=0; i<scheduleId.length; i++) {
+      if (check[scheduleId[i].eventId]) {
+        continue;
+      }
+      check[scheduleId[i].eventId] = 1;
+      sortedEventIdsBySchedule.push({id: scheduleId[i].eventId});
+    }
+    if (limit === undefined || limit === null) {
+      limit = sortedEventIdsBySchedule.length - offset;
+    }
+    sortedEventIdsBySchedule = sortedEventIdsBySchedule.slice(offset, offset + limit);
+    return sortedEventIdsBySchedule;
   }
 
   async getUpcomingEventIdsOfEvent({userId}) {
@@ -206,7 +228,7 @@ class EventAPI extends DataSource {
         eventId: eventIds,
         startDateTime: {[OP.gt]: new Date()},
       },
-      attributes: ['eventId'],
+      attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('eventId')), 'id']],
       raw: true,
     });
     return upcomingEvents;
@@ -227,7 +249,7 @@ class EventAPI extends DataSource {
         eventId: eventIds,
         startDateTime: {[OP.lte]: new Date()},
       },
-      attributes: ['eventId'],
+      attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('eventId')), 'id']],
       raw: true,
     });
     return upcomingEvents;
