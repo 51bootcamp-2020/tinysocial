@@ -2,7 +2,6 @@ import {clientId} from './utils.js';
 import {gql} from 'apollo-boost';
 import {GoogleLogin} from 'react-google-login';
 import {Mutation} from 'react-apollo';
-import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 
