@@ -49,7 +49,7 @@ function NavBarMobile(props) {
       <List>
         <Grid container
           direction='column'>
-          <Link to='/events' className={classes.listItem}>
+          <Link to={{pathname: '/eventlist', state: 'reload'}} className={classes.listItem}>
             <Typography variant='button' style={{textTransform: 'none'}}>
               Events
             </Typography>

@@ -4,18 +4,24 @@ import {gql} from 'apollo-boost';
 import Grid from '@material-ui/core/Grid';
 import {Query} from "react-apollo";
 import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom'
 
 class EventList extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.currentCursor = 0;
-    this.eventListPageSize = 5;
+    this.eventListPageSize = 3;
     this.state = {
       isTagNames: false,
       allTags: [],
       selectedTagIds: []
     }
+  }
+
+  // Initialize currentCursor, When Redirect Link Button clicked.
+  componentWillReceiveProps(nextProps) {
+    (nextProps.location.state === 'reload') && (this.currentCursor = 0);
   }
 
   // Query that bring Tag Names
@@ -28,6 +34,16 @@ class EventList extends Component {
           }
       }
     }`;
+
+  // Handler Scroll
+  handleScroll = ({ currentTarget }, onLoadMore) => {
+    if (
+      currentTarget.scrollTop + currentTarget.clientHeight >=
+      currentTarget.scrollHeight
+    ) {
+      onLoadMore();
+    }
+  };
 
   /**
    * Set cursor received from EventCardsQuery Component to currentCursor state
@@ -97,4 +113,4 @@ class EventList extends Component {
 
 EventList.propTypes = {};
 
-export default EventList;
+export default withRouter(EventList);

@@ -4,6 +4,7 @@ import LandingDescription from '../components/landing-description';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {withStyles} from '@material-ui/core/styles';
+import {withRouter} from 'react-router-dom'
 
 // TODO(Lhyejin): Bring user information from server and Fix eventQuery.
 
@@ -20,6 +21,11 @@ class Landing extends Component {
     super(props);
     this.currentCursor = 0;
     this.pageSize = 5;
+  }
+
+  // Initialize currentCursor, When Redirect Link Button clicked.
+  componentWillReceiveProps(nextProps) {
+    (nextProps.location.state === 'reload') && (this.currentCursor = 0);
   }
 
   /**
@@ -47,4 +53,4 @@ class Landing extends Component {
 
 Landing.propTypes = {};
 
-export default withStyles(landingPageStyle)(Landing);
+export default withRouter(withStyles(landingPageStyle)(Landing));
