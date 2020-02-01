@@ -178,16 +178,20 @@ class EventAPI extends DataSource {
       throw new Error(notValidValueMessage);
     }
     let tagIdsObject = undefined;
+    let eventIds;
     if (tagIds !== undefined && tagIds !== null && tagIds.length !== 0) {
       tagIdsObject = {tagId: tagIds};
+      eventIds = await this.store.EventTag.findAll({
+        where: tagIdsObject,
+        attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('eventId')), 'id']],
+        order: order,
+        raw: true,
+      });
+    } else {
+      eventIds = await this.store.Event.findAll();
     }
-    let eventIds = await this.store.EventTag.findAll({
-      where: tagIdsObject,
-      attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('eventId')), 'id']],
-      order: order,
-      raw: true,
-    });
     // TODO(lsh9034): implement logic order by order parameter.
+    console.log("eventIds", eventIds);
     eventIds = eventIds.map((element) => (element.id));
     const scheduleId = await this.store.Schedule.findAll({
       where: {eventId: eventIds},
