@@ -8,7 +8,7 @@ module.exports = {
         lastName: 'Lee',
         googleId: '100086101594136904826',
         birthday: new Date('1999-12-14'),
-        profileImgUrl: '"https://lh5.googleusercontent.com/-cQLY-dbwOZg/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rdgpxNUhEwaTUnXPADKsOo1KHazng/s96-c/photo.jpg"',
+        profileImgUrl: 'https://lh5.googleusercontent.com/-cQLY-dbwOZg/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rdgpxNUhEwaTUnXPADKsOo1KHazng/s96-c/photo.jpg',
         address: '31 El Camino RealBurlingame, CA 94010',
         phone: '+821084277033',
         email: 'lsh9034@kookmin.ac.kr',
