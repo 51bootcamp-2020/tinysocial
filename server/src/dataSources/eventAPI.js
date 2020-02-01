@@ -47,7 +47,7 @@ class EventAPI extends DataSource {
       raw: true,
     });
     return (event && isUndefinedOrNull(event[attributeName])) ?
-        event[attributeName] : null;
+      event[attributeName] : null;
   }
 
   async getAttributeOfEventBookClub(attributeName, eventId) {
@@ -60,7 +60,7 @@ class EventAPI extends DataSource {
       raw: true,
     });
     return (eventBookClub && isUndefinedOrNull(eventBookClub[attributeName])) ?
-        eventBookClub[attributeName] : null;
+      eventBookClub[attributeName] : null;
   }
 
   async getAttributeOfSchedule(attributeName, scheduleId) {
@@ -73,7 +73,7 @@ class EventAPI extends DataSource {
       raw: true,
     });
     return (schedule && isUndefinedOrNull(schedule[attributeName])) ?
-        schedule[attributeName] : null;
+      schedule[attributeName] : null;
   }
 
   async getAttributeOfEventParticipant(attributeName, eventId, userId) {
@@ -92,7 +92,7 @@ class EventAPI extends DataSource {
       raw: true,
     });
     return (eventParticipant && isUndefinedOrNull(eventParticipant[attributeName])) ?
-        eventParticipant[attributeName] : null;
+      eventParticipant[attributeName] : null;
   }
 
   async getHostedEventIdsOfUser({userId}) {
@@ -178,16 +178,20 @@ class EventAPI extends DataSource {
       throw new Error(notValidValueMessage);
     }
     let tagIdsObject = undefined;
+    let eventIds;
     if (tagIds !== undefined && tagIds !== null && tagIds.length !== 0) {
       tagIdsObject = {tagId: tagIds};
+      eventIds = await this.store.EventTag.findAll({
+        where: tagIdsObject,
+        attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('eventId')), 'id']],
+        order: order,
+        raw: true,
+      });
+    } else {
+      eventIds = await this.store.Event.findAll();
     }
-    let eventIds = await this.store.EventTag.findAll({
-      where: tagIdsObject,
-      attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('eventId')), 'id']],
-      order: order,
-      raw: true,
-    });
     // TODO(lsh9034): implement logic order by order parameter.
+    console.log("eventIds", eventIds);
     eventIds = eventIds.map((element) => (element.id));
     const scheduleId = await this.store.Schedule.findAll({
       where: {eventId: eventIds},
