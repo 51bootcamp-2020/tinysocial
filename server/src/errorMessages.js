@@ -12,4 +12,5 @@ module.exports = {
   tagIdIsNotPassedMessage: 'You have to pass tagId',
   googleIdNotPassedMessage: 'You have to pass googleId',
   notValidValueMessage: 'You passed not valid value',
+  notLoggedInMessage: 'You have to login first',
 };

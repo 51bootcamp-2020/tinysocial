@@ -1,3 +1,4 @@
+const {notLoggedInMessage} = require('../errorMessages');
 module.exports.Query = {
   // TODO(lsh9034): fix eventSort
   events: async (
@@ -35,6 +36,9 @@ module.exports.Query = {
   },
 
   me: async (_, __, {userId}) => {
+    if (!userId) {
+      throw new Error(notLoggedInMessage);
+    }
     return {id: userId};
   },
 
@@ -43,6 +47,9 @@ module.exports.Query = {
   },
 
   myEvents: async (_, {upcomingOrPast}, {dataSources, userId}) => {
+    if (!userId) {
+      throw new Error(notLoggedInMessage);
+    }
     let eventIds;
     if (upcomingOrPast === 'upcoming') {
       eventIds = dataSources.eventAPI.getUpcomingEventIdsOfEvent({userId});
@@ -60,6 +67,9 @@ module.exports.Query = {
   userReviews: async (
     _, {userId, eventId}, {dataSources, userId: currentUserId}) => {
     if (userId === undefined) {
+      if (!currentUserId) {
+        throw new Error(notLoggedInMessage);
+      }
       userId = currentUserId;
     }
     const reviews = dataSources.reviewAPI.getIdsOfReview({userId, eventId});
