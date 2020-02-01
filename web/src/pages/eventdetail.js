@@ -69,7 +69,7 @@ class EventDetail extends Component{
     return (<Query query={EVENT_DETAIL_REQUEST_QUERY} variables={{eventId:this.state.eventId}}>
       {({ loading, error, data }) => {
         if (loading) return 'Loading...';
-        if (error) return `Error! ${error.message}`;
+        if (error) return <Error/>;
         if (data) {
           return (
             <Grid container>
