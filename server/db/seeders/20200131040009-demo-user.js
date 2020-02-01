@@ -6,9 +6,9 @@ module.exports = {
       {
         firstName: 'Sihyun',
         lastName: 'Lee',
-        googleId: 'lsh9034@kookmin.ac.kr',
+        googleId: '100086101594136904826',
         birthday: new Date('1999-12-14'),
-        profileImgUrl: 'https://fimg4.pann.com/new/download.jsp?FileID=49592267',
+        profileImgUrl: '"https://lh5.googleusercontent.com/-cQLY-dbwOZg/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rdgpxNUhEwaTUnXPADKsOo1KHazng/s96-c/photo.jpg"',
         address: '31 El Camino RealBurlingame, CA 94010',
         phone: '+821084277033',
         email: 'lsh9034@kookmin.ac.kr',
@@ -36,7 +36,7 @@ module.exports = {
         lastName: 'Song',
         profileImgUrl: 'https://m.soonsoobeauty.com/web/upload/NNEditor/20190220/ECB0B8EC9DB4EC8AAC.jpg',
         password: 'qwer1234!',
-        email: 'Seongjae@naver.com',
+        email: 'tjdkskgnal61@gmail.com',
         birthday: new Date('1996-4-22'),
         // TODO(yun-kwak): Split the address into street address,
         // additional street address, city, state, zip code
