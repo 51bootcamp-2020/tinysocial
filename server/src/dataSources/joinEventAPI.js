@@ -61,9 +61,7 @@ class JoinEventAPI extends DataSource {
     return null;
   }
 
-  async validateJoin({orderId, eventId, userId}) {
-    const price = this.getAttributeOfEvent('price', eventId);
-
+  async validateJoin({orderId, eventId, userId, price}) {
     if (price > 0) {
       // Call PayPal to get the transaction details
       const request = new checkoutNodeJssdk.orders.OrdersGetRequest(orderId);

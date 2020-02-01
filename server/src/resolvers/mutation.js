@@ -34,6 +34,11 @@ module.exports.Mutation = {
     {orderId, eventId},
     {dataSources, userId},
   ) => {
-    return dataSources.joinEventAPI.validateJoin({orderId, eventId, userId});
+    const price = dataSources.eventAPI.getAttributeOfEvent('price', eventId);
+    if (price === null) {
+      return false;
+    }
+
+    return dataSources.joinEventAPI.validateJoin({orderId, eventId, userId, price});
   },
 };
