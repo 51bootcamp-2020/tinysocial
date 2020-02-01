@@ -6,16 +6,15 @@ import ParticipateSuccess from '../components/participate-success';
 import {withRouter} from 'react-router-dom';
 
 // Todo(Myoung-hee): Redirect to error page when error occured.
-// Todo(Myoung-hee): Change @client to real db access.
 // Join event mutation for mutate the event-user participate.
 const JOINEVENT_QUERY = gql`
   mutation ($eventId: String!, $orderId: String!){
-    joinEvent @client (eventId: $eventId, orderId: $orderId)
+    joinEvent (eventId: $eventId, orderId: $orderId)
   }`;
 
 const containerStyle = {
   height: '500px',
-  marginTop: '10%',
+  marginTop: '80px',
 };
 
 // Join Event page component.
