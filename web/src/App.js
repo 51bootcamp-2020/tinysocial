@@ -10,12 +10,10 @@ import Eventdetail from './pages/eventdetail';
 import EventList from './pages/eventlist';
 import Landing from './pages/landing';
 import NavBar from './components/navigation/navbar';
-import Payment from './pages/payment';
+import Checkout from './pages/checkout';
 import React, {Fragment} from 'react';
 import SignInUp from './pages/signInUp';
 import UserPage from './pages/userpage';
-import Emailvalidation from './pages/emailvalidation';
-import Checkout from './pages/checkout';
 import JoinEvent from './pages/join-event';
 
 function App() {
@@ -28,7 +26,7 @@ function App() {
         <Route path='/error' render={() => <Error/>}/>
         <Route path='/eventdetail' render={() => <Eventdetail/>}/>
         <Route path='/eventlist' render={() => <EventList/>}/>
-        <Route path='/checkout' render={() => <Payment/>}/>
+        <Route path='/checkout' render={() => <Checkout/>}/>
         <Route path="/join-event" render={() => <JoinEvent/>} />
         <Route path='/signin' render={() => <SignInUp/>}/>
         <Route path='/userpage' render={() => <UserPage/>}/>

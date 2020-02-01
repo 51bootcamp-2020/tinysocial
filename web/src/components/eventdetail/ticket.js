@@ -33,7 +33,7 @@ class Ticket extends Component {
           textTransform: 'none'}}
         onClick={() => {
           this.props.history.push({
-            pathname: './payment',
+            pathname: '/checkout',
             search: `?id=${this.props.children.id}`,
           });
         }}
