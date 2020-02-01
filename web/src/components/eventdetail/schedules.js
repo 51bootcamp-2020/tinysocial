@@ -11,13 +11,10 @@ class Schedules extends Component {
 
   render() {
     const scheduleList = [];
-    let scheduleLength = 3;
+    let scheduleLength = Math.min(this.props.children.length, 3);
     if (this.props.children.length > 3 && this.props.moreButton) {
       scheduleLength = this.props.children.length;
-    } else if (this.props.children.length < 3) {
-      scheduleLength = this.props.children.length;
     }
-
     for (let i = 0; i < scheduleLength; i++) {
       const date = new Date(this.props.children[i].startDateTime);
       const month = date.toLocaleString('default', {month: 'long'});
@@ -33,7 +30,7 @@ class Schedules extends Component {
 
 Schedules.propTypes = {
   children: PropTypes.element.isRequired,
-  moreButton: PropTypes.element.isRequired,
+  moreButtonClicked: PropTypes.bool,
 };
 
 export default Schedules;
