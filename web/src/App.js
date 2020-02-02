@@ -15,39 +15,30 @@ import NavBar from './components/navigation/navbar';
 import Privacy from './pages/privacy';
 import React from 'react';
 import SignInUp from './pages/signInUp';
-import SignOut from './pages/signout';
-import UserPage from './pages/userpage';
+import Emailvalidation from './pages/emailvalidation';
+import Checkout from './pages/checkout';
+import JoinEvent from './pages/join-event';
+import NewEvent from './pages/newEvent';
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route path='/about'
-          render={() => <div><NavBar/><About/></div>}/>         
-        <Route path='/checkout'
-          render={() => <div><NavBar/><Checkout/></div>}/>
-        <Route path="/emailvalidation"
-          render={() => <div><NavBar/><Emailvalidation/></div>}/>
-        <Route path='/error'
-          render={() => <div><NavBar/><Error/></div>}/>
-        <Route path='/eventdetail'
-          render={() => <div><NavBar/><Eventdetail/></div>}/>
-        <Route path='/eventlist'
-          render={() => <div><NavBar/><EventList/></div>}/>       
-        <Route path='/join-event'
-          render={() => <div><NavBar/><JoinEvent/></div>}/>
-        <Route path='/privacy'
-          render={() => <div><NavBar/><Privacy/></div>}/>
-        <Route path='/signin'
-          render={() => <div><NavBar/><SignInUp/></div>}/>
-        <Route path='/signout'
-          render={() => <div><NavBar/><SignOut/></div>}/>
-        <Route path='/userpage'
-          render={() => <div><NavBar/><UserPage/></div>}/>
-        <Route path='/'
-          render={() => <div><NavBar/><Landing/></div>}/>
-      </Switch>
-    </Router>
+    <Fragment>
+      <NavBar/>
+      <Router>
+        <Switch>
+          <Route path='/signin' render={() => <SignInUp/>}/>
+          <Route path="/checkout" render={() => <Checkout/>} />
+          <Route path="/join-event" render={() => <JoinEvent/>} />
+          <Route path='/newevent' render={() => <NewEvent/>}/>
+          <Route path='/eventlist' render={() => <EventList/>}/>
+          <Route path='/about' render={() => <About/>}/>
+          <Route path='/' render={() => <Landing/>}/>
+          <Route path="/emailvalidation">
+            <Emailvalidation/>
+          </Route>
+        </Switch>
+      </Router>
+    </Fragment>
   );
 }
 
