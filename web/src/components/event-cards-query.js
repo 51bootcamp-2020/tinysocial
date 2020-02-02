@@ -82,8 +82,7 @@ class EventCardsQuery extends Component {
                   }
                 }
               })
-            }
-            }
+            }}
           />
         )
       }}

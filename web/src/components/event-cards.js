@@ -102,7 +102,7 @@ class EventCards extends Component {
     window.removeEventListener("scroll",this.handleScroll);
   }
 
-  //Page Scroll
+  // Handler Scroll Event
   handleScroll = (e) => {
     if (
       window.scrollY + e.target.scrollingElement.clientHeight >=

@@ -18,11 +18,6 @@ class EventList extends Component {
     }
   }
 
-  // // Initialize currentCursor, When Redirect Link Button clicked.
-  // UNSAFE_componentWillReceiveProps(nextProps) {
-  //   (nextProps.location.state === 'reload') && (this.currentCursor = 0);
-  // }
-
   // Query that bring Tag Names
   TAGNAMES_REQUEST_QUERY = gql`
     query($after: Int, $pageSize: Int){
@@ -33,14 +28,6 @@ class EventList extends Component {
           }
       }
     }`;
-
-  // /**
-  //  * Set cursor received from EventCardsQuery Component to currentCursor state
-  //  * @param cursor {int} : Endpoint of current viewed EventCard
-  //  */
-  // HandlerCurrentCursor = (cursor) => {
-  //   this.currentCursor = cursor;
-  // };
 
   /**
    * Set selectedTagIds state using selectedTags parameter
