@@ -19,18 +19,21 @@ describe('[EventAPI.getAttributeOfSchedule]', () => {
 
   test('returns null when passed invalid scheduleId', async () => {
     mockStore.Schedule.findOne.mockReturnValueOnce(null);
-    const res = await eventAPI.getAttributeOfSchedule('startDateTime', 987654321);
+    const res = await eventAPI.getAttributeOfSchedule('startDateTime',
+        987654321);
     expect(res).toEqual(null);
   });
 
   test('looks up startDateTime', async () => {
-    mockStore.Schedule.findOne.mockReturnValueOnce({startDateTime: new Date('2020-01-28')});
+    mockStore.Schedule.findOne.mockReturnValueOnce(
+        {startDateTime: new Date('2020-01-28')});
     const res = await eventAPI.getAttributeOfSchedule('startDateTime', 1);
     expect(res - new Date('2020-01-28')).toEqual(0);
   });
 
   test('looks up endDateTime', async () => {
-    mockStore.Schedule.findOne.mockReturnValueOnce({endDateTime: new Date('2020-01-28')});
+    mockStore.Schedule.findOne.mockReturnValueOnce(
+        {endDateTime: new Date('2020-01-28')});
     const res = await eventAPI.getAttributeOfSchedule('endDateTime', 1);
     expect(res - new Date('2020-01-28')).toEqual(0);
   });
@@ -72,13 +75,15 @@ describe('[EventAPI.getAttributeOfEvent]', () => {
   });
 
   test('looks up creationTime', async () => {
-    mockStore.Event.findOne.mockReturnValueOnce({createdAt: new Date('2020-01-29')});
+    mockStore.Event.findOne.mockReturnValueOnce(
+        {createdAt: new Date('2020-01-29')});
     const res = await eventAPI.getAttributeOfEvent('creationTime', 1);
     expect(res - new Date('2020-01-29')).toEqual(0);
   });
 
   test('looks up lastUpdatedTime', async () => {
-    mockStore.Event.findOne.mockReturnValueOnce({updatedAt: new Date('2020-01-29')});
+    mockStore.Event.findOne.mockReturnValueOnce(
+        {updatedAt: new Date('2020-01-29')});
     const res = await eventAPI.getAttributeOfEvent('lastUpdatedTime', 1);
     expect(res - new Date('2020-01-29')).toEqual(0);
   });
@@ -90,7 +95,8 @@ describe('[EventAPI.getAttributeOfEvent]', () => {
   });
 
   test('looks up description', async () => {
-    mockStore.Event.findOne.mockReturnValueOnce({description: 'This is Sihyun event'});
+    mockStore.Event.findOne.mockReturnValueOnce(
+        {description: 'This is Sihyun event'});
     const res = await eventAPI.getAttributeOfEvent('description', 1);
     expect(res).toEqual('This is Sihyun event');
   });
@@ -102,7 +108,8 @@ describe('[EventAPI.getAttributeOfEvent]', () => {
   });
 
   test('looks up thumbnailUrl', async () => {
-    mockStore.Event.findOne.mockReturnValueOnce({thumbnailUrl: 'http://lsh9034'});
+    mockStore.Event.findOne.mockReturnValueOnce(
+        {thumbnailUrl: 'http://lsh9034'});
     const res = await eventAPI.getAttributeOfEvent('thumbnailUrl', 1);
     expect(res).toEqual('http://lsh9034');
   });
@@ -120,31 +127,36 @@ describe('[EventAPI.getAttributeOfEvent]', () => {
   });
 
   test('looks up bookTitle', async () => {
-    mockStore.EventBookClub.findOne.mockReturnValueOnce({bookTitle: 'test book title'});
+    mockStore.EventBookClub.findOne.mockReturnValueOnce(
+        {bookTitle: 'test book title'});
     const res = await eventAPI.getAttributeOfEvent('bookTitle', 1);
     expect(res).toEqual('test book title');
   });
 
   test('looks up bookAuthor', async () => {
-    mockStore.EventBookClub.findOne.mockReturnValueOnce({bookAuthor: 'Sihyun Lee'});
+    mockStore.EventBookClub.findOne.mockReturnValueOnce(
+        {bookAuthor: 'Sihyun Lee'});
     const res = await eventAPI.getAttributeOfEvent('bookAuthor', 1);
     expect(res).toEqual('Sihyun Lee');
   });
 
   test('looks up bookDescription', async () => {
-    mockStore.EventBookClub.findOne.mockReturnValueOnce({bookDescription: 'This is Sihyun book'});
+    mockStore.EventBookClub.findOne.mockReturnValueOnce(
+        {bookDescription: 'This is Sihyun book'});
     const res = await eventAPI.getAttributeOfEvent('bookDescription', 1);
     expect(res).toEqual('This is Sihyun book');
   });
 
   test('looks up bookISBN', async () => {
-    mockStore.EventBookClub.findOne.mockReturnValueOnce({bookISBN: '987654321123456789'});
+    mockStore.EventBookClub.findOne.mockReturnValueOnce(
+        {bookISBN: '987654321123456789'});
     const res = await eventAPI.getAttributeOfEvent('bookISBN', 1);
     expect(res).toEqual('987654321123456789');
   });
 
   test('looks up bookImageUrl', async () => {
-    mockStore.EventBookClub.findOne.mockReturnValueOnce({bookImageUrl: 'http://lsh9034'});
+    mockStore.EventBookClub.findOne.mockReturnValueOnce(
+        {bookImageUrl: 'http://lsh9034'});
     const res = await eventAPI.getAttributeOfEvent('bookImageUrl', 1);
     expect(res).toEqual('http://lsh9034');
   });
@@ -227,7 +239,8 @@ describe('[EventAPI.getParticipantIdsOfEvent]', () => {
   });
 
   test('looks up hostId', async () => {
-    mockStore.EventParticipant.findAll.mockReturnValueOnce([{hostId: 1}, {hostId: 2}]);
+    mockStore.EventParticipant.findAll.mockReturnValueOnce(
+        [{hostId: 1}, {hostId: 2}]);
     const res = await eventAPI.getParticipantIdsOfEvent({eventId: 1});
     expect(res).toEqual([{hostId: 1}, {hostId: 2}]);
   });
@@ -265,7 +278,8 @@ describe('[EventAPI.getEventIdsOfTag]', () => {
   });
 
   test('looks up eventId', async () => {
-    mockStore.EventTag.findAll.mockReturnValueOnce([{eventId: 1}, {eventId: 2}]);
+    mockStore.EventTag.findAll.mockReturnValueOnce(
+        [{eventId: 1}, {eventId: 2}]);
     const res = await eventAPI.getEventIdsOfTag({tagId: 1});
     expect(res).toEqual([{eventId: 1}, {eventId: 2}]);
   });
@@ -273,38 +287,49 @@ describe('[EventAPI.getEventIdsOfTag]', () => {
 
 describe('[EventAPI.getIdsOfEvent]', () => {
   test('throws error if offset or offset is negative', async () => {
-    expect(eventAPI.getIdsOfEvent({offset: -1, limit: 1, tagIds: [1]})).rejects.toThrow(
-        notValidValueMessage);
+    expect(eventAPI.getIdsOfEvent({offset: -1, limit: 1, tagIds: [1]})).
+        rejects.
+        toThrow(
+            notValidValueMessage);
   });
 
   test('throws error if limit or offset is negative', async () => {
-    expect(eventAPI.getIdsOfEvent({offset: 1, limit: -1, tagIds: [1]})).rejects.toThrow(
-        notValidValueMessage);
+    expect(eventAPI.getIdsOfEvent({offset: 1, limit: -1, tagIds: [1]})).
+        rejects.
+        toThrow(
+            notValidValueMessage);
   });
 
   test('returns empty array when passed invalid tagId', async () => {
     mockStore.EventTag.findAll.mockReturnValueOnce([]);
-    const res = await eventAPI.getIdsOfEvent({limit: 1, offset: 1, tagIds: [987654321]});
+    const res = await eventAPI.getIdsOfEvent(
+        {limit: 1, offset: 1, tagIds: [987654321]});
     expect(res).toEqual([]);
   });
 
-  test('returns array which contain all element matched tag when limit has not been passed', async () => {
-    mockStore.EventTag.findAll.mockReturnValueOnce([{eventId: 1}, {eventId: 2}]);
-    const res = await eventAPI.getIdsOfEvent({offset: 0, tagIds: [1]});
-    expect(res).toEqual([{eventId: 1}, {eventId: 2}]);
-  });
+  test(
+      'returns array which contain all element matched tag when limit has not been passed',
+      async () => {
+        mockStore.EventTag.findAll.mockReturnValueOnce(
+            [{eventId: 1}, {eventId: 2}]);
+        const res = await eventAPI.getIdsOfEvent({offset: 0, tagIds: [1]});
+        expect(res).toEqual([{eventId: 1}, {eventId: 2}]);
+      });
 
   test('looks up eventIds', async () => {
     mockStore.EventTag.findAll.mockReturnValueOnce([{event: 1}, {event: 2}]);
-    const res = await eventAPI.getIdsOfEvent({offset: 0, limit: 2, tagIds: [1]});
+    const res = await eventAPI.getIdsOfEvent(
+        {offset: 0, limit: 2, tagIds: [1]});
     expect(res).toEqual([{event: 1}, {event: 2}]);
   });
 
-  test('looks up array which contain all element when tagIds has not been passed', async () => {
-    mockStore.EventTag.findAll.mockReturnValueOnce([{event: 1}, {event: 2}]);
-    const res = await eventAPI.getIdsOfEvent({offset: 0, limit: 2});
-    expect(res).toEqual([{event: 1}, {event: 2}]);
-  });
+  test(
+      'looks up array which contain all element when tagIds has not been passed',
+      async () => {
+        mockStore.EventTag.findAll.mockReturnValueOnce([{event: 1}, {event: 2}]);
+        const res = await eventAPI.getIdsOfEvent({offset: 0, limit: 2});
+        expect(res).toEqual([{event: 1}, {event: 2}]);
+      });
 });
 
 describe('[EventAPI.getUpcomingEventIdsOfEvent]', () => {
@@ -321,7 +346,8 @@ describe('[EventAPI.getUpcomingEventIdsOfEvent]', () => {
   });
 
   test('looks up eventIds', async () => {
-    mockStore.EventParticipant.findAll.mockReturnValueOnce([{eventId: 1}, {eventId: 2}]);
+    mockStore.EventParticipant.findAll.mockReturnValueOnce(
+        [{eventId: 1}, {eventId: 2}]);
     mockStore.Schedule.findAll.mockReturnValueOnce([{eventId: 1}]);
     const res = await eventAPI.getUpcomingEventIdsOfEvent({userId: 1});
     expect(res).toEqual([{eventId: 1}]);
@@ -342,7 +368,8 @@ describe('[EventAPI.getPastEventIdsOfEvent]', () => {
   });
 
   test('looks up eventIds', async () => {
-    mockStore.EventParticipant.findAll.mockReturnValueOnce([{eventId: 1}, {eventId: 2}]);
+    mockStore.EventParticipant.findAll.mockReturnValueOnce(
+        [{eventId: 1}, {eventId: 2}]);
     mockStore.Schedule.findAll.mockReturnValueOnce([{eventId: 1}]);
     const res = await eventAPI.getPastEventIdsOfEvent({userId: 1});
     expect(res).toEqual([{eventId: 1}]);

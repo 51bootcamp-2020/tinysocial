@@ -4,6 +4,7 @@ const {
   userIdAndEventIdIsNotPassedMessage,
   eventIdIsNotPassedMessage,
 } = require('../errorMessages');
+
 class ReviewAPI extends DataSource {
   constructor(store) {
     super();
@@ -27,7 +28,9 @@ class ReviewAPI extends DataSource {
     if (attributeName === 'isPublic') {
       review[attributeName] = !!review[attributeName];
     }
-    return (review && isUndefinedOrNull(review[attributeName])) ? review[attributeName] : null;
+    return (review && isUndefinedOrNull(review[attributeName])) ?
+      review[attributeName] :
+      null;
   }
 
   async createOrModifyOfReview(reviewInfo) {
@@ -79,7 +82,7 @@ class ReviewAPI extends DataSource {
   }
 }
 
-module.exports={
+module.exports = {
   ReviewAPI,
   userIdAndEventIdIsNotPassedMessage,
 };

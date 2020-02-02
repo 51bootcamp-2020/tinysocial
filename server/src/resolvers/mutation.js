@@ -25,11 +25,13 @@ module.exports.Mutation = {
   logOut: async (_, __, {dataSources, userId}) => {
     throw new Error(notImplementMessage);
   },
-  createOrModifyReview: async (_, {eventId, title, content, isPublic}, {dataSources, userId}) => {
+  createOrModifyReview: async (
+    _, {eventId, title, content, isPublic}, {dataSources, userId}) => {
     if (!userId) {
       throw new Error(notLoggedInMessage);
     }
-    const review = dataSources.reviewAPI.createOrModifyOfReview({eventId, title, content, isPublic, userId});
+    const review = dataSources.reviewAPI.createOrModifyOfReview(
+        {eventId, title, content, isPublic, userId});
     return review;
   },
 };

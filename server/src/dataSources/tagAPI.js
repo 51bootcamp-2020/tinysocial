@@ -26,7 +26,7 @@ class TagAPI extends DataSource {
       raw: true,
     });
     return (tag && isUndefinedOrNull(tag[attributeName])) ?
-        tag[attributeName] : null;
+      tag[attributeName] : null;
   }
 
   async getIdsOfTag({limit, offset}) {
@@ -52,6 +52,6 @@ class TagAPI extends DataSource {
   }
 }
 
-module.exports={
+module.exports = {
   TagAPI,
 };

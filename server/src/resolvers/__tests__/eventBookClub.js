@@ -60,7 +60,8 @@ describe('[EventBookClubResolver]', () => {
     expect(res).toBe('ThisIsEventBookClubBookAuthor1');
   });
   test('returns bookDescription', async () => {
-    getAttributeOfEvent.mockReturnValueOnce('ThisIsEventBookClubBookDescription1');
+    getAttributeOfEvent.mockReturnValueOnce(
+        'ThisIsEventBookClubBookDescription1');
     const res = await EventBookClub.bookDescription({id: 1}, {}, mockContext);
     expect(res).toBe('ThisIsEventBookClubBookDescription1');
   });

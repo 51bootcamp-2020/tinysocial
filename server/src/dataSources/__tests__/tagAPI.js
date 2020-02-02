@@ -23,11 +23,13 @@ describe('[tagAPI.getAttributeOfTag]', () => {
 });
 
 describe('[tagAPI.getIdsOfTag]', () => {
-  test('returns array which contain all element when offset & limit have not been passed', async () => {
-    mockStore.Tag.findAll.mockReturnValueOnce([{id: 1}, {id: 2}]);
-    const res = await tagAPI.getIdsOfTag({});
-    expect(res).toEqual([{id: 1}, {id: 2}]);
-  });
+  test(
+      'returns array which contain all element when offset & limit have not been passed',
+      async () => {
+        mockStore.Tag.findAll.mockReturnValueOnce([{id: 1}, {id: 2}]);
+        const res = await tagAPI.getIdsOfTag({});
+        expect(res).toEqual([{id: 1}, {id: 2}]);
+      });
 
   test('looks up array', async () => {
     mockStore.Tag.findAll.mockReturnValueOnce([{id: 1}, {id: 2}]);

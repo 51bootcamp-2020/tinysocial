@@ -1,5 +1,5 @@
 const {
-  ReviewAPI, userIdAndEventIdIsNotPassedMessage
+  ReviewAPI, userIdAndEventIdIsNotPassedMessage,
 } = require('../reviewAPI');
 const {mockStore} = require('../mockStore');
 
@@ -27,22 +27,28 @@ describe('[ReviewAPI.getAttributeOfReview]', () => {
   });
 
   test('returns title if existing attributeName is passed ', async () => {
-    mockStore.Review.findOne.mockReturnValueOnce({title:
-        'Yuval Noah Harari is GENIUS'});
+    mockStore.Review.findOne.mockReturnValueOnce({
+      title:
+        'Yuval Noah Harari is GENIUS',
+    });
     const res = await reviewAPI.getAttributeOfReview('title', 42, 42);
     expect(res).toEqual('Yuval Noah Harari is GENIUS');
   });
 
   test('returns content if existing attributeName is passed ', async () => {
-    mockStore.Review.findOne.mockReturnValueOnce({content:
-        'Yuval Noah Harari is GENIUS'});
+    mockStore.Review.findOne.mockReturnValueOnce({
+      content:
+        'Yuval Noah Harari is GENIUS',
+    });
     const res = await reviewAPI.getAttributeOfReview('content', 42, 42);
     expect(res).toEqual('Yuval Noah Harari is GENIUS');
   });
 
   test('returns isPublic if existing attributeName is passed ', async () => {
-    mockStore.Review.findOne.mockReturnValueOnce({isPublic:
-        true});
+    mockStore.Review.findOne.mockReturnValueOnce({
+      isPublic:
+        true,
+    });
     const res = await reviewAPI.getAttributeOfReview('isPublic', 42, 42);
     expect(res).toEqual(true);
   });
@@ -67,7 +73,7 @@ describe('[ReviewAPI.createOrModifyReview', () => {
       title: 'ThisIsReviewTitle1',
       content: 'ThisIsReviewContent1',
       isPublic: true,
-      save: jest.fn()
+      save: jest.fn(),
     });
     const res = await reviewAPI.createOrModifyOfReview({
       userId: 1,

@@ -33,7 +33,8 @@ class EventAPI extends DataSource {
       throw new Error(eventIdIsNotPassedMessage);
     }
     if (eventBookClubAttributes.includes(attributeName)) {
-      const event = await this.getAttributeOfEventBookClub(attributeName, eventId);
+      const event = await this.getAttributeOfEventBookClub(attributeName,
+          eventId);
       return event;
     }
     if (attributeName === 'creationTime') {
@@ -47,7 +48,7 @@ class EventAPI extends DataSource {
       raw: true,
     });
     return (event && isUndefinedOrNull(event[attributeName])) ?
-        event[attributeName] : null;
+      event[attributeName] : null;
   }
 
   async getAttributeOfEventBookClub(attributeName, eventId) {
@@ -60,7 +61,7 @@ class EventAPI extends DataSource {
       raw: true,
     });
     return (eventBookClub && isUndefinedOrNull(eventBookClub[attributeName])) ?
-        eventBookClub[attributeName] : null;
+      eventBookClub[attributeName] : null;
   }
 
   async getAttributeOfSchedule(attributeName, scheduleId) {
@@ -73,7 +74,7 @@ class EventAPI extends DataSource {
       raw: true,
     });
     return (schedule && isUndefinedOrNull(schedule[attributeName])) ?
-        schedule[attributeName] : null;
+      schedule[attributeName] : null;
   }
 
   async getAttributeOfEventParticipant(attributeName, eventId, userId) {
@@ -91,8 +92,9 @@ class EventAPI extends DataSource {
       attributes: attributeName,
       raw: true,
     });
-    return (eventParticipant && isUndefinedOrNull(eventParticipant[attributeName])) ?
-        eventParticipant[attributeName] : null;
+    return (eventParticipant &&
+      isUndefinedOrNull(eventParticipant[attributeName])) ?
+      eventParticipant[attributeName] : null;
   }
 
   async getHostedEventIdsOfUser({userId}) {
@@ -183,7 +185,10 @@ class EventAPI extends DataSource {
       tagIdsObject = {tagId: tagIds};
       eventIds = await this.store.EventTag.findAll({
         where: tagIdsObject,
-        attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('eventId')), 'id']],
+        attributes: [
+          [
+            Sequelize.fn('DISTINCT', Sequelize.col('eventId')),
+            'id']],
         order: order,
         raw: true,
       });
@@ -202,7 +207,7 @@ class EventAPI extends DataSource {
     });
     const check = new Array(scheduleId.length + 1).fill(0);
     let sortedEventIdsBySchedule = [];
-    for (let i=0; i<scheduleId.length; i++) {
+    for (let i = 0; i < scheduleId.length; i++) {
       if (check[scheduleId[i].eventId]) {
         continue;
       }
@@ -212,7 +217,8 @@ class EventAPI extends DataSource {
     if (limit === undefined || limit === null) {
       limit = sortedEventIdsBySchedule.length - offset;
     }
-    sortedEventIdsBySchedule = sortedEventIdsBySchedule.slice(offset, offset + limit);
+    sortedEventIdsBySchedule = sortedEventIdsBySchedule.slice(offset,
+        offset + limit);
     return sortedEventIdsBySchedule;
   }
 
@@ -258,6 +264,7 @@ class EventAPI extends DataSource {
     return upcomingEvents;
   }
 }
-module.exports={
+
+module.exports = {
   EventAPI,
 };

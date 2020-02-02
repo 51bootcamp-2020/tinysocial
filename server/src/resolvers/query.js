@@ -14,7 +14,8 @@ module.exports.Query = {
         tagIds: eventFilter.tagIds,
         order: eventSort,
       });
-      if (pageSize > eventIds.length || pageSize === undefined || pageSize === null) {
+      if (pageSize > eventIds.length || pageSize === undefined || pageSize ===
+        null) {
         pageSize = eventIds.length;
       }
     } else {
@@ -81,7 +82,8 @@ module.exports.Query = {
       limit: pageSize,
       offset: after,
     });
-    if (pageSize > tagIds.length || pageSize === undefined || pageSize === null) {
+    if (pageSize > tagIds.length || pageSize === undefined || pageSize ===
+      null) {
       pageSize = tagIds.length;
     }
     return {

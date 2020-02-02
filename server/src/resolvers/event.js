@@ -4,6 +4,7 @@ module.exports.Event = {
     if (type === 0) {
       return 'EventBookClub';
     }
-    throw new Error('Data cannot be resolved to any Event type. Please contact to backend developers.');
+    throw new Error(
+        'Data cannot be resolved to any Event type. Please contact to backend developers.');
   },
 };

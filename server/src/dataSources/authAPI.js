@@ -64,6 +64,7 @@ class AuthAPI extends DataSource {
       user: userId.id,
     };
   }
+
   async signIn({email, pw}) {
     let hashedPw;
     if (email && pw) {
@@ -186,7 +187,7 @@ class AuthAPI extends DataSource {
 
     // TODO(c0510gy): Need to destory or black listing existing query
 
-    const profileImgUrl = ''; 
+    const profileImgUrl = '';
     // TODO(c0510gy): Need to handle this later
 
     const user = await this.store.User.findOrCreate({

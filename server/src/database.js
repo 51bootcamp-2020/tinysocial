@@ -36,14 +36,21 @@ const createStore = () => {
 
   const Model = Sequelize.Model;
 
-  class Event extends Model { }
-  class EventBookClub extends Model { }
-  class EventParticipant extends Model { }
-  class EventTag extends Model { }
-  class Review extends Model { }
-  class Schedule extends Model { }
-  class Tag extends Model { }
-  class User extends Model { }
+  class Event extends Model {}
+
+  class EventBookClub extends Model {}
+
+  class EventParticipant extends Model {}
+
+  class EventTag extends Model {}
+
+  class Review extends Model{}
+
+  class Schedule extends Model {}
+
+  class Tag extends Model {}
+
+  class User extends Model {}
 
   User.init({
     id: {

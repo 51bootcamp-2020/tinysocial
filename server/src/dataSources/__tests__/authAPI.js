@@ -1,5 +1,7 @@
-require('dotenv').config({path: require('path').
-    resolve(process.cwd(), '.env')});
+require('dotenv').config({
+  path: require('path').
+      resolve(process.cwd(), '.env'),
+});
 
 const {AuthAPI} = require('../authAPI');
 const {mockStore} = require('../mockStore');
