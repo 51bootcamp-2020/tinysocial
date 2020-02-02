@@ -9,37 +9,37 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       firstName: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       lastName: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       googleId: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
       },
       facebookId: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
       },
       profileImgUrl: {
         type: Sequelize.TEXT,
       },
       password: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
       },
       email: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       birthday: {
         type: Sequelize.DATE,
       },
       address: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
       },
       phone: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
       },
       selfDescription: {
         type: Sequelize.TEXT,

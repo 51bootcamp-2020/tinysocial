@@ -12,7 +12,7 @@ module.exports = {
       endDateTime: Sequelize.DATE,
       // TODO(yun-kwak): Split the address into country, state, city, zip, street,
       // additionalStreetAddress
-      address: Sequelize.TEXT,
+      address: Sequelize.STRING,
       latitude: Sequelize.FLOAT,
       longitude: Sequelize.FLOAT,
       eventId: {

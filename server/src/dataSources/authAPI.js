@@ -184,9 +184,10 @@ class AuthAPI extends DataSource {
     const userInfo = jwt.verify(emailValidationToken, APP_SECRET);
     const {email, firstName, lastName, hashedPw} = userInfo;
 
-    // NEED TO DESTROY OR BLACK LISTING EXISTING QUERY
+    // TODO(c0510gy): Need to destory or black listing existing query
 
-    const profileImgUrl = ''; // NEED TO HANDLE THIS LATER
+    const profileImgUrl = ''; 
+    // TODO(c0510gy): Need to handle this later
 
     const user = await this.store.User.findOrCreate({
       where: {email},

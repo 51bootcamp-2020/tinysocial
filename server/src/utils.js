@@ -1,5 +1,5 @@
 const isUndefinedOrNull = (input) => {
-  if (input === undefined || input === null) return false;
+  if (input === null || input === undefined) return false;
   return true;
 };
 

@@ -16,7 +16,7 @@ module.exports = {
         allowNull: false,
       },
       bookAuthor: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       bookDescription: {

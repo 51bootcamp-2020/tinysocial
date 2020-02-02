@@ -1,5 +1,6 @@
 'use strict';
 
+// TODO(SeongJaeSong): If we'll get actual data, these files should be deleted.
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Users', [
