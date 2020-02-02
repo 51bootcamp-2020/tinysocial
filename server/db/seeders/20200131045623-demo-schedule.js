@@ -68,9 +68,9 @@ module.exports = {
         eventId: 3,
       },
       {
-        startDateTime: new Date('2020-1-31 10:00'),
-        endDateTime: new Date('2020-1-31 14:15'),
-        address: 'San Mateo Public Library, 55 W 3rd Ave, San Mateo, CA 94402Kokko, 509 2nd Ave, San Mateo, CA 94401',
+        startDateTime: new Date('2020-2-25 10:00'),
+        endDateTime: new Date('2020-2-25 14:15'),
+        address: 'San Mateo Public Library, 55 W 3rd Ave, San Mateo, CA 94402',
         latitude: 37.562245,
         longitude: -122.326853,
         eventId: 4,
