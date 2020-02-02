@@ -92,7 +92,7 @@ class EventlistFilters extends Component {
                         onChange={this.HandlerTagButton}
                         className={classes.buttonShape}
                         value={tagIndex}
-                        label={this.props.filterNames[tagIndex].id}
+                        key={this.props.filterNames[tagIndex].id}
                         selected={this.state.filterClicked[tagIndex]}>
             {this.props.filterNames[tagIndex].name}
           </ToggleButton>

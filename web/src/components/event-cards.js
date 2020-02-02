@@ -11,7 +11,7 @@ import {
   withStyles,
   ThemeProvider,
 } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 
@@ -125,14 +125,15 @@ class EventCards extends Component {
     const {classes} = this.props;
     const cards = [];
     for (let cardIndex = 0; cardIndex < this.props.events.length; cardIndex++) {
-      if (cardIndex % 3 === 0) {
-        cards.push([]);
-      }
+      // if (cardIndex % 3 === 0) {
+      //   cards.push([]);
+      // }
       // Push each card component in cards
-      cards[cards.length - 1].push(
+      cards.push(
         <Grid item xs={12} sm={6} md={4} key={this.props.events[cardIndex].id}>
           <Card className={classes.card}
                 value={this.props.events[cardIndex].id}
+                key={this.props.events[cardIndex].id}
                 onClick={
                   () => this.CardClicked(this.props.events[cardIndex].id)}>
             {/* Image section of Card */}
@@ -165,7 +166,7 @@ class EventCards extends Component {
     const decks = [];
     for (let cardIndex = 0; cardIndex < cards.length; ++cardIndex) {
       decks.push(
-        <Grid container xs={12} justify='space-around'
+        <Grid container justify='space-around'
               className={classes.cards}>
           {cards[cardIndex]}
         </Grid>,
@@ -174,7 +175,10 @@ class EventCards extends Component {
 
     return (
       <ThemeProvider theme={theme}>
-        {decks}
+        <Grid container justify='space-around'
+              className={classes.cards}>
+          {cards}
+        </Grid>,
       </ThemeProvider>);
   }
 }

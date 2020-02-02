@@ -33,6 +33,8 @@ class EventCardsQuery extends Component {
               schedule{
                   startDateTime
                   address
+                  latitude
+                  longitude
               }
           }
       }
