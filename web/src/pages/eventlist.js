@@ -10,7 +10,7 @@ class EventList extends Component {
   constructor(props) {
     super(props);
     this.currentCursor = 0;
-    this.eventListPageSize = 5;
+    this.eventListPageSize = 6;
     this.state = {
       isTagNames: false,
       allTags: [],

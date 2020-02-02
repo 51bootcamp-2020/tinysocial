@@ -92,6 +92,26 @@ class EventCards extends Component {
     super(props);
   }
 
+  // Set Scroll Event Listener
+  componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll);
+  }
+
+  // Remove Scroll Event Listener
+  componentWillUnmount() {
+    window.removeEventListener("scroll",this.handleScroll);
+  }
+
+  //Page Scroll
+  handleScroll = (e) => {
+    if (
+      window.scrollY + e.target.scrollingElement.clientHeight >=
+      e.target.scrollingElement.scrollHeight
+    ) {
+      this.props.onLoadMore();
+    }
+  };
+
   // Redirect to event detail page, When each card is clicked
   CardClicked = (eventId) => {
     return this.props.history.push({
@@ -104,16 +124,14 @@ class EventCards extends Component {
   render() {
     const {classes} = this.props;
     const cards = [];
-
     for (let cardIndex = 0; cardIndex < this.props.events.length; cardIndex++) {
       if (cardIndex % 3 === 0) {
         cards.push([]);
       }
       // Push each card component in cards
       cards[cards.length - 1].push(
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} sm={6} md={4} key={this.props.events[cardIndex].id}>
           <Card className={classes.card}
-                key={this.props.events[cardIndex].id}
                 value={this.props.events[cardIndex].id}
                 onClick={
                   () => this.CardClicked(this.props.events[cardIndex].id)}>

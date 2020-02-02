@@ -18,7 +18,7 @@ const landingPageStyle = {
 class Landing extends Component {
   constructor(props) {
     super(props);
-    this.pageSize = 5;
+    this.pageSize = 6;
   }
 
   render() {
