@@ -30,7 +30,6 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {timestamps: false});
   Review.associate = function(models) {
-    // associations can be defined here
     Review.belongsTo(models.User);
     Review.belongsTo(models.Event);
   };

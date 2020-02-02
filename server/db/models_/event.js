@@ -21,7 +21,6 @@ module.exports = (sequelize, DataTypes) => {
     maxParticipantNum: DataTypes.INTEGER,
   }, {});
   Event.associate = function(models) {
-    // associations can be defined here
     Event.hasMany(models.EventParticipant);
     Event.hasMany(models.Schedule);
     Event.hasMany(models.Review);

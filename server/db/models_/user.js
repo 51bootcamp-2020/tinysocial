@@ -19,7 +19,6 @@ module.exports = (sequelize, DataTypes) => {
     lastInteractionTime: DataTypes.DATE, // To refresh JWT token
   }, {});
   User.associate = function(models) {
-    // associations can be defined here
     User.hasMany(models.Review);
     User.hasMany(models.EventParticipant);
   };

@@ -28,7 +28,6 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {timestamps: false});
   EventBookClub.associate = function(models) {
-    // associations can be defined here
     EventBookClub.belongsTo(models.Event);
   };
   return EventBookClub;

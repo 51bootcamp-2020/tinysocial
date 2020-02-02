@@ -19,7 +19,6 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   EventParticipant.associate = function(models) {
-    // associations can be defined here
   };
   return EventParticipant;
 };

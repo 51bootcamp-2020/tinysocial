@@ -22,7 +22,6 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   Schedule.associate = function(models) {
-    // associations can be defined here
     Schedule.belongsTo(models.Event);
   };
   return Schedule;
