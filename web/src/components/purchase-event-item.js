@@ -5,7 +5,6 @@ import {withRouter} from 'react-router-dom';
 
 // Styles
 const eventNameStyle = {
-  fontWeight: 300,
   fontFamily: 'Roboto',
   fontSize: '20px',
   fontWeight: 'normal',
@@ -14,7 +13,6 @@ const eventNameStyle = {
 };
 
 const bookTitleStyle = {
-  fontWeight: 300,
   fontFamily: 'Roboto',
   fontSize: '15px',
   fontWeight: 'normal',
