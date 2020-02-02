@@ -11,9 +11,8 @@ describe('[EventResolver]', () => {
   });
   test('throws error', async () => {
     getTypeOfEvent.mockReturnValueOnce(999);
-    expect(Event.__resolveType({id: 1}, mockContext)).
-        rejects.
-        toThrow(
-            'Data cannot be resolved to any Event type. Please contact to backend developers.');
+    expect(Event.__resolveType({id: 1}, mockContext)).rejects.toThrow(
+        'Data cannot be resolved to any Event type. Please contact to backend developers.',
+    );
   });
 });

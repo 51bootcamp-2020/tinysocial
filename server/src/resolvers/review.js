@@ -1,12 +1,18 @@
 module.exports.Review = {
   title: async ({userId, eventId}, _, {dataSources}) => {
-    const title = dataSources.reviewAPI.getAttributeOfReview('title', userId,
-        eventId);
+    const title = dataSources.reviewAPI.getAttributeOfReview(
+        'title',
+        userId,
+        eventId,
+    );
     return title;
   },
   content: async ({userId, eventId}, _, {dataSources}) => {
-    const content = dataSources.reviewAPI.getAttributeOfReview('content',
-        userId, eventId);
+    const content = dataSources.reviewAPI.getAttributeOfReview(
+        'content',
+        userId,
+        eventId,
+    );
     return content;
   },
   author: async ({userId}) => {
@@ -14,7 +20,10 @@ module.exports.Review = {
   },
   isPublic: async ({userId, eventId}, _, {dataSources}) => {
     const isPublic = dataSources.reviewAPI.getAttributeOfReview(
-        'isPublic', userId, eventId);
+        'isPublic',
+        userId,
+        eventId,
+    );
     return isPublic;
   },
 };

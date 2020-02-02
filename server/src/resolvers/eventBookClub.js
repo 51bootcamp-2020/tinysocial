@@ -5,22 +5,29 @@ module.exports.EventBookClub = {
   },
   thumbnailUrl: async ({id}, _, {dataSources}) => {
     const thumbnailUrl = dataSources.eventAPI.getAttributeOfEvent(
-        'thumbnailUrl', id);
+        'thumbnailUrl',
+        id,
+    );
     return thumbnailUrl;
   },
   creationTime: async ({id}, _, {dataSources}) => {
     const creationTime = dataSources.eventAPI.getAttributeOfEvent(
-        'creationTime', id);
+        'creationTime',
+        id,
+    );
     return creationTime;
   },
   lastUpdatedTime: async ({id}, _, {dataSources}) => {
     const lastUpdatedTime = dataSources.eventAPI.getAttributeOfEvent(
-        'lastUpdatedTime', id);
+        'lastUpdatedTime',
+        id,
+    );
     return lastUpdatedTime;
   },
   schedule: async ({id}, _, {dataSources}) => {
-    const scheduleIds = await dataSources.eventAPI.getScheduleIdsOfEvent(
-        {eventId: id});
+    const scheduleIds = await dataSources.eventAPI.getScheduleIdsOfEvent({
+      eventId: id,
+    });
     return scheduleIds;
   },
   title: async ({id}, _, {dataSources}) => {
@@ -28,8 +35,10 @@ module.exports.EventBookClub = {
     return title;
   },
   description: async ({id}, _, {dataSources}) => {
-    const description = dataSources.eventAPI.getAttributeOfEvent('description',
-        id);
+    const description = dataSources.eventAPI.getAttributeOfEvent(
+        'description',
+        id,
+    );
     return description;
   },
   price: async ({id}, _, {dataSources}) => {
@@ -38,7 +47,9 @@ module.exports.EventBookClub = {
   },
   bookImageUrl: async ({id}, _, {dataSources}) => {
     const bookImageUrl = dataSources.eventAPI.getAttributeOfEvent(
-        'bookImageUrl', id);
+        'bookImageUrl',
+        id,
+    );
     return bookImageUrl;
   },
   bookTitle: async ({id}, _, {dataSources}) => {
@@ -46,13 +57,17 @@ module.exports.EventBookClub = {
     return bookTitle;
   },
   bookAuthor: async ({id}, _, {dataSources}) => {
-    const bookAuthor = dataSources.eventAPI.getAttributeOfEvent('bookAuthor',
-        id);
+    const bookAuthor = dataSources.eventAPI.getAttributeOfEvent(
+        'bookAuthor',
+        id,
+    );
     return bookAuthor;
   },
   bookDescription: async ({id}, _, {dataSources}) => {
     const bookDescription = dataSources.eventAPI.getAttributeOfEvent(
-        'bookDescription', id);
+        'bookDescription',
+        id,
+    );
     return bookDescription;
   },
   bookISBN: async ({id}, _, {dataSources}) => {
@@ -65,13 +80,16 @@ module.exports.EventBookClub = {
     return tagIds;
   },
   participants: async ({id}, __, {dataSources}) => {
-    const participantIds = dataSources.eventAPI.getParticipantIdsOfEvent(
-        {eventId: id});
+    const participantIds = dataSources.eventAPI.getParticipantIdsOfEvent({
+      eventId: id,
+    });
     return participantIds;
   },
   maxParticipantNum: async ({id}, _, {dataSources}) => {
     const maxParticipantNum = dataSources.eventAPI.getAttributeOfEvent(
-        'maxParticipantNum', id);
+        'maxParticipantNum',
+        id,
+    );
     return maxParticipantNum;
   },
   // TODO(yun-kwak): Implement reviews resolver

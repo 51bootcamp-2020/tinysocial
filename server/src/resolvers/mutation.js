@@ -4,19 +4,32 @@ module.exports.Mutation = {
     return dataSources.authAPI.signInWithGoogle({googleId});
   },
   signUpWithGoogle: async (
-    _, {googleId, email, firstName, lastName, profileImgUrl},
-    {dataSources}) => {
+    _,
+    {googleId, email, firstName, lastName, profileImgUrl},
+    {dataSources},
+  ) => {
     return dataSources.authAPI.signUpWithGoogle({
-      googleId, email, firstName, lastName,
+      googleId,
+      email,
+      firstName,
+      lastName,
       profileImgUrl,
     });
   },
   signIn: async (_, {email, pw}, {dataSources}) => {
     return dataSources.authAPI.signIn({email, pw});
   },
-  signUp: async (_, {email, firstName, lastName, pw, repw}, {dataSources}) => {
+  signUp: async (
+    _,
+    {email, firstName, lastName, pw, repw},
+    {dataSources},
+  ) => {
     return dataSources.authAPI.signUp({
-      email, firstName, lastName, pw, repw,
+      email,
+      firstName,
+      lastName,
+      pw,
+      repw,
     });
   },
   emailValidate: async (_, {token}, {dataSources}) => {
@@ -26,12 +39,20 @@ module.exports.Mutation = {
     throw new Error(notImplementMessage);
   },
   createOrModifyReview: async (
-    _, {eventId, title, content, isPublic}, {dataSources, userId}) => {
+    _,
+    {eventId, title, content, isPublic},
+    {dataSources, userId},
+  ) => {
     if (!userId) {
       throw new Error(notLoggedInMessage);
     }
-    const review = dataSources.reviewAPI.createOrModifyOfReview(
-        {eventId, title, content, isPublic, userId});
+    const review = dataSources.reviewAPI.createOrModifyOfReview({
+      eventId,
+      title,
+      content,
+      isPublic,
+      userId,
+    });
     return review;
   },
 };

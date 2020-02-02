@@ -12,4 +12,3 @@ module.exports.AuthResponse = {
     return {id: parent.user};
   },
 };
-

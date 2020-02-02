@@ -1,12 +1,16 @@
 module.exports.EventSchedule = {
   startDateTime: async ({id}, __, {dataSources}) => {
     const startDateTime = dataSources.eventAPI.getAttributeOfSchedule(
-        'startDateTime', id);
+        'startDateTime',
+        id,
+    );
     return startDateTime;
   },
   endDateTime: async ({id}, __, {dataSources}) => {
     const endDateTime = dataSources.eventAPI.getAttributeOfSchedule(
-        'endDateTime', id);
+        'endDateTime',
+        id,
+    );
     return endDateTime;
   },
   address: async ({id}, __, {dataSources}) => {
@@ -14,13 +18,17 @@ module.exports.EventSchedule = {
     return address;
   },
   latitude: async ({id}, __, {dataSources}) => {
-    const latitude = dataSources.eventAPI.getAttributeOfSchedule('latitude',
-        id);
+    const latitude = dataSources.eventAPI.getAttributeOfSchedule(
+        'latitude',
+        id,
+    );
     return latitude;
   },
   longitude: async ({id}, __, {dataSources}) => {
-    const longitude = dataSources.eventAPI.getAttributeOfSchedule('longitude',
-        id);
+    const longitude = dataSources.eventAPI.getAttributeOfSchedule(
+        'longitude',
+        id,
+    );
     return longitude;
   },
 };

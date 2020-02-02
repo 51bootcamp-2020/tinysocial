@@ -1,7 +1,11 @@
 const {EventBookClub} = require('../../resolvers');
 const {mockContext} = require('../mockContext');
 
-const {getAttributeOfEvent, getScheduleIdsOfEvent, getParticipantIdsOfEvent} = mockContext.dataSources.eventAPI;
+const {
+  getAttributeOfEvent,
+  getScheduleIdsOfEvent,
+  getParticipantIdsOfEvent,
+} = mockContext.dataSources.eventAPI;
 const {getTagIdsOfEvent} = mockContext.dataSources.tagAPI;
 describe('[EventBookClubResolver]', () => {
   test('returns host', async () => {
@@ -61,7 +65,8 @@ describe('[EventBookClubResolver]', () => {
   });
   test('returns bookDescription', async () => {
     getAttributeOfEvent.mockReturnValueOnce(
-        'ThisIsEventBookClubBookDescription1');
+        'ThisIsEventBookClubBookDescription1',
+    );
     const res = await EventBookClub.bookDescription({id: 1}, {}, mockContext);
     expect(res).toBe('ThisIsEventBookClubBookDescription1');
   });
@@ -82,7 +87,11 @@ describe('[EventBookClubResolver]', () => {
   });
   test('returns maxParticipantNum', async () => {
     getAttributeOfEvent.mockReturnValueOnce(5);
-    const res = await EventBookClub.maxParticipantNum({id: 1}, {}, mockContext);
+    const res = await EventBookClub.maxParticipantNum(
+        {id: 1},
+        {},
+        mockContext,
+    );
     expect(res).toBe(5);
   });
   // TODO(yun-kwak): Implement reviews resolver unit test

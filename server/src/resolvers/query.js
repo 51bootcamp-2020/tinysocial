@@ -2,7 +2,10 @@ const {notLoggedInMessage} = require('../errorMessages');
 module.exports.Query = {
   // TODO(lsh9034): fix eventSort
   events: async (
-    _, {pageSize, after = 0, eventFilter, eventSort}, {dataSources}) => {
+    _,
+    {pageSize, after = 0, eventFilter, eventSort},
+    {dataSources},
+  ) => {
     if (pageSize > 50) {
       pageSize = 50;
     }
@@ -14,8 +17,11 @@ module.exports.Query = {
         tagIds: eventFilter.tagIds,
         order: eventSort,
       });
-      if (pageSize > eventIds.length || pageSize === undefined || pageSize ===
-        null) {
+      if (
+        pageSize > eventIds.length ||
+        pageSize === undefined ||
+        pageSize === null
+      ) {
         pageSize = eventIds.length;
       }
     } else {
@@ -66,7 +72,10 @@ module.exports.Query = {
   },
 
   userReviews: async (
-    _, {userId, eventId}, {dataSources, userId: currentUserId}) => {
+    _,
+    {userId, eventId},
+    {dataSources, userId: currentUserId},
+  ) => {
     if (userId === undefined) {
       if (!currentUserId) {
         throw new Error(notLoggedInMessage);
@@ -82,8 +91,11 @@ module.exports.Query = {
       limit: pageSize,
       offset: after,
     });
-    if (pageSize > tagIds.length || pageSize === undefined || pageSize ===
-      null) {
+    if (
+      pageSize > tagIds.length ||
+      pageSize === undefined ||
+      pageSize === null
+    ) {
       pageSize = tagIds.length;
     }
     return {

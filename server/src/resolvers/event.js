@@ -5,6 +5,7 @@ module.exports.Event = {
       return 'EventBookClub';
     }
     throw new Error(
-        'Data cannot be resolved to any Event type. Please contact to backend developers.');
+        'Data cannot be resolved to any Event type. Please contact to backend developers.',
+    );
   },
 };

@@ -1,7 +1,10 @@
 const {Review} = require('../../resolvers');
 const {mockContext} = require('../mockContext');
 
-const {getAttributeOfReview, createOrModifyOfReview} = mockContext.dataSources.reviewAPI;
+const {
+  getAttributeOfReview,
+  createOrModifyOfReview,
+} = mockContext.dataSources.reviewAPI;
 
 describe('[ReviewResolver]', () => {
   test('returns title', async () => {
@@ -11,7 +14,11 @@ describe('[ReviewResolver]', () => {
   });
   test('returns content', async () => {
     getAttributeOfReview.mockReturnValueOnce('ThisIsReviewContent1');
-    const res = await Review.content({userId: 1, eventId: 1}, {}, mockContext);
+    const res = await Review.content(
+        {userId: 1, eventId: 1},
+        {},
+        mockContext,
+    );
     expect(res).toBe('ThisIsReviewContent1');
   });
   test('returns author', async () => {
@@ -21,7 +28,11 @@ describe('[ReviewResolver]', () => {
   });
   test('returns isPublic', async () => {
     getAttributeOfReview.mockReturnValueOnce(true);
-    const res = await Review.isPublic({userId: 1, eventId: 1}, {}, mockContext);
+    const res = await Review.isPublic(
+        {userId: 1, eventId: 1},
+        {},
+        mockContext,
+    );
     expect(res).toBe(true);
   });
 });
