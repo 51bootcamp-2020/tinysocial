@@ -45,7 +45,7 @@ class JoinEvent extends Component {
                         orderId: this.props.location.state.orderId,
                       }}
                       onCompleted={(data) => {
-                        console.log(data)
+                        console.log(data);
                         this.setState({
                           participateResult: data.joinEvent,
                         });

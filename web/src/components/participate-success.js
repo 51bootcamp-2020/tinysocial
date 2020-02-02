@@ -65,7 +65,8 @@ class ParticipateSuccess extends Component {
                   }} onClick={() => this.props.history.push('/')}
               >
                 {/* Todo(Myoung-hee): Change link to user page */}
-                <Typography style={returnBtnStyle}>Check my booking event</Typography>
+                <Typography style={returnBtnStyle}>Check my booking
+                  event</Typography>
               </Fab>
             </Grid>
           </Grid>

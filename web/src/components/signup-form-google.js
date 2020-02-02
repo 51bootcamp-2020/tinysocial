@@ -14,6 +14,7 @@ class SignupFormGoogle extends Component {
       firstName: '',
       lastName: '',
       email: '',
+      imageUrl: '',
       // TODO(Myoung-heeSeo) : this will be used when facebook login is added.
       provider: '',
     };
@@ -26,6 +27,7 @@ class SignupFormGoogle extends Component {
       firstName: res.profileObj.givenName,
       lastName: res.profileObj.familyName,
       email: res.profileObj.email,
+      imageUrl: res.profileObj.imageUrl,
       provider: res.tokenObj.idpId,
     });
   };
@@ -72,6 +74,7 @@ class SignupFormGoogle extends Component {
                 email: this.state.email,
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,
+                profileImgUrl: this.state.imageUrl,
               }}
               onCompleted={(data) => {
                 const {success, message, token} = data.signUpWithGoogle;

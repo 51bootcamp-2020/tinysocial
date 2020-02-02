@@ -14,7 +14,6 @@ import Checkout from './pages/checkout';
 import JoinEvent from './pages/join-event';
 
 function App() {
-  {/* TODO(Myoung-heeSeo) : Add a state to check if the user is logged in now. */}
   return (
     <Fragment>
       <NavBar/>
