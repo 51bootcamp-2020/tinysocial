@@ -12,6 +12,7 @@ import SignInUp from './pages/signInUp';
 import Emailvalidation from './pages/emailvalidation';
 import Checkout from './pages/checkout';
 import JoinEvent from './pages/join-event';
+import NewEvent from './pages/newEvent';
 
 function App() {
   {/* TODO(Myoung-heeSeo) : Add a state to check if the user is logged in now. */}
@@ -23,6 +24,7 @@ function App() {
           <Route path='/signin' render={() => <SignInUp/>}/>
           <Route path="/checkout" render={() => <Checkout/>} />
           <Route path="/join-event" render={() => <JoinEvent/>} />
+          <Route path='/newevent' render={() => <NewEvent/>}/>
           <Route path='/eventlist' render={() => <EventList/>}/>
           <Route path='/about' render={() => <About/>}/>
           <Route path='/' render={() => <Landing/>}/>

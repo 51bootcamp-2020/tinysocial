@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import LoginFormGoogle from '../components/login-form-google';
-import {Button, Container Typography} from '@material-ui/core';
+import {Button, Container, Typography} from '@material-ui/core';
 import SignUpFormGoogle from '../components/signup-form-google';
 
 const boxStyle = {

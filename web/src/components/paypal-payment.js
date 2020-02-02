@@ -11,53 +11,52 @@ const clientId = 'AfAbl-JI-15trlwhVjwNCTiL1OxhogGyEN4OYAPE4KJX9xPmUKIHWZuO61_5lP
 class PaypalPayment extends Component {
   constructor(props) {
     super(props);
-
   }
 
   render() {
     return (
-        // Request paypal payment.
-        <PayPalButton
-            createOrder={(data, actions) => {
-              return actions.order.create({
-                purchase_units: [
-                  {
-                    description: `userId:${
-                        this.props.userId
-                    },eventId:${
-                        this.props.eventId
-                    }`,
-                    amount: {
-                      currency_code: 'USD',
-                      value: this.props.price,
-                    },
-                  }],
-                application_context: {
-                  shipping_preference: 'NO_SHIPPING',
+    // Request paypal payment.
+      <PayPalButton
+        createOrder={(data, actions) => {
+          return actions.order.create({
+            purchase_units: [
+              {
+                description: `userId:${
+                  this.props.userId
+                },eventId:${
+                  this.props.eventId
+                }`,
+                amount: {
+                  currency_code: 'USD',
+                  value: this.props.price,
                 },
-              });
-            }}
-            // Payment with Paypal approved.
-            onApprove={(data, actions) => {
-              console.log('approved: ', data, actions);
-              return actions.order.capture().then(function(details) {
-              }).then(
-                  // Redirect to join-event page with give props.
-                  this.props.history.push({
-                    pathname: '/join-event',
-                    state: {
-                      eventId: this.props.eventId,
-                      orderId: data.orderID,
-                      price: this.props.price,
-                    },
-                  }),
-              );
-            }}
-            options={{
-              clientId: clientId,
-            }}
-            style={{color: 'silver', label: 'pay', height: 54}}
-        />
+              }],
+            application_context: {
+              shipping_preference: 'NO_SHIPPING',
+            },
+          });
+        }}
+        // Payment with Paypal approved.
+        onApprove={(data, actions) => {
+          console.log('approved: ', data, actions);
+          return actions.order.capture().then(function(details) {
+          }).then(
+              // Redirect to join-event page with give props.
+              this.props.history.push({
+                pathname: '/join-event',
+                state: {
+                  eventId: this.props.eventId,
+                  orderId: data.orderID,
+                  price: this.props.price,
+                },
+              }),
+          );
+        }}
+        options={{
+          clientId: clientId,
+        }}
+        style={{color: 'silver', label: 'pay', height: 54}}
+      />
     );
   }
 }
