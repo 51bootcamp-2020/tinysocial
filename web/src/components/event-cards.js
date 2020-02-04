@@ -11,7 +11,6 @@ import {
   withStyles,
   ThemeProvider,
 } from '@material-ui/core/styles';
-// import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 
@@ -102,7 +101,7 @@ class EventCards extends Component {
     window.removeEventListener("scroll",this.handleScroll);
   }
 
-  // Handler Scroll Event
+  // Scroll Event Handler
   handleScroll = (e) => {
     if (
       window.scrollY + e.target.scrollingElement.clientHeight >=
@@ -125,9 +124,6 @@ class EventCards extends Component {
     const {classes} = this.props;
     const cards = [];
     for (let cardIndex = 0; cardIndex < this.props.events.length; cardIndex++) {
-      // if (cardIndex % 3 === 0) {
-      //   cards.push([]);
-      // }
       // Push each card component in cards
       cards.push(
         <Grid item xs={12} sm={6} md={4} key={this.props.events[cardIndex].id}>
@@ -158,17 +154,6 @@ class EventCards extends Component {
               </Typography>
             </CardContent>
           </Card>
-        </Grid>,
-      );
-    }
-
-    // Push the cards list in decks
-    const decks = [];
-    for (let cardIndex = 0; cardIndex < cards.length; ++cardIndex) {
-      decks.push(
-        <Grid container justify='space-around'
-              className={classes.cards}>
-          {cards[cardIndex]}
         </Grid>,
       );
     }

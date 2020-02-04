@@ -1,7 +1,6 @@
 import EventCardsQuery from '../components/event-cards-query';
 import Grid from '@material-ui/core/Grid';
 import LandingDescription from '../components/landing-description';
-// import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {withStyles} from '@material-ui/core/styles';
 
