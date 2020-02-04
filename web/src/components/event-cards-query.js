@@ -10,18 +10,13 @@ class EventCardsQuery extends Component {
      * @param {int} pageSize: Number of event card that bring from server once
      * @param {Array<int>} selectedTagIds: Array of selected tag id
      * @param {boolean} isRecommended: whether recommend or not (current not use)
-     * @param {int} after: Endpoint Index of Event Cards
      * @param {function()} onCreate: HandlerCurrentCursor function of parent
      * */
     super(props);
-    this.state = {
-      currentCursor: 0
-    }
+    this.currentCursor = 0
   }
 
   // Query for bringing event sending to server
-  // TODO(Lhyejin): Use Information that currently don't use,
-  //  After server complete
   EVENT_REQUEST_QUERY = gql`    
     query ($pageSize: Int, $after: Int, $eventFilter: EventFilter){
       events (pageSize: $pageSize, after: $after, eventFilter: $eventFilter){
@@ -31,12 +26,15 @@ class EventCardsQuery extends Component {
               title,
               description,
               host{
+                  id
                   profileImgUrl
               },
               thumbnailUrl,
               schedule{
                   startDateTime
                   address
+                  latitude
+                  longitude
               }
           }
       }
@@ -47,22 +45,47 @@ class EventCardsQuery extends Component {
     return (
       <Query query={this.EVENT_REQUEST_QUERY}
             variables={{pageSize: this.props.pageSize,
-                        after: this.props.after,
                         eventFilter: {recommendation: this.props.isRecommended,
                                       tagIds: this.props.selectedTagIds}
                         }}
-            onCompleted={data => {
-              // TODO(Lhyejin): Handle Undefined Error
-              if (data === undefined) return;
-              this.props.onCreate(/* cursor= */ data.events.cursor)}
+            onCompleted={(data) => {
+              this.currentCursor = data.events.cursor;
+              }
             }>
-      {({loading, error, data}) => {
+      {({loading, error, data, fetchMore}) => {
         if (loading) return "Loading...";
         if (error) return `Error! ${error.message}`;
         return(
-            <div>
-              <EventCards events={data.events.events} />
-            </div>
+          <EventCards
+            events={data.events.events || []}
+            onLoadMore={() => {
+              fetchMore({
+                variables: {
+                  after: this.currentCursor,
+                  eventFilter: {
+                    recommendation: this.props.isRecommended,
+                    tagIds: this.props.selectedTagIds
+                  }
+                },
+                updateQuery: (prev, {fetchMoreResult}) => {
+                  this.currentCursor = fetchMoreResult.events.cursor;
+                  if (!fetchMoreResult)
+                    return prev;
+                  return {
+                    events: {
+                      cursor: this.currentCursor,
+                      // Put the new comments in the front of the list
+                      events: [
+                        ...prev.events.events,
+                        ...fetchMoreResult.events.events
+                      ],
+                      __typename: prev.events.__typename
+                    }
+                  }
+                }
+              })
+            }}
+          />
         )
       }}
       </Query>

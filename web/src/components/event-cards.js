@@ -11,7 +11,6 @@ import {
   withStyles,
   ThemeProvider,
 } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 
@@ -92,6 +91,26 @@ class EventCards extends Component {
     super(props);
   }
 
+  // Set Scroll Event Listener
+  componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll);
+  }
+
+  // Remove Scroll Event Listener
+  componentWillUnmount() {
+    window.removeEventListener("scroll",this.handleScroll);
+  }
+
+  // Scroll Event Handler
+  handleScroll = (e) => {
+    if (
+      window.scrollY + e.target.scrollingElement.clientHeight >=
+      e.target.scrollingElement.scrollHeight
+    ) {
+      this.props.onLoadMore();
+    }
+  };
+
   // Redirect to event detail page, When each card is clicked
   CardClicked = (eventId) => {
     return this.props.history.push({
@@ -104,17 +123,13 @@ class EventCards extends Component {
   render() {
     const {classes} = this.props;
     const cards = [];
-
     for (let cardIndex = 0; cardIndex < this.props.events.length; cardIndex++) {
-      if (cardIndex % 3 === 0) {
-        cards.push([]);
-      }
       // Push each card component in cards
-      cards[cards.length - 1].push(
-        <Grid item xs={12} sm={6} md={4}>
+      cards.push(
+        <Grid item xs={12} sm={6} md={4} key={this.props.events[cardIndex].id}>
           <Card className={classes.card}
-                key={this.props.events[cardIndex].id}
                 value={this.props.events[cardIndex].id}
+                key={this.props.events[cardIndex].id}
                 onClick={
                   () => this.CardClicked(this.props.events[cardIndex].id)}>
             {/* Image section of Card */}
@@ -143,20 +158,12 @@ class EventCards extends Component {
       );
     }
 
-    // Push the cards list in decks
-    const decks = [];
-    for (let cardIndex = 0; cardIndex < cards.length; ++cardIndex) {
-      decks.push(
-        <Grid container xs={12} justify='space-around'
-              className={classes.cards}>
-          {cards[cardIndex]}
-        </Grid>,
-      );
-    }
-
     return (
       <ThemeProvider theme={theme}>
-        {decks}
+        <Grid container justify='space-around'
+              className={classes.cards}>
+          {cards}
+        </Grid>,
       </ThemeProvider>);
   }
 }

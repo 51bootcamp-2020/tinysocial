@@ -16,9 +16,10 @@ const tagButtonStyle = {
   },
   buttonShape: {
     borderRadius: '30px',
+    width: '60%',
     border: 'solid 1px rgba(0, 0, 0, 0.12)',
-    margin: '2%',
-    padding: '0 3% 0 3%'
+    margin: '1.5%',
+    padding: '0 2% 0 2%'
   },
   buttonText: {
     padding: '1% 5% 1% 5%',
@@ -31,11 +32,12 @@ const theme = createMuiTheme({
     MuiToggleButton: {
       label: {
         fontFamily: 'LibreFranklin',
-        fontSize: '14px',
+        fontSize: '100%',
         fontWeight: 'normal',
         fontStretch: 'normal',
         fontStyle: 'normal',
         lineHeight: 1.43,
+        padding: '3%',
         letterSpacing: '0.25px',
         textAlign: 'center',
         color: 'rgba(0, 0, 0, 0.87)'
@@ -92,7 +94,7 @@ class EventlistFilters extends Component {
                         onChange={this.HandlerTagButton}
                         className={classes.buttonShape}
                         value={tagIndex}
-                        label={this.props.filterNames[tagIndex].id}
+                        key={this.props.filterNames[tagIndex].id}
                         selected={this.state.filterClicked[tagIndex]}>
             {this.props.filterNames[tagIndex].name}
           </ToggleButton>
