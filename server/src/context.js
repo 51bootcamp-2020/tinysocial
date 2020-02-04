@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 if (!process.env.JWT_SECRET) {
-  console.error('Environment variable JWT_SECRET is not provide');
+  console.error('Environment variable JWT_SECRET is not provided');
   process.exit();
 }
 const JWT_SECRET = process.env.JWT_SECRET;
