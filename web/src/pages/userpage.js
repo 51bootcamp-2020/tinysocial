@@ -1,35 +1,40 @@
-import EventReviewCardList from '../components/userpage/event-review-card-list';
-import PropTypes from 'prop-types';
+import Cookie from 'js-cookie';
+import EventReviewCardListContainer
+  from '../containers/event-review-card-list-container';
 import React, {Component, Fragment} from 'react';
 import ReviewTabs from '../components/userpage/userpage-tabs';
-    
+import {withRouter, Redirect} from 'react-router-dom';
+
 class UserPage extends Component {
   constructor(props) {
     super(props);
     this.onTabChange = this.onTabChange.bind(this);
     this.state = {
       currentTab: 'upcoming',
-    }
+    };
   }
 
   // Changes currentTab state to specific tabValue when called.
   onTabChange(tabValue) {
-    this.setState({ 
+    this.setState({
       currentTab: tabValue,
     });
   }
 
   render() {
+    if (!Cookie.get('token')) {
+      // Redirect to the signin page.
+      return <Redirect to="/signin" />;
+    }
+
     return (
       <Fragment>
-        <ReviewTabs currentTab={this.state.currentTab} 
+        <ReviewTabs currentTab={this.state.currentTab}
           onTabChange={this.onTabChange} />
-        <EventReviewCardList currentTab={this.state.currentTab} />
+        <EventReviewCardListContainer currentTab={this.state.currentTab} />
       </Fragment>
     );
   }
 }
 
-UserPage.propTypes = {};
-
-export default UserPage;
+export default withRouter(UserPage);

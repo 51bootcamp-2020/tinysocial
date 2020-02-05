@@ -13,6 +13,7 @@ import NavBar from './components/navigation/navbar';
 import Payment from './pages/payment';
 import React, {Fragment} from 'react';
 import SignInUp from './pages/signInUp';
+import UserPage from './pages/userpage';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path='/eventlist' render={() => <EventList/>}/>
           <Route path='/payment' render={() => <Payment/>}/>
           <Route path='/signin' render={() => <SignInUp/>}/>
+          <Route path='/userpage' render={() => <UserPage/>}/>
           <Route path='/' render={() => <Landing/>}/>
           <Route path='/error' render={() => <Error/>}/>
         </Switch>
