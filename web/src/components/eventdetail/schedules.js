@@ -30,7 +30,7 @@ class Schedules extends Component {
 
 Schedules.propTypes = {
   children: PropTypes.element.isRequired,
-  moreButtonClicked: PropTypes.bool,
+  moreButton: PropTypes.bool,
 };
 
 export default Schedules;
