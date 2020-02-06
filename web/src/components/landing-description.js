@@ -77,7 +77,7 @@ function SubLandingDescription() {
             elit, sed do elusmo
           </Typography>
         </Grid>
-        <Grid Item xs='auto' sm={3}>
+        <Grid item xs='auto' sm={3}>
           <img src={benefit[1]} className={subDescriptionStyles.img} />
           <Typography variant="h6" gutterBottom>
             Read with like-minded friends

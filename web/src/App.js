@@ -5,6 +5,8 @@ import {
   Switch,
 } from 'react-router-dom';
 import Emailvalidation from './pages/emailvalidation';
+import Error from './pages/error';
+import Eventdetail from './pages/eventdetail';
 import EventList from './pages/eventlist';
 import Landing from './pages/landing';
 import NavBar from './components/navigation/navbar';
@@ -18,7 +20,9 @@ function App() {
       <NavBar/>
       <Switch>
         <Route path='/about' render={() => <About/>}/>
-        <Route path="/emailvalidation" render={() => <Emailvalidation/>}/>
+        <Route path='/emailvalidation' render={() => <Emailvalidation/>}/>
+        <Route path='/error' render={() => <Error/>}/>
+        <Route path='/eventdetail' render={() => <Eventdetail/>}/>
         <Route path='/eventlist' render={() => <EventList/>}/>
         <Route path='/signin' render={() => <SignInUp/>}/>
         <Route path='/userpage' render={() => <UserPage/>}/>

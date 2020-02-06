@@ -7,10 +7,10 @@ import React, {Component} from 'react';
 
 class EventList extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.currentCursor = 0;
-    this.eventListPageSize = 5;
+    this.eventListPageSize = 6;
     this.state = {
       isTagNames: false,
       allTags: [],
@@ -28,14 +28,6 @@ class EventList extends Component {
           }
       }
     }`;
-
-  /**
-   * Set cursor received from EventCardsQuery Component to currentCursor state
-   * @param cursor {int} : Endpoint of current viewed EventCard
-   */
-  HandlerCurrentCursor = (cursor) => {
-    this.currentCursor = cursor;
-  };
 
   /**
    * Set selectedTagIds state using selectedTags parameter
@@ -83,10 +75,9 @@ class EventList extends Component {
                 </Grid>
                 <Grid item xs={12}>
                   <EventCardsQuery pageSize={this.eventListPageSize}
-                                   after={this.currentCursor}
                                    isRecommended={false}
                                    selectedTagIds={this.state.selectedTagIds}
-                                   onCreate={this.HandlerCurrentCursor} />
+                                   />
                 </Grid>
               </Grid>)
           }

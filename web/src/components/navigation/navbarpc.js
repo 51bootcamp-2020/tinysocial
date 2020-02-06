@@ -27,7 +27,7 @@ function NavBarPC(props) {
         </Grid>
         <Grid justify='flex-end'>
           <Grid container direction='row'>
-            <Link to='/eventlist'>
+            <Link to='eventlist'>
               <Typography variant='h6'
                 style={{
                   textTransform: 'none',

@@ -1,9 +1,11 @@
 module.exports.Event = {
-  __resolveType(event, context, info) {
-    if (!event.bookTitle) {
-      return null;
+  async __resolveType({id}, {dataSources}) {
+    const type = await dataSources.eventAPI.getAttributeOfEvent('type', id);
+    if (type === 0) {
+      return 'EventBookClub';
     }
-    // if you want test Event type Data, change null to 'EventBookClub'
-    return 'EventBookClub';
+    throw new Error(
+        'Data cannot be resolved to any Event type. Please contact to backend developers.',
+    );
   },
 };
