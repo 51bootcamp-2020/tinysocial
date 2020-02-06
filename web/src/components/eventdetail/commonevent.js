@@ -41,6 +41,9 @@ class CommonEvent extends Component {
               </Typography>
             </Grid>
             <Grid style={{marginBottom: 10}}>
+              <Typography variant='h6' style={{color: '#009688'}}>
+                Schedules
+              </Typography>
               <Schedules moreButton={this.state.displayMore}>
                 {this.props.children.schedule}
               </Schedules>
@@ -48,8 +51,14 @@ class CommonEvent extends Component {
                 <Link component='button'
                   variant='body2'
                   onClick={handleVisibility}>
-                  {!this.state.displayMore ? <>More</> : <>Close</>}
+                  {!this.state.displayMore ? <>More Schedules</> : <>Close</>}
                 </Link> : null}
+              <Typography variant='h6' style={{color: '#009688'}}>
+                Location
+              </Typography>
+              <Typography variant='body2'>
+                {this.props.children.schedule[0].address}
+              </Typography>
             </Grid>
             <Grid style={{marginBottom: 10, marginTop: 10}}>
               <Tags event={this.props.children}>

@@ -50,15 +50,7 @@ class Bookclub extends Component {
               {this.props.children.bookDescription}
             </Typography>
           </Grid>
-          <Grid item direction='column'>
-            <Typography variant='h6' style={{color: '#009688'}}>
-              Location
-            </Typography>
-            {/* TODO(YoonYeoHwan): Have to fix UI. */}
-            <Typography variant='body2'>
-              {this.props.children.schedule[0].address}
-            </Typography>
-          </Grid>
+
         </Grid>
       </div>
     );
