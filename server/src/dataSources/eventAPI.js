@@ -8,7 +8,7 @@ const {
   scheduleIdIsNotPassedMessage,
   tagIdIsNotPassedMessage,
   notValidValueMessage,
-} = require('../errorMessages');
+} = require('../error-messages');
 const eventBookClubAttributes = [
   'eventId',
   'bookTitle',

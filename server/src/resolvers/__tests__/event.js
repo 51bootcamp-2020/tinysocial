@@ -1,5 +1,5 @@
 const {Event} = require('../../resolvers');
-const {mockContext} = require('../mockContext');
+const {mockContext} = require('../mock-context');
 
 const {getTypeOfEvent} = mockContext.dataSources.eventAPI;
 

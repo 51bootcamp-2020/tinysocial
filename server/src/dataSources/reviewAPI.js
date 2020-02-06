@@ -3,7 +3,7 @@ const {isUndefinedOrNull} = require('../utils');
 const {
   userIdAndEventIdIsNotPassedMessage,
   eventIdIsNotPassedMessage,
-} = require('../errorMessages');
+} = require('../error-messages');
 
 class ReviewAPI extends DataSource {
   constructor(store) {

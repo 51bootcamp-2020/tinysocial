@@ -13,7 +13,7 @@ const {
   notValidValueMessage,
   userNotFoundMessage,
   googleIdNotPassedMessage,
-} = require('../../errorMessages');
+} = require('../../error-messages');
 
 const authAPI = new AuthAPI(mockStore);
 authAPI.initialize({context: {user: {id: 1}}});

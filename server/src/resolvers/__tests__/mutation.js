@@ -1,5 +1,5 @@
 const {Mutation} = require('../../resolvers');
-const {mockContext} = require('../mockContext');
+const {mockContext} = require('../mock-context');
 
 const {
   signInWithGoogle,

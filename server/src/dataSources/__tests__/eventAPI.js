@@ -6,7 +6,7 @@ const {
   userIdIsNotPassedMessage,
   tagIdIsNotPassedMessage,
   notValidValueMessage,
-} = require('../../errorMessages');
+} = require('../../error-messages');
 
 const eventAPI = new EventAPI(mockStore);
 eventAPI.initialize({context: {user: {id: 1}}});

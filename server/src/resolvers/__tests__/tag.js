@@ -1,5 +1,5 @@
 const {Tag} = require('../../resolvers');
-const {mockContext} = require('../mockContext');
+const {mockContext} = require('../mock-context');
 
 const {getAttributeOfTag} = mockContext.dataSources.tagAPI;
 const {getEventIdsOfTag} = mockContext.dataSources.eventAPI;

@@ -1,5 +1,5 @@
 const {EventConnection} = require('../../resolvers');
-const {mockContext} = require('../mockContext');
+const {mockContext} = require('../mock-context');
 
 describe('[EventConnectionResolver]', () => {
   test('returns events', async () => {

@@ -1,5 +1,5 @@
 const {TagConnection} = require('../../resolvers');
-const {mockContext} = require('../mockContext');
+const {mockContext} = require('../mock-context');
 
 describe('[TagConnectionResolver]', () => {
   test('returns tags', async () => {

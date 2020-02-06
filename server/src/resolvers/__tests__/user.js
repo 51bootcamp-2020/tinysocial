@@ -1,5 +1,5 @@
 const {User} = require('../../resolvers');
-const {mockContext} = require('../mockContext');
+const {mockContext} = require('../mock-context');
 
 const {getAttributeOfUser, getAgeOfUser} = mockContext.dataSources.userAPI;
 const {

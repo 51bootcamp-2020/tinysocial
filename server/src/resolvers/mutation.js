@@ -1,4 +1,4 @@
-const {notLoggedInMessage, notImplementMessage} = require('../errorMessages');
+const {notLoggedInMessage, notImplementMessage} = require('../error-messages');
 module.exports.Mutation = {
   signInWithGoogle: async (_, {googleId}, {dataSources}) => {
     return dataSources.authAPI.signInWithGoogle({googleId});

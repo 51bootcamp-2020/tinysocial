@@ -1,5 +1,5 @@
 const {EventSchedule} = require('../../resolvers');
-const {mockContext} = require('../mockContext');
+const {mockContext} = require('../mock-context');
 
 const {getAttributeOfSchedule} = mockContext.dataSources.eventAPI;
 

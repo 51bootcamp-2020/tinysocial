@@ -1,11 +1,11 @@
 const {DataSource} = require('apollo-datasource');
 const APP_SECRET = process.env.JWT_SECRET;
 const {cannotCreateUserMessage, userNotFoundMessage} = require(
-    '../errorMessages');
+    '../error-messages');
 const expirationTime = '100h';
 const jwt = require('jsonwebtoken');
 const sha256 = require('sha256');
-const {checkPasswordMessage} = require('../errorMessages');
+const {checkPasswordMessage} = require('../error-messages');
 const sendmail = require('sendmail')();
 
 const EMAIL_FROM = 'no-reply@tinsocial.com';

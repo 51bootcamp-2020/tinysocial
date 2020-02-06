@@ -4,7 +4,7 @@ const {isUndefinedOrNull} = require('../utils');
 const {
   eventIdIsNotPassedMessage,
   tagIdIsNotPassedMessage,
-} = require('../errorMessages');
+} = require('../error-messages');
 
 class TagAPI extends DataSource {
   constructor(store) {

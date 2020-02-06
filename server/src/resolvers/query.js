@@ -1,4 +1,4 @@
-const {notLoggedInMessage} = require('../errorMessages');
+const {notLoggedInMessage} = require('../error-messages');
 module.exports.Query = {
   // TODO(lsh9034): fix eventSort
   events: async (

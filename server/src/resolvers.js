@@ -4,13 +4,13 @@ const {Query} = require('./resolvers/query');
 const {Mutation} = require('./resolvers/mutation');
 const {User} = require('./resolvers/user');
 const {Event} = require('./resolvers/event');
-const {EventBookClub} = require('./resolvers/eventBookClub');
+const {EventBookClub} = require('./resolvers/event-book-club');
 const {Tag} = require('./resolvers/tag');
-const {AuthResponse} = require('./resolvers/authResponse');
+const {AuthResponse} = require('./resolvers/auth-response');
 const {Review} = require('./resolvers/review');
-const {EventSchedule} = require('./resolvers/eventSchedule');
-const {TagConnection} = require('./resolvers/tagConnection');
-const {EventConnection} = require('./resolvers/eventConnection');
+const {EventSchedule} = require('./resolvers/event-schedule');
+const {TagConnection} = require('./resolvers/tag-connection');
+const {EventConnection} = require('./resolvers/event-connection');
 
 // Why should you write field-level resolvers fetching data manually instead of
 // default resolvers? Look at this references.
