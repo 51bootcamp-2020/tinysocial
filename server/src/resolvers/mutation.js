@@ -38,7 +38,27 @@ module.exports.Mutation = {
     if (price === null) {
       return false;
     }
-
     return dataSources.joinEventAPI.validateJoin({orderId, eventId, userId, price});
   },
+  createEvent: async (
+    _,
+    {event, eventBookClub},
+    {dataSources, hostId}) => {
+      const {title, description, price, type, thumbnailUrl} = event; 
+      const flag = dataSources.eventAPI.createEvent({
+        title,
+        description,
+        price,
+        type,
+        // TODO(SeongJaeSong): Implement image upload feature
+        thumbnailUrl,
+        maxParticipantNum,
+        hostId,
+      })
+      // TODO(SeongJaeSong): Add createSchedule API
+      if (eventBookClub) {
+        const {bookTitle, bookAuthor, bookDescription, bookISBN} = eventBookClub;
+      }
+      return flag;
+    },
 };
