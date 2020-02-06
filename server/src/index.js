@@ -1,52 +1,58 @@
+'use strict';
 require('dotenv').config();
-const {ApolloServer} = require('apollo-server');
+let ApolloServer;
+if (process.env.NODE_ENV === 'production') {
+  ApolloServer = require('apollo-server-lambda').ApolloServer;
+} else {
+  ApolloServer = require('apollo-server').ApolloServer;
+}
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
 
-const {MainAPI} = require('./utils');
-const {createStore} = require('./database');
-const jwt = require('jsonwebtoken');
+const {EventAPI} = require('./dataSources/eventAPI');
+const {ReviewAPI} = require('./dataSources/reviewAPI');
+const {AuthAPI} = require('./dataSources/authAPI');
+const {TagAPI} = require('./dataSources/tagAPI');
+const {UserAPI} = require('./dataSources/userAPI');
 
 if (process.env.NODE_ENV === undefined) {
-  console.error('You have to make .env file to run the server.\n' +
-    'Look at this(https://github.com/motdotla/dotenv) for more information.');
-  console.error('If you made .env file but you are seeing this error,' +
-    'make sure you are running Node in the src folder');
+  console.error('You have to make .env file at the server folder' +
+    'to run the server.\n' +
+    'Look at this(https://github.com/motdotla/dotenv) for more information.\n' +
+    'If you made .env file but you are seeing this error,' +
+    'make sure you are running Node in the server folder');
   process.exit();
 }
 
+const {createStore} = require('./database');
+const context = require('./context');
+
 const store = createStore();
-
-const dataSources = () => ({
-  mainAPI: new MainAPI(store),
-});
-
-const APP_SECRET = process.env.SECRET || 'default';
-
-const context = async ({req}) => {
-  if (!req.headers.authorization) {
-    return {
-    userId: null};
-  }
-  try {
-    const token = req.headers.authorization;
-    const userId = jwt.verify(token, APP_SECRET);
-    const id = userId.id;
-    return {userId: id};
-  } catch (e) {
-    return {
-      userId: null};
-  }
-};
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  dataSources,
-  context: context,
+  dataSources: () => ({
+    eventAPI: new EventAPI(store),
+    reviewAPI: new ReviewAPI(store),
+    tagAPI: new TagAPI(store),
+    userAPI: new UserAPI(store),
+    authAPI: new AuthAPI(store),
+  }),
+  context,
+  tracing: true,
 });
 
-
-if (process.env.NODE_ENV !== 'test') {
-  server.listen({port: 15780}).
-      then(({url}) => console.log(`Server running at at ${url}`));
+switch (process.env.NODE_ENV) {
+  case 'production':
+    module.exports.graphqlHandler = server.createHandler({
+      cors: {
+        origin: true,
+        credentials: true,
+      },
+    });
+    break;
+  case 'dev':
+    server.listen({port: 15780}).
+        then(({url}) => console.log(`Server running at at ${url}`));
+    break;
 }

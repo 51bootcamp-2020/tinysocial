@@ -4,30 +4,31 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
+import Emailvalidation from './pages/emailvalidation';
+import Error from './pages/error';
+import Eventdetail from './pages/eventdetail';
 import EventList from './pages/eventlist';
 import Landing from './pages/landing';
 import NavBar from './components/navigation/navbar';
-import React, {Fragment} from 'react';
+import React from 'react';
 import SignInUp from './pages/signInUp';
-import Emailvalidation from './pages/emailvalidation';
+import UserPage from './pages/userpage';
 
 function App() {
-  {/* TODO(Myoung-heeSeo) : Add a state to check if the user is logged in now. */}
   return (
-    <Fragment>
+    <Router>
       <NavBar/>
-      <Router>
-        <Switch>
-          <Route path='/signin' render={() => <SignInUp/>}/>
-          <Route path='/eventlist' render={() => <EventList/>}/>
-          <Route path='/about' render={() => <About/>}/>
-          <Route path='/' render={() => <Landing/>}/>
-          <Route path="/emailvalidation">
-            <Emailvalidation/>
-          </Route>
-        </Switch>
-      </Router>
-    </Fragment>
+      <Switch>
+        <Route path='/about' render={() => <About/>}/>
+        <Route path='/emailvalidation' render={() => <Emailvalidation/>}/>
+        <Route path='/error' render={() => <Error/>}/>
+        <Route path='/eventdetail' render={() => <Eventdetail/>}/>
+        <Route path='/eventlist' render={() => <EventList/>}/>
+        <Route path='/signin' render={() => <SignInUp/>}/>
+        <Route path='/userpage' render={() => <UserPage/>}/>
+        <Route path='/' render={() => <Landing/>}/>
+      </Switch>
+    </Router>
   );
 }
 

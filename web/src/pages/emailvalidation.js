@@ -19,13 +19,11 @@ const EMAIL_VALIDATE_QUERY = gql`
     }
   }`;
 
-// eslint-disable-next-line require-jsdoc
 class EmailValidation extends Component {
   constructor(props) {
     super(props);
 
     const token = queryString.parse(this.props.location.search, {ignoreQueryPrefix: true}).token;
-    console.log('token:', token);
 
     this.state = {
       token: token,
@@ -33,12 +31,10 @@ class EmailValidation extends Component {
     };
   }
 
-  // eslint-disable-next-line require-jsdoc
   verifyEmail() {
     return (<Mutation mutation={EMAIL_VALIDATE_QUERY}
       variables={{token: this.state.token}}
       onCompleted={(data) => {
-        console.log('completed:', data);
         this.setState({
           verifyResult: data.emailValidate.success,
         });
@@ -49,7 +45,6 @@ class EmailValidation extends Component {
       }>
       {(mutate, { data, called }) => {
         if (!called) {
-          console.log('sent');
           mutate();
         }
 

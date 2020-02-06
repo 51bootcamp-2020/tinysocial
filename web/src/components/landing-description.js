@@ -23,7 +23,6 @@ const MainDescriptionStyles = makeStyles(theme => ({
     height: 400,
     justifyContent: 'center',
     textAlign: 'center',
-    width: '100%'
   },
 }));
 
@@ -31,9 +30,7 @@ const MainDescriptionStyles = makeStyles(theme => ({
 const SubDescriptionStyles = makeStyles(theme => ({
   root: {
     marginTop: 100,
-    marginBottom: 50,
-    marginLeft: 20,
-    marginRight: 20
+    marginBottom: 50
   },
   img: {
     width: 100,
@@ -80,7 +77,7 @@ function SubLandingDescription() {
             elit, sed do elusmo
           </Typography>
         </Grid>
-        <Grid Item xs='auto' sm={3}>
+        <Grid item xs='auto' sm={3}>
           <img src={benefit[1]} className={subDescriptionStyles.img} />
           <Typography variant="h6" gutterBottom>
             Read with like-minded friends
