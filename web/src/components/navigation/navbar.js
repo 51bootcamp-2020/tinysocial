@@ -21,9 +21,10 @@ function Navbar(props) {
     return (
       <Query query={ME_QUERY}>
         {({loading, error, data}) => {
-          if (loading || error) return <NavBarPC/>;
+          if (loading) return <NavBarPC error={true}/>;
+          if (error) return <NavBarPC error={true}/>;
           return (
-            <NavBarPC profilepic={data.me.profileImgUrl}/>
+            <NavBarPC profilepic={data.me.profileImgUrl} error={false}/>
           );
         }}
       </Query>
@@ -32,9 +33,10 @@ function Navbar(props) {
   return (
     <Query query={ME_QUERY}>
       {({loading, error, data}) => {
-        if (loading || error) return <NavBarMobile/>;
+        if (loading) return <NavBarMobile error={true}/>;
+        if (error) return <NavBarMobile error={true}/>;
         return (
-          <NavBarMobile profilepic={data.me.profileImgUrl}/>
+          <NavBarMobile profilepic={data.me.profileImgUrl} error={false}/>
         );
       }}
     </Query>

@@ -20,12 +20,12 @@ function App() {
     <Router>
       <Switch>
         <Route path='/about' render={() => <div><NavBar/><About/></div>}/>
-        <Route path="/emailvalidation" render={() => <div><NavBar/><Emailvalidation/></div>}/>          
+        <Route path="/emailvalidation" render={() => <div><NavBar/><Emailvalidation/></div>}/>
         <Route path='/error' render={() => <div><NavBar/><Error/></div>}/>
         <Route path='/eventdetail' render={() => <div><NavBar/><Eventdetail/></div>}/>
-        <Route path='/eventlist' render={() => <div><NavBar/><EventList/></div>}/>         
+        <Route path='/eventlist' render={() => <div><NavBar/><EventList/></div>}/>
         <Route path='/signin' render={() => <div><NavBar/><SignInUp/></div>}/>
-        <Route path='/signout' render={() => <div><NavBar/><SignOut/></div>}/>  
+        <Route path='/signout' render={() => <div><NavBar/><SignOut/></div>}/>
         <Route path='/userpage' render={() => <div><NavBar/><UserPage/></div>}/>
         <Route path='/' render={() => <div><NavBar/><Landing/></div>}/>
       </Switch>

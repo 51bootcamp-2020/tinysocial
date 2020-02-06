@@ -14,18 +14,21 @@ class SignupFormGoogle extends Component {
       firstName: '',
       lastName: '',
       email: '',
+      profileImgUrl: '',
       // TODO(Myoung-heeSeo) : this will be used when facebook login is added.
       provider: '',
     };
   }
 
   responseGoogle = res => {
+    console.log(res);
     // Handle google log-in success.
     this.setState({
       id: res.profileObj.googleId,
       firstName: res.profileObj.givenName,
       lastName: res.profileObj.familyName,
       email: res.profileObj.email,
+      profileImgUrl: res.profileObj.imageUrl,
       provider: res.tokenObj.idpId,
     });
   };
@@ -72,6 +75,7 @@ class SignupFormGoogle extends Component {
                 email: this.state.email,
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,
+                profileImgUrl: this.state.profileImgUrl,
               }}
               onCompleted={(data) => {
                 const {success, message, token} = data.signUpWithGoogle;
@@ -87,7 +91,6 @@ class SignupFormGoogle extends Component {
           >
             {(mutate, {data, called}) => {
               if (!called && this.state.id !== null) {
-                console.log('sent');
                 mutate();
               }
               return (<div></div>);

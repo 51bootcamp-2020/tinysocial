@@ -12,8 +12,8 @@ import Logo from '../../img/tinysocial-logo.png';
 import React from 'react';
 
 function NavBarPC(props) {
-  const loggedIn = Cookie.get('token') ? true : false;
-  const {profilepic} = props;
+  const {profilepic, error} = props;
+  const loggedIn = !error && Cookie.get('token') ? true : false;
 
   return (
     <AppBar position='static' color='default'>
@@ -76,8 +76,8 @@ function NavBarPC(props) {
               )
             }
             {loggedIn &&
-              <Link to='/userpage' style={{paddingRight: '20px'}}>
-                <Avatar alt='seulgi' src={profilepic}/>
+              <Link to='/userpage' style={{height: '100%', paddingRight: '20px'}}>
+                <Avatar alt='seulgi' src={profilepic} style={{height:'30px', width:'30px'}}/>
               </Link>
             }
           </Grid>
