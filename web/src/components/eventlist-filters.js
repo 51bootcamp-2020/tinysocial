@@ -22,7 +22,10 @@ const tagButtonStyle = {
     width: '60%',
     border: 'solid 1px rgba(0, 0, 0, 0.12)',
     margin: '1.5%',
-    padding: '0 2% 0 2%'
+    padding: '0 2% 0 2%',
+    '&:disabled': {
+      backgroundColor: 'rgba(0, 0, 0, 0.2)'
+    }
   },
   buttonText: {
     padding: '1% 5% 1% 5%',
@@ -46,6 +49,7 @@ class EventlistFilters extends Component {
      * @param onCreate {function()}: HandlerTagName function of parent
      */
     super(props);
+
 
     // Save the arrays of filter toggle(selected or not) in state.
     const filterClicked = [];
@@ -81,7 +85,22 @@ class EventlistFilters extends Component {
     const { classes } = this.props;
     const tagButtonArray = [];
     for(let tagIndex = 0; tagIndex < this.props.filterNames.length; ++tagIndex){
-      tagButtonArray.push(
+      if(this.props.filterNames[tagIndex].events.length === 0){
+        tagButtonArray.push(
+          <ToggleButton variant='outlined'
+                        onChange={this.HandlerTagButton}
+                        className={classes.buttonShape}
+                        value={tagIndex}
+                        key={this.props.filterNames[tagIndex].id}
+                        selected={this.state.filterClicked[tagIndex]}
+                        disabled disableRipple disableFocusRipple>
+            <Typography className={classes.buttonText}>
+              {this.props.filterNames[tagIndex].name}
+            </Typography>
+          </ToggleButton>)
+      }
+      else {
+        tagButtonArray.push(
           <ToggleButton variant='outlined'
                         onChange={this.HandlerTagButton}
                         className={classes.buttonShape}
@@ -92,7 +111,8 @@ class EventlistFilters extends Component {
               {this.props.filterNames[tagIndex].name}
             </Typography>
           </ToggleButton>
-      )
+        )
+      }
     }
     return tagButtonArray;
   };

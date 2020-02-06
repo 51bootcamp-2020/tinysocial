@@ -31,6 +31,7 @@ class EventCardsQuery extends Component {
               },
               thumbnailUrl,
               schedule{
+                  id
                   startDateTime
                   address
                   latitude
