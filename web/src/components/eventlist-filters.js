@@ -1,7 +1,10 @@
-import {createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core';
+import {
+  Typography,
+  withStyles
+} from '@material-ui/core';
 import {
   ToggleButton,
-  ToggleButtonGroup
+  ToggleButtonGroup,
 } from '@material-ui/lab';
 import React, {Component} from 'react';
 
@@ -23,28 +26,17 @@ const tagButtonStyle = {
   },
   buttonText: {
     padding: '1% 5% 1% 5%',
+    fontFamily: 'LibreFranklin',
+    fontSize: '100%',
+    fontWeight: 'normal',
+    fontStretch: 'normal',
+    fontStyle: 'normal',
+    lineHeight: 1.43,
+    letterSpacing: '0.25px',
+    textAlign: 'center',
+    color: 'rgba(0, 0, 0, 0.87)'
   }
 };
-
-// Override Toggle style
-const theme = createMuiTheme({
-  overrides: {
-    MuiToggleButton: {
-      label: {
-        fontFamily: 'LibreFranklin',
-        fontSize: '100%',
-        fontWeight: 'normal',
-        fontStretch: 'normal',
-        fontStyle: 'normal',
-        lineHeight: 1.43,
-        padding: '3%',
-        letterSpacing: '0.25px',
-        textAlign: 'center',
-        color: 'rgba(0, 0, 0, 0.87)'
-      }
-    }
-  }
-});
 
 class EventlistFilters extends Component {
   constructor(props) {
@@ -96,7 +88,9 @@ class EventlistFilters extends Component {
                         value={tagIndex}
                         key={this.props.filterNames[tagIndex].id}
                         selected={this.state.filterClicked[tagIndex]}>
-            {this.props.filterNames[tagIndex].name}
+            <Typography className={classes.buttonText}>
+              {this.props.filterNames[tagIndex].name}
+            </Typography>
           </ToggleButton>
       )
     }
@@ -107,13 +101,11 @@ class EventlistFilters extends Component {
   render() {
     const { classes } = this.props;
     return (
-        <ThemeProvider theme={theme}>
           <ToggleButtonGroup size='large'
                              value={this.state.filterClicked}
                              className={classes.buttonGroup}>
             <this.ViewTagButtons />
           </ToggleButtonGroup>
-        </ThemeProvider>
     );
   }
 }

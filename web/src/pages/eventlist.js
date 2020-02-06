@@ -25,6 +25,9 @@ class EventList extends Component {
           tags{
             id
             name
+            events{
+                id
+            }
           }
       }
     }`;
