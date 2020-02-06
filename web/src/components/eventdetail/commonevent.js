@@ -48,7 +48,7 @@ class CommonEvent extends Component {
                 <Link component='button'
                   variant='body2'
                   onClick={handleVisibility}>
-                  More
+                  {!this.state.displayMore ? <>More</> : <>Close</>}
                 </Link> : null}
             </Grid>
             <Grid style={{marginBottom: 10, marginTop: 10}}>

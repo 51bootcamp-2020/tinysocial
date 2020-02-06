@@ -3,6 +3,7 @@ import {
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
+import Datetime from '../dateTime';
 
 class Schedules extends Component {
   constructor(props) {
@@ -16,12 +17,8 @@ class Schedules extends Component {
       scheduleLength = this.props.children.length;
     }
     for (let i = 0; i < scheduleLength; i++) {
-      const date = new Date(this.props.children[i].startDateTime);
-      const month = date.toLocaleString('default', {month: 'long'});
       scheduleList.push(
-          <Typography variant='body2' style={{marginBottom: 5}}>
-            {month} {date.getDate()}, {date.getFullYear()}
-          </Typography>,
+          <Datetime>{this.props.children[i]}</Datetime>,
       );
     }
     return <>{scheduleList}</>;
