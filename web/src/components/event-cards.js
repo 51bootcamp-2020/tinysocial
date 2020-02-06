@@ -125,12 +125,29 @@ class EventCards extends Component {
     });
   };
 
+  // Check Schedule Date of each Event
+  FilterSchedule = (cardIndex) => {
+    const nowDate = new Date();
+    let scheduleDate = null;
+    for(let scheduleIndex = 0;
+      scheduleIndex < this.props.events[cardIndex].schedule.length;
+      ++scheduleIndex){
+      scheduleDate = new Date(this.props.events[cardIndex].
+        schedule[scheduleIndex].startDateTime);
+      if(scheduleDate > nowDate){
+        return scheduleDate.getDate();
+      }
+    }
+    return 'Ended'
+  };
+
   // Event Cards Component
   Cards = () => {
     const {classes} = this.props;
     const cards = [];
-    for (let cardIndex = 0; cardIndex < this.props.events.length; cardIndex++) {
+    for (let cardIndex = 0; cardIndex < this.props.events.length; cardIndex++){
       // Push each card component in cards
+      let scheduleText = this.FilterSchedule(cardIndex);
       cards.push(
         <Grid item xs={12} sm={6} md={4} key={this.props.events[cardIndex].id}>
           <Card className={classes.card}
@@ -151,8 +168,7 @@ class EventCards extends Component {
                         subheader={
                           <div className={classes.subTitleText}>
                             <Typography className={classes.subTitleText}>
-                              {this.props.events[cardIndex].
-                                schedule[0].startDateTime.slice(0, 10)}
+                              {scheduleText}
                             </Typography>
                             <Typography className={classes.subTitleText}>
                               {this.props.events[cardIndex].schedule[0].address.slice(0, 10)}

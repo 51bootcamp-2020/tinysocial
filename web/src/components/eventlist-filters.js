@@ -79,6 +79,7 @@ class EventlistFilters extends Component {
 
   /**
    * Create tag button list
+   * Check each tag that there is no event
    * @return {Array<ToggleButton>} tagButtonArray
    */
   ViewTagButtons = () => {
