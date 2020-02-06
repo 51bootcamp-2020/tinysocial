@@ -258,6 +258,32 @@ class EventAPI extends DataSource {
     });
     return upcomingEvents;
   }
+
+  async createEvent({eventInfo}){
+    let flag = await this.store.Event.create({
+      title: eventInfo.title,
+      description: eventInfo.description,
+      price: eventInfo.price,
+      type: eventInfo.type,
+      thumbnailUrl: eventInfo.thumbnailUrl,
+      maxParticipantNum: eventInfo.maxParticipantNum,
+      hostId: eventInfo.hostId,
+    });
+    if (!flag) {
+      return false;
+    }
+    flag = await this.store.EventBookClub.create({
+      bookTitle: eventInfo.bookTitle,
+      bookDescription: eventInfo.bookDescription,
+      bookAuthor: eventInfo.bookAuthor,
+      bookISBN: eventInfo.bookISBN,
+      bookImageUrl: eventInfo.bookImageUrl,
+    })
+    if (!flag) {
+      return false;
+    }
+    return true;
+  }
 }
 module.exports={
   EventAPI,
