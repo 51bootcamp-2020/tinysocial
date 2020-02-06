@@ -15,11 +15,11 @@ class Checkout extends Component {
     super(props);
 
     this.state = {
-      price: '0.01',
-      title: 'Brief summary of Human History',
-      imageUrl: './images/tmp_book.png',
-      eventId: 2,
-      userId: 4,
+      price: '',
+      title: '',
+      imageUrl: '',
+      eventId: null,
+      userId: null
     };
   }
 
@@ -32,10 +32,6 @@ class Checkout extends Component {
          description,
          thumbnailUrl,
          price
-         ... on EventBookClub {
-          bookImageUrl
-          bookTitle
-         }
       }
       
       me {
@@ -73,8 +69,8 @@ class Checkout extends Component {
                       price={data.event.price}
                       eventId={data.event.id}
                       eventName={data.event.title}
-                      imageUrl={data.event.bookImageUrl}
-                      bookTitle={data.event.bookTitle}/>
+                      imageUrl={data.event.thumbnailUrl}
+                      title={data.event.title}/>
 
                   <br/>
                   <Divider/>
