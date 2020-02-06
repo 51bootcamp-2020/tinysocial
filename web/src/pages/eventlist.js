@@ -33,6 +33,17 @@ class EventList extends Component {
     }`;
 
   /**
+   * Check Number of Event including each tag
+   * Change tag array alignment
+   */
+  ChangeTagArrayAlignment = () => {
+    const alignTags = this.state.allTags.filter(
+      (tag) => tag.events.length !== 0).concat(this.state.allTags.filter(
+      (tag) => tag.events.length === 0));
+    console.log(alignTags);
+  };
+
+  /**
    * Set selectedTagIds state using selectedTags parameter
    * @param {Array<boolean>} selectedTags: selected tag array
    */
@@ -41,8 +52,7 @@ class EventList extends Component {
     this.currentCursor = 0;
     const selectedTagIds = [];
     // Put selected tag id in selctedTagIds array
-    for(let tagIndex = 0; tagIndex < this.state.allTags.length; ++tagIndex)
-    {
+    for(let tagIndex = 0; tagIndex < this.state.allTags.length; ++tagIndex){
       if(selectedTags[tagIndex]){
         selectedTagIds.push(this.state.allTags[tagIndex].id);
       }
@@ -59,9 +69,12 @@ class EventList extends Component {
             !this.state.isTagNames
               ? (<Query query={this.TAGNAMES_REQUEST_QUERY}
                         onCompleted={data => {
+                          const alignTags = data.tagNames.tags.sort(function(a,b) {
+                            return b.events.length - a.events.length
+                          });
                           this.setState({
                             isTagNames: true,
-                            allTags: data.tagNames.tags
+                            allTags: alignTags
                           });
                         }}>
                 {({loading, error, data}) => {
@@ -71,18 +84,18 @@ class EventList extends Component {
                 }}
               </Query>)
               : (<Grid container justify="space-between"
-                       style={{padding: '2% 5% 0 5%'}}>
-                <Grid item xs md xl>
-                  <EventlistFilters filterNames={this.state.allTags}
-                                    onCreate={this.HandlerTagName} />
-                </Grid>
-                <Grid item xs={12}>
-                  <EventCardsQuery pageSize={this.eventListPageSize}
-                                   isRecommended={false}
-                                   selectedTagIds={this.state.selectedTagIds}
-                                   />
-                </Grid>
-              </Grid>)
+                         style={{padding: '2% 5% 0 5%'}}>
+                    <Grid item xs md xl>
+                      <EventlistFilters filterNames={this.state.allTags}
+                                        onCreate={this.HandlerTagName} />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <EventCardsQuery pageSize={this.eventListPageSize}
+                                       isRecommended={false}
+                                       selectedTagIds={this.state.selectedTagIds}
+                                       />
+                    </Grid>
+                  </Grid>)
           }
         </div>
     );
