@@ -210,4 +210,4 @@ config.js
 .env.production.local
 
 database.sqlite
-/server/db/
+server/db/
