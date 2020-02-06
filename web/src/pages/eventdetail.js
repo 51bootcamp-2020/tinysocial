@@ -72,31 +72,31 @@ class EventDetail extends Component{
         if (error) return <Error/>;
         if (data) {
           return (
-              <Grid container>
-                <Grid item sm={8} xs={12}>
-                  <EventThumbNail>
-                    {data.event}
-                  </EventThumbNail>
-                </Grid>
-                <Grid item sm={4} xs={12}>
-                  <CommonEvent>
-                    {data.event}
-                  </CommonEvent>
-                </Grid>
-                <Grid item sm={8} xs={12}>
-                  <BookClub>
-                    {data.event}
-                  </BookClub>
-                </Grid>
-                <Hidden smUp>
-                  <Grid item xs={12}>
-                    <Divider/>
-                    <Ticket>
-                      {data.event}
-                    </Ticket>
-                  </Grid>
-                </Hidden>
+            <Grid container>
+              <Grid item sm={8} xs={12}>
+                <EventThumbNail>
+                  {data.event}
+                </EventThumbNail>
               </Grid>
+              <Grid item sm={4} xs={12}>
+                <CommonEvent>
+                  {data.event}
+                </CommonEvent>
+              </Grid>
+              <Grid item sm={8} xs={12}>
+                <BookClub>
+                  {data.event}
+                </BookClub>
+              </Grid>
+              <Hidden smUp>
+                <Grid item xs={12}>
+                  <Divider/>
+                  <Ticket>
+                    {data.event}
+                  </Ticket>
+                </Grid>
+              </Hidden>
+            </Grid>
           );
         } else return <Error/>
       }}
@@ -105,9 +105,9 @@ class EventDetail extends Component{
 
   render() {
     return (
-        <>
-          {this.Event()}
-        </>
+      <>
+        {this.Event()}
+      </>
     );
   }
 }
