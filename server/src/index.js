@@ -1,10 +1,13 @@
 'use strict';
 require('dotenv').config();
 let ApolloServer;
+let app;
 if (process.env.NODE_ENV === 'production') {
   ApolloServer = require('apollo-server-lambda').ApolloServer;
 } else {
-  ApolloServer = require('apollo-server').ApolloServer;
+  const express = require('express');
+  app = express();
+  ApolloServer = require('apollo-server-express').ApolloServer;
 }
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
@@ -13,8 +16,7 @@ const {EventAPI} = require('./dataSources/eventAPI');
 const {ReviewAPI} = require('./dataSources/reviewAPI');
 const {AuthAPI} = require('./dataSources/authAPI');
 const {TagAPI} = require('./dataSources/tagAPI');
-const {UserAPI} = require('./dataSources/userAPI.js');
-const {JoinEventAPI} = require('./dataSources/joinEventAPI.js');
+const {UserAPI} = require('./dataSources/userAPI');
 
 if (process.env.NODE_ENV === undefined) {
   console.error('You have to make .env file at the server folder' +
@@ -38,9 +40,9 @@ const server = new ApolloServer({
     tagAPI: new TagAPI(store),
     userAPI: new UserAPI(store),
     authAPI: new AuthAPI(store),
-    joinEventAPI: new JoinEventAPI(store),
   }),
   context,
+  tracing: true,
 });
 
 switch (process.env.NODE_ENV) {
@@ -53,7 +55,9 @@ switch (process.env.NODE_ENV) {
     });
     break;
   case 'dev':
-    server.listen({port: 15780}).
-        then(({url}) => console.log(`Server running at at ${url}`));
+    server.applyMiddleware({app});
+    app.listen({port: 4000}, () =>
+      console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`),
+    );
     break;
 }
