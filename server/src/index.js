@@ -16,8 +16,7 @@ const {EventAPI} = require('./dataSources/eventAPI');
 const {ReviewAPI} = require('./dataSources/reviewAPI');
 const {AuthAPI} = require('./dataSources/authAPI');
 const {TagAPI} = require('./dataSources/tagAPI');
-const {UserAPI} = require('./dataSources/userAPI.js');
-const {JoinEventAPI} = require('./dataSources/join-eventAPI.js');
+const {UserAPI} = require('./dataSources/userAPI');
 
 if (process.env.NODE_ENV === undefined) {
   console.error('You have to make .env file at the server folder' +
@@ -41,7 +40,6 @@ const server = new ApolloServer({
     tagAPI: new TagAPI(store),
     userAPI: new UserAPI(store),
     authAPI: new AuthAPI(store),
-    joinEventAPI: new JoinEventAPI(store),
   }),
   context,
   tracing: true,

@@ -64,40 +64,6 @@ const typeDefs = gql`
             content: String!
             isPublic: Boolean!
         ): Review!
-        # If successful, then return True.  
-        joinEvent(
-            orderId: String!
-            eventId: String!
-        ): Boolean!
-        createEvent(
-            event: EventInput!
-            eventBookClub: EventBookClubInput
-        ): Boolean!
-    }
-
-    input ScheduleInput {
-        startDateTime: DateTime!
-        endDateTime: DateTime!
-        address: String!
-        latitude: Float!
-        logitude: Float!
-    }
-
-    input EventInput {
-        title: String!
-        description: String
-        price: Float!
-        type: Int!
-        thumbnailUrl: String!
-        maxParticipantNum: Int!
-    }
-
-    input EventBookClubInput {
-        bookTitle: String!
-        bookAuthor: String!
-        bookDescription: String
-        bookISBN: String!
-        bookImageUrl: String!
     }
 
     input EventFilter {
@@ -158,7 +124,7 @@ const typeDefs = gql`
         title: String!
         description: String!
         price: Float!
-        # TODO(SeongJaeSong): Implement image uploading feature
+        # TODO(arin-kwak): Implement image uploading feature
         # image: Upload!
         tags: [Tag]!
         participants: [User]!
@@ -220,22 +186,6 @@ const typeDefs = gql`
         address: String!
         latitude: Float!
         longitude: Float!
-    }
-
-    input EventInput {
-        title: String!
-        description: String
-        price: Float!
-        thumbnailUrl: String!
-        maxParticipantNum: Int!
-    }
-
-    input EventBookClubInput {
-        title: String!
-        author: String!
-        description: String!
-        ISBN: String!
-        imageUrl: String!
     }
 `;
 
