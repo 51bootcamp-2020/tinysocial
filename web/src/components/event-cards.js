@@ -23,12 +23,23 @@ const eventCardStyle = {
   },
   cardContent: {
     height: '100%',
+    width: '100%',
     overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-  locationText: {
-    fontSize: '15px',
-    color: 'rgba(0, 0, 1, 0.5)'
+    display: '-webkit-box',
+    '-webkit-line-clamp': 3,
+    '-webkit-box-orient': 'vertical',
+    wordBreak: 'keep-all'
+},
+  subTitleText: {
+    height: '20px',
+    fontFamily: 'LibreFranklin',
+    fontSize: '14px',
+    fontStretch: 'normal',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    lineHeight: 1.43,
+    letterSpacing: '0.25px',
+    color: 'rgba(0, 0, 0, 0.87)'
   }
 };
 
@@ -43,8 +54,13 @@ const theme = createMuiTheme({
       },
     },
     MuiCardHeader: {
+      root: {
+        height: '20%',
+        padding: '2% 3% 3% 3%'
+      },
       content: {
         width: '80%',
+        wordBreak: 'keep-all',
       },
       title: {
         height: '24px',
@@ -59,18 +75,8 @@ const theme = createMuiTheme({
         overflow: 'hidden',
         whiteSpace: 'nowrap',
         textOverflow: 'ellipsis',
-      },
-      subheader: {
-        height: '20px',
-        fontFamily: 'LibreFranklin',
-        fontSize: '14px',
-        fontStretch: 'normal',
-        fontStyle: 'normal',
-        fontWeight: 'normal',
-        lineHeight: 1.43,
-        letterSpacing: '0.25px',
-        color: 'rgba(0, 0, 0, 0.87)',
-      },
+        textTransform: 'capitalize',
+      }
     },
     MuiCardMedia: {
       img: {
@@ -79,7 +85,7 @@ const theme = createMuiTheme({
     },
     MuiCardContent: {
       root: {
-        height: '20%',
+        height: '22%',
         paddingTop: 0,
       },
     },
@@ -93,12 +99,12 @@ class EventCards extends Component {
 
   // Set Scroll Event Listener
   componentDidMount() {
-    window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener('scroll', this.handleScroll);
   }
 
   // Remove Scroll Event Listener
   componentWillUnmount() {
-    window.removeEventListener("scroll",this.handleScroll);
+    window.removeEventListener('scroll', this.handleScroll);
   }
 
   // Scroll Event Handler
@@ -119,8 +125,8 @@ class EventCards extends Component {
     });
   };
 
-  // Render of Event Cards
-  render() {
+  // Event Cards Component
+  Cards = () => {
     const {classes} = this.props;
     const cards = [];
     for (let cardIndex = 0; cardIndex < this.props.events.length; cardIndex++) {
@@ -140,15 +146,19 @@ class EventCards extends Component {
               title="Cards Image"/>
             {/* Header section of Card */}
             <CardHeader avatar={<Avatar alt="Example User Name"
-                        src={this.props.events[cardIndex].host.profileImgUrl}/>}
+                                        src={this.props.events[cardIndex].host.profileImgUrl}/>}
                         title={this.props.events[cardIndex].title}
-                        subheader={this.props.events[cardIndex].
-                                    schedule[0].startDateTime.slice(0,10)}/>
+                        subheader={
+                          <div className={classes.subTitleText}>
+                            <Typography className={classes.subTitleText}>
+                              {this.props.events[cardIndex].
+                                schedule[0].startDateTime.slice(0, 10)}
+                            </Typography>
+                            <Typography className={classes.subTitleText}>
+                              {this.props.events[cardIndex].schedule[0].address.slice(0, 10)}
+                            </Typography></div>} />
             {/* Content section of Card */}
             <CardContent>
-              <Typography className={classes.locationText}>
-                {this.props.events[cardIndex].schedule[0].address}
-              </Typography>
               <Typography className={classes.cardContent}>
                 {this.props.events[cardIndex].description}
               </Typography>
@@ -157,13 +167,18 @@ class EventCards extends Component {
         </Grid>,
       );
     }
+    return cards;
 
+  };
+  // Render of Event Cards
+  render() {
+    const {classes} = this.props;
     return (
       <ThemeProvider theme={theme}>
         <Grid container justify='space-around'
               className={classes.cards}>
-          {cards}
-        </Grid>,
+          <this.Cards />
+        </Grid>
       </ThemeProvider>);
   }
 }
