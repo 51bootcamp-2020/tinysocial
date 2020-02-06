@@ -67,21 +67,8 @@ describe('[ReviewAPI.createOrModifyReview', () => {
     expect(res).toEqual({userId: 1010, eventId: 10102});
   });
   test('modify review', async () => {
-    mockStore.Review.findOne.mockReturnValueOnce({
-      userId: 1,
-      eventId: 1,
-      title: 'ThisIsReviewTitle1',
-      content: 'ThisIsReviewContent1',
-      isPublic: true,
-      save: jest.fn(),
-    });
-    const res = await reviewAPI.createOrModifyOfReview({
-      userId: 1,
-      eventId: 1,
-      title: 'testTitle',
-      content: 'testContent',
-      isPublic: true,
-    });
+    mockStore.Review.findOne.mockReturnValueOnce({userId: 1, eventId: 1, title: 'ThisIsReviewTitle1', content: 'ThisIsReviewContent1', isPublic: true, save: jest.fn()});
+    const res = await reviewAPI.createOrModifyOfReview({userId: 1, eventId: 1, title: 'testTitle', content: 'testContent', isPublic: true});
     expect(res).toEqual({userId: 1, eventId: 1});
   });
 });
