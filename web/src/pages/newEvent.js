@@ -51,11 +51,11 @@ const PlacesWithStandaloneSearchBox = compose(
     >
       <input
         type="text"
-        placeholder="Customized your placeholder"
+        placeholder="Search your place"
         style={{
           boxSizing: `border-box`,
           border: `1px solid transparent`,
-          width: `240px`,
+          width: `100%`,
           height: `32px`,
           padding: `0 12px`,
           borderRadius: `3px`,
@@ -93,22 +93,35 @@ class NewEvent extends Component {
   ScheduleComponent() {
     const selectedDate = new Date();
     return (
-      <Paper elevation={3}>
+      <Paper elevation={3} style={{marginTop: 10, marginBottom: 10}}>
         <PlacesWithStandaloneSearchBox isMarkerShown />
+
+        <TextField
+          id="standard-full-width"
+          label="Additional Address"
+          placeholder="Additional Address"
+          helperText=""
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          style={{margin: 8, paddingRight: 16}}
+        />
 
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <DateTimePicker
             label="Start datetime"
             value={selectedDate}
             onChange={0}
-            fullWidth
+            style={{margin: 8}}
             variant="filled"
           />
           <DateTimePicker
             label="End datetime"
             value={selectedDate}
             onChange={0}
-            fullWidth
+            style={{margin: 8}}
             variant="filled"
           />
         </MuiPickersUtilsProvider>
@@ -135,7 +148,7 @@ class NewEvent extends Component {
       <Container maxWidth='lg'>
         newEvent page
         <Typography variant='h6' style={{color: '#009688'}}>
-              Event Information
+          Event Information
         </Typography>
         <div style={{margin: 8}}>
           <TextField
