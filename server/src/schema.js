@@ -2,7 +2,7 @@ const {gql} = require('apollo-server-express');
 
 const typeDefs = gql`
     scalar DateTime
-
+    
     type Query {
         # Returns certain size of events after the cursor
         # Reference:
@@ -64,6 +64,39 @@ const typeDefs = gql`
             content: String!
             isPublic: Boolean!
         ): Review!
+        # If successful, then return True.  
+        joinEvent(
+            orderId: String!
+            eventId: String!
+        ): Boolean!
+        createEvent(
+            event: EventInput!
+            eventBookClub: EventBookClubInput
+        ): Boolean!
+    }
+
+    input ScheduleInput {
+        startDateTime: DateTime!
+        endDateTime: DateTime!
+        address: String!
+        latitude: Float!
+        logitude: Float!
+    }
+
+    input EventInput {
+        title: String!
+        description: String
+        price: Float!
+        thumbnail: Upload!
+        maxParticipantNum: Int!
+    }
+
+    input EventBookClubInput {
+        bookTitle: String!
+        bookAuthor: String!
+        bookDescription: String
+        bookISBN: String!
+        bookImage: Upload!
     }
 
     input EventFilter {
@@ -124,7 +157,7 @@ const typeDefs = gql`
         title: String!
         description: String!
         price: Float!
-        # TODO(arin-kwak): Implement image uploading feature
+        # TODO(SeongJaeSong): Implement image uploading feature
         # image: Upload!
         tags: [Tag]!
         participants: [User]!
@@ -185,6 +218,12 @@ const typeDefs = gql`
         address: String!
         latitude: Float!
         longitude: Float!
+    }
+    
+    type File {
+        filename: String!
+        mimetype: String!
+        encoding: String!
     }
 `;
 
