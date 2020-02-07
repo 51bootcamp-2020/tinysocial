@@ -1,7 +1,7 @@
 // E2E test
 'use strict';
 require('dotenv').config();
-const {ApolloServer} = require('apollo-server');
+const {ApolloServer} = require('apollo-server-express');
 const typeDefs = require('../schema');
 const resolvers = require('../resolvers');
 
