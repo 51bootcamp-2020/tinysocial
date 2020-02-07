@@ -1,14 +1,14 @@
-import BookClub from '../components/eventdetail/bookclub';
-import CommonEvent from '../components/eventdetail/commonevent';
-import Error from '../pages/error';
-import EventThumbNail from '../components/eventdetail/eventthumbnail';
-import {gql} from 'apollo-boost';
 import {
   AppBar,
   Hidden,
   Divider,
   Grid,
 } from '@material-ui/core';
+import BookClub from '../components/eventdetail/bookclub';
+import CommonEvent from '../components/eventdetail/commonevent';
+import Error from '../pages/error';
+import EventThumbNail from '../components/eventdetail/eventthumbnail';
+import {gql} from 'apollo-boost';
 import Ticket from '../components/eventdetail/ticket';
 import {Query} from 'react-apollo';
 import queryString from 'query-string'
@@ -43,6 +43,7 @@ const EVENT_DETAIL_REQUEST_QUERY = gql`
         longitude,
       },
       host {
+        id,
         firstName,
         lastName,
         selfDescription,
