@@ -1,4 +1,5 @@
 import About from './pages/about';
+import Privacy from './pages/privacy';
 import {
   BrowserRouter as Router,
   Route,
@@ -20,6 +21,7 @@ function App() {
       <NavBar/>
       <Switch>
         <Route path='/about' render={() => <About/>}/>
+        <Route path='/privacy' render={() => <Privacy/>}/>
         <Route path='/emailvalidation' render={() => <Emailvalidation/>}/>
         <Route path='/error' render={() => <Error/>}/>
         <Route path='/eventdetail' render={() => <Eventdetail/>}/>
