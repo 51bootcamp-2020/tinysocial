@@ -1,3 +1,4 @@
+/* eslint-disable require-jsdoc */
 const {DataSource} = require('apollo-datasource');
 const Sequelize = require('sequelize');
 const OP = Sequelize.Op;
@@ -17,6 +18,7 @@ const eventBookClubAttributes = [
   'bookISBN',
   'bookImageUrl',
 ];
+const {imageUpload} = require('../aws-s3');
 
 class EventAPI extends DataSource {
   constructor(store) {
@@ -196,7 +198,7 @@ class EventAPI extends DataSource {
       eventIds = await this.store.Event.findAll();
     }
     // TODO(lsh9034): implement logic order by order parameter.
-    console.log("eventIds", eventIds);
+    console.log('eventIds', eventIds);
     eventIds = eventIds.map((element) => (element.id));
     const scheduleId = await this.store.Schedule.findAll({
       where: {eventId: eventIds},
@@ -265,26 +267,35 @@ class EventAPI extends DataSource {
     return upcomingEvents;
   }
 
-  async createEvent({eventInfo}){
-    let flag = await this.store.Event.create({
+  async createEvent(eventInfo) {
+    console.log(eventInfo);
+    const eventBookClub = eventInfo.eventBookClub;
+
+    const eventThumbnail = await eventInfo.thumbnail;
+    const bookImage = eventBookClub.bookImage;
+    console.log(eventThumbnail);
+    await imageUpload(eventThumbnail);
+
+    const flag = await this.store.Event.create({
       title: eventInfo.title,
       description: eventInfo.description,
       price: eventInfo.price,
-      type: eventInfo.type,
-      thumbnailUrl: eventInfo.thumbnailUrl,
+      thumbnailUrl: 'a',
       maxParticipantNum: eventInfo.maxParticipantNum,
-      hostId: eventInfo.hostId,
+      hostId: 1,
     });
-    if (!flag) {
-      return false;
+
+    console.log("플래그", flag);
+    if (eventBookClub) {
+      await imageUpload(bookImage);
+      this.store.EventBookClub.create({
+        bookTitle: eventBookClub.bookTitle,
+        bookDescription: eventBookClub.bookDescription,
+        bookAuthor: eventBookClub.bookAuthor,
+        bookISBN: eventBookClub.bookISBN,
+        bookImageUrl: 'a',
+      });
     }
-    flag = await this.store.EventBookClub.create({
-      bookTitle: eventInfo.bookTitle,
-      bookDescription: eventInfo.bookDescription,
-      bookAuthor: eventInfo.bookAuthor,
-      bookISBN: eventInfo.bookISBN,
-      bookImageUrl: eventInfo.bookImageUrl,
-    })
     if (!flag) {
       return false;
     }
@@ -292,6 +303,6 @@ class EventAPI extends DataSource {
   }
 }
 
-module.exports = {
+module.exports={
   EventAPI,
 };
