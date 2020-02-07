@@ -8,6 +8,7 @@ const {
 // Paypal API Info
 const checkoutNodeJssdk = require('@paypal/checkout-server-sdk');
 const payPalClient = require('../paypal-client');
+const CURRENCY_CODE = 'USD';
 
 class JoinEventAPI extends DataSource {
   constructor(store) {
@@ -80,7 +81,8 @@ class JoinEventAPI extends DataSource {
         `userId:${userId},eventId:${eventId}`) {
         return false;
       }
-      if (order.result.purchase_units[0].amount.currency_code !== 'USD' ||
+      if (order.result.purchase_units[0].amount.currency_code !==
+        CURRENCY_CODE ||
         order.result.purchase_units[0].amount.value !== price.toString()) {
         return false;
       }
