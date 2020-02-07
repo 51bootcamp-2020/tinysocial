@@ -4,6 +4,7 @@ import Error from '../pages/error';
 import EventThumbNail from '../components/eventdetail/eventthumbnail';
 import {gql} from 'apollo-boost';
 import {
+  AppBar,
   Hidden,
   Divider,
   Grid,
@@ -89,12 +90,15 @@ class EventDetail extends Component{
                 </BookClub>
               </Grid>
               <Hidden smUp>
-                <Grid item xs={12}>
-                  <Divider/>
-                  <Ticket>
-                    {data.event}
-                  </Ticket>
-                </Grid>
+                <AppBar position='sticky' style={{top: 'auto',
+                  bottom: 0, background: 'white'}}>
+                  <Grid item xs={12}>
+                    <Divider/>
+                    <Ticket>
+                      {data.event}
+                    </Ticket>
+                  </Grid>
+                </AppBar>
               </Hidden>
             </Grid>
           );
