@@ -81,21 +81,66 @@ const PlacesWithStandaloneSearchBox = compose(
 ));
 
 class NewEvent extends Component {
-  render() {
-    const selectedDate = new Date();
-    console.log('date:', selectedDate);
+  constructor(props) {
+    super(props);
 
+    const schedules = [<this.ScheduleComponent />];
+    this.state = {
+      schedules: schedules,
+    };
+  }
+
+  ScheduleComponent() {
+    const selectedDate = new Date();
+    return (
+      <Paper elevation={3}>
+        <PlacesWithStandaloneSearchBox isMarkerShown />
+
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <DateTimePicker
+            label="Start datetime"
+            value={selectedDate}
+            onChange={0}
+            fullWidth
+            variant="filled"
+          />
+          <DateTimePicker
+            label="End datetime"
+            value={selectedDate}
+            onChange={0}
+            fullWidth
+            variant="filled"
+          />
+        </MuiPickersUtilsProvider>
+      </Paper>
+    );
+  }
+
+  addSchedule = event => {
+      console.log('hi?');
+      const newSchedule = [];
+      for(let i = 0; i < this.state.schedules.length; i++){
+          newSchedule.push(this.state.schedules[i]);
+      }
+      newSchedule.push(<this.ScheduleComponent />);
+      this.setState({
+          schedules: newSchedule,
+      });
+
+    console.log(this.state.schedules);
+  }
+
+  render() {
     return (
       <Container maxWidth='lg'>
         newEvent page
         <Typography variant='h6' style={{color: '#009688'}}>
               Event Information
         </Typography>
-        <div>
+        <div style={{margin: 8}}>
           <TextField
             id="standard-full-width"
             label="Title"
-            style={{margin: 8}}
             placeholder="Title of event"
             helperText=""
             fullWidth
@@ -103,12 +148,11 @@ class NewEvent extends Component {
             InputLabelProps={{
               shrink: true,
             }}
-            variant="outlined"
+            variant="filled"
           />
           <TextField
             id="standard-full-width"
             label="Description"
-            style={{margin: 8}}
             placeholder="Description of event"
             helperText=""
             fullWidth
@@ -118,7 +162,7 @@ class NewEvent extends Component {
             }}
             multiline={true}
             rows={5}
-            variant="outlined"
+            variant="filled"
           />
           <input
             accept="image/*"
@@ -136,29 +180,43 @@ class NewEvent extends Component {
               };
             }}
           />
-          <label htmlFor="raised-button-file" style={{width: '100%', margin: 8}}>
-            <Paper elevation={3} variant="outlined" component="form" margin="normal">
+          <label htmlFor="raised-button-file" style={{width: '100%'}}>
+            <Paper elevation={3} variant="filled" component="form" margin="normal" style={{display: 'flex'}}>
               <Button variant="raised" component="span">
                 Upload
               </Button>
               <InputBase
                 placeholder="Select Thumbnail Image"
+                style={{flex: 1}}
               />
             </Paper>
           </label>
+
+          <TextField
+            id="standard-full-width"
+            label="Maximum participants"
+            placeholder="Maximum number of participants"
+            helperText=""
+            fullWidth
+            margin="normal"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="filled"
+          />
 
           <TextField
             label="Price"
             id="standard-start-adornment"
             fullWidth
             margin="normal"
-            style={{margin: 8}}
             InputProps={{
               startAdornment: <InputAdornment position="start">$</InputAdornment>,
             }}
+            variant="filled"
           />
 
-          <FormControl fullWidth margin="normal" style={{margin: 8}}>
+          <FormControl fullWidth margin="normal" variant="filled">
             <InputLabel htmlFor="age-native-simple">Type</InputLabel>
             <Select
               native
@@ -179,11 +237,10 @@ class NewEvent extends Component {
           Book Club Information
         </Typography>
 
-        <div>
+        <div style={{margin: 8}}>
           <TextField
             id="standard-full-width"
             label="Book title"
-            style={{margin: 8}}
             placeholder="Title of book"
             helperText=""
             fullWidth
@@ -191,11 +248,11 @@ class NewEvent extends Component {
             InputLabelProps={{
               shrink: true,
             }}
+            variant="filled"
           />
           <TextField
             id="standard-full-width"
             label="Book author"
-            style={{margin: 8}}
             placeholder="Author of book"
             helperText=""
             fullWidth
@@ -203,11 +260,11 @@ class NewEvent extends Component {
             InputLabelProps={{
               shrink: true,
             }}
+            variant="filled"
           />
           <TextField
             id="standard-full-width"
             label="Book description"
-            style={{margin: 8}}
             placeholder="Description of book"
             helperText=""
             fullWidth
@@ -217,6 +274,7 @@ class NewEvent extends Component {
             }}
             multiline={true}
             rows={5}
+            variant="filled"
           />
         </div>
 
@@ -224,28 +282,12 @@ class NewEvent extends Component {
           Schedule Information
         </Typography>
 
-        <div>
-          <Paper>
-            <PlacesWithStandaloneSearchBox isMarkerShown />
+        <div style={{margin: 8}}>
+          {this.state.schedules}
 
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <DateTimePicker
-                label="Start datetime"
-                value={selectedDate}
-                onChange={0}
-                fullWidth
-              />
-              <DateTimePicker
-                label="End datetime"
-                value={selectedDate}
-                onChange={0}
-                fullWidth
-              />
-            </MuiPickersUtilsProvider>
-            <Button variant="outlined" color="secondary">
-              Add Schedule
-            </Button>
-          </Paper>
+          <Button variant="outlined" color="secondary" onClick={this.addSchedule}>
+            Add Schedule
+          </Button>
         </div>
       </Container>
     );
