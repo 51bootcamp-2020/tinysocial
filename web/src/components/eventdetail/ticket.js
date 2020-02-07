@@ -11,9 +11,6 @@ import {
 } from 'react-router-dom';
 
 class Ticket extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <Grid container
@@ -21,7 +18,7 @@ class Ticket extends Component {
         justify='center'
         alignItems='center'
         style={{marginTop: 10, marginBottom: 20}}>
-        <Typography variant='h6'>
+        <Typography variant='h6' style={{color: 'black'}}>
           ${this.props.children.price ? this.props.children.price : 0}
         </Typography>
         <Fab style={{
@@ -48,7 +45,7 @@ class Ticket extends Component {
 }
 
 Ticket.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.object.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
 };
 

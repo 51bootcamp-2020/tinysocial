@@ -34,10 +34,7 @@ class LoginFormGoogle extends Component {
 
   // Google login fail callback function
   responseFail = (err) => {
-    return (
-        // TODO(Myounghee): Make alert function
-        window.alert(err)
-    );
+    this.props.history.push('/error');
   };
 
   /**
@@ -79,7 +76,6 @@ class LoginFormGoogle extends Component {
                     onError={
                       (error) => {
                         // Implement query error processing
-                        console.log(error);
                       }
                     }>
             {(execute_mutation) => {
