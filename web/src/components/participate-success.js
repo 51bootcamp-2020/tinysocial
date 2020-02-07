@@ -71,7 +71,6 @@ class ParticipateSuccess extends Component {
             </Grid>
           </Grid>
         </Container>
-
     );
   }
 }

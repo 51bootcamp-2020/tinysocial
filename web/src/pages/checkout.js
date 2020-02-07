@@ -29,7 +29,6 @@ class Checkout extends Component {
       event (id: $id) {
          id,
          title,
-         description,
          thumbnailUrl,
          price
       }
@@ -70,7 +69,7 @@ class Checkout extends Component {
                       eventId={data.event.id}
                       eventName={data.event.title}
                       imageUrl={data.event.thumbnailUrl}
-                      title={data.event.title}/>
+                  />
 
                   <br/>
                   <Divider/>

@@ -12,7 +12,7 @@ const eventNameStyle = {
   lineHeight: 1,
 };
 
-const bookTitleStyle = {
+const eventScheduleStyle = {
   fontFamily: 'Roboto',
   fontSize: '15px',
   fontWeight: 'normal',
@@ -69,8 +69,8 @@ class PurchaseEventItem extends Component {
                   {this.props.eventName}
                 </Typography>
                 <Typography gutterBottom variant="subtitle2"
-                            style={bookTitleStyle}>
-                  {this.props.bookTitle}
+                            style={eventScheduleStyle}>
+                  // Todo(Myoung-hee): show event schedule
                 </Typography>
               </Grid>
               <Grid item xs={12} style={{paddingTop: '10px'}}>

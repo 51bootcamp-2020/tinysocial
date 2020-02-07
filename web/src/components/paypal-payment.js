@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {PayPalButton} from 'react-paypal-button-v2';
 import {withRouter} from 'react-router-dom';
 
-// This clientId is sandbox ID
-// Need to change this to real ID
+// This clientId is sandbox ID.
+// Need to change this to real ID.
 const clientId = 'AetfZ3ivIY3P5KBvBExrr8lxL5xaDPO2yLFLTWegk5rRvghpGxEKaY90Pqh-xnlbwHNounww3nP-W5_t';
 
 // Todo(Myoung-hee): Redirect to error page when error occured.
@@ -11,7 +11,6 @@ const clientId = 'AetfZ3ivIY3P5KBvBExrr8lxL5xaDPO2yLFLTWegk5rRvghpGxEKaY90Pqh-xn
 class PaypalPayment extends Component {
   constructor(props) {
     super(props);
-
   }
 
   render() {
