@@ -34,10 +34,7 @@ class LoginFormGoogle extends Component {
 
   // Google login fail callback function
   responseFail = (err) => {
-    return (
-        // TODO(Myounghee): Make alert function
-        window.alert(err)
-    );
+    this.props.history.push('/error');
   };
 
   /**
