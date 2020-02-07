@@ -1,12 +1,10 @@
-import React, {Component} from 'react';
-import {GoogleLogin} from 'react-google-login';
 import {clientId} from './utils.js';
+import {GoogleLogin} from 'react-google-login';
 import {gql} from 'apollo-boost';
 import {Mutation} from 'react-apollo';
-import {withRouter} from 'react-router-dom';
-import Alert from '@material-ui/lab/Alert';
-import {Button} from '@material-ui/core';
+import React, {Component} from 'react';
 import 'typeface-roboto';
+import {withRouter} from 'react-router-dom';
 
 /* Query sending user Information to server */
 const SIGNIN_QUERY = gql`
@@ -15,13 +13,10 @@ const SIGNIN_QUERY = gql`
             success
             message
             token
-            user{
-              firstName
-              lastName
-            }
           }
         }`;
 
+// Todo(Myoung-hee): Redirect to error page when error occured.
 class LoginFormGoogle extends Component {
 
   constructor(props) {
@@ -56,8 +51,9 @@ class LoginFormGoogle extends Component {
     if (this.state.isMember)
       return this.props.history.push({pathname: '/'});
     else {
-      // No user information in our db.
-      return this.props.history.push({pathname: '/signup'});
+      // No user informaton in our db.
+      const {handleLogin} = this.props;
+      handleLogin(false);
     }
   };
 

@@ -1,11 +1,11 @@
 import {clientId} from './utils.js';
-import {gql} from 'apollo-boost';
 import {GoogleLogin} from 'react-google-login';
+import {gql} from 'apollo-boost';
 import {Mutation} from 'react-apollo';
-import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 
+// Todo(Myoung-hee): Redirect to error page when error occured.
 class SignupFormGoogle extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +14,7 @@ class SignupFormGoogle extends Component {
       firstName: '',
       lastName: '',
       email: '',
-      profileImgUrl: '',
+      imageUrl: '',
       // TODO(Myoung-heeSeo) : this will be used when facebook login is added.
       provider: '',
     };
@@ -27,7 +27,7 @@ class SignupFormGoogle extends Component {
       firstName: res.profileObj.givenName,
       lastName: res.profileObj.familyName,
       email: res.profileObj.email,
-      profileImgUrl: res.profileObj.imageUrl,
+      imageUrl: res.profileObj.imageUrl,
       provider: res.tokenObj.idpId,
     });
   };
@@ -74,7 +74,7 @@ class SignupFormGoogle extends Component {
                 email: this.state.email,
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,
-                profileImgUrl: this.state.profileImgUrl,
+                profileImgUrl: this.state.imageUrl,
               }}
               onCompleted={(data) => {
                 const {success, message, token} = data.signUpWithGoogle;

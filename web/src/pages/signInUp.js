@@ -1,8 +1,6 @@
-import React, {Component} from 'react';
+import {Button, Container, Typography} from '@material-ui/core';
 import LoginFormGoogle from '../components/login-form-google';
-import LoginFormGeneral from '../components/login-form-general';
-import {Button, Container, Grid, Link, Typography} from '@material-ui/core';
-import Alert from '@material-ui/lab/Alert';
+import React, {Component} from 'react';
 import SignUpFormGoogle from '../components/signup-form-google';
 
 const boxStyle = {
@@ -12,15 +10,24 @@ const boxStyle = {
   display: 'flex',
   alignItems: 'center',
   flexDirection: 'Column',
-  border: '2px solid #9b9b9b',
+  // border: '2px solid #9b9b9b',
 };
 
+// Todo(Myoung-hee): Redirect to error page when error occured.
 class SignInUp extends Component {
   constructor(props) {
     super(props);
+    this.handleLoginStateChange = this.handleLoginStateChange.bind(this);
     this.state = {
-      login: true,
+      loginComponent: true,
     };
+  }
+
+  // Set state to show signup component when try signin with no user information
+  handleLoginStateChange(isSignin) {
+    this.setState({
+      loginComponent: isSignin,
+    });
   }
 
   signIn() {
@@ -28,19 +35,19 @@ class SignInUp extends Component {
       <Container className="signin" style={boxStyle} maxWidth='sm'>
         <Typography variant="h6" style={{fontSize: '14'}}>Sign
             In</Typography>
-        <br/><br/>
-        <LoginFormGoogle/>
-        {/* Todo(Myounghee): Implement email login component later. */}
-        {/* <LoginFormGeneral/> */}
-        <br/>
-        <p style={{marginLeft: '10px'}}> Don't have an account?
-          <Button color="secondary"
-            onClick={() => this.setState({login: false})} style={{
-              color: 'red',
-              marginLeft: '10px',
-              outline: '0',
-            }}>Sign
-              Up</Button></p>
+          <br/><br/>
+          <LoginFormGoogle handleLogin={this.handleLoginStateChange}/>
+          {/* Todo(Myounghee): Implement email login component later. */}
+          {/* <LoginFormGeneral/> */}
+          <br/>
+          <p style={{marginLeft: '10px'}}> Don't have an account?
+            <Button color="secondary"
+                    onClick={() => this.setState({loginComponent: false})}
+                    style={{
+                      color: 'red',
+                      marginLeft: '10px',
+                      outline: '0',
+                    }}>Sign Up</Button></p>
       </Container>
     );
   }
@@ -54,15 +61,15 @@ class SignInUp extends Component {
       {/* <SignUpFormGeneral/> */}
       <br/>
       <p style={{marginLeft: '10px'}}>Already a member?<Button
-        onClick={() => this.setState({login: true})}
-        style={{color: 'red', marginLeft: '10px', outline: '0'}}>Sign
+          onClick={() => this.setState({loginComponent: true})}
+          style={{color: 'red', marginLeft: '10px', outline: '0'}}>Sign
         In</Button></p>
     </Container>);
   }
 
   render() {
     return (
-        this.state.login ? this.signIn() : this.signUp()
+        this.state.loginComponent ? this.signIn() : this.signUp()
     );
   }
 }

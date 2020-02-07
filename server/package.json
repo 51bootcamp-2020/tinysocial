@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@paypal/checkout-server-sdk": "^1.0.2",
     "apollo-datasource": "latest",
     "apollo-link-http": "latest",
     "apollo-server-express": "^2.10.0",

@@ -9,6 +9,7 @@ const {
   emailValidate,
 } = mockContext.dataSources.authAPI;
 const {createOrModifyOfReview} = mockContext.dataSources.reviewAPI;
+const {validateJoin} = mockContext.dataSources.joinEventAPI;
 
 describe('[Mutation]', () => {
   test('signInWithGoogle', async () => {
@@ -121,4 +122,9 @@ describe('[Mutation]', () => {
     );
     expect(res).toEqual({userId: 1, eventId: 1});
   });
-});
+  test('joinEvent', async () => {
+    validateJoin.mockReturnValueOnce(true);
+    const res = await Mutation.joinEvent({}, {orderId: '42', eventId: 42, userId: 42}, mockContext);
+    expect(res).toEqual(true);
+  });
+})

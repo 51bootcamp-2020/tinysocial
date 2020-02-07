@@ -4,10 +4,12 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
+import Checkout from './pages/checkout';
 import Emailvalidation from './pages/emailvalidation';
 import Error from './pages/error';
 import Eventdetail from './pages/eventdetail';
 import EventList from './pages/eventlist';
+import JoinEvent from './pages/join-event';
 import Landing from './pages/landing';
 import NavBar from './components/navigation/navbar';
 import Privacy from './pages/privacy';
@@ -21,7 +23,9 @@ function App() {
     <Router>
       <Switch>
         <Route path='/about'
-          render={() => <div><NavBar/><About/></div>}/>
+          render={() => <div><NavBar/><About/></div>}/>         
+        <Route path='/checkout'
+          render={() => <div><NavBar/><Checkout/></div>}/>
         <Route path="/emailvalidation"
           render={() => <div><NavBar/><Emailvalidation/></div>}/>
         <Route path='/error'
@@ -29,7 +33,9 @@ function App() {
         <Route path='/eventdetail'
           render={() => <div><NavBar/><Eventdetail/></div>}/>
         <Route path='/eventlist'
-          render={() => <div><NavBar/><EventList/></div>}/>
+          render={() => <div><NavBar/><EventList/></div>}/>       
+        <Route path='/join-event'
+          render={() => <div><NavBar/><JoinEvent/></div>}/>
         <Route path='/privacy'
           render={() => <div><NavBar/><Privacy/></div>}/>
         <Route path='/signin'
