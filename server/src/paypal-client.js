@@ -1,13 +1,11 @@
 'use strict';
 
 /**
- *
  * PayPal Node JS SDK dependency
  */
 const checkoutNodeJssdk = require('@paypal/checkout-server-sdk');
 
 /**
- *
  * Returns PayPal HTTP client instance with environment that has access
  * credentials context. Use this instance to invoke PayPal APIs, provided the
  * credentials have access.
@@ -17,10 +15,8 @@ function client() {
 }
 
 /**
- *
  * Set up and return PayPal JavaScript SDK environment with PayPal access credentials.
  * This sample uses SandboxEnvironment. In production, use LiveEnvironment.
- *
  */
 function environment() {
   let clientId = process.env.PAYPAL_CLIENT_ID;
@@ -49,7 +45,6 @@ async function prettyPrint(jsonData, pre=""){
       else {
         pretty += jsonData[key] + "\n";
       }
-
     }
   }
   return pretty;
