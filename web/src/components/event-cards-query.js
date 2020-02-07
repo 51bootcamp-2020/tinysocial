@@ -2,6 +2,7 @@ import EventCards from './event-cards';
 import {gql} from 'apollo-boost';
 import {Query} from "react-apollo";
 import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom'
 
 class EventCardsQuery extends Component {
   constructor(props) {
@@ -55,7 +56,7 @@ class EventCardsQuery extends Component {
             }>
       {({loading, error, data, fetchMore}) => {
         if (loading) return "Loading...";
-        if (error) return `Error! ${error.message}`;
+        if (error) return this.props.history.push('/error');
         return(
           <EventCards
             events={data.events.events || []}
@@ -96,4 +97,4 @@ class EventCardsQuery extends Component {
 
 EventCardsQuery.propTypes = {};
 
-export default EventCardsQuery;
+export default withRouter(EventCardsQuery);
