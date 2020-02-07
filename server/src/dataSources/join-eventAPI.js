@@ -81,7 +81,7 @@ class JoinEventAPI extends DataSource {
         return false;
       }
       if (order.result.purchase_units[0].amount.currency_code !== 'USD' ||
-        order.result.purchase_units[0].amount.value !== '' + price) {
+        order.result.purchase_units[0].amount.value !== price.toString()) {
         return false;
       }
     }
