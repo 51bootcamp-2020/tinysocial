@@ -4,7 +4,6 @@ import {
   Grid,
   Typography,
 } from '@material-ui/core';
-import Cookie from 'js-cookie';
 import {
   Link,
 } from 'react-router-dom';
@@ -21,7 +20,7 @@ function NavBarPC(props) {
         style={{paddingTop: 10, paddingBottom: 10}}>
         <Grid justify='flex-start'>
           <a href='/' style={{padding: 20}}>
-            <img src={Logo}/>
+            <img alt='logo' src={Logo}/>
           </a>
         </Grid>
         <Grid justify='flex-end'>

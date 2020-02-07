@@ -10,10 +10,6 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 import {withRouter} from 'react-router-dom';
 
 class EventReviewCard extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   // Render Schedule object list into a EventSchedule component list.
   renderSchedules(schedules) {
     // This is for displaying schedule number.
@@ -88,7 +84,7 @@ class EventReviewCard extends Component {
             align='center'
             style={{wordBreak: 'break-all'}}>
             <img src={bookImage}
-              // src={bookImage}
+              alt='book_image'
               style={{paddingBottom: '10px', width: '140px', height: '200px'}}/>
             <Typography variant='h5'>
               {bookTitle}

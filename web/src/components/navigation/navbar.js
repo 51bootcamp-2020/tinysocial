@@ -8,7 +8,6 @@ import NavBarMobile from './navbarmobile';
 import NavBarPC from './navbarpc';
 import {Query} from 'react-apollo';
 import React from 'react';
-import {Redirect} from 'react-router-dom';
 
 const ME_QUERY = gql`
 query getMyProfilePic {

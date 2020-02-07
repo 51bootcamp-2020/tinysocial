@@ -9,7 +9,6 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
-import Cookie from 'js-cookie';
 import {
   Link,
   withRouter,
@@ -27,7 +26,7 @@ function NavBarMobile(props) {
   const {profilepic, loggedIn} = props;
 
   const toggleDrawer = (side, open) => (event) => {
-    if (event.type == 'keydown' &&
+    if (event.type === 'keydown' &&
       (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
@@ -41,7 +40,7 @@ function NavBarMobile(props) {
       role='presentation'>
       <List>
         <Link to="/" style={{padding: 20}}>
-          <img src={Logo}/>
+          <img alt='logo' src={Logo}/>
         </Link>
       </List>
       <Divider/>
@@ -99,7 +98,7 @@ function NavBarMobile(props) {
             </Grid>
             <Grid item>
               <Link to='/' style={{padding: 20}}>
-                <img src={Logo}/>
+                <img alt='logo' src={Logo}/>
               </Link>
             </Grid>
             <Grid item xs align='right'>
