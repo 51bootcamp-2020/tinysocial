@@ -15,8 +15,8 @@ class Datetime extends Component {
         substring(0, 3);
     const day = startDate.toLocaleString('US', {day: 'numeric'});
     const options = {
-      hour: '2-digit',
-      minute: '2-digit',
+      hour: 'numeric',
+      minute: 'numeric',
     };
     const startTime = startDate.toLocaleString('US', options);
     const endTime = endDate.toLocaleString('US', options);
@@ -34,8 +34,8 @@ class Datetime extends Component {
 
     return (
       <>
-        {/* Feb 5th, 01:30 PM */}
-        {month} {day}{dateForm}, {startTime} - {endTime}
+        {/* Feb 5th, 01:30 PM to 02:45 PM */}
+        {month} {day}{dateForm}, {startTime} to {endTime}
       </>
     );
   }

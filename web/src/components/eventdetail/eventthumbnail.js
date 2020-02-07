@@ -9,9 +9,8 @@ class Eventthumbnail extends Component {
     return (
       <Grid style={{padding: 15, height: 400}}>
         <div style={{height: '100%', width: '100%', overflow: 'hidden'}}>
-          <img alt='eventThumbnail'
-            style={{height: '100%', width: '100%', objectFit: 'cover'}}
-            src={this.props.children.thumbnailUrl}/>
+          <img alt='eventThumbnail' style={{height: '100%', width: '100%',
+            objectFit: 'cover'}} src={this.props.children.thumbnailUrl}/>
         </div>
       </Grid>
     );

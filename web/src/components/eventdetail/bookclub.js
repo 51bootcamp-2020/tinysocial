@@ -47,7 +47,6 @@ class Bookclub extends Component {
               {this.props.children.bookDescription}
             </Typography>
           </Grid>
-
         </Grid>
       </div>
     );

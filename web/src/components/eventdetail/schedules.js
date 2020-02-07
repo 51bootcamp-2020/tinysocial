@@ -1,4 +1,4 @@
-import Datetime from '../dateTime';
+import Datetime from '../datetime';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {Typography} from '@material-ui/core';
