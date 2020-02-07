@@ -15,6 +15,7 @@ import {
 } from 'react-router-dom';
 import Logo from '../../img/tinysocial-logo.png';
 import MenuIcon from '@material-ui/icons/Menu';
+import PropTypes from 'prop-types';
 import React from 'react';
 import useStyles from './constant';
 
@@ -114,5 +115,10 @@ function NavBarMobile(props) {
     </div>
   );
 }
+
+NavBarMobile.propTypes = {
+  profilepic: PropTypes.string,
+  loggedIn: PropTypes.bool,
+};
 
 export default withRouter(NavBarMobile);

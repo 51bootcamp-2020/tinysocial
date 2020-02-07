@@ -4,10 +4,9 @@ import {
   Grid,
   Typography,
 } from '@material-ui/core';
-import {
-  Link,
-} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Logo from '../../img/tinysocial-logo.png';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 function NavBarPC(props) {
@@ -74,8 +73,11 @@ function NavBarPC(props) {
               )
             }
             {loggedIn &&
-              <Link to='/userpage' style={{height: '100%', paddingRight: '20px'}}>
-                <Avatar alt='seulgi' src={profilepic} style={{height: '30px', width: '30px'}}/>
+              <Link to='/userpage'
+                style={{height: '100%', paddingRight: '20px'}}>
+                <Avatar alt='profile'
+                  src={profilepic}
+                  style={{height: '30px', width: '30px'}}/>
               </Link>
             }
           </Grid>
@@ -84,5 +86,11 @@ function NavBarPC(props) {
     </AppBar>
   );
 }
+
+NavBarPC.propTypes = {
+  profilepic: PropTypes.string,
+  loggedIn: PropTypes.bool,
+};
+
 
 export default NavBarPC;
