@@ -1,4 +1,5 @@
 import EventCardsQuery from '../components/event-cards-query';
+import Footer from '../components/navigation/footer';
 import Grid from '@material-ui/core/Grid';
 import LandingDescription from '../components/landing-description';
 import React, {Component} from 'react';
@@ -27,6 +28,7 @@ class Landing extends Component {
           <Grid item xs={12}>
             <LandingDescription />
             <EventCardsQuery pageSize={this.pageSize}/>
+            <Footer/>
           </Grid>
         </Grid>
     );

@@ -163,7 +163,7 @@ class EventCards extends Component {
         <Grid container justify='space-around'
               className={classes.cards}>
           {cards}
-        </Grid>,
+        </Grid>
       </ThemeProvider>);
   }
 }
