@@ -17,12 +17,12 @@ function NavBarPC(props) {
       <Grid container alignItems='center' direction='row'
         justify='space-between'
         style={{paddingTop: 10, paddingBottom: 10}}>
-        <Grid justify='flex-start'>
+        <Grid>
           <a href='/' style={{padding: 20}}>
             <img alt='logo' src={Logo}/>
           </a>
         </Grid>
-        <Grid justify='flex-end'>
+        <Grid>
           <Grid container direction='row'>
             <Link to='eventlist'>
               <Typography variant='h6'
