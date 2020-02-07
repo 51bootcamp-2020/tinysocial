@@ -35,19 +35,20 @@ class SignInUp extends Component {
       <Container className="signin" style={boxStyle} maxWidth='sm'>
         <Typography variant="h6" style={{fontSize: '14'}}>Sign
             In</Typography>
-          <br/><br/>
-          <LoginFormGoogle handleLogin={this.handleLoginStateChange}/>
-          {/* Todo(Myounghee): Implement email login component later. */}
-          {/* <LoginFormGeneral/> */}
-          <br/>
-          <p style={{marginLeft: '10px'}}> Don't have an account?
-            <Button color="secondary"
-                    onClick={() => this.setState({loginComponent: false})}
-                    style={{
-                      color: 'red',
-                      marginLeft: '10px',
-                      outline: '0',
-                    }}>Sign Up</Button></p>
+        <br/><br/>
+        <LoginFormGoogle handleLogin={this.handleLoginStateChange}/>
+        {/* Todo(Myounghee): Implement email login component later. */}
+        {/* <LoginFormGeneral/> */}
+        <br/>
+        <p style={{marginLeft: '10px'}}> Don't have an account?
+          <Button color="secondary"
+            onClick={() => this.setState({loginComponent: false})}
+            style={{
+              color: 'red',
+              marginLeft: '10px',
+              outline: '0',
+            }}>Sign
+              Up</Button></p>
       </Container>
     );
   }
@@ -61,8 +62,8 @@ class SignInUp extends Component {
       {/* <SignUpFormGeneral/> */}
       <br/>
       <p style={{marginLeft: '10px'}}>Already a member?<Button
-          onClick={() => this.setState({loginComponent: true})}
-          style={{color: 'red', marginLeft: '10px', outline: '0'}}>Sign
+        onClick={() => this.setState({loginComponent: true})}
+        style={{color: 'red', marginLeft: '10px', outline: '0'}}>Sign
         In</Button></p>
     </Container>);
   }
