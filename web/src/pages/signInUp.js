@@ -25,23 +25,23 @@ class SignInUp extends Component {
 
   signIn() {
     return (
-        <Container className="signin" style={boxStyle} maxWidth='sm'>
-          <Typography variant="h6" style={{fontSize: '14'}}>Sign
+      <Container className="signin" style={boxStyle} maxWidth='sm'>
+        <Typography variant="h6" style={{fontSize: '14'}}>Sign
             In</Typography>
-          <br/><br/>
-          <LoginFormGoogle/>
-          {/* Todo(Myounghee): Implement email login component later. */}
-          {/* <LoginFormGeneral/> */}
-          <br/>
-          <p style={{marginLeft: '10px'}}> Don't have an account?
-            <Button color="secondary"
-                    onClick={() => this.setState({login: false})} style={{
+        <br/><br/>
+        <LoginFormGoogle/>
+        {/* Todo(Myounghee): Implement email login component later. */}
+        {/* <LoginFormGeneral/> */}
+        <br/>
+        <p style={{marginLeft: '10px'}}> Don't have an account?
+          <Button color="secondary"
+            onClick={() => this.setState({login: false})} style={{
               color: 'red',
               marginLeft: '10px',
               outline: '0',
             }}>Sign
               Up</Button></p>
-        </Container>
+      </Container>
     );
   }
 
@@ -54,8 +54,8 @@ class SignInUp extends Component {
       {/* <SignUpFormGeneral/> */}
       <br/>
       <p style={{marginLeft: '10px'}}>Already a member?<Button
-          onClick={() => this.setState({login: true})}
-          style={{color: 'red', marginLeft: '10px', outline: '0'}}>Sign
+        onClick={() => this.setState({login: true})}
+        style={{color: 'red', marginLeft: '10px', outline: '0'}}>Sign
         In</Button></p>
     </Container>);
   }
@@ -64,7 +64,7 @@ class SignInUp extends Component {
     return (
         this.state.login ? this.signIn() : this.signUp()
     );
-  };
+  }
 }
 
 export default SignInUp;
