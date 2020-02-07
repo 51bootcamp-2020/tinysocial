@@ -2,7 +2,7 @@ const {
   JoinEventAPI,
   userIdIsNotPassedMessage,
   eventIdIsNotPassedMessage,
-} = require('../joinEventAPI');
+} = require('../join-eventAPI');
 const {mockStore} = require('../mockStore');
 
 const joinEventAPI = new JoinEventAPI(mockStore);

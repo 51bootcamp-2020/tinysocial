@@ -14,7 +14,7 @@ const {ReviewAPI} = require('./dataSources/reviewAPI');
 const {AuthAPI} = require('./dataSources/authAPI');
 const {TagAPI} = require('./dataSources/tagAPI');
 const {UserAPI} = require('./dataSources/userAPI.js');
-const {JoinEventAPI} = require('./dataSources/joinEventAPI.js');
+const {JoinEventAPI} = require('./dataSources/join-eventAPI.js');
 
 if (process.env.NODE_ENV === undefined) {
   console.error('You have to make .env file at the server folder' +
