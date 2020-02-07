@@ -1,9 +1,7 @@
-import {
-  Typography,
-} from '@material-ui/core';
+import Datetime from '../datetime';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import Datetime from '../dateTime';
+import {Typography} from '@material-ui/core';
 
 class Schedules extends Component {
   constructor(props) {
@@ -18,7 +16,9 @@ class Schedules extends Component {
     }
     for (let i = 0; i < scheduleLength; i++) {
       scheduleList.push(
-          <Datetime>{this.props.children[i]}</Datetime>,
+          <Typography key={this.props.children[i].id} variant='body2'>
+            <Datetime>{this.props.children[i]}</Datetime>
+          </Typography>,
       );
     }
     return <>{scheduleList}</>;
@@ -26,8 +26,8 @@ class Schedules extends Component {
 }
 
 Schedules.propTypes = {
-  children: PropTypes.element.isRequired,
-  moreButton: PropTypes.bool.isRequired,
+  children: PropTypes.array.isRequired,
+  moreButton: PropTypes.string.isRequired,
 };
 
 export default Schedules;
