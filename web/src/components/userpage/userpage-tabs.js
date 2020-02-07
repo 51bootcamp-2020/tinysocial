@@ -10,10 +10,6 @@ const styles = (theme) => ({
 });
 
 class ReviewTabs extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {classes, currentTab, onTabChange} = this.props;
 

@@ -162,6 +162,7 @@ const typeDefs = gql`
         id: ID!
         name: String!
         events: [Event]!
+        numberOfEvents: Int!
     }
     type TagConnection {
         cursor: Int!

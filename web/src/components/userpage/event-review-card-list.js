@@ -4,10 +4,6 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 
 class EventReviewCardList extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   // Render EventReviewCard components list.
   renderEventReviewCards(events) {
     if (events.length === 0) {
