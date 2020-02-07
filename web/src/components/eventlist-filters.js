@@ -15,7 +15,7 @@ import React, {Component} from 'react';
 // Toggle Button css style
 const tagButtonStyle = {
   buttonGroup: {
-    width: '100%',
+    width: '98%',
     overflow: 'scroll',
     '&::-webkit-scrollbar': {
       display: 'none'
@@ -134,7 +134,7 @@ class EventlistFilters extends Component {
                            className={classes.buttonGroup}>
           <this.ViewTagButtons />
         </ToggleButtonGroup>
-        <ArrowForwardIos  style={{float: 'right', position: 'absolute',
+        <ArrowForwardIos  style={{right: 0, float: 'right', position: 'absolute',
           top: '35%', color: '#DCDCDC'}}/>
       </div>
     );
