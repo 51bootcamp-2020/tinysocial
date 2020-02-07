@@ -76,7 +76,6 @@ class LoginFormGoogle extends Component {
                     onError={
                       (error) => {
                         // Implement query error processing
-                        console.log(error);
                       }
                     }>
             {(execute_mutation) => {

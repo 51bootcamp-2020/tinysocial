@@ -21,7 +21,6 @@ class SignupFormGoogle extends Component {
   }
 
   responseGoogle = res => {
-    console.log(res);
     // Handle google log-in success.
     this.setState({
       id: res.profileObj.googleId,
