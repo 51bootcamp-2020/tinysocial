@@ -17,53 +17,33 @@ query getMyProfilePic {
 }
 `;
 
-function Navbar(props) {
-  if (isWidthUp('md', props.width)) {
-    // When there is token, send me query to get profile pic.
-    if (Cookies.get('token')) {
-      return (
-        <Query query={ME_QUERY}>
-          {({loading, error, data}) => {
-            if (loading) {
-              return <NavBarPC loggedIn={true}/>;
-            }
-            if (error) {
-              // Remove cookie if query fails.
-              Cookies.remove('token');
-              return <NavBarPC loggedIn={false}/>;
-            }
-            return (
-              <NavBarPC profilepic={data.me.profileImgUrl} loggedIn={true}/>
-            );
-          }}
-        </Query>
-      );
-    }
+const displayNavBar = (isPC, profilepic, loggedIn) => {
+  if (isPC) return <NavBarPC profilepic={profilepic} loggedIn={loggedIn}/>;
+  return <NavBarMobile profilepic={profilepic} loggedIn={loggedIn}/>;
+};
 
-    return <NavBarPC loggedIn={false}/>;
-  }
+function Navbar(props) {
+  const isPC = isWidthUp('md', props.width);
   // When there is token, send me query to get profile pic.
   if (Cookies.get('token')) {
     return (
       <Query query={ME_QUERY}>
         {({loading, error, data}) => {
           if (loading) {
-            return <NavBarMobile loggedIn={true}/>;
+            return displayNavBar(isPC, undefined, true);
           }
           if (error) {
             // Remove cookie if query fails.
             Cookies.remove('token');
-            return <NavBarMobile loggedIn={false}/>;
+            return displayNavBar(isPC, undefined, false);
           }
-          return (
-            <NavBarMobile profilepic={data.me.profileImgUrl} loggedIn={true}/>
-          );
+          return displayNavBar(isPC, data.me.profileImgUrl, true);
         }}
       </Query>
     );
   }
 
-  return <NavBarMobile loggedIn={false}/>;
+  return displayNavBar(isPC, undefined, false);
 }
 
 export default withWidth()(Navbar);
