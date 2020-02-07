@@ -1,5 +1,4 @@
 import About from './pages/about';
-import Privacy from './pages/privacy';
 import {
   BrowserRouter as Router,
   Route,
@@ -11,6 +10,7 @@ import Eventdetail from './pages/eventdetail';
 import EventList from './pages/eventlist';
 import Landing from './pages/landing';
 import NavBar from './components/navigation/navbar';
+import Privacy from './pages/privacy';
 import React from 'react';
 import SignInUp from './pages/signInUp';
 import SignOut from './pages/signout';
@@ -30,8 +30,8 @@ function App() {
           render={() => <div><NavBar/><Eventdetail/></div>}/>
         <Route path='/eventlist'
           render={() => <div><NavBar/><EventList/></div>}/>
- 	<Route path='/privacy'
-	  render={() => <div><NavBar/><Privacy/></div>}/>
+        <Route path='/privacy'
+          render={() => <div><NavBar/><Privacy/></div>}/>
         <Route path='/signin'
           render={() => <div><NavBar/><SignInUp/></div>}/>
         <Route path='/signout'
