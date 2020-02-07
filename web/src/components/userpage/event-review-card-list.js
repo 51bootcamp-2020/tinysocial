@@ -2,7 +2,6 @@ import {Container, Typography} from '@material-ui/core';
 import EventReviewCard from './event-review-card';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import {SAMPLE_EVENTS} from './sample-data';
 
 class EventReviewCardList extends Component {
   // Render EventReviewCard components list.
@@ -47,8 +46,7 @@ class EventReviewCardList extends Component {
   }
 
   render() {
-    // const {events} = this.props;
-    const events = SAMPLE_EVENTS;
+    const {events} = this.props;
 
     return (
       <Container>
