@@ -24,8 +24,7 @@ function NavBarMobile(props) {
   const [state, setState] = React.useState({
     left: false,
   });
-  const {profilepic, error} = props;
-  const loggedIn = !error && Cookie.get('token') ? true : false;
+  const {profilepic, loggedIn} = props;
 
   const toggleDrawer = (side, open) => (event) => {
     if (event.type == 'keydown' &&
@@ -83,7 +82,7 @@ function NavBarMobile(props) {
 
   return (
     <div className='Navbar'>
-      <AppBar color='default' position='static'>
+      <AppBar color='default' position='sticky'>
         <Toolbar>
           <Grid container
             direction='row'
@@ -106,7 +105,7 @@ function NavBarMobile(props) {
             <Grid item xs align='right'>
               {loggedIn &&
                 <Link to='/userpage'>
-                  <Avatar alt='seulgi' src={profilepic}/>
+                  <Avatar alt='profile' src={profilepic}/>
                 </Link>
               }
             </Grid>
