@@ -4,7 +4,7 @@ import {withRouter} from 'react-router-dom';
 
 // This clientId is sandbox ID
 // Need to change this to real ID
-const clientId = 'AfAbl-JI-15trlwhVjwNCTiL1OxhogGyEN4OYAPE4KJX9xPmUKIHWZuO61_5lPHa84jyw27-3zszt1ak';
+const clientId = 'AetfZ3ivIY3P5KBvBExrr8lxL5xaDPO2yLFLTWegk5rRvghpGxEKaY90Pqh-xnlbwHNounww3nP-W5_t';
 
 // Todo(Myoung-hee): Redirect to error page when error occured.
 // Paypal payment button to participate in event.

@@ -3,7 +3,7 @@ const {DataSource} = require('apollo-datasource');
 const {
   userIdIsNotPassedMessage,
   eventIdIsNotPassedMessage,
-} = require('../errorMessages');
+} = require('../error-messages');
 
 // Paypal API Info
 const checkoutNodeJssdk = require('@paypal/checkout-server-sdk');
