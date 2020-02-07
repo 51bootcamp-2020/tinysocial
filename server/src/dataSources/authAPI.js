@@ -2,7 +2,7 @@ const {DataSource} = require('apollo-datasource');
 const APP_SECRET = process.env.JWT_SECRET;
 const {cannotCreateUserMessage, userNotFoundMessage} = require(
     '../error-messages');
-const expirationTime = '100h';
+const expirationTime = '30d';
 const jwt = require('jsonwebtoken');
 const sha256 = require('sha256');
 const {checkPasswordMessage} = require('../error-messages');
