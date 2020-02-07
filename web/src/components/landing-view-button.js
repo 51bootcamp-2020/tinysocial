@@ -10,7 +10,7 @@ import {withRouter} from 'react-router-dom'
 // View Button css style
 const LandingViewButtonStyle = makeStyles(theme => ({
   root: {
-    padding: '0 3% 0 3%'
+    padding: '0 2.5% 0 2.5%'
   },
   popularText: {
     fontFamily: 'Roboto',

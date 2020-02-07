@@ -1,6 +1,7 @@
 import {
   Avatar,
   Card,
+  CardActionArea,
   CardContent,
   CardHeader,
   CardMedia,
@@ -79,11 +80,6 @@ const theme = createMuiTheme({
         textTransform: 'capitalize',
       }
     },
-    MuiCardMedia: {
-      img: {
-        height: '55%',
-      },
-    },
     MuiCardContent: {
       root: {
         height: '22%',
@@ -157,38 +153,41 @@ class EventCards extends Component {
       // let address = this.AddressFormat(this.props.events[cardIndex].schedule[scheduleIndex]);
       cards.push(
         <Grid item xs={12} sm={6} md={4} key={this.props.events[cardIndex].id}>
-          <Card className={classes.card}
-                value={this.props.events[cardIndex].id}
-                key={this.props.events[cardIndex].id}
-                onClick={
-                  () => this.CardClicked(this.props.events[cardIndex].id)}>
-            {/* Image section of Card */}
-            <CardMedia
-              component="img"
-              alt="CardsImage"
-              image={this.props.events[cardIndex].thumbnailUrl}
-              title="Cards Image"/>
-            {/* Header section of Card */}
-            <CardHeader avatar={<Avatar alt="Example User Name"
-                                        src={this.props.events[cardIndex].host.profileImgUrl}/>}
-                        title={this.props.events[cardIndex].title}
-                        subheader={
-                          <div>
-                            <Typography className={classes.subTitleText}>
-                              {scheduleText}
-                            </Typography>
-                            <Typography className={classes.subTitleText}>
-                              {this.props.events[cardIndex].schedule[scheduleIndex].address.slice(-19,-6)}
-                            </Typography>
-                          </div>} />
-            {/* Content section of Card */}
-            <CardContent>
-              <Typography className={classes.cardContent}>
-                {this.props.events[cardIndex].description}
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>,
+          <CardActionArea>
+            <Card value={this.props.events[cardIndex].id}
+                  key={this.props.events[cardIndex].id}
+                  onClick={
+                    () => this.CardClicked(this.props.events[cardIndex].id)}>
+              {/* Image section of Card */}
+                <CardMedia
+                  component="img"
+                  alt="CardsImage"
+                  height="55%"
+                  image={this.props.events[cardIndex].thumbnailUrl}
+                  title="Cards Image"/>
+                {/* Header section of Card */}
+                <CardHeader avatar={<Avatar alt="Example User Name"
+                            src={this.props.events[cardIndex].host.profileImgUrl}/>}
+                            title={this.props.events[cardIndex].title}
+                            subheader={
+                              <div>
+                                <Typography className={classes.subTitleText}>
+                                  {scheduleText}
+                                </Typography>
+                                <Typography className={classes.subTitleText}>
+                                  {this.props.events[cardIndex].schedule[scheduleIndex]
+                                  .address.slice(-19,-6)}
+                                </Typography>
+                              </div>} />
+                {/* Content section of Card */}
+                <CardContent>
+                  <Typography className={classes.cardContent}>
+                    {this.props.events[cardIndex].description}
+                  </Typography>
+                </CardContent>
+            </Card>
+          </CardActionArea>
+        </Grid>
       );
     }
     return cards;
