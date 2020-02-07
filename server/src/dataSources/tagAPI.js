@@ -50,6 +50,12 @@ class TagAPI extends DataSource {
     });
     return tagIds;
   }
+  async getNumberOfEventsOfTag(tagId) {
+    const numberOfEvents = await this.store.EventTag.count({
+      where: {tagId: tagId},
+    });
+    return numberOfEvents;
+  }
 }
 
 module.exports = {
