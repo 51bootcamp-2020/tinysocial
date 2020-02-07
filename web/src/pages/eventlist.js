@@ -85,7 +85,7 @@ class EventList extends Component {
               </Query>)
               : (<Grid container justify="space-between"
                          style={{padding: '2% 5% 0 5%'}}>
-                    <Grid item xs md xl>
+                    <Grid item xs={12}>
                       <EventlistFilters filterNames={this.state.allTags}
                                         onCreate={this.HandlerTagName} />
                     </Grid>
