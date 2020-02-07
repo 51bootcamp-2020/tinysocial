@@ -1,4 +1,8 @@
 import {
+  ArrowBackIos,
+  ArrowForwardIos
+}from '@material-ui/icons';
+import {
   Typography,
   withStyles
 } from '@material-ui/core';
@@ -57,7 +61,7 @@ class EventlistFilters extends Component {
       filterClicked.push(false);
 
     this.state = {
-      filterClicked: filterClicked,
+      filterClicked: filterClicked
     };
   }
 
@@ -122,11 +126,17 @@ class EventlistFilters extends Component {
   render() {
     const { classes } = this.props;
     return (
+      <div style={{position: 'relative'}}>
+        <ArrowBackIos style={{float: 'left', position: 'absolute',
+          top: '35%', color: '#DCDCDC'}}/>
           <ToggleButtonGroup size='large'
                              value={this.state.filterClicked}
                              className={classes.buttonGroup}>
             <this.ViewTagButtons />
           </ToggleButtonGroup>
+        <ArrowForwardIos  style={{float: 'right', position: 'absolute',
+          top: '35%', color: '#DCDCDC'}}/>
+      </div>
     );
   }
 }

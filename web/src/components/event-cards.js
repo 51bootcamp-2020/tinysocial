@@ -11,6 +11,7 @@ import {
   withStyles,
   ThemeProvider,
 } from '@material-ui/core/styles';
+import Datetime from './dateTime';
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 
@@ -97,13 +98,13 @@ class EventCards extends Component {
     super(props);
   }
 
-  // Set Scroll Event Listener
   componentDidMount() {
+    // Set Scroll Event Listener
     window.addEventListener('scroll', this.handleScroll);
   }
 
-  // Remove Scroll Event Listener
   componentWillUnmount() {
+    // Remove Scroll Event Listener
     window.removeEventListener('scroll', this.handleScroll);
   }
 
@@ -117,7 +118,10 @@ class EventCards extends Component {
     }
   };
 
-  // Redirect to event detail page, When each card is clicked
+  /**
+   *  Redirect to event detail page, When each card is clicked
+   *  @param {int} eventId
+   */
   CardClicked = (eventId) => {
     return this.props.history.push({
       pathname: '/eventdetail',
@@ -135,19 +139,22 @@ class EventCards extends Component {
       scheduleDate = new Date(this.props.events[cardIndex].
         schedule[scheduleIndex].startDateTime);
       if(scheduleDate > nowDate){
-        return scheduleDate.getDate();
+        return [scheduleIndex, <Datetime>{this.props.events[cardIndex].
+          schedule[scheduleIndex]}</Datetime>]
       }
-    }
-    return 'Ended'
+        }
+    return [0, 'Ended']
   };
 
   // Event Cards Component
   Cards = () => {
     const {classes} = this.props;
     const cards = [];
+    // Push each card component in cards
     for (let cardIndex = 0; cardIndex < this.props.events.length; cardIndex++){
-      // Push each card component in cards
-      let scheduleText = this.FilterSchedule(cardIndex);
+      // Check Schedule
+      let [scheduleIndex, scheduleText] = this.FilterSchedule(cardIndex);
+      // let address = this.AddressFormat(this.props.events[cardIndex].schedule[scheduleIndex]);
       cards.push(
         <Grid item xs={12} sm={6} md={4} key={this.props.events[cardIndex].id}>
           <Card className={classes.card}
@@ -163,16 +170,17 @@ class EventCards extends Component {
               title="Cards Image"/>
             {/* Header section of Card */}
             <CardHeader avatar={<Avatar alt="Example User Name"
-                                        src={this.props.events[cardIndex].host.profileImgUrl}/>}
+                        src={this.props.events[cardIndex].host.profileImgUrl}/>}
                         title={this.props.events[cardIndex].title}
                         subheader={
-                          <div className={classes.subTitleText}>
+                          <div>
                             <Typography className={classes.subTitleText}>
                               {scheduleText}
                             </Typography>
                             <Typography className={classes.subTitleText}>
-                              {this.props.events[cardIndex].schedule[0].address.slice(0, 10)}
-                            </Typography></div>} />
+                              {this.props.events[cardIndex].schedule[scheduleIndex].address.slice(-19,-6)}
+                            </Typography>
+                          </div>} />
             {/* Content section of Card */}
             <CardContent>
               <Typography className={classes.cardContent}>
@@ -199,6 +207,8 @@ class EventCards extends Component {
   }
 }
 
-EventCards.propTypes = {};
+EventCards.propTypes = {
+
+};
 
 export default withRouter(withStyles(eventCardStyle)(EventCards));
