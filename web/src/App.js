@@ -10,8 +10,8 @@ import Landing from './pages/landing';
 import NavBar from './components/navigation/navbar';
 import React from 'react';
 import SignInUp from './pages/signInUp';
-import UserPage from './pages/userpage';
 import SignOut from './pages/signout';
+import UserPage from './pages/userpage';
 
 function App() {
   return (

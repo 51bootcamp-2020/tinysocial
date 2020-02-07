@@ -7,7 +7,7 @@ class SignOut extends Component {
     Cookies.remove('token');
     return (
       <div>
-          logging out
+        logging out
         {this.props.history.push('/')}
       </div>
     );
