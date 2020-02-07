@@ -7,4 +7,8 @@ module.exports.Tag = {
     const eventIds = await dataSources.eventAPI.getEventIdsOfTag({tagId: id});
     return eventIds;
   },
+  numberOfEvents: async ({id}, __, {dataSources}) => {
+    const numberOfEvents = await dataSources.tagAPI.getNumberOfEventsOfTag(id);
+    return numberOfEvents;
+  },
 };

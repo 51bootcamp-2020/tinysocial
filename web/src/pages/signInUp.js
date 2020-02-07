@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import LoginFormGoogle from '../components/login-form-google';
 import {Button, Container, Typography} from '@material-ui/core';
+import LoginFormGoogle from '../components/login-form-google';
+import React, {Component} from 'react';
 import SignUpFormGoogle from '../components/signup-form-google';
 
 const boxStyle = {
@@ -32,8 +32,8 @@ class SignInUp extends Component {
 
   signIn() {
     return (
-        <Container className="signin" style={boxStyle} maxWidth='sm'>
-          <Typography variant="h6" style={{fontSize: '14'}}>Sign
+      <Container className="signin" style={boxStyle} maxWidth='sm'>
+        <Typography variant="h6" style={{fontSize: '14'}}>Sign
             In</Typography>
           <br/><br/>
           <LoginFormGoogle handleLogin={this.handleLoginStateChange}/>
@@ -47,9 +47,8 @@ class SignInUp extends Component {
                       color: 'red',
                       marginLeft: '10px',
                       outline: '0',
-                    }}>Sign
-              Up</Button></p>
-        </Container>
+                    }}>Sign Up</Button></p>
+      </Container>
     );
   }
 
@@ -72,7 +71,7 @@ class SignInUp extends Component {
     return (
         this.state.loginComponent ? this.signIn() : this.signUp()
     );
-  };
+  }
 }
 
 export default SignInUp;

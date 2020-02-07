@@ -1,6 +1,6 @@
 import {clientId} from './utils.js';
-import {gql} from 'apollo-boost';
 import {GoogleLogin} from 'react-google-login';
+import {gql} from 'apollo-boost';
 import {Mutation} from 'react-apollo';
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
@@ -90,7 +90,6 @@ class SignupFormGoogle extends Component {
           >
             {(mutate, {data, called}) => {
               if (!called && this.state.id !== null) {
-                console.log('sent');
                 mutate();
               }
               return (<div></div>);

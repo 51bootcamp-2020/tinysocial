@@ -6,10 +6,6 @@ import PropTypes from 'prop-types';
 import React, {Component, Fragment} from 'react';
 
 class EventSchedule extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {index, startTime, endTime, address} = this.props;
 

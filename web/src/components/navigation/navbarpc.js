@@ -4,28 +4,25 @@ import {
   Grid,
   Typography,
 } from '@material-ui/core';
-import Cookie from 'js-cookie';
-import {
-  Link,
-} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Logo from '../../img/tinysocial-logo.png';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 function NavBarPC(props) {
-  const loggedIn = Cookie.get('token') ? true : false;
-  const {profilepic} = props;
+  const {profilepic, loggedIn} = props;
 
   return (
-    <AppBar position='static' color='default'>
+    <AppBar position='sticky' color='default'>
       <Grid container alignItems='center' direction='row'
         justify='space-between'
         style={{paddingTop: 10, paddingBottom: 10}}>
-        <Grid justify='flex-start'>
+        <Grid>
           <a href='/' style={{padding: 20}}>
-            <img src={Logo}/>
+            <img alt='logo' src={Logo}/>
           </a>
         </Grid>
-        <Grid justify='flex-end'>
+        <Grid>
           <Grid container direction='row'>
             <Link to='eventlist'>
               <Typography variant='h6'
@@ -76,8 +73,11 @@ function NavBarPC(props) {
               )
             }
             {loggedIn &&
-              <Link to='/userpage' style={{paddingRight: '20px'}}>
-                <Avatar alt='seulgi' src={profilepic}/>
+              <Link to='/userpage'
+                style={{height: '100%', paddingRight: '20px'}}>
+                <Avatar alt='profile'
+                  src={profilepic}
+                  style={{height: '30px', width: '30px'}}/>
               </Link>
             }
           </Grid>
@@ -86,5 +86,11 @@ function NavBarPC(props) {
     </AppBar>
   );
 }
+
+NavBarPC.propTypes = {
+  profilepic: PropTypes.string,
+  loggedIn: PropTypes.bool,
+};
+
 
 export default NavBarPC;

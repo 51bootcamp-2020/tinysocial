@@ -17,7 +17,8 @@ class Error extends Component {
         alignItems='center'
         direction='column'
         justify='center'>
-        <img src={ErrorImage}
+        <img alt='errorImage'
+          src={ErrorImage}
           style={{height: 270, marginBottom: '5%',
             marginTop: '5%', width: 270}}/>
         <Typography variant='body1' style={{marginBottom: 20}}>

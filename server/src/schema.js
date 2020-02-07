@@ -1,4 +1,4 @@
-const {gql} = require('apollo-server');
+const {gql} = require('apollo-server-express');
 
 const typeDefs = gql`
     scalar DateTime
@@ -167,6 +167,7 @@ const typeDefs = gql`
         id: ID!
         name: String!
         events: [Event]!
+        numberOfEvents: Int!
     }
     type TagConnection {
         cursor: Int!

@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
-import {GoogleLogin} from 'react-google-login';
 import {clientId} from './utils.js';
+import {GoogleLogin} from 'react-google-login';
 import {gql} from 'apollo-boost';
 import {Mutation} from 'react-apollo';
-import {withRouter} from 'react-router-dom';
+import React, {Component} from 'react';
 import 'typeface-roboto';
+import {withRouter} from 'react-router-dom';
 
 /* Query sending user Information to server */
 const SIGNIN_QUERY = gql`
@@ -29,10 +29,7 @@ class LoginFormGoogle extends Component {
 
   // Google login fail callback function
   responseFail = (err) => {
-    return (
-        // TODO(Myounghee): Make alert function
-        window.alert(err)
-    );
+    this.props.history.push('/error');
   };
 
   /**
@@ -75,7 +72,6 @@ class LoginFormGoogle extends Component {
                     onError={
                       (error) => {
                         // Implement query error processing
-                        console.log('error', error);
                       }
                     }>
             {(execute_mutation) => {

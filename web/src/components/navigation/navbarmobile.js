@@ -9,13 +9,13 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
-import Cookie from 'js-cookie';
 import {
   Link,
   withRouter,
 } from 'react-router-dom';
 import Logo from '../../img/tinysocial-logo.png';
 import MenuIcon from '@material-ui/icons/Menu';
+import PropTypes from 'prop-types';
 import React from 'react';
 import useStyles from './constant';
 
@@ -24,11 +24,10 @@ function NavBarMobile(props) {
   const [state, setState] = React.useState({
     left: false,
   });
-  const loggedIn = Cookie.get('token') ? true : false;
-  const {profilepic} = props;
+  const {profilepic, loggedIn} = props;
 
   const toggleDrawer = (side, open) => (event) => {
-    if (event.type == 'keydown' &&
+    if (event.type === 'keydown' &&
       (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
@@ -42,7 +41,7 @@ function NavBarMobile(props) {
       role='presentation'>
       <List>
         <Link to="/" style={{padding: 20}}>
-          <img src={Logo}/>
+          <img alt='logo' src={Logo}/>
         </Link>
       </List>
       <Divider/>
@@ -83,7 +82,7 @@ function NavBarMobile(props) {
 
   return (
     <div className='Navbar'>
-      <AppBar color='default' position='static'>
+      <AppBar color='default' position='sticky'>
         <Toolbar>
           <Grid container
             direction='row'
@@ -100,13 +99,13 @@ function NavBarMobile(props) {
             </Grid>
             <Grid item>
               <Link to='/' style={{padding: 20}}>
-                <img src={Logo}/>
+                <img alt='logo' src={Logo}/>
               </Link>
             </Grid>
             <Grid item xs align='right'>
               {loggedIn &&
                 <Link to='/userpage'>
-                  <Avatar alt='seulgi' src={profilepic}/>
+                  <Avatar alt='profile' src={profilepic}/>
                 </Link>
               }
             </Grid>
@@ -116,5 +115,10 @@ function NavBarMobile(props) {
     </div>
   );
 }
+
+NavBarMobile.propTypes = {
+  profilepic: PropTypes.string,
+  loggedIn: PropTypes.bool,
+};
 
 export default withRouter(NavBarMobile);

@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import {
   isWidthUp,
   withWidth,
@@ -16,30 +17,33 @@ query getMyProfilePic {
 }
 `;
 
+const displayNavBar = (isPC, profilepic, loggedIn) => {
+  if (isPC) return <NavBarPC profilepic={profilepic} loggedIn={loggedIn}/>;
+  return <NavBarMobile profilepic={profilepic} loggedIn={loggedIn}/>;
+};
+
 function Navbar(props) {
-  if (isWidthUp('md', props.width)) {
+  const isPC = isWidthUp('md', props.width);
+  // When there is token, send me query to get profile pic.
+  if (Cookies.get('token')) {
     return (
       <Query query={ME_QUERY}>
         {({loading, error, data}) => {
-          console.log(data);
-          if (loading || error) return <NavBarPC/>;
-          return (
-            <NavBarPC profilepic={data.me.profileImgUrl}/>
-          );
+          if (loading) {
+            return displayNavBar(isPC, undefined, true);
+          }
+          if (error) {
+            // Remove cookie if query fails.
+            Cookies.remove('token');
+            return displayNavBar(isPC, undefined, false);
+          }
+          return displayNavBar(isPC, data.me.profileImgUrl, true);
         }}
       </Query>
     );
   }
-  return (
-    <Query query={ME_QUERY}>
-      {({loading, error, data}) => {
-        if (loading || error) return <NavBarMobile/>;
-        return (
-          <NavBarMobile profilepic={data.me.profileImgUrl}/>
-        );
-      }}
-    </Query>
-  );
+
+  return displayNavBar(isPC, undefined, false);
 }
 
 export default withWidth()(Navbar);
