@@ -21,7 +21,6 @@ function Navbar(props) {
     return (
       <Query query={ME_QUERY}>
         {({loading, error, data}) => {
-          console.log(data);
           if (loading || error) return <NavBarPC/>;
           return (
             <NavBarPC profilepic={data.me.profileImgUrl}/>
