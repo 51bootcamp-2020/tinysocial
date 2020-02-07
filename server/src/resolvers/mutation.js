@@ -44,21 +44,17 @@ module.exports.Mutation = {
     _,
     {event, eventBookClub},
     {dataSources, hostId}) => {
-      const {title, description, price, type, thumbnailUrl} = event; 
-      const flag = dataSources.eventAPI.createEvent({
+      const {title, description, price, thumbnail, maxParticipantNum} = event; 
+      const flag = await dataSources.eventAPI.createEvent({
         title,
         description,
         price,
-        type,
-        // TODO(SeongJaeSong): Implement image upload feature
-        thumbnailUrl,
+        thumbnail,
         maxParticipantNum,
         hostId,
+        eventBookClub,
       })
       // TODO(SeongJaeSong): Add createSchedule API
-      if (eventBookClub) {
-        const {bookTitle, bookAuthor, bookDescription, bookISBN} = eventBookClub;
-      }
       return flag;
     },
 };
