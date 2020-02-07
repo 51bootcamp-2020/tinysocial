@@ -7,9 +7,6 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 
 class Bookclub extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <div style={{margin: 15}}>
@@ -58,7 +55,7 @@ class Bookclub extends Component {
 }
 
 Bookclub.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.object.isRequired,
 };
 
 export default Bookclub;

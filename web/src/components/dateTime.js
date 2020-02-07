@@ -1,4 +1,3 @@
-import {Typography} from '@material-ui/core';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
@@ -34,16 +33,16 @@ class Datetime extends Component {
     }
 
     return (
-      // Feb 5th, 01:30 PM
-      <Typography variant='body2' style={{marginBottom: 5}}>
+      <>
+        {/* Feb 5th, 01:30 PM */}
         {month} {day}{dateForm}, {startTime} - {endTime}
-      </Typography>
+      </>
     );
   }
 }
 
 Datetime.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.object.isRequired,
 };
 
 export default Datetime;

@@ -9,7 +9,8 @@ class Eventthumbnail extends Component {
     return (
       <Grid style={{padding: 15, height: 400}}>
         <div style={{height: '100%', width: '100%', overflow: 'hidden'}}>
-          <img style={{height: '100%', width: '100%', objectFit: 'cover'}}
+          <img alt='eventThumbnail'
+            style={{height: '100%', width: '100%', objectFit: 'cover'}}
             src={this.props.children.thumbnailUrl}/>
         </div>
       </Grid>
@@ -18,7 +19,7 @@ class Eventthumbnail extends Component {
 }
 
 Eventthumbnail.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.object.isRequired,
 };
 
 export default Eventthumbnail;

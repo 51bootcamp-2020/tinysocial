@@ -7,15 +7,12 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 
 class Tags extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const tagList = [];
     const {event} = this.props;
     for (let i in event.tags) {
       tagList.push(
-          <Box border={1} style={{
+          <Box key={event.tags[i].id} border={1} style={{
             borderColor: '#c7c7c7',
             borderRadius: 5,
             margin: 3,
@@ -23,7 +20,7 @@ class Tags extends Component {
             textAlign: 'center',
             width: 'max-content',
           }}>
-            <Typography variant='body2'>
+            <Typography key={event.tags[i].id} variant='body2'>
               {event.tags[i].name}
             </Typography>
           </Box>,
@@ -38,7 +35,7 @@ class Tags extends Component {
 }
 
 Tags.propTypes = {
-  event: PropTypes.element.isRequired,
+  event: PropTypes.object.isRequired,
 }
 
 export default Tags;

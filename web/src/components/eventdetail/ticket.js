@@ -11,9 +11,6 @@ import {
 } from 'react-router-dom';
 
 class Ticket extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <Grid container
@@ -48,7 +45,7 @@ class Ticket extends Component {
 }
 
 Ticket.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.object.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
 };
 
