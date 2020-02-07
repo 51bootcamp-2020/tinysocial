@@ -1,82 +1,52 @@
+/* global google*/
 import React, {Component} from 'react';
-import {Container, Grid, Typography, TextField, Button, InputBase, Paper, Input, InputAdornment, InputLabel, FormControl, Select, Divider} from '@material-ui/core';
-const _ = require('lodash');
-const {compose, withProps, lifecycle} = require('recompose');
-const {
-  withScriptjs,
-  withGoogleMap,
-  GoogleMap,
-  Marker,
-} = require('react-google-maps');
-const {SearchBox} = require('react-google-maps/lib/components/places/SearchBox');
+import {Container, Grid, Typography, TextField, Button, InputBase, Paper, Input, InputAdornment, InputLabel, FormControl, Select} from '@material-ui/core';
+import DateFnsUtils from '@date-io/date-fns'; // choose your lib
+import {
+  DatePicker,
+  TimePicker,
+  DateTimePicker,
+  MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
 
-const MapWithASearchBox = compose(
+const {compose, withProps, lifecycle} = require('recompose');
+const {withScriptjs} = require('react-google-maps');
+const {
+  StandaloneSearchBox,
+} = require('react-google-maps/lib/components/places/StandaloneSearchBox');
+
+const PlacesWithStandaloneSearchBox = compose(
     withProps({
-      googleMapURL: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places',
+      googleMapURL:
+            'https://maps.googleapis.com/maps/api/js?key=AIzaSyDYCUYRSjpYlmrt3HvFOTK5mkfu7y8M_7A&v=3.exp&libraries=geometry,drawing,places',
       loadingElement: <div style={{height: `100%`}} />,
       containerElement: <div style={{height: `400px`}} />,
-      mapElement: <div style={{height: `100%`}} />,
     }),
     lifecycle({
       componentWillMount() {
         const refs = {};
 
         this.setState({
-          bounds: null,
-          center: {
-            lat: 41.9, lng: -87.624,
-          },
-          markers: [],
-          onMapMounted: (ref) => {
-            refs.map = ref;
-          },
-          onBoundsChanged: () => {
-            this.setState({
-              bounds: refs.map.getBounds(),
-              center: refs.map.getCenter(),
-            });
-          },
+          places: [],
           onSearchBoxMounted: (ref) => {
             refs.searchBox = ref;
           },
           onPlacesChanged: () => {
             const places = refs.searchBox.getPlaces();
-            const bounds = new window.google.maps.LatLngBounds();
-
-            places.forEach((place) => {
-              if (place.geometry.viewport) {
-                bounds.union(place.geometry.viewport);
-              } else {
-                bounds.extend(place.geometry.location);
-              }
-            });
-            const nextMarkers = places.map((place) => ({
-              position: place.geometry.location,
-            }));
-            const nextCenter = _.get(nextMarkers, '0.position', this.state.center);
 
             this.setState({
-              center: nextCenter,
-              markers: nextMarkers,
+              places,
             });
-            // refs.map.fitBounds(bounds);
           },
         });
       },
     }),
     withScriptjs,
-    withGoogleMap,
-)((props) =>
-  <GoogleMap
-    ref={props.onMapMounted}
-    defaultZoom={15}
-    center={props.center}
-    onBoundsChanged={props.onBoundsChanged}
-  >
-    <SearchBox
+)((props) => (
+  <div data-standalone-searchbox="">
+    <StandaloneSearchBox
       ref={props.onSearchBoxMounted}
       bounds={props.bounds}
-      controlPosition={window.google.maps.ControlPosition.TOP_LEFT}
       onPlacesChanged={props.onPlacesChanged}
     >
       <input
@@ -87,7 +57,6 @@ const MapWithASearchBox = compose(
           border: `1px solid transparent`,
           width: `240px`,
           height: `32px`,
-          marginTop: `27px`,
           padding: `0 12px`,
           borderRadius: `3px`,
           boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
@@ -96,15 +65,26 @@ const MapWithASearchBox = compose(
           textOverflow: `ellipses`,
         }}
       />
-    </SearchBox>
-    {props.markers.map((marker, index) =>
-      <Marker key={index} position={marker.position} />,
-    )}
-  </GoogleMap>,
-);
+    </StandaloneSearchBox>
+    <ol>
+      {props.places.map(
+          ({place_id, formatted_address, geometry: {location}}) => (
+            <li key={place_id}>
+              {formatted_address}
+              {' at '}
+                        ({location.lat()}, {location.lng()})
+            </li>
+          ),
+      )}
+    </ol>
+  </div>
+));
 
 class NewEvent extends Component {
   render() {
+    const selectedDate = new Date();
+    console.log('date:', selectedDate);
+
     return (
       <Container maxWidth='lg'>
         newEvent page
@@ -123,6 +103,7 @@ class NewEvent extends Component {
             InputLabelProps={{
               shrink: true,
             }}
+            variant="outlined"
           />
           <TextField
             id="standard-full-width"
@@ -137,6 +118,7 @@ class NewEvent extends Component {
             }}
             multiline={true}
             rows={5}
+            variant="outlined"
           />
           <input
             accept="image/*"
@@ -244,7 +226,25 @@ class NewEvent extends Component {
 
         <div>
           <Paper>
-            <MapWithASearchBox isMarkerShown />/
+            <PlacesWithStandaloneSearchBox isMarkerShown />
+
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <DateTimePicker
+                label="Start datetime"
+                value={selectedDate}
+                onChange={0}
+                fullWidth
+              />
+              <DateTimePicker
+                label="End datetime"
+                value={selectedDate}
+                onChange={0}
+                fullWidth
+              />
+            </MuiPickersUtilsProvider>
+            <Button variant="outlined" color="secondary">
+              Add Schedule
+            </Button>
           </Paper>
         </div>
       </Container>
