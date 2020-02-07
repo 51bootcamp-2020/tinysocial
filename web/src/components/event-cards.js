@@ -30,7 +30,7 @@ const eventCardStyle = {
     '-webkit-line-clamp': 3,
     '-webkit-box-orient': 'vertical',
     wordBreak: 'keep-all'
-},
+  },
   subTitleText: {
     height: '20px',
     fontFamily: 'LibreFranklin',
@@ -142,7 +142,7 @@ class EventCards extends Component {
         return [scheduleIndex, <Datetime>{this.props.events[cardIndex].
           schedule[scheduleIndex]}</Datetime>]
       }
-        }
+    }
     return [0, 'Ended']
   };
 
@@ -170,7 +170,7 @@ class EventCards extends Component {
               title="Cards Image"/>
             {/* Header section of Card */}
             <CardHeader avatar={<Avatar alt="Example User Name"
-                        src={this.props.events[cardIndex].host.profileImgUrl}/>}
+                                        src={this.props.events[cardIndex].host.profileImgUrl}/>}
                         title={this.props.events[cardIndex].title}
                         subheader={
                           <div>

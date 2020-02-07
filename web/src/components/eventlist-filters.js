@@ -18,7 +18,7 @@ const tagButtonStyle = {
     width: '100%',
     overflow: 'scroll',
     '&::-webkit-scrollbar': {
-    display: 'none'
+      display: 'none'
     }
   },
   buttonShape: {
@@ -129,11 +129,11 @@ class EventlistFilters extends Component {
       <div style={{position: 'relative'}}>
         <ArrowBackIos style={{float: 'left', position: 'absolute',
           top: '35%', color: '#DCDCDC'}}/>
-          <ToggleButtonGroup size='large'
-                             value={this.state.filterClicked}
-                             className={classes.buttonGroup}>
-            <this.ViewTagButtons />
-          </ToggleButtonGroup>
+        <ToggleButtonGroup size='large'
+                           value={this.state.filterClicked}
+                           className={classes.buttonGroup}>
+          <this.ViewTagButtons />
+        </ToggleButtonGroup>
         <ArrowForwardIos  style={{float: 'right', position: 'absolute',
           top: '35%', color: '#DCDCDC'}}/>
       </div>
