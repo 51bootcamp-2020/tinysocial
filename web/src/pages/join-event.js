@@ -3,6 +3,7 @@ import {Container} from '@material-ui/core';
 import {gql} from 'apollo-boost';
 import {Mutation} from 'react-apollo';
 import ParticipateSuccess from '../components/participate-success';
+import ParticipateFail from '../components/participate-fail';
 import {withRouter} from 'react-router-dom';
 
 // Todo(Myoung-hee): Redirect to error page when error occured.
@@ -33,7 +34,7 @@ class JoinEvent extends Component {
       {this.state.participateResult === null ? 'Loading...' : (
           this.state.participateResult ?
               <ParticipateSuccess price={this.props.location.state.price}/> :
-              'Fail to participate')}
+              <ParticipateFail/>)}
     </div>;
   }
 

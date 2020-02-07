@@ -70,7 +70,7 @@ class PurchaseEventItem extends Component {
                 </Typography>
                 <Typography gutterBottom variant="subtitle2"
                             style={eventScheduleStyle}>
-                  // Todo(Myoung-hee): show event schedule
+                  {/* Todo(Myoung-hee): show event schedule */}
                 </Typography>
               </Grid>
               <Grid item xs={12} style={{paddingTop: '10px'}}>

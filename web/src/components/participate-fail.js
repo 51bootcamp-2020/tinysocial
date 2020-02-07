@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Fab, Container, Grid, Typography} from '@material-ui/core';
 import {withRouter} from 'react-router-dom';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 // Styles
 const containerStyle = {
@@ -31,8 +31,8 @@ const h4Style = {
 };
 
 // Todo(Myoung-hee): Redirect to error page when error occured.
-// Component when event-user participate is successed after payment.
-class ParticipateSuccess extends Component {
+// Component when event-user participate is failed.
+class ParticipateFail extends Component {
   constructor(props) {
     super(props);
 
@@ -44,15 +44,13 @@ class ParticipateSuccess extends Component {
           <Grid container direction="row"
                 style={{justifyContent: 'center', textAlign: 'center'}}>
             <Grid item xs={12} style={{paddingTop: '4%', paddingBottom: '12%'}}>
-              <CheckCircleOutlineIcon style={{fontSize: 70}}/>
+              <ErrorOutlineIcon style={{fontSize: 70}}/>
             </Grid>
             <Grid item xs={12} style={{padding: '2%'}}>
-              <Typography variant="h4" style={h4Style}>Payment
-                Success!</Typography>
+              <Typography variant="h4" style={h4Style}>Participate fail!</Typography>
             </Grid>
             <Grid item xs={12} style={{padding: '2%'}}>
-              <Typography variant="subtitle1" style={{fontSize: '20px'}}>Your
-                payment of ${this.props.price} <br/>was successfully completed.</Typography>
+              <Typography variant="subtitle1" style={{fontSize: '20px'}}>You've already registered in this event.</Typography>
             </Grid>
             <Grid item xs={12} style={{padding: '10%'}}>
               {/* Button redirect to homepage. */}
@@ -75,4 +73,4 @@ class ParticipateSuccess extends Component {
   }
 }
 
-export default withRouter(ParticipateSuccess);
+export default withRouter(ParticipateFail);
