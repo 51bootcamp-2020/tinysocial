@@ -1,4 +1,4 @@
-const {notLoggedInMessage, notImplementMessage} = require('../error-messages');
+const errorMessage = require('../error-messages');
 module.exports.Mutation = {
   signInWithGoogle: async (_, {googleId}, {dataSources}) => {
     return dataSources.authAPI.signInWithGoogle({googleId});
@@ -54,5 +54,17 @@ module.exports.Mutation = {
       userId,
     });
     return review;
+  },
+  joinEvent: async (
+    _,
+    {orderId, eventId},
+    {dataSources, userId},
+  ) => {
+    const price = dataSources.eventAPI.getAttributeOfEvent('price', eventId);
+    if (price === null) {
+      return false;
+    }
+
+    return dataSources.joinEventAPI.validateJoin({orderId, eventId, userId, price});
   },
 };

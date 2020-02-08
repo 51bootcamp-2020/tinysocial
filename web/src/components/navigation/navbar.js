@@ -12,6 +12,7 @@ import React from 'react';
 const ME_QUERY = gql`
 query getMyProfilePic {
   me {
+    id
     profileImgUrl
   }
 }
