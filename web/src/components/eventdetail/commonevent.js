@@ -17,7 +17,6 @@ class CommonEvent extends Component {
       displayMore: false,
     };
   }
-
   render() {
     const handleVisibility = () => {
       if (this.state.displayMore) {
@@ -30,7 +29,6 @@ class CommonEvent extends Component {
         });
       }
     };
-
     return (
       <>
         <Grid container direction="row" alignContent='space-between'>
@@ -67,7 +65,7 @@ class CommonEvent extends Component {
             </Grid>
             <Hidden xsDown>
               <Grid container justify='flex-start'>
-                <Ticket event={this.props.children}>
+                <Ticket event={this.props.children} userId={this.props.userId}>
                   {this.props.children}
                 </Ticket>
               </Grid>
@@ -81,6 +79,7 @@ class CommonEvent extends Component {
 
 CommonEvent.propTypes = {
   children: PropTypes.object.isRequired,
+  userId: PropTypes.string.isRequired,
 };
 
 export default CommonEvent;
