@@ -82,7 +82,7 @@ const typeDefs = gql`
         address: String!
         addtionalAddress: String!
         latitude: Float!
-        logitude: Float!
+        longitude: Float!
     }
 
     input EventInput {
