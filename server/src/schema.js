@@ -191,6 +191,8 @@ const typeDefs = gql`
         address: String!
         latitude: Float!
         longitude: Float!
+        city: String!
+        state: String!
     }
 `;
 
