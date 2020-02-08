@@ -123,8 +123,17 @@ class EventCards extends Component {
     });
   };
 
-  // Check Schedule Date of each Event
+  /**
+   *  Check Schedule Date of each Event
+   *  @param {int} cardIndex : Event Card Index
+   *  @return {(boolean|number|string)[]}
+   */
   FilterSchedule = (cardIndex) => {
+    // If Schedule is null, return false
+    if (this.props.events[cardIndex].schedule === undefined ||
+      this.props.events[cardIndex].schedule.length === 0)
+      return [false, -1, 'No Schedule'];
+
     const nowDate = new Date();
     let scheduleDate = null;
     for(let scheduleIndex = 0;
@@ -133,11 +142,11 @@ class EventCards extends Component {
       scheduleDate = new Date(this.props.events[cardIndex].
         schedule[scheduleIndex].startDateTime);
       if(scheduleDate > nowDate){
-        return [scheduleIndex, <Datetime>{this.props.events[cardIndex].
+        return [true, scheduleIndex, <Datetime>{this.props.events[cardIndex].
           schedule[scheduleIndex]}</Datetime>]
       }
     }
-    return [0, 'Ended']
+    return [true, this.props.events[cardIndex].schedule.length - 1, 'Ended']
   };
 
   // Event Cards Component
@@ -147,7 +156,8 @@ class EventCards extends Component {
     // Push each card component in cards
     for (let cardIndex = 0; cardIndex < this.props.events.length; cardIndex++){
       // Check Schedule
-      let [scheduleIndex, scheduleText] = this.FilterSchedule(cardIndex);
+      let [isSchedule, scheduleIndex, scheduleText]
+        = this.FilterSchedule(cardIndex);
       cards.push(
         <Grid item xs={12} sm={6} md={4} key={this.props.events[cardIndex].id}>
             <Card value={this.props.events[cardIndex].id}
@@ -172,12 +182,14 @@ class EventCards extends Component {
                                 <Typography className={classes.subTitleText}>
                                   {scheduleText}
                                 </Typography>
-                                <Typography className={classes.subTitleText}>
-                                  {this.props.events[cardIndex]
-                                    .schedule[scheduleIndex].city + ', ' +
-                                  this.props.events[cardIndex]
-                                    .schedule[scheduleIndex].state}
-                                </Typography>
+                                { isSchedule &&
+                                  <Typography className={classes.subTitleText}>
+                                    {this.props.events[cardIndex]
+                                      .schedule[scheduleIndex].city + ', ' +
+                                    this.props.events[cardIndex]
+                                      .schedule[scheduleIndex].state}
+                                  </Typography>
+                                }
                               </div>} />
                 {/* Content section of Card */}
                 <CardContent>
