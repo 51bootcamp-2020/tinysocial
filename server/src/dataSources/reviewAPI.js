@@ -69,12 +69,12 @@ class ReviewAPI extends DataSource {
     return Ids;
   }
 
-  async getReviewsOfEvent({eventId}) {
+  async getReviewsOfEvent({eventId, userId}) {
     if (eventId === undefined || eventId === null) {
       throw new Error(eventIdIsNotPassedMessage);
     }
     const reviews = await this.store.Review.findAll({
-      where: {eventId},
+      where: {eventId, userId},
       attributes: ['eventId', 'userId'],
       raw: true,
     });
