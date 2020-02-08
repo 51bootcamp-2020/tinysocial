@@ -32,15 +32,15 @@ module.exports.EventSchedule = {
     return longitude;
   },
   city: async ({id}, __, {dataSources}) => {
-    let address = await dataSources.eventAPI.getAttributeOfSchedule('address', id);
-    address = address.replace(/\s+/g, '');
-    const city = address.split(',')[2];
+    const address =
+        await dataSources.eventAPI.getAttributeOfSchedule('address', id);
+    const city = address.split(',')[2].trim();
     return city;
   },
   state: async ({id}, __, {dataSources}) => {
-    let address = await dataSources.eventAPI.getAttributeOfSchedule('address', id);
-    address = address.replace(/\s+/g, '');
-    const state = address.split(',')[3];
+    const address =
+        await dataSources.eventAPI.getAttributeOfSchedule('address', id);
+    const state = address.split(',')[3].trim();
     return state;
   },
 };
