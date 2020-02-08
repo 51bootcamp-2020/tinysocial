@@ -46,7 +46,10 @@ class PurchaseEventItem extends Component {
   cancelBtnRedirect = () => {
     if (this.props.eventId != '') {
       // Todo(Myoung-hee) : Change history to event detail with id.
-      this.props.history.push('/eventlist');
+      this.props.history.push({
+        pathname: '/eventdetail',
+        search: `?id=${this.props.eventId}`,
+      });
     } else this.props.history.push('/');
   };
 
