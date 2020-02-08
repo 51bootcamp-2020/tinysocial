@@ -285,6 +285,8 @@ class EventAPI extends DataSource {
 
     if (eventBookClub) {
       const bookImagePath = await imageUpload(bookImage);
+      event.type = 1;
+      event.save();
       this.store.EventBookClub.create({
         eventId: event.id,
         bookTitle: eventBookClub.bookTitle,
