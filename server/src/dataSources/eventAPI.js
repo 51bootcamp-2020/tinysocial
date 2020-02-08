@@ -198,7 +198,6 @@ class EventAPI extends DataSource {
       eventIds = await this.store.Event.findAll();
     }
     // TODO(lsh9034): implement logic order by order parameter.
-    console.log('eventIds', eventIds);
     eventIds = eventIds.map((element) => (element.id));
     const scheduleId = await this.store.Schedule.findAll({
       where: {eventId: eventIds},
@@ -268,7 +267,6 @@ class EventAPI extends DataSource {
   }
 
   async createEvent(eventInfo) {
-    console.log(eventInfo);
     const eventBookClub = eventInfo.eventBookClub;
     const eventSchedule = eventInfo.schedule;
     const eventThumbnail = await eventInfo.thumbnail;

@@ -71,7 +71,6 @@ module.exports.Mutation = {
     {event, schedule, eventBookClub},
     {dataSources, userId}) => {
     const {title, description, price, thumbnail, maxParticipantNum} = event;
-    console.log(userId);
     const flag = await dataSources.eventAPI.createEvent({
       title,
       description,
