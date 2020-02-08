@@ -56,6 +56,7 @@ class ParticipateFail extends Component {
                     width: '280px',
                     height: '44px',
                     backgroundColor: '#009688',
+                    outline: 0
                   }} onClick={() => this.props.history.push('/userpage')}
               >
                 <Typography style={returnBtnStyle}>Check my booking

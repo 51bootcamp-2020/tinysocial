@@ -116,7 +116,7 @@ class ReviewWritePanel extends Component {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>Cancel</Button>
+          <Button onClick={onClose} style={{outline:0}}>Cancel</Button>
           <Mutation mutation={REVIEW_MUTATION}
             variables={{
               eventId: eventId,
@@ -132,7 +132,7 @@ class ReviewWritePanel extends Component {
               if (loading) return <Button disabled>Done</Button>;
               if (error) return <Button disabled>Done</Button>;
               return (
-                <Button onClick={mutate}>Done</Button>
+                <Button onClick={mutate} style={{outline: 0}}>Done</Button>
               )
             }}
           </Mutation>

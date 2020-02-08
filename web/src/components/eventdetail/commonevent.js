@@ -48,7 +48,7 @@ class CommonEvent extends Component {
               {this.props.children.schedule.length > 3 ?
                 <Link component='button'
                   variant='body2'
-                  onClick={handleVisibility}>
+                  onClick={handleVisibility} >
                   {!this.state.displayMore ? <>More Schedules</> : <>Close</>}
                 </Link> : null}
               <Typography variant='h6' style={{color: '#009688'}}>

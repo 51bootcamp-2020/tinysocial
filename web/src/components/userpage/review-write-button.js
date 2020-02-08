@@ -21,6 +21,7 @@ class ReviewWriteButton extends Component {
             borderRadius: '18px',
             textTransform: 'none',
             backgroundColor: '#009688',
+            outline: 0
           }}>
           Write
         </Button>
@@ -41,6 +42,7 @@ class ReviewWriteButton extends Component {
           textTransform: 'none',
           backgroundColor: '#ffffff',
           color: '#009688',
+          outline: 0
         }}>
         Edit
       </Button>
