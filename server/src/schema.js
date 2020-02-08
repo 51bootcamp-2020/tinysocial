@@ -97,7 +97,6 @@ const typeDefs = gql`
         bookTitle: String!
         bookAuthor: String!
         bookDescription: String
-        bookISBN: String!
         bookImage: Upload!
     }
 
