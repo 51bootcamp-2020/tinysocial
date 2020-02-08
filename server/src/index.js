@@ -1,14 +1,8 @@
 'use strict';
 require('dotenv').config();
-let ApolloServer;
-let app;
-if (process.env.NODE_ENV === 'production') {
-  ApolloServer = require('apollo-server-lambda').ApolloServer;
-} else {
-  const express = require('express');
-  app = express();
-  ApolloServer = require('apollo-server-express').ApolloServer;
-}
+const express = require('express');
+const app = express();
+const ApolloServer = require('apollo-server-express').ApolloServer;
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
 
@@ -49,12 +43,10 @@ const server = new ApolloServer({
 
 switch (process.env.NODE_ENV) {
   case 'production':
-    module.exports.graphqlHandler = server.createHandler({
-      cors: {
-        origin: true,
-        credentials: true,
-      },
-    });
+    server.applyMiddleware({app});
+    app.listen({port: 4000}, () =>
+      console.log(`🚀 Server ready at http://tinysocial.us:4000${server.graphqlPath}`),
+    );
     break;
   case 'dev':
     server.applyMiddleware({app});
