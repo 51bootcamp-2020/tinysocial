@@ -148,7 +148,6 @@ class EventCards extends Component {
     for (let cardIndex = 0; cardIndex < this.props.events.length; cardIndex++){
       // Check Schedule
       let [scheduleIndex, scheduleText] = this.FilterSchedule(cardIndex);
-      // let address = this.AddressFormat(this.props.events[cardIndex].schedule[scheduleIndex]);
       cards.push(
         <Grid item xs={12} sm={6} md={4} key={this.props.events[cardIndex].id}>
             <Card value={this.props.events[cardIndex].id}
@@ -174,8 +173,10 @@ class EventCards extends Component {
                                   {scheduleText}
                                 </Typography>
                                 <Typography className={classes.subTitleText}>
-                                  {this.props.events[cardIndex].schedule[scheduleIndex]
-                                  .address.slice(-19,-6)}
+                                  {this.props.events[cardIndex]
+                                    .schedule[scheduleIndex].city + ', ' +
+                                  this.props.events[cardIndex]
+                                    .schedule[scheduleIndex].state}
                                 </Typography>
                               </div>} />
                 {/* Content section of Card */}
