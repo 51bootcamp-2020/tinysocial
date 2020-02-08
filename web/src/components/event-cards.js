@@ -42,19 +42,17 @@ const eventCardStyle = {
     lineHeight: 1.43,
     letterSpacing: '0.25px',
     color: 'rgba(0, 0, 0, 0.87)'
+  },
+  card: {
+    height: '450px',
+    backgroundColor: '#ffffff',
+    margin: '0 7% 10% 7%',
   }
 };
 
 // Overriding Card Component css style
 const theme = createMuiTheme({
   overrides: {
-    MuiCard: {
-      root: {
-        height: '450px',
-        backgroundColor: '#ffffff',
-        margin: '0 7% 10% 7%',
-      },
-    },
     MuiCardHeader: {
       root: {
         height: '20%',
@@ -82,7 +80,7 @@ const theme = createMuiTheme({
     },
     MuiCardContent: {
       root: {
-        height: '22%',
+        height: '20%',
         paddingTop: 0,
       },
     },
@@ -153,11 +151,12 @@ class EventCards extends Component {
       // let address = this.AddressFormat(this.props.events[cardIndex].schedule[scheduleIndex]);
       cards.push(
         <Grid item xs={12} sm={6} md={4} key={this.props.events[cardIndex].id}>
-          <CardActionArea>
             <Card value={this.props.events[cardIndex].id}
+                  className={classes.card}
                   key={this.props.events[cardIndex].id}
                   onClick={
                     () => this.CardClicked(this.props.events[cardIndex].id)}>
+              <CardActionArea style={{height:'100%'}}>
               {/* Image section of Card */}
                 <CardMedia
                   component="img"
@@ -185,8 +184,8 @@ class EventCards extends Component {
                     {this.props.events[cardIndex].description}
                   </Typography>
                 </CardContent>
+              </CardActionArea>
             </Card>
-          </CardActionArea>
         </Grid>
       );
     }
