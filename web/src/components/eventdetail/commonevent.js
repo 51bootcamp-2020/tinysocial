@@ -14,7 +14,7 @@ class CommonEvent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayMore: '',
+      displayMore: false,
     };
   }
 
