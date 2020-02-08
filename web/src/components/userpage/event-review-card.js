@@ -34,7 +34,7 @@ class EventReviewCard extends Component {
       const startTime= new Date(startDateTime).toLocaleString('en-US', options);
       const endTime = new Date(endDateTime).toLocaleString('en-US', options);
       return (
-        <EventSchedule key={id}
+        <EventSchedule key={Number(id)}
           index={index++}
           startTime={startTime}
           endTime={endTime}
@@ -136,7 +136,7 @@ EventReviewCard.propTypes = {
   bookAuthor: PropTypes.string,
   bookImage: PropTypes.string,
   schedules: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
     startDateTime: PropTypes.string,
     endDateTime: PropTypes.string,
     address: PropTypes.string,
