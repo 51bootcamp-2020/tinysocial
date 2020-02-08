@@ -12,7 +12,7 @@ import {
   withStyles,
   ThemeProvider,
 } from '@material-ui/core/styles';
-import Datetime from './dateTime';
+import Datetime from './datetime';
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 
