@@ -12,7 +12,7 @@ import SignInUp from './pages/signInUp';
 import Emailvalidation from './pages/emailvalidation';
 import Checkout from './pages/checkout';
 import JoinEvent from './pages/join-event';
-import NewEvent from './pages/newEvent';
+import NewEvent from './pages/new-event';
 
 function App() {
   {/* TODO(Myoung-heeSeo) : Add a state to check if the user is logged in now. */}
