@@ -5,10 +5,12 @@ import {
   Grid,
 } from '@material-ui/core';
 import BookClub from '../components/eventdetail/bookclub';
+import Cookies from 'js-cookie';
 import CommonEvent from '../components/eventdetail/commonevent';
 import Error from '../pages/error';
 import EventThumbNail from '../components/eventdetail/eventthumbnail';
 import {gql} from 'apollo-boost';
+import PropTypes from 'prop-types';
 import Ticket from '../components/eventdetail/ticket';
 import {Query} from 'react-apollo';
 import queryString from 'query-string'
@@ -17,7 +19,10 @@ import {
   withRouter
 } from 'react-router-dom'
 
-const EVENT_DETAIL_REQUEST_QUERY = gql`
+let EVENT_DETAIL_REQUEST_QUERY = null;
+
+if (Cookies.get('token')) {
+  EVENT_DETAIL_REQUEST_QUERY = gql`
   query getEvent($eventId: ID!) {
     event(id: $eventId) {
       id,
@@ -57,6 +62,42 @@ const EVENT_DETAIL_REQUEST_QUERY = gql`
       id
     }
   }`;
+} else {
+  EVENT_DETAIL_REQUEST_QUERY = gql`
+  query getEvent($eventId: ID!) {
+    event(id: $eventId) {
+      id,
+      title,
+      thumbnailUrl,
+      description,
+      price,
+      tags {
+        id,
+        name
+      },
+      ... on EventBookClub {
+        bookTitle,
+        bookDescription,
+        bookAuthor
+      },
+      schedule {
+        id,
+        startDateTime,
+        endDateTime,
+        address,
+        latitude,
+        longitude,
+      },
+      host {
+        id,
+        firstName,
+        lastName,
+        selfDescription,
+        profileImgUrl
+      }
+    }
+  }`;
+}
 
 class EventDetail extends Component{
   constructor(props){
@@ -85,9 +126,13 @@ class EventDetail extends Component{
                 </EventThumbNail>
               </Grid>
               <Grid item sm={4} xs={12}>
-                <CommonEvent userId={data.me.id}>
-                  {data.event}
-                </CommonEvent>
+                {Cookies.get('token') ?
+                  <CommonEvent userId={data.me.id}>
+                    {data.event}
+                  </CommonEvent> :
+                  <CommonEvent>
+                    {data.event}
+                  </CommonEvent>}
               </Grid>
               <Grid item sm={8} xs={12}>
                 <BookClub>
@@ -99,9 +144,13 @@ class EventDetail extends Component{
                   bottom: 0, background: 'white'}}>
                   <Grid item xs={12}>
                     <Divider/>
-                    <Ticket userId={data.me.id}>
-                      {data.event}
-                    </Ticket>
+                    {Cookies.get('token') ?
+                        <Ticket userId={data.me.id}>
+                          {data.event}
+                        </Ticket> :
+                        <Ticket>
+                          {data.event}
+                        </Ticket>}
                   </Grid>
                 </AppBar>
               </Hidden>
@@ -119,6 +168,10 @@ class EventDetail extends Component{
       </>
     );
   }
+}
+
+EventDetail.propTypes = {
+  userId: PropTypes.string,
 }
 
 export default withRouter(EventDetail);

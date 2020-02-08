@@ -79,7 +79,7 @@ class CommonEvent extends Component {
 
 CommonEvent.propTypes = {
   children: PropTypes.object.isRequired,
-  userId: PropTypes.string.isRequired,
+  userId: PropTypes.string,
 };
 
 export default CommonEvent;

@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import {
   Fab,
   Grid,
@@ -17,7 +18,6 @@ class Ticket extends Component {
       scheduleOver: false,
     };
   }
-
   componentDidMount() {
     const today = new Date();
     const {schedule} = this.props.children;
@@ -28,16 +28,16 @@ class Ticket extends Component {
       });
     }
   }
-
   isParticipated = () => {
-    const participants = this.props.children.participants;
-    const {userId} = this.props;
-    for(let i = 0; i<participants.length; ++i) {
-      if(participants[i].id === userId) return true;
-    }
-    return false;
+    if (Cookies.get('token')) {
+      const participants = this.props.children.participants;
+      const {userId} = this.props;
+      for(let i = 0; i<participants.length; ++i) {
+        if(participants[i].id === userId) return true;
+      }
+      return false;
+    } else return false;
   }
-
   ticketMessage = () => {
     if(this.state.scheduleOver) {
       return (
@@ -69,7 +69,6 @@ class Ticket extends Component {
           </Fab>)
     }
   }
-
   render() {
     return (
       <Grid container
