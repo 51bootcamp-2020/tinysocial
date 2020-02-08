@@ -34,18 +34,18 @@ const h4Style = {
 class ParticipateSuccess extends Component {
   render() {
     return (
-        <Container style={{containerStyle}}>
-          <Grid container direction="row"
-                style={{justifyContent: 'center', textAlign: 'center'}}>
-            <Grid item xs={12} style={{paddingTop: '4%', paddingBottom: '12%'}}>
-              <CheckCircleOutlineIcon style={{fontSize: 70}}/>
-            </Grid>
-            <Grid item xs={12} style={{padding: '2%'}}>
-              <Typography variant="h4" style={h4Style}>Payment
+      <Container style={{containerStyle}}>
+        <Grid container direction="row"
+          style={{justifyContent: 'center', textAlign: 'center'}}>
+          <Grid item xs={12} style={{paddingTop: '4%', paddingBottom: '12%'}}>
+            <CheckCircleOutlineIcon style={{fontSize: 70}}/>
+          </Grid>
+          <Grid item xs={12} style={{padding: '2%'}}>
+            <Typography variant="h4" style={h4Style}>Payment
                 Success!</Typography>
-            </Grid>
-            <Grid item xs={12} style={{padding: '2%'}}>
-              <Typography variant="subtitle1" style={{fontSize: '20px'}}>Your
+          </Grid>
+          <Grid item xs={12} style={{padding: '2%'}}>
+            <Typography variant="subtitle1" style={{fontSize: '20px'}}>Your
                 payment of ${this.props.price} <br/>was successfully completed.</Typography>
             </Grid>
             <Grid item xs={12} style={{padding: '10%'}}>
@@ -61,10 +61,10 @@ class ParticipateSuccess extends Component {
               >
                 <Typography style={returnBtnStyle}>Check my booking
                   event</Typography>
-              </Fab>
-            </Grid>
+            </Fab>
           </Grid>
-        </Container>
+        </Grid>
+      </Container>
     );
   }
 }

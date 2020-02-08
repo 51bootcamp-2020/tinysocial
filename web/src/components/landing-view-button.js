@@ -5,12 +5,12 @@ import {
 } from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import React from 'react';
-import {withRouter} from 'react-router-dom'
+import {withRouter} from 'react-router-dom';
 
 // View Button css style
-const LandingViewButtonStyle = makeStyles(theme => ({
+const LandingViewButtonStyle = makeStyles((theme) => ({
   root: {
-    padding: '0 2.5% 0 2.5%'
+    padding: '0 2.5% 0 2.5%',
   },
   popularText: {
     fontFamily: 'Roboto',
@@ -20,7 +20,7 @@ const LandingViewButtonStyle = makeStyles(theme => ({
     fontStyle: 'normal',
     lineHeight: 'normal',
     letterSpacing: 'normal',
-    color: '#009688'
+    color: '#009688',
   },
   buttonText: {
     fontFamily: 'Roboto',
@@ -31,31 +31,31 @@ const LandingViewButtonStyle = makeStyles(theme => ({
     lineHeight: 'normal',
     letterSpacing: '0.5px',
     textAlign: 'center',
-    color: '#009688'
-  }
+    color: '#009688',
+  },
 
 }));
 
 // Redirect 'Popular' and 'View All' Button to event list page
-const LandingViewButton = props => {
+const LandingViewButton = (props) => {
   const landingViewButtonStyle = LandingViewButtonStyle();
   return (
-      <Grid container justify="space-between"
-                      className={landingViewButtonStyle.root}>
-        <Grid item>
-          <Box className={landingViewButtonStyle.popularText}>
+    <Grid container justify="space-between"
+      className={landingViewButtonStyle.root}>
+      <Grid item>
+        <Box className={landingViewButtonStyle.popularText}>
             Popular
-          </Box>
-        </Grid>
-        <Grid item>
-          <Button onClick={() => {
-                    return props.history.push('/eventlist')
-                    }}
-                  className={landingViewButtonStyle.buttonText}
-          > View all </Button>
-        </Grid>
+        </Box>
       </Grid>
-  )
+      <Grid item>
+        <Button onClick={() => {
+          return props.history.push('/eventlist');
+        }}
+        className={landingViewButtonStyle.buttonText}
+        > View all </Button>
+      </Grid>
+    </Grid>
+  );
 };
 
 export default withRouter(LandingViewButton);

@@ -78,7 +78,7 @@ class EventReviewCard extends Component {
                   paragraph
                   style={{fontWeight: 'bold'}}
                   onClick={this.handleEventClick}>
-                    {eventTitle}
+                  {eventTitle}
                 </Typography>
               )}
             </Grid>
