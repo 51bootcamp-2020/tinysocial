@@ -19,101 +19,98 @@ import {
   withRouter
 } from 'react-router-dom'
 
-let EVENT_DETAIL_REQUEST_QUERY = null;
-
-if (Cookies.get('token')) {
-  EVENT_DETAIL_REQUEST_QUERY = gql`
-  query getEvent($eventId: ID!) {
-    event(id: $eventId) {
-      id,
-      title,
-      thumbnailUrl,
-      description,
-      price,
-      tags {
-        id,
-        name
-      },
-      ... on EventBookClub {
-        bookTitle,
-        bookDescription,
-        bookAuthor
-      },
-      schedule {
-        id,
-        startDateTime,
-        endDateTime,
-        address,
-        latitude,
-        longitude,
-      },
-      host {
-        id,
-        firstName,
-        lastName,
-        selfDescription,
-        profileImgUrl
-      },
-      participants {
-        id
-      }
-    },
-    me {
-      id
-    }
-  }`;
-} else {
-  EVENT_DETAIL_REQUEST_QUERY = gql`
-  query getEvent($eventId: ID!) {
-    event(id: $eventId) {
-      id,
-      title,
-      thumbnailUrl,
-      description,
-      price,
-      tags {
-        id,
-        name
-      },
-      ... on EventBookClub {
-        bookTitle,
-        bookDescription,
-        bookAuthor
-      },
-      schedule {
-        id,
-        startDateTime,
-        endDateTime,
-        address,
-        latitude,
-        longitude,
-      },
-      host {
-        id,
-        firstName,
-        lastName,
-        selfDescription,
-        profileImgUrl
-      }
-    }
-  }`;
-}
-
 class EventDetail extends Component{
   constructor(props){
     super(props);
     this.state = {
-      eventId: ''
+      eventId: '',
     }
   }
-  componentDidMount() {
+  componentWillMount() {
+    if (Cookies.get('token')) {
+      this.EVENT_DETAIL_REQUEST_QUERY = gql`
+        query getEvent($eventId: ID!) {
+          event(id: $eventId) {
+            id,
+            title,
+            thumbnailUrl,
+            description,
+            price,
+            tags {
+              id,
+              name
+            },
+            ... on EventBookClub {
+              bookTitle,
+              bookDescription,
+              bookAuthor
+            },
+            schedule {
+              id,
+              startDateTime,
+              endDateTime,
+              address,
+              latitude,
+              longitude,
+            },
+            host {
+              id,
+              firstName,
+              lastName,
+              selfDescription,
+              profileImgUrl
+            },
+            participants {
+              id
+            }
+          },
+          me {
+            id
+          }
+        }`;
+          } else {
+            this.EVENT_DETAIL_REQUEST_QUERY = gql`
+        query getEvent($eventId: ID!) {
+          event(id: $eventId) {
+            id,
+            title,
+            thumbnailUrl,
+            description,
+            price,
+            tags {
+              id,
+              name
+            },
+            ... on EventBookClub {
+              bookTitle,
+              bookDescription,
+              bookAuthor
+            },
+            schedule {
+              id,
+              startDateTime,
+              endDateTime,
+              address,
+              latitude,
+              longitude,
+            },
+            host {
+              id,
+              firstName,
+              lastName,
+              selfDescription,
+              profileImgUrl
+            }
+          }
+        }`;
+    }
     const query = queryString.parse(this.props.location.search);
     this.setState({
       eventId: query.id
     })
   }
   Event = () => {
-    return (<Query query={EVENT_DETAIL_REQUEST_QUERY} variables={{eventId:this.state.eventId}}>
+    return (<Query query={this.EVENT_DETAIL_REQUEST_QUERY} variables={{eventId:this.state.eventId}}>
       {({ loading, error, data }) => {
         if (loading) return 'Loading...';
         if (error) return <Error/>;
