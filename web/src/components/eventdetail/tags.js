@@ -10,7 +10,7 @@ class Tags extends Component {
   render() {
     const tagList = [];
     const {event} = this.props;
-    for (let i in event.tags) {
+    for (const i in event.tags) {
       tagList.push(
           <Box key={event.tags[i].id} border={1} style={{
             borderColor: '#c7c7c7',
@@ -36,6 +36,6 @@ class Tags extends Component {
 
 Tags.propTypes = {
   event: PropTypes.object.isRequired,
-}
+};
 
 export default Tags;

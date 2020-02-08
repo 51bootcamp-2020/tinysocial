@@ -34,36 +34,36 @@ const h4Style = {
 class ParticipateFail extends Component {
   render() {
     return (
-        <Container style={{containerStyle}}>
-          <Grid container direction="row"
-                style={{justifyContent: 'center', textAlign: 'center'}}>
-            <Grid item xs={12} style={{paddingTop: '4%', paddingBottom: '12%'}}>
-              <ErrorOutlineIcon style={{fontSize: 70}}/>
-            </Grid>
-            <Grid item xs={12} style={{padding: '2%'}}>
-              <Typography variant="h4" style={h4Style}>Participate
-                fail!</Typography>
-            </Grid>
-            <Grid item xs={12} style={{padding: '2%'}}>
-              <Typography variant="subtitle1" style={{fontSize: '20px'}}>You've
-                already registered in this event.</Typography>
-            </Grid>
-            <Grid item xs={12} style={{padding: '10%'}}>
-              {/* Button redirect to userpage. */}
-              <Fab
-                  variant="extended"
-                  style={{
-                    width: '280px',
-                    height: '44px',
-                    backgroundColor: '#009688',
-                  }} onClick={() => this.props.history.push('/userpage')}
-              >
-                <Typography style={returnBtnStyle}>Check my booking
-                  event</Typography>
-              </Fab>
-            </Grid>
+      <Container style={{containerStyle}}>
+        <Grid container direction="row"
+          style={{justifyContent: 'center', textAlign: 'center'}}>
+          <Grid item xs={12} style={{paddingTop: '4%', paddingBottom: '12%'}}>
+            <ErrorOutlineIcon style={{fontSize: 70}}/>
           </Grid>
-        </Container>
+          <Grid item xs={12} style={{padding: '2%'}}>
+            <Typography variant="h4" style={h4Style}>Participate
+                fail!</Typography>
+          </Grid>
+          <Grid item xs={12} style={{padding: '2%'}}>
+            <Typography variant="subtitle1" style={{fontSize: '20px'}}>You've
+                already registered in this event.</Typography>
+          </Grid>
+          <Grid item xs={12} style={{padding: '10%'}}>
+            {/* Button redirect to userpage. */}
+            <Fab
+              variant="extended"
+              style={{
+                width: '280px',
+                height: '44px',
+                backgroundColor: '#009688',
+              }} onClick={() => this.props.history.push('/userpage')}
+            >
+              <Typography style={returnBtnStyle}>Check my booking
+                  event</Typography>
+            </Fab>
+          </Grid>
+        </Grid>
+      </Container>
     );
   }
 }

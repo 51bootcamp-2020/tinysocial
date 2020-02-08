@@ -25,11 +25,11 @@ class Datetime extends Component {
       dateForm = 'th';
     } else {
       switch (day % 10) {
-        case 1: dateForm = 'st'
+        case 1: dateForm = 'st';
           break;
-        case 2: dateForm = 'nd'
+        case 2: dateForm = 'nd';
           break;
-        case 3: dateForm = 'rd'
+        case 3: dateForm = 'rd';
           break;
         default: dateForm = 'th';
       }

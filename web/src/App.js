@@ -23,7 +23,7 @@ function App() {
     <Router>
       <Switch>
         <Route path='/about'
-          render={() => <div><NavBar/><About/></div>}/>         
+          render={() => <div><NavBar/><About/></div>}/>
         <Route path='/checkout'
           render={() => <div><NavBar/><Checkout/></div>}/>
         <Route path="/emailvalidation"
@@ -33,7 +33,7 @@ function App() {
         <Route path='/eventdetail'
           render={() => <div><NavBar/><Eventdetail/></div>}/>
         <Route path='/eventlist'
-          render={() => <div><NavBar/><EventList/></div>}/>       
+          render={() => <div><NavBar/><EventList/></div>}/>
         <Route path='/join-event'
           render={() => <div><NavBar/><JoinEvent/></div>}/>
         <Route path='/privacy'

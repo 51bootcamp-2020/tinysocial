@@ -41,21 +41,21 @@ class JoinEvent extends Component {
   // Request mutation for join event.
   saveJoinEvent() {
     return (<Mutation mutation={JOINEVENT_QUERY}
-                      variables={{
-                        eventId: this.props.location.state.eventId,
-                        orderId: this.props.location.state.orderId,
-                      }}
-                      onCompleted={(data) => {
-                        console.log(data);
-                        this.setState({
-                          participateResult: data.joinEvent,
-                        });
-                      }}
-                      onError={
-                        (error) => {
-                          return <Error/>;
-                        }
-                      }>
+      variables={{
+        eventId: this.props.location.state.eventId,
+        orderId: this.props.location.state.orderId,
+      }}
+      onCompleted={(data) => {
+        console.log(data);
+        this.setState({
+          participateResult: data.joinEvent,
+        });
+      }}
+      onError={
+        (error) => {
+          return <Error/>;
+        }
+      }>
       {(mutate, {data, called}) => {
         if (!called) {
           console.log('sent');
@@ -69,9 +69,9 @@ class JoinEvent extends Component {
 
   render() {
     return (
-        <Container maxWidth='sm' style={containerStyle}>
-          {this.saveJoinEvent()}
-        </Container>
+      <Container maxWidth='sm' style={containerStyle}>
+        {this.saveJoinEvent()}
+      </Container>
     );
   }
 }
