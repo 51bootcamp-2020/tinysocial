@@ -287,16 +287,15 @@ class EventAPI extends DataSource {
 
     if (eventBookClub) {
       const bookImagePath = await imageUpload(bookImage);
-      const eventBookClub = this.store.EventBookClub.create({
+      this.store.EventBookClub.create({
         eventId: event.id,
         bookTitle: eventBookClub.bookTitle,
         bookDescription: eventBookClub.bookDescription,
         bookAuthor: eventBookClub.bookAuthor,
-        bookISBN: eventBookClub.bookISBN,
         bookImageUrl: bookImagePath,
       });
     }
-    if (eventBookClub) return false;
+    if (!eventBookClub) return false;
     eventSchedule.forEach((element) => this.store.Schedule.create({
       startDateTime: element.startDateTime,
       endDateTime: element.endDateTime,
@@ -305,7 +304,6 @@ class EventAPI extends DataSource {
       longitude: element.longitude,
       eventId: event.id,
     }));
-
     return true;
   }
 }
