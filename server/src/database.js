@@ -5,8 +5,15 @@ const createStore = () => {
   let sequelize;
   switch (process.env.NODE_ENV) {
     case 'production':
-      // TODO(yun-kwak): Make production DB and code.
-      throw new Error('Not implemented');
+      sequelize = new Sequelize('tinysocial', 'admin',
+          process.env.DB_DEV_PASSWORD, {
+            dialect: 'mariadb',
+            host: process.env.DB_DEV_HOST,
+            dialectOptions: {
+              connectTimeout: 1000, // MariaDB connector option
+            },
+          });
+      break;
     case 'dev':
       sequelize = new Sequelize('tinysocial', 'arin_kwak',
           process.env.DB_DEV_PASSWORD, {
