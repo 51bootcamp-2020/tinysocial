@@ -30,7 +30,15 @@ class Checkout extends Component {
          id,
          title,
          thumbnailUrl,
-         price
+         price,
+         schedule {
+            id,
+            startDateTime,
+            endDateTime,
+            address,
+            latitude,
+            longitude,
+         },
       }
       
       me {
@@ -69,6 +77,7 @@ class Checkout extends Component {
                       eventId={data.event.id}
                       eventName={data.event.title}
                       imageUrl={data.event.thumbnailUrl}
+                      schedule={data.event.schedule}
                   />
 
                   <br/>
