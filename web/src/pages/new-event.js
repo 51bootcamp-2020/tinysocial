@@ -18,7 +18,7 @@ const {
 const PlacesWithStandaloneSearchBox = compose(
     withProps({
       googleMapURL:
-            'https://maps.googleapis.com/maps/api/js?key=AIzaSyDYCUYRSjpYlmrt3HvFOTK5mkfu7y8M_7A&v=3.exp&libraries=geometry,drawing,places',
+            'https://maps.googleapis.com/maps/api/js?key=AIzaSyDYCUYRSjpYlmrt3HvFOTK5mkfu7y8M_7A&v=3.exp&libraries=geometry,drawing,places&language=en',
       loadingElement: <div style={{height: `100%`}} />,
       containerElement: <div style={{height: `400px`}} />,
     }),
@@ -130,7 +130,6 @@ class NewEvent extends Component {
   }
 
   addSchedule = event => {
-      console.log('hi?');
       const newSchedule = [];
       for(let i = 0; i < this.state.schedules.length; i++){
           newSchedule.push(this.state.schedules[i]);
