@@ -14,6 +14,7 @@ class EventSchedule extends Component {
         <Grid item xs={12} align='center'>
           {/* Schedule title with index. */}
           <Typography variant='subtitle1'
+            align='left'
             style={{fontWeight: 'bold', color: '#009688'}}>
             Schedule {index}
           </Typography>
@@ -21,11 +22,11 @@ class EventSchedule extends Component {
         <Grid container item xs={12} align='center' alignItems='flex-start'>
           <Grid item xs sm>
             {/* Date & Time header. */}
-            <Typography variant='subtitle2' style={{fontWeight: 'bold'}}>
+            <Typography align='left' variant='subtitle2' style={{fontWeight: 'bold'}}>
               Date & Time
             </Typography>
             {/* Date & time content. */}
-            <Typography variant='body2' paragraph>
+            <Typography align='left' variant='body2' paragraph>
               {startTime} ~
               <br/>
               {endTime}
@@ -33,11 +34,11 @@ class EventSchedule extends Component {
           </Grid>
           <Grid item xs sm>
             {/* Location header. */}
-            <Typography variant='subtitle2' style={{fontWeight: 'bold'}}>
+            <Typography align='left' variant='subtitle2' style={{fontWeight: 'bold'}}>
               Location
             </Typography>
             {/* Location content. */}
-            <Typography variant='body2' >
+            <Typography align='left' variant='body2' >
               {address}
             </Typography>
           </Grid>

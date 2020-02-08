@@ -34,11 +34,11 @@ module.exports = {
       bookImageUrl: 'https://images-na.ssl-images-amazon.com/images/I/' +
         '41%2BlolL22gL._SX314_BO1,204,203,200_.jpg',
       schedule: SAMPLE_SCHEDULES,
-      reviews: {
+      reviews: [{
         title: 'Sapiens is best',
         content: 'actually its not',
         isPublic: true,
-      },
+      }],
     },
     {
       id: 2,
@@ -48,7 +48,7 @@ module.exports = {
       bookImageUrl: 'https://images-na.ssl-images-amazon.com/images/I/' +
         '41%2BlolL22gL._SX314_BO1,204,203,200_.jpg',
       schedule: SAMPLE_SCHEDULES,
-      reviews: undefined,
+      reviews: [],
     },
   ],
 };

@@ -49,7 +49,7 @@ class EventReviewCardList extends Component {
     const {events} = this.props;
 
     return (
-      <Container style={{paddingTop: '20px'}}>
+      <Container>
         {this.renderEventReviewCards(events)}
       </Container>
     );
