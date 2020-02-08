@@ -1,17 +1,24 @@
-import {createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core';
+import {
+  ArrowBackIos,
+  ArrowForwardIos
+}from '@material-ui/icons';
+import {
+  Typography,
+  withStyles
+} from '@material-ui/core';
 import {
   ToggleButton,
-  ToggleButtonGroup
+  ToggleButtonGroup,
 } from '@material-ui/lab';
 import React, {Component} from 'react';
 
 // Toggle Button css style
 const tagButtonStyle = {
   buttonGroup: {
-    width: '100%',
+    width: '98%',
     overflow: 'scroll',
     '&::-webkit-scrollbar': {
-    display: 'none'
+      display: 'none'
     }
   },
   buttonShape: {
@@ -19,32 +26,24 @@ const tagButtonStyle = {
     width: '60%',
     border: 'solid 1px rgba(0, 0, 0, 0.12)',
     margin: '1.5%',
-    padding: '0 2% 0 2%'
+    padding: '0 2% 0 2%',
+    '&:disabled': {
+      backgroundColor: 'rgba(0, 0, 0, 0.2)'
+    }
   },
   buttonText: {
     padding: '1% 5% 1% 5%',
+    fontFamily: 'LibreFranklin',
+    fontSize: '100%',
+    fontWeight: 'normal',
+    fontStretch: 'normal',
+    fontStyle: 'normal',
+    lineHeight: 1.43,
+    letterSpacing: '0.25px',
+    textAlign: 'center',
+    color: 'rgba(0, 0, 0, 0.87)'
   }
 };
-
-// Override Toggle style
-const theme = createMuiTheme({
-  overrides: {
-    MuiToggleButton: {
-      label: {
-        fontFamily: 'LibreFranklin',
-        fontSize: '100%',
-        fontWeight: 'normal',
-        fontStretch: 'normal',
-        fontStyle: 'normal',
-        lineHeight: 1.43,
-        padding: '3%',
-        letterSpacing: '0.25px',
-        textAlign: 'center',
-        color: 'rgba(0, 0, 0, 0.87)'
-      }
-    }
-  }
-});
 
 class EventlistFilters extends Component {
   constructor(props) {
@@ -61,7 +60,7 @@ class EventlistFilters extends Component {
       filterClicked.push(false);
 
     this.state = {
-      filterClicked: filterClicked,
+      filterClicked: filterClicked
     };
   }
 
@@ -83,22 +82,41 @@ class EventlistFilters extends Component {
 
   /**
    * Create tag button list
+   * Check each tag that there is no event
    * @return {Array<ToggleButton>} tagButtonArray
    */
   ViewTagButtons = () => {
     const { classes } = this.props;
     const tagButtonArray = [];
     for(let tagIndex = 0; tagIndex < this.props.filterNames.length; ++tagIndex){
-      tagButtonArray.push(
+      if(this.props.filterNames[tagIndex].events.length === 0){
+        tagButtonArray.push(
+          <ToggleButton variant='outlined'
+                        onChange={this.HandlerTagButton}
+                        className={classes.buttonShape}
+                        value={tagIndex}
+                        key={this.props.filterNames[tagIndex].id}
+                        selected={this.state.filterClicked[tagIndex]}
+                        disabled disableRipple disableFocusRipple>
+            <Typography className={classes.buttonText}>
+              {this.props.filterNames[tagIndex].name}
+            </Typography>
+          </ToggleButton>)
+      }
+      else {
+        tagButtonArray.push(
           <ToggleButton variant='outlined'
                         onChange={this.HandlerTagButton}
                         className={classes.buttonShape}
                         value={tagIndex}
                         key={this.props.filterNames[tagIndex].id}
                         selected={this.state.filterClicked[tagIndex]}>
-            {this.props.filterNames[tagIndex].name}
+            <Typography className={classes.buttonText}>
+              {this.props.filterNames[tagIndex].name}
+            </Typography>
           </ToggleButton>
-      )
+        )
+      }
     }
     return tagButtonArray;
   };
@@ -107,13 +125,17 @@ class EventlistFilters extends Component {
   render() {
     const { classes } = this.props;
     return (
-        <ThemeProvider theme={theme}>
-          <ToggleButtonGroup size='large'
-                             value={this.state.filterClicked}
-                             className={classes.buttonGroup}>
-            <this.ViewTagButtons />
-          </ToggleButtonGroup>
-        </ThemeProvider>
+      <div style={{position: 'relative'}}>
+        <ArrowBackIos style={{float: 'left', position: 'absolute',
+          top: '35%', color: '#DCDCDC'}}/>
+        <ToggleButtonGroup size='large'
+                           value={this.state.filterClicked}
+                           className={classes.buttonGroup}>
+          <this.ViewTagButtons />
+        </ToggleButtonGroup>
+        <ArrowForwardIos  style={{right: 0, float: 'right', position: 'absolute',
+          top: '35%', color: '#DCDCDC'}}/>
+      </div>
     );
   }
 }
