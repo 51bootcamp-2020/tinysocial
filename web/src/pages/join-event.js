@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
 import {Container} from '@material-ui/core';
+import Error from './error';
 import {gql} from 'apollo-boost';
 import {Mutation} from 'react-apollo';
 import ParticipateSuccess from '../components/participate-success';
 import ParticipateFail from '../components/participate-fail';
+import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 
-// Todo(Myoung-hee): Redirect to error page when error occured.
 // Join event mutation for mutate the event-user participate.
 const JOINEVENT_QUERY = gql`
   mutation ($eventId: String!, $orderId: String!){
@@ -38,7 +38,7 @@ class JoinEvent extends Component {
     </div>;
   }
 
-  // Request mustation for join event.
+  // Request mutation for join event.
   saveJoinEvent() {
     return (<Mutation mutation={JOINEVENT_QUERY}
                       variables={{
@@ -53,7 +53,7 @@ class JoinEvent extends Component {
                       }}
                       onError={
                         (error) => {
-                          console.log('error: ', error);
+                          return <Error/>;
                         }
                       }>
       {(mutate, {data, called}) => {

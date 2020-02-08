@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
+import Error from '../pages/error';
 import {gql} from 'apollo-boost';
 import {Mutation} from 'react-apollo';
+import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 
 const queryString = require('query-string');
@@ -23,7 +24,8 @@ class EmailValidation extends Component {
   constructor(props) {
     super(props);
 
-    const token = queryString.parse(this.props.location.search, {ignoreQueryPrefix: true}).token;
+    const token = queryString.parse(this.props.location.search,
+        {ignoreQueryPrefix: true}).token;
 
     this.state = {
       token: token,
@@ -33,17 +35,18 @@ class EmailValidation extends Component {
 
   verifyEmail() {
     return (<Mutation mutation={EMAIL_VALIDATE_QUERY}
-      variables={{token: this.state.token}}
-      onCompleted={(data) => {
-        this.setState({
-          verifyResult: data.emailValidate.success,
-        });
-      }}
-      onError={
-        (error)=>{
-        }
-      }>
-      {(mutate, { data, called }) => {
+                      variables={{token: this.state.token}}
+                      onCompleted={(data) => {
+                        this.setState({
+                          verifyResult: data.emailValidate.success,
+                        });
+                      }}
+                      onError={
+                        (error) => {
+                          return <Error/>
+                        }
+                      }>
+      {(mutate, {data, called}) => {
         if (!called) {
           mutate();
         }
@@ -59,9 +62,9 @@ class EmailValidation extends Component {
 
   render() {
     return (
-      <div>
-        {this.verifyEmail()}
-      </div>);
+        <div>
+          {this.verifyEmail()}
+        </div>);
   }
 }
 

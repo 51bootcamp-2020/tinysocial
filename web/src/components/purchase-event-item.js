@@ -1,6 +1,7 @@
+import {ButtonBase, Grid, Paper, Typography} from '@material-ui/core';
+import Datetime from './datetime';
 import React, {Component} from 'react';
 import 'typeface-roboto';
-import {Grid, Paper, ButtonBase, Typography} from '@material-ui/core';
 import {withRouter} from 'react-router-dom';
 
 // Styles
@@ -15,9 +16,10 @@ const eventNameStyle = {
 const eventScheduleStyle = {
   fontFamily: 'Roboto',
   fontSize: '15px',
-  fontWeight: 'normal',
   letterspacing: 'normal',
   lineHeight: 1,
+  color: 'gray',
+  width: '70%',
 };
 
 const priceStyle = {
@@ -35,18 +37,16 @@ const cancelBtnStyle = {
   fontWeight: 500,
 };
 
-// Todo(Myoung-hee): Redirect to error page when error occured.
 // Purchase Event Item box component.
 class PurchaseEventItem extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   // Redirect to eventlist page or root page if the cancel button is clicked.
   cancelBtnRedirect = () => {
     if (this.props.eventId != '') {
-      // Todo(Myoung-hee) : Change history to event detail with id.
-      this.props.history.push('/eventlist');
+      // Redirect to event detail with id.
+      this.props.history.push({
+        pathname: '/eventdetail',
+        search: `?id=${this.props.eventId}`,
+      });
     } else this.props.history.push('/');
   };
 
@@ -56,7 +56,11 @@ class PurchaseEventItem extends Component {
         <Paper style={{padding: '5%', marginTop: '3%'}}>
           <Grid container spacing={2} style={{height: '150px'}}>
             <Grid item xs={3} sm={2}>
-              <ButtonBase style={{width: '100%', height: '80%'}}>
+              <ButtonBase style={{width: '100%', height: '80%', outline: 0}}
+                          onClick={() => this.props.history.push({
+                            pathname: '/eventdetail',
+                            search: `?id=${this.props.eventId}`,
+                          })}>
                 <img alt="complex"
                      src={this.props.imageUrl}
                      style={{width: '100%', height: '100%'}}/>
@@ -68,9 +72,20 @@ class PurchaseEventItem extends Component {
                             style={eventNameStyle}>
                   {this.props.eventName}
                 </Typography>
-                <Typography gutterBottom variant="subtitle2"
+                <Typography gutterBottom
                             style={eventScheduleStyle}>
                   {/* Todo(Myoung-hee): show event schedule */}
+                  {this.props.schedule[0].address}
+                  <br/>
+                  <Datetime>{this.props.schedule[0]}</Datetime>
+                </Typography>
+                <Typography variant="caption">
+                  {this.props.schedule.length == 1 ? '' :
+                      this.props.schedule.length == 2 ?
+                          'and ' + (this.props.schedule.length - 1) +
+                          ' more schedule' :
+                          'and ' + (this.props.schedule.length - 1) +
+                          ' more schedules'}
                 </Typography>
               </Grid>
               <Grid item xs={12} style={{paddingTop: '10px'}}>

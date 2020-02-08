@@ -1,11 +1,11 @@
 import {clientId} from './utils.js';
+import Error from '../pages/error';
 import {GoogleLogin} from 'react-google-login';
 import {gql} from 'apollo-boost';
 import {Mutation} from 'react-apollo';
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 
-// Todo(Myoung-hee): Redirect to error page when error occured.
 class SignupFormGoogle extends Component {
   constructor(props) {
     super(props);
@@ -33,7 +33,7 @@ class SignupFormGoogle extends Component {
   };
 
   responseFail = err => {
-    // TODO(Myoung-heeSeo) : handle google log-in failure.
+    return <Error/>
   };
 
   render() {
@@ -60,10 +60,6 @@ class SignupFormGoogle extends Component {
                                     } 
                     }
     `;
-
-    // Receive state values for mutation use.
-    const {id, email, firstName, lastName} = this.state;
-
     return (
         <div>
           {/* Sends a mutation to the server. */}
@@ -77,7 +73,7 @@ class SignupFormGoogle extends Component {
                 profileImgUrl: this.state.imageUrl,
               }}
               onCompleted={(data) => {
-                const {success, message, token} = data.signUpWithGoogle;
+                const {success, token} = data.signUpWithGoogle;
                 if (success) {
                   document.cookie = 'token=' + token;
                   this.props.history.push('/');

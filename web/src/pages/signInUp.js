@@ -32,8 +32,8 @@ class SignInUp extends Component {
 
   signIn() {
     return (
-      <Container className="signin" style={boxStyle} maxWidth='sm'>
-        <Typography variant="h6" style={{fontSize: '14'}}>Sign
+        <Container className="signin" style={boxStyle} maxWidth='sm'>
+          <Typography variant="h6" style={{fontSize: '14'}}>Sign
             In</Typography>
           <br/><br/>
           <LoginFormGoogle handleLogin={this.handleLoginStateChange}/>
@@ -48,7 +48,7 @@ class SignInUp extends Component {
                       marginLeft: '10px',
                       outline: '0',
                     }}>Sign Up</Button></p>
-      </Container>
+        </Container>
     );
   }
 
