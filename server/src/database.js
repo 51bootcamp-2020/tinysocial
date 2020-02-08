@@ -6,9 +6,9 @@ const createStore = () => {
   switch (process.env.NODE_ENV) {
     case 'production':
       sequelize = new Sequelize('tinysocial', 'admin',
-          process.env.DB_DEV_PASSWORD, {
+          process.env.DB_PASSWORD, {
             dialect: 'mariadb',
-            host: process.env.DB_DEV_HOST,
+            host: process.env.DB_HOST,
             dialectOptions: {
               connectTimeout: 1000, // MariaDB connector option
             },
