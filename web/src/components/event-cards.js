@@ -206,8 +206,6 @@ class EventCards extends Component {
   }
 }
 
-EventCards.propTypes = {
-
-};
+EventCards.propTypes = {};
 
 export default withRouter(withStyles(eventCardStyle)(EventCards));
