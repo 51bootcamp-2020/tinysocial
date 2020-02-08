@@ -72,6 +72,7 @@ const typeDefs = gql`
         createEvent(
             event: EventInput!
             eventBookClub: EventBookClubInput
+            schedule: [ScheduleInput!]
         ): Boolean!
     }
 
