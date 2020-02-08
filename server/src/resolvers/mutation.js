@@ -68,16 +68,18 @@ module.exports.Mutation = {
   },
   createEvent: async (
     _,
-    {event, eventBookClub},
-    {dataSources, hostId}) => {
+    {event, schedule, eventBookClub},
+    {dataSources, userId}) => {
     const {title, description, price, thumbnail, maxParticipantNum} = event;
+    console.log(userId);
     const flag = await dataSources.eventAPI.createEvent({
       title,
       description,
       price,
       thumbnail,
       maxParticipantNum,
-      hostId,
+      userId,
+      schedule,
       eventBookClub,
     });
     // TODO(SeongJaeSong): Add createSchedule API
