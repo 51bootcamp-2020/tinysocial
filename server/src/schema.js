@@ -80,6 +80,7 @@ const typeDefs = gql`
         startDateTime: DateTime!
         endDateTime: DateTime!
         address: String!
+        addtionalAddress: String!
         latitude: Float!
         logitude: Float!
     }
