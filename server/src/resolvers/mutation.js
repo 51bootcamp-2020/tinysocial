@@ -70,17 +70,17 @@ module.exports.Mutation = {
     _,
     {event, eventBookClub},
     {dataSources, hostId}) => {
-      const {title, description, price, thumbnail, maxParticipantNum} = event; 
-      const flag = await dataSources.eventAPI.createEvent({
-        title,
-        description,
-        price,
-        thumbnail,
-        maxParticipantNum,
-        hostId,
-        eventBookClub,
-      })
-      // TODO(SeongJaeSong): Add createSchedule API
-      return flag;
-    },
+    const {title, description, price, thumbnail, maxParticipantNum} = event;
+    const flag = await dataSources.eventAPI.createEvent({
+      title,
+      description,
+      price,
+      thumbnail,
+      maxParticipantNum,
+      hostId,
+      eventBookClub,
+    });
+    // TODO(SeongJaeSong): Add createSchedule API
+    return flag;
+  },
 };

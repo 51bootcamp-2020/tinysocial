@@ -7,9 +7,8 @@ const s3 = new AWS.S3({
 });
 
 module.exports.imageUpload = async (file) => {
-  const {createReadStream, filename, mimetype} = await file;
+  const {createReadStream, filename} = await file;
   const fileStream = await createReadStream();
-  console.log('파일스트림', fileStream);
 
   const uploadParams = {
     Bucket: 'tinysocial.seongjae.test',
@@ -18,11 +17,10 @@ module.exports.imageUpload = async (file) => {
     Body: fileStream,
   };
 
-  const result = await s3.upload(uploadParams, function(err, data) {
-    console.log(err, data.Location);
+  await s3.upload(uploadParams, function(err, data) {
+    return data.Location;
   });
 
-  console.log(result);
 };
 
 

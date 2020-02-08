@@ -273,27 +273,27 @@ class EventAPI extends DataSource {
 
     const eventThumbnail = await eventInfo.thumbnail;
     const bookImage = eventBookClub.bookImage;
-    console.log(eventThumbnail);
-    await imageUpload(eventThumbnail);
-
+    
+    const eventThumbnailPath = await imageUpload(eventThumbnail);
+    console.log(eventInfo.hostId);
     const flag = await this.store.Event.create({
       title: eventInfo.title,
       description: eventInfo.description,
       price: eventInfo.price,
-      thumbnailUrl: 'a',
+      thumbnailUrl: eventThumbnailPath,
       maxParticipantNum: eventInfo.maxParticipantNum,
-      hostId: 1,
+      hostId: eventInfo.hostId,
     });
 
-    console.log("플래그", flag);
     if (eventBookClub) {
-      await imageUpload(bookImage);
+      const bookImagePath = await imageUpload(bookImage);
       this.store.EventBookClub.create({
+        eventId: flag.id,
         bookTitle: eventBookClub.bookTitle,
         bookDescription: eventBookClub.bookDescription,
         bookAuthor: eventBookClub.bookAuthor,
         bookISBN: eventBookClub.bookISBN,
-        bookImageUrl: 'a',
+        bookImageUrl: bookImagePath,
       });
     }
     if (!flag) {
