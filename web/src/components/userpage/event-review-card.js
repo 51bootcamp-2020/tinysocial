@@ -68,7 +68,7 @@ class EventReviewCard extends Component {
     } = this.props;
     return (
       <Fragment>
-        <Paper style={{margin: '5px -10px 10px -10px'}}>
+        <Paper style={{margin: '5px -10px 10px'}}>
           <Grid container justify='center' style={{paddingTop: '10px'}}>
             <Grid item xs={12}
               sm={8}
@@ -78,7 +78,7 @@ class EventReviewCard extends Component {
                   paragraph
                   style={{fontWeight: 'bold'}}
                   onClick={this.handleEventClick}>
-                  {eventTitle}
+                    {eventTitle}
                 </Typography>
               )}
             </Grid>
@@ -116,7 +116,7 @@ class EventReviewCard extends Component {
             <Grid item xs={12} sm={8} align='left'>
               <Typography variant='subtitle1'
                 style={{fontWeight: 'bold', color: '#009688'}}>
-                Review
+                  Review
               </Typography>
             </Grid>
             <Grid item xs={12} sm={8}>
