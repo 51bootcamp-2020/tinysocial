@@ -12,20 +12,19 @@ class Landing extends Component {
   }
 
   render() {
-    const {classes} = this.props;
     return (
-        <Grid container justify="space-between">
-          <Grid item xs={12}>
-            <LandingDescription />
-          </Grid>
-          <Grid item xs={12} style={{paddingLeft: '2%', paddingRight: '2%'}}>
-            <LandingViewButton />
-          </Grid>
-          <Grid item xs={12} style={{paddingLeft: '2%', paddingRight: '2%'}}>
-            <EventCardsQuery pageSize={this.pageSize}/>
-            <Footer/>
-          </Grid>
+      <Grid container justify="space-between">
+        <Grid item xs={12}>
+          <LandingDescription />
         </Grid>
+        <Grid item xs={12} style={{paddingLeft: '2%', paddingRight: '2%'}}>
+          <LandingViewButton />
+        </Grid>
+        <Grid item xs={12} style={{paddingLeft: '2%', paddingRight: '2%'}}>
+          <EventCardsQuery pageSize={this.pageSize}/>
+        </Grid>
+        <Footer/>
+      </Grid>
     );
   }
 }
