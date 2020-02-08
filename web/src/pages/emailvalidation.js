@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
+import Error from '../pages/error';
 import {gql} from 'apollo-boost';
 import {Mutation} from 'react-apollo';
+import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 
 const queryString = require('query-string');
@@ -23,7 +24,8 @@ class EmailValidation extends Component {
   constructor(props) {
     super(props);
 
-    const token = queryString.parse(this.props.location.search, {ignoreQueryPrefix: true}).token;
+    const token = queryString.parse(this.props.location.search,
+        {ignoreQueryPrefix: true}).token;
 
     this.state = {
       token: token,
@@ -40,10 +42,11 @@ class EmailValidation extends Component {
         });
       }}
       onError={
-        (error)=>{
+        (error) => {
+          return <Error/>;
         }
       }>
-      {(mutate, { data, called }) => {
+      {(mutate, {data, called}) => {
         if (!called) {
           mutate();
         }

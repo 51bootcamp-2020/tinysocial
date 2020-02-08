@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {Fab, Container, Grid, Typography} from '@material-ui/core';
-import {withRouter} from 'react-router-dom';
+import {Container, Fab, Grid, Typography} from '@material-ui/core';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom';
 
 // Styles
 const containerStyle = {
@@ -30,45 +30,41 @@ const h4Style = {
   letterSpacing: '0.25px',
 };
 
-// Todo(Myoung-hee): Redirect to error page when error occured.
 // Component when event-user participate is failed.
 class ParticipateFail extends Component {
-  constructor(props) {
-    super(props);
-
-  }
-
   render() {
     return (
-        <Container style={{containerStyle}}>
-          <Grid container direction="row"
-                style={{justifyContent: 'center', textAlign: 'center'}}>
-            <Grid item xs={12} style={{paddingTop: '4%', paddingBottom: '12%'}}>
-              <ErrorOutlineIcon style={{fontSize: 70}}/>
-            </Grid>
-            <Grid item xs={12} style={{padding: '2%'}}>
-              <Typography variant="h4" style={h4Style}>Participate fail!</Typography>
-            </Grid>
-            <Grid item xs={12} style={{padding: '2%'}}>
-              <Typography variant="subtitle1" style={{fontSize: '20px'}}>You've already registered in this event.</Typography>
+      <Container style={{containerStyle}}>
+        <Grid container direction="row"
+          style={{justifyContent: 'center', textAlign: 'center'}}>
+          <Grid item xs={12} style={{paddingTop: '4%', paddingBottom: '12%'}}>
+            <ErrorOutlineIcon style={{fontSize: 70}}/>
+          </Grid>
+          <Grid item xs={12} style={{padding: '2%'}}>
+            <Typography variant="h4" style={h4Style}>Participate
+                fail!</Typography>
+          </Grid>
+          <Grid item xs={12} style={{padding: '2%'}}>
+            <Typography variant="subtitle1" style={{fontSize: '20px'}}>You've
+                already registered in this event.</Typography>
             </Grid>
             <Grid item xs={12} style={{padding: '10%'}}>
-              {/* Button redirect to homepage. */}
+              {/* Button redirect to userpage. */}
               <Fab
                   variant="extended"
                   style={{
                     width: '280px',
                     height: '44px',
                     backgroundColor: '#009688',
+                    outline: 0
                   }} onClick={() => this.props.history.push('/userpage')}
               >
-                {/* Todo(Myoung-hee): Change link to user page */}
                 <Typography style={returnBtnStyle}>Check my booking
                   event</Typography>
-              </Fab>
-            </Grid>
+            </Fab>
           </Grid>
-        </Container>
+        </Grid>
+      </Container>
     );
   }
 }

@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
 import {Container} from '@material-ui/core';
+import Error from './error';
 import {gql} from 'apollo-boost';
 import {Mutation} from 'react-apollo';
 import ParticipateSuccess from '../components/participate-success';
 import ParticipateFail from '../components/participate-fail';
+import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 
-// Todo(Myoung-hee): Redirect to error page when error occured.
 // Join event mutation for mutate the event-user participate.
 const JOINEVENT_QUERY = gql`
   mutation ($eventId: String!, $orderId: String!){
@@ -38,24 +38,24 @@ class JoinEvent extends Component {
     </div>;
   }
 
-  // Request mustation for join event.
+  // Request mutation for join event.
   saveJoinEvent() {
     return (<Mutation mutation={JOINEVENT_QUERY}
-                      variables={{
-                        eventId: this.props.location.state.eventId,
-                        orderId: this.props.location.state.orderId,
-                      }}
-                      onCompleted={(data) => {
-                        console.log(data);
-                        this.setState({
-                          participateResult: data.joinEvent,
-                        });
-                      }}
-                      onError={
-                        (error) => {
-                          console.log('error: ', error);
-                        }
-                      }>
+      variables={{
+        eventId: this.props.location.state.eventId,
+        orderId: this.props.location.state.orderId,
+      }}
+      onCompleted={(data) => {
+        console.log(data);
+        this.setState({
+          participateResult: data.joinEvent,
+        });
+      }}
+      onError={
+        (error) => {
+          return <Error/>;
+        }
+      }>
       {(mutate, {data, called}) => {
         if (!called) {
           console.log('sent');
@@ -69,9 +69,9 @@ class JoinEvent extends Component {
 
   render() {
     return (
-        <Container maxWidth='sm' style={containerStyle}>
-          {this.saveJoinEvent()}
-        </Container>
+      <Container maxWidth='sm' style={containerStyle}>
+        {this.saveJoinEvent()}
+      </Container>
     );
   }
 }

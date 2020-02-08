@@ -59,7 +59,7 @@ class Ticket extends Component {
       return (
           <Fab style={{
             width: '80%', height: 40, marginTop: 10, color: 'white',
-            background: '#009688', textTransform: 'none'}}
+            background: '#009688', textTransform: 'none', outline: 0}}
                onClick={() => this.props.history.push({
                  pathname: '/checkout',
                  search: `?id=${this.props.children.id}`,

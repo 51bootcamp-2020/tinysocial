@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
 import {Button} from '@material-ui/core';
+import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 
 // Style
@@ -9,12 +9,10 @@ const freeBtnStyle = {
   outline: 0,
 };
 
-// Todo(Myoung-hee): Redirect to error page when error occured.
 // Free payment button to participate in event.
 class FreePayment extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       fetchSuccess: false,
     };

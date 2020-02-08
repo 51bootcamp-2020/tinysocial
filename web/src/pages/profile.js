@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 class Profile extends Component {
   render() {
     return (
-        <div>
-        </div>
+      <div>
+      </div>
     );
   }
 }

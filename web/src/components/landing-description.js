@@ -1,24 +1,24 @@
 import {Container,
-        Grid,
-        Typography
+  Grid,
+  Typography,
 } from '@material-ui/core';
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 
 const landing_bg = require('../assets/landing-bg.jpg');
 const benefit = [
   require('../assets/benefit1.png'),
   require('../assets/benefit2.png'),
-  require('../assets/benefit3.png')
+  require('../assets/benefit3.png'),
 ];
 
 // Main Description css style
-const MainDescriptionStyles = makeStyles(theme => ({
+const MainDescriptionStyles = makeStyles((theme) => ({
   root: {
     alignItems: 'center',
     backgroundImage: `url(${landing_bg})`,
     backgroundSize: 'cover',
-    color:'white',
+    color: 'white',
     height: 400,
     justifyContent: 'center',
     textAlign: 'center',
@@ -26,24 +26,24 @@ const MainDescriptionStyles = makeStyles(theme => ({
 }));
 
 // Sub Description css style
-const SubDescriptionStyles = makeStyles(theme => ({
+const SubDescriptionStyles = makeStyles((theme) => ({
   root: {
     marginTop: 100,
-    marginBottom: 50
+    marginBottom: 50,
   },
   img: {
     width: 100,
-    height: 100
+    height: 100,
   },
   text: {
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 }));
 
 // Main Description in Landing Page
 function MainLandingDescription() {
   const mainDescriptionStyles = MainDescriptionStyles();
-  return(
+  return (
     // TODO(Lhyejin): Add actual text
     <Grid container className={mainDescriptionStyles.root}>
       <Grid item xs={12}>
@@ -56,7 +56,7 @@ function MainLandingDescription() {
         </Typography>
       </Grid>
     </Grid>
-  )
+  );
 }
 
 // Sub Description in Landing Page
@@ -98,7 +98,7 @@ function SubLandingDescription() {
         </Grid>
       </Grid>
     </Container>
-  )
+  );
 }
 
 // Description in Landing Page
@@ -108,5 +108,5 @@ export default function LandingDescription() {
       <MainLandingDescription />
       <SubLandingDescription />
     </React.Fragment>
-  )
+  );
 }

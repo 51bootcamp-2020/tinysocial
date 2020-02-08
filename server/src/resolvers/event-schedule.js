@@ -34,13 +34,15 @@ module.exports.EventSchedule = {
   city: async ({id}, __, {dataSources}) => {
     const address =
         await dataSources.eventAPI.getAttributeOfSchedule('address', id);
-    const city = address.split(',')[2].trim();
+    console.log('city', address);
+    const city = address.split(',')[1].trim();
     return city;
   },
   state: async ({id}, __, {dataSources}) => {
     const address =
         await dataSources.eventAPI.getAttributeOfSchedule('address', id);
-    const state = address.split(',')[3].trim();
+    console.log('state', address);
+    const state = address.split(',')[2].trim();
     return state;
   },
 };

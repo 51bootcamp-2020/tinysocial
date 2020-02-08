@@ -75,8 +75,7 @@ class LoginFormGoogle extends Component {
                       }
                     }>
             {(execute_mutation) => {
-              {/* Google Login Button */
-              }
+              // Google Login Button
               return (
                   <GoogleLogin
                       onSuccess={(res) => {
