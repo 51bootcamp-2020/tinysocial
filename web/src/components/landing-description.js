@@ -3,7 +3,6 @@ import {Container,
         Typography
 } from '@material-ui/core';
 import React from 'react';
-import LandingViewButton from './landing-view-button';
 import { makeStyles } from '@material-ui/core/styles';
 
 const landing_bg = require('../assets/landing-bg.jpg');
@@ -108,7 +107,6 @@ export default function LandingDescription() {
     <React.Fragment>
       <MainLandingDescription />
       <SubLandingDescription />
-      <LandingViewButton />
     </React.Fragment>
   )
 }

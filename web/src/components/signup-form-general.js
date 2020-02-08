@@ -18,7 +18,7 @@ class SignupFormGeneral extends Component {
       passwordCheck: '',
     };
   }
-  // Todo(Myounghee): Change Google => general
+  // Todo(Myounghee): Change Google => general.
   responseGoogle = res => {
     // Handle google log-in success.
     this.setState({
@@ -31,11 +31,11 @@ class SignupFormGeneral extends Component {
   };
 
   responseFail = err => {
-    // TODO(Myoung-heeSeo) : handle general signup failure.
+    // TODO(Myoung-heeSeo) : Handle general signup failure.
   };
 
   render() {
-    // Todo(Myoung-heeSeo): Change google mutation => general
+    // Todo(Myoung-heeSeo): Change google mutation => general.
     // Graphql mutation statement for signup.
     const SIGNUP_MUTATION = gql`
     mutation SignUp($email: String!, 

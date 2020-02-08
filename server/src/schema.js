@@ -64,6 +64,11 @@ const typeDefs = gql`
             content: String!
             isPublic: Boolean!
         ): Review!
+        # If successful, then return True.  
+        joinEvent(
+            orderId: String!
+            eventId: String!
+        ): Boolean!
     }
 
     input EventFilter {
@@ -186,6 +191,8 @@ const typeDefs = gql`
         address: String!
         latitude: Float!
         longitude: Float!
+        city: String!
+        state: String!
     }
 `;
 

@@ -11,15 +11,15 @@ class Datetime extends Component {
   render() {
     const startDate = new Date(this.state.schedule.startDateTime);
     const endDate = new Date(this.state.schedule.endDateTime);
-    const month = startDate.toLocaleString('US',
+    const month = startDate.toLocaleString('en-US',
         {month: 'long'}).substring(0, 3);
-    const day = startDate.toLocaleString('US', {day: 'numeric'});
+    const day = startDate.toLocaleString('en-US', {day: 'numeric'});
     const options = {
       hour: 'numeric',
       minute: 'numeric',
     };
-    const startTime = startDate.toLocaleString('US', options);
-    const endTime = endDate.toLocaleString('US', options);
+    const startTime = startDate.toLocaleString('en-US', options);
+    const endTime = endDate.toLocaleString('en-US', options);
     let dateForm = '';
     if (day >= 11 && day <= 13) {
       dateForm = 'th';

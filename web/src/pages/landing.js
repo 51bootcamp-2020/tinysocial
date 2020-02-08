@@ -2,18 +2,8 @@ import EventCardsQuery from '../components/event-cards-query';
 import Footer from '../components/navigation/footer';
 import Grid from '@material-ui/core/Grid';
 import LandingDescription from '../components/landing-description';
+import LandingViewButton from '../components/landing-view-button';
 import React, {Component} from 'react';
-import {withStyles} from '@material-ui/core/styles';
-
-// TODO(Lhyejin): Bring user information from server and Fix eventQuery.
-
-// LandingPage css style
-const landingPageStyle = {
-  root: {
-    paddingLeft: '2%',
-    paddingRight: '2%',
-  }
-};
 
 class Landing extends Component {
   constructor(props) {
@@ -24,9 +14,14 @@ class Landing extends Component {
   render() {
     const {classes} = this.props;
     return (
-        <Grid container justify="space-between" className={classes.root}>
+        <Grid container justify="space-between">
           <Grid item xs={12}>
             <LandingDescription />
+          </Grid>
+          <Grid item xs={12} style={{paddingLeft: '2%', paddingRight: '2%'}}>
+            <LandingViewButton />
+          </Grid>
+          <Grid item xs={12} style={{paddingLeft: '2%', paddingRight: '2%'}}>
             <EventCardsQuery pageSize={this.pageSize}/>
             <Footer/>
           </Grid>
@@ -37,4 +32,4 @@ class Landing extends Component {
 
 Landing.propTypes = {};
 
-export default withStyles(landingPageStyle)(Landing);
+export default Landing;
