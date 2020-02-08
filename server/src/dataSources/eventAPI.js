@@ -270,25 +270,25 @@ class EventAPI extends DataSource {
   async createEvent(eventInfo) {
     console.log(eventInfo);
     const eventBookClub = eventInfo.eventBookClub;
-
+    const eventSchedule = eventInfo.schedule;
     const eventThumbnail = await eventInfo.thumbnail;
     const bookImage = eventBookClub.bookImage;
-    
+
     const eventThumbnailPath = await imageUpload(eventThumbnail);
-    console.log(eventInfo.hostId);
-    const flag = await this.store.Event.create({
+    const event = await this.store.Event.create({
       title: eventInfo.title,
       description: eventInfo.description,
       price: eventInfo.price,
       thumbnailUrl: eventThumbnailPath,
       maxParticipantNum: eventInfo.maxParticipantNum,
-      hostId: eventInfo.hostId,
+      hostId: eventInfo.userId,
     });
+    if (!event) return false;
 
     if (eventBookClub) {
       const bookImagePath = await imageUpload(bookImage);
-      this.store.EventBookClub.create({
-        eventId: flag.id,
+      const eventBookClub = this.store.EventBookClub.create({
+        eventId: event.id,
         bookTitle: eventBookClub.bookTitle,
         bookDescription: eventBookClub.bookDescription,
         bookAuthor: eventBookClub.bookAuthor,
@@ -296,9 +296,16 @@ class EventAPI extends DataSource {
         bookImageUrl: bookImagePath,
       });
     }
-    if (!flag) {
-      return false;
-    }
+    if (eventBookClub) return false;
+    eventSchedule.forEach((element) => this.store.Schedule.create({
+      startDateTime: element.startDateTime,
+      endDateTime: element.endDateTime,
+      address: element.address+element.additionalAddress,
+      latitude: element.latitude,
+      longitude: element.longitude,
+      eventId: event.id,
+    }));
+
     return true;
   }
 }
