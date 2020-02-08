@@ -31,4 +31,16 @@ module.exports.EventSchedule = {
     );
     return longitude;
   },
+  city: async ({id}, __, {dataSources}) => {
+    let address = await dataSources.eventAPI.getAttributeOfSchedule('address', id);
+    address = address.replace(/\s+/g, '');
+    const city = address.split(',')[2];
+    return city;
+  },
+  state: async ({id}, __, {dataSources}) => {
+    let address = await dataSources.eventAPI.getAttributeOfSchedule('address', id);
+    address = address.replace(/\s+/g, '');
+    const state = address.split(',')[3];
+    return state;
+  },
 };
