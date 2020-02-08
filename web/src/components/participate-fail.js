@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {Fab, Container, Grid, Typography} from '@material-ui/core';
-import {withRouter} from 'react-router-dom';
+import {Container, Fab, Grid, Typography} from '@material-ui/core';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom';
 
 // Styles
 const containerStyle = {
@@ -30,12 +30,10 @@ const h4Style = {
   letterSpacing: '0.25px',
 };
 
-// Todo(Myoung-hee): Redirect to error page when error occured.
 // Component when event-user participate is failed.
 class ParticipateFail extends Component {
   constructor(props) {
     super(props);
-
   }
 
   render() {
@@ -47,13 +45,15 @@ class ParticipateFail extends Component {
               <ErrorOutlineIcon style={{fontSize: 70}}/>
             </Grid>
             <Grid item xs={12} style={{padding: '2%'}}>
-              <Typography variant="h4" style={h4Style}>Participate fail!</Typography>
+              <Typography variant="h4" style={h4Style}>Participate
+                fail!</Typography>
             </Grid>
             <Grid item xs={12} style={{padding: '2%'}}>
-              <Typography variant="subtitle1" style={{fontSize: '20px'}}>You've already registered in this event.</Typography>
+              <Typography variant="subtitle1" style={{fontSize: '20px'}}>You've
+                already registered in this event.</Typography>
             </Grid>
             <Grid item xs={12} style={{padding: '10%'}}>
-              {/* Button redirect to homepage. */}
+              {/* Button redirect to userpage. */}
               <Fab
                   variant="extended"
                   style={{
@@ -62,7 +62,6 @@ class ParticipateFail extends Component {
                     backgroundColor: '#009688',
                   }} onClick={() => this.props.history.push('/userpage')}
               >
-                {/* Todo(Myoung-hee): Change link to user page */}
                 <Typography style={returnBtnStyle}>Check my booking
                   event</Typography>
               </Fab>

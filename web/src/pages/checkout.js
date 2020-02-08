@@ -1,14 +1,14 @@
-import React, {Component} from 'react';
+import {Container, Divider} from '@material-ui/core';
+import Error from './error';
+import FreePayment from '../components/free-payment';
+import {gql} from 'apollo-boost';
 import PaypalPayment from '../components/paypal-payment';
 import PurchaseEventItem from '../components/purchase-event-item';
-import {Container, Divider} from '@material-ui/core';
-import queryString from 'query-string';
-import {withRouter} from 'react-router-dom';
-import {gql} from 'apollo-boost';
 import {Query} from 'react-apollo';
-import FreePayment from '../components/free-payment';
+import queryString from 'query-string';
+import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom';
 
-// Todo(Myoung-hee): Redirect to error page when error occured.
 // Checkout page component for payment.
 class Checkout extends Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class Checkout extends Component {
       title: '',
       imageUrl: '',
       eventId: null,
-      userId: null
+      userId: null,
     };
   }
 
@@ -67,7 +67,7 @@ class Checkout extends Component {
         >
           {({loading, error, data}) => {
             if (loading) return 'Loading...';
-            if (error) return `Error! ${error.message}`;
+            if (error) return <Error/>;
             return (
                 <Container maxWidth='md'>
                   <br/>

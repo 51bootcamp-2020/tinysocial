@@ -1,11 +1,11 @@
 import {clientId} from './utils.js';
+import Error from '../pages/error';
 import {GoogleLogin} from 'react-google-login';
 import {gql} from 'apollo-boost';
 import {Mutation} from 'react-apollo';
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 
-// Todo(Myoung-hee): Redirect to error page when error occured.
 class SignupFormGoogle extends Component {
   constructor(props) {
     super(props);
@@ -33,7 +33,7 @@ class SignupFormGoogle extends Component {
   };
 
   responseFail = err => {
-    // TODO(Myoung-heeSeo) : handle google log-in failure.
+    return <Error/>
   };
 
   render() {

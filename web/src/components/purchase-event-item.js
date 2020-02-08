@@ -1,8 +1,8 @@
 import {ButtonBase, Grid, Paper, Typography} from '@material-ui/core';
+import Datetime from './datetime';
 import React, {Component} from 'react';
 import 'typeface-roboto';
 import {withRouter} from 'react-router-dom';
-import Datetime from './datetime';
 
 // Styles
 const eventNameStyle = {
@@ -19,7 +19,7 @@ const eventScheduleStyle = {
   letterspacing: 'normal',
   lineHeight: 1,
   color: 'gray',
-  width: '70%'
+  width: '70%',
 };
 
 const priceStyle = {
@@ -60,7 +60,11 @@ class PurchaseEventItem extends Component {
         <Paper style={{padding: '5%', marginTop: '3%'}}>
           <Grid container spacing={2} style={{height: '150px'}}>
             <Grid item xs={3} sm={2}>
-              <ButtonBase style={{width: '100%', height: '80%', outline: 0}} onClick={() => this.props.history.push({pathname:'/eventdetail', search: `?id=${this.props.eventId}`})}>
+              <ButtonBase style={{width: '100%', height: '80%', outline: 0}}
+                          onClick={() => this.props.history.push({
+                            pathname: '/eventdetail',
+                            search: `?id=${this.props.eventId}`,
+                          })}>
                 <img alt="complex"
                      src={this.props.imageUrl}
                      style={{width: '100%', height: '100%'}}/>
@@ -80,8 +84,12 @@ class PurchaseEventItem extends Component {
                   <Datetime>{this.props.schedule[0]}</Datetime>
                 </Typography>
                 <Typography variant="caption">
-                  {this.props.schedule.length==1?'':
-                  this.props.schedule.length==2?'and '+(this.props.schedule.length-1)+' more schedule':'and '+(this.props.schedule.length-1)+' more schedules'}
+                  {this.props.schedule.length == 1 ? '' :
+                      this.props.schedule.length == 2 ?
+                          'and ' + (this.props.schedule.length - 1) +
+                          ' more schedule' :
+                          'and ' + (this.props.schedule.length - 1) +
+                          ' more schedules'}
                 </Typography>
               </Grid>
               <Grid item xs={12} style={{paddingTop: '10px'}}>

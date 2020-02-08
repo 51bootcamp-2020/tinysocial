@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {Fab, Container, Grid, Typography} from '@material-ui/core';
-import {withRouter} from 'react-router-dom';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import {Container, Fab, Grid, Typography} from '@material-ui/core';
+import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom';
 
 // Styles
 const containerStyle = {
@@ -30,12 +30,10 @@ const h4Style = {
   letterSpacing: '0.25px',
 };
 
-// Todo(Myoung-hee): Redirect to error page when error occured.
 // Component when event-user participate is successed after payment.
 class ParticipateSuccess extends Component {
   constructor(props) {
     super(props);
-
   }
 
   render() {
@@ -55,7 +53,7 @@ class ParticipateSuccess extends Component {
                 payment of ${this.props.price} <br/>was successfully completed.</Typography>
             </Grid>
             <Grid item xs={12} style={{padding: '10%'}}>
-              {/* Button redirect to homepage. */}
+              {/* Button redirect to userpage. */}
               <Fab
                   variant="extended"
                   style={{
@@ -64,7 +62,6 @@ class ParticipateSuccess extends Component {
                     backgroundColor: '#009688',
                   }} onClick={() => this.props.history.push('/userpage')}
               >
-                {/* Todo(Myoung-hee): Change link to user page */}
                 <Typography style={returnBtnStyle}>Check my booking
                   event</Typography>
               </Fab>
