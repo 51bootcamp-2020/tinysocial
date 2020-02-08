@@ -60,10 +60,6 @@ class SignupFormGoogle extends Component {
                                     } 
                     }
     `;
-
-    // Receive state values for mutation use.
-    const {id, email, firstName, lastName} = this.state;
-
     return (
         <div>
           {/* Sends a mutation to the server. */}
@@ -77,7 +73,7 @@ class SignupFormGoogle extends Component {
                 profileImgUrl: this.state.imageUrl,
               }}
               onCompleted={(data) => {
-                const {success, message, token} = data.signUpWithGoogle;
+                const {success, token} = data.signUpWithGoogle;
                 if (success) {
                   document.cookie = 'token=' + token;
                   this.props.history.push('/');

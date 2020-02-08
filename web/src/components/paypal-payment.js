@@ -7,10 +7,6 @@ const clientId = 'AetfZ3ivIY3P5KBvBExrr8lxL5xaDPO2yLFLTWegk5rRvghpGxEKaY90Pqh-xn
 
 // Paypal payment button to participate in event.
 class PaypalPayment extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
         // Request paypal payment.

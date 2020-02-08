@@ -32,10 +32,6 @@ const h4Style = {
 
 // Component when event-user participate is failed.
 class ParticipateFail extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
         <Container style={{containerStyle}}>

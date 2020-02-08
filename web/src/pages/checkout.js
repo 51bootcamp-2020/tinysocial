@@ -49,11 +49,9 @@ class Checkout extends Component {
   // Get eventId by querystring in url.
   componentWillMount() {
     const query = queryString.parse(this.props.location.search);
-    {
-      query.id && this.setState({
-        eventId: query.id,
-      });
-    }
+    query.id && this.setState({
+      eventId: query.id,
+    });
   }
 
   render() {

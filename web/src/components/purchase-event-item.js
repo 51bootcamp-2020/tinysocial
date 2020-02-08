@@ -39,14 +39,10 @@ const cancelBtnStyle = {
 
 // Purchase Event Item box component.
 class PurchaseEventItem extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   // Redirect to eventlist page or root page if the cancel button is clicked.
   cancelBtnRedirect = () => {
     if (this.props.eventId != '') {
-      // Todo(Myoung-hee) : Change history to event detail with id.
+      // Redirect to event detail with id.
       this.props.history.push({
         pathname: '/eventdetail',
         search: `?id=${this.props.eventId}`,
