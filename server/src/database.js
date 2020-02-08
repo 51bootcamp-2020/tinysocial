@@ -1,11 +1,19 @@
 const Sequelize = require('sequelize');
+const {STRING, INTEGER, DATE, TEXT, FLOAT, BOOLEAN} = Sequelize;
 
 const createStore = () => {
   let sequelize;
   switch (process.env.NODE_ENV) {
     case 'production':
-      // TODO(yun-kwak): Make production DB and code.
-      throw new Error('Not implemented');
+      sequelize = new Sequelize('tinysocial', 'admin',
+          process.env.DB_PASSWORD, {
+            dialect: 'mariadb',
+            host: process.env.DB_HOST,
+            dialectOptions: {
+              connectTimeout: 1000, // MariaDB connector option
+            },
+          });
+      break;
     case 'dev':
       sequelize = new Sequelize('tinysocial', 'arin_kwak',
           process.env.DB_DEV_PASSWORD, {
@@ -44,7 +52,7 @@ const createStore = () => {
 
   class EventTag extends Model {}
 
-  class Review extends Model{}
+  class Review extends Model {}
 
   class Schedule extends Model {}
 
@@ -54,27 +62,27 @@ const createStore = () => {
 
   User.init({
     id: {
-      type: Sequelize.INTEGER,
+      type: INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    createdAt: Sequelize.DATE,
-    firstName: {type: Sequelize.TEXT, allowNull: false},
-    lastName: {type: Sequelize.TEXT, allowNull: false},
-    googleId: Sequelize.TEXT,
-    facebookId: Sequelize.TEXT,
-    profileImgUrl: Sequelize.TEXT,
-    password: Sequelize.TEXT,
+    createdAt: DATE,
+    firstName: {type: STRING, allowNull: false},
+    lastName: {type: STRING, allowNull: false},
+    googleId: STRING,
+    facebookId: STRING,
+    profileImgUrl: TEXT,
+    password: STRING(300),
     email: {
-      type: Sequelize.TEXT, allowNull: false,
+      type: STRING, allowNull: false,
     },
-    birthday: Sequelize.DATE,
+    birthday: DATE,
     // TODO(yun-kwak): Split the address into street address,
     // additional street address, city, state, zip code
-    address: Sequelize.TEXT,
-    phone: Sequelize.TEXT,
-    selfDescription: Sequelize.TEXT,
-    lastInteractionTime: Sequelize.DATE, // To refresh JWT token
+    address: STRING(500),
+    phone: STRING,
+    selfDescription: TEXT,
+    lastInteractionTime: DATE, // To refresh JWT token
   },
   {
     sequelize,
@@ -83,30 +91,30 @@ const createStore = () => {
 
   Event.init({
     id: {
-      type: Sequelize.INTEGER,
+      type: INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    createdAt: Sequelize.DATE,
-    updatedAt: Sequelize.DATE,
+    createdAt: DATE,
+    updatedAt: DATE,
     hostId: {
-      type: Sequelize.INTEGER,
+      type: INTEGER,
       references: {
         model: User,
         key: 'id',
       },
     },
-    title: Sequelize.STRING,
-    description: Sequelize.TEXT,
-    price: Sequelize.FLOAT,
+    title: STRING,
+    description: TEXT,
+    price: FLOAT,
     // 'type' specifies which type of the event is.
     // Enum type is not SQL-standard and it is hard to add a new enum value.
     // If we want to, we have to use ALTER TABLE statement.
     // So we define type as INTEGER.
     // 0: BookClub
-    type: Sequelize.INTEGER,
-    thumbnailUrl: Sequelize.TEXT,
-    maxParticipantNum: Sequelize.INTEGER,
+    type: INTEGER,
+    thumbnailUrl: TEXT,
+    maxParticipantNum: INTEGER,
   }, {
     sequelize,
     modelName: 'Event',
@@ -114,7 +122,7 @@ const createStore = () => {
 
   EventBookClub.init({
     eventId: {
-      type: Sequelize.INTEGER,
+      type: INTEGER,
       primaryKey: true,
       references: {
         model: Event,
@@ -122,21 +130,21 @@ const createStore = () => {
       },
     },
     bookTitle: {
-      type: Sequelize.STRING,
+      type: STRING,
       allowNull: false,
     },
     bookAuthor: {
-      type: Sequelize.TEXT,
+      type: STRING,
       allowNull: false,
     },
     bookDescription: {
-      type: Sequelize.TEXT,
+      type: TEXT,
     },
     bookISBN: {
-      type: Sequelize.STRING(20),
+      type: STRING(20),
     },
     bookImageUrl: {
-      type: Sequelize.TEXT,
+      type: TEXT,
     },
   }, {
     sequelize,
@@ -147,7 +155,7 @@ const createStore = () => {
 
   Review.init({
     userId: {
-      type: Sequelize.INTEGER,
+      type: INTEGER,
       primaryKey: true,
       references: {
         model: User,
@@ -155,7 +163,7 @@ const createStore = () => {
       },
     },
     eventId: {
-      type: Sequelize.INTEGER,
+      type: INTEGER,
       primaryKey: true,
       references: {
         model: Event,
@@ -163,14 +171,14 @@ const createStore = () => {
       },
     },
     title: {
-      type: Sequelize.TEXT,
+      type: TEXT,
       allowNull: false,
     },
     content: {
-      type: Sequelize.TEXT,
+      type: TEXT,
     },
     isPublic: {
-      type: Sequelize.BOOLEAN,
+      type: BOOLEAN,
       allowNull: false,
     },
   }, {
@@ -185,12 +193,12 @@ const createStore = () => {
   // So we are able to categorize events by tags.
   Tag.init({
     id: {
-      type: Sequelize.INTEGER,
+      type: INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
     name: {
-      type: Sequelize.TEXT,
+      type: STRING,
       allowNull: false,
     },
   }, {
@@ -201,7 +209,7 @@ const createStore = () => {
 
   EventTag.init({
     eventId: {
-      type: Sequelize.INTEGER,
+      type: INTEGER,
       primaryKey: true,
       references: {
         model: Event,
@@ -209,7 +217,7 @@ const createStore = () => {
       },
     },
     tagId: {
-      type: Sequelize.INTEGER,
+      type: INTEGER,
       primaryKey: true,
       references: {
         model: Tag,
@@ -224,19 +232,19 @@ const createStore = () => {
 
   Schedule.init({
     id: {
-      type: Sequelize.INTEGER,
+      type: INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    startDateTime: Sequelize.DATE,
-    endDateTime: Sequelize.DATE,
+    startDateTime: DATE,
+    endDateTime: DATE,
     // TODO(yun-kwak): Split the address into country, state, city, zip, street,
     // additionalStreetAddress
-    address: Sequelize.TEXT,
-    latitude: Sequelize.FLOAT,
-    longitude: Sequelize.FLOAT,
+    address: STRING(500),
+    latitude: FLOAT,
+    longitude: FLOAT,
     eventId: {
-      type: Sequelize.INTEGER,
+      type: INTEGER,
       references: {
         model: Event,
         key: 'id',
@@ -251,7 +259,7 @@ const createStore = () => {
   EventParticipant.init(
       {
         userId: {
-          type: Sequelize.INTEGER,
+          type: INTEGER,
           primaryKey: true,
           references: {
             model: User,
@@ -259,7 +267,7 @@ const createStore = () => {
           },
         },
         eventId: {
-          type: Sequelize.INTEGER,
+          type: INTEGER,
           primaryKey: true,
           references: {
             model: Event,

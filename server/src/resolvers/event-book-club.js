@@ -93,8 +93,8 @@ module.exports.EventBookClub = {
     return maxParticipantNum;
   },
   // TODO(yun-kwak): Implement reviews resolver
-  reviews: async ({id}, _, {dataSources}) => {
-    const reviews = dataSources.reviewAPI.getReviewsOfEvent({eventId: id});
+  reviews: async ({id}, _, {dataSources, userId}) => {
+    const reviews = dataSources.reviewAPI.getReviewsOfEvent({eventId: id, userId});
     return reviews;
   },
 };
