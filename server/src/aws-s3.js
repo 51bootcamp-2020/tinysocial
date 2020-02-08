@@ -17,10 +17,9 @@ module.exports.imageUpload = async (file) => {
     Body: fileStream,
   };
 
-  await s3.upload(uploadParams, function(err, data) {
-    return data.Location;
-  });
 
+  const data = await s3.upload(uploadParams, function(err, data) {}).promise();
+  return data.Location;
 };
 
 
