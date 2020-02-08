@@ -1,6 +1,6 @@
 import {
-  Paper,
   Grid,
+  Paper,
   Typography,
 } from '@material-ui/core';
 import EventReview from './event-review';
