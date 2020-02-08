@@ -54,7 +54,6 @@ class EventlistFilters extends Component {
      */
     super(props);
 
-
     // Save the arrays of filter toggle(selected or not) in state.
     const filterClicked = [];
     for (let tagIndex = 0; tagIndex < this.props.filterNames.length; tagIndex++)
