@@ -48,7 +48,13 @@ const EVENT_DETAIL_REQUEST_QUERY = gql`
         lastName,
         selfDescription,
         profileImgUrl
+      },
+      participants {
+        id
       }
+    },
+    me {
+      id
     }
   }`;
 
@@ -59,14 +65,12 @@ class EventDetail extends Component{
       eventId: ''
     }
   }
-
   componentDidMount() {
     const query = queryString.parse(this.props.location.search);
     this.setState({
       eventId: query.id
     })
   }
-
   Event = () => {
     return (<Query query={EVENT_DETAIL_REQUEST_QUERY} variables={{eventId:this.state.eventId}}>
       {({ loading, error, data }) => {
@@ -81,7 +85,7 @@ class EventDetail extends Component{
                 </EventThumbNail>
               </Grid>
               <Grid item sm={4} xs={12}>
-                <CommonEvent>
+                <CommonEvent userId={data.me.id}>
                   {data.event}
                 </CommonEvent>
               </Grid>
@@ -95,7 +99,7 @@ class EventDetail extends Component{
                   bottom: 0, background: 'white'}}>
                   <Grid item xs={12}>
                     <Divider/>
-                    <Ticket>
+                    <Ticket userId={data.me.id}>
                       {data.event}
                     </Ticket>
                   </Grid>
