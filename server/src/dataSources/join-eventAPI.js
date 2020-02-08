@@ -72,7 +72,6 @@ class JoinEventAPI extends DataSource {
         order = await payPalClient.client().execute(request);
       } catch (err) {
         // Handle any errors from the call
-        console.error(err);
         return false;
       }
 
