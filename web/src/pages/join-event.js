@@ -32,9 +32,8 @@ class JoinEvent extends Component {
   redirectJoinSuccess() {
     return <div>
       {this.state.participateResult === null ? 'Loading...' : (
-          this.state.participateResult ?
-              <ParticipateSuccess price={this.props.location.state.price}/> :
-              <ParticipateFail/>)}
+              <ParticipateSuccess price={this.props.location.state.price}/>
+              )}
     </div>;
   }
 
@@ -53,7 +52,7 @@ class JoinEvent extends Component {
       }}
       onError={
         (error) => {
-          return <Error/>;
+          return <ParticipateFail/>;
         }
       }>
       {(mutate, {data, called}) => {
