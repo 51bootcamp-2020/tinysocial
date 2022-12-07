@@ -38,7 +38,7 @@
     "jest": "^25.1.0",
     "nodemon": "^2.0.2",
     "sequelize-cli": "^5.5.1",
-    "serverless": "^1.62.0",
+    "serverless": "^3.25.1",
     "serverless-offline": "^6.0.0-alpha.64"
   },
   "jest": {
