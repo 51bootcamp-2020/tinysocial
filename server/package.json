@@ -15,7 +15,7 @@
     "graphql": "^14.6.0",
     "graphql-scalars": "^1.0.6",
     "graphql-tag": "^2.10.1",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mariadb": "^2.1.5",
     "node-fetch": "latest",
     "sendmail": "^1.6.1",
