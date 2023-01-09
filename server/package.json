@@ -39,7 +39,7 @@
     "nodemon": "^2.0.2",
     "sequelize-cli": "^5.5.1",
     "serverless": "^1.62.0",
-    "serverless-offline": "^6.0.0-alpha.64"
+    "serverless-offline": "^12.0.4"
   },
   "jest": {
     "testPathIgnorePatterns": [
